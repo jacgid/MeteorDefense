@@ -51,6 +51,10 @@ public class MeteorDefense extends Game implements PropertyChangeListener {
 	@Override
 	public void propertyChange(PropertyChangeEvent evt) {
 		
+		if(evt.getPropertyName().equals(SplashScreen.SplashScreenEvent.SPLASHSCREEN_ENDED.toString())){
+			setScreen(mainMenuScreen);
+		}
+		
 	}
 
 }
