@@ -1,8 +1,9 @@
-package com.esnefedroetem.meteordefense;
+package com.esnefedroetem.meteordefense.screen;
 
 import com.badlogic.gdx.Screen;
 
-public class ArmoryDetailedScreen implements Screen{
+
+public class ScoreScreen implements Screen{
 
 	@Override
 	public void render(float delta) {
