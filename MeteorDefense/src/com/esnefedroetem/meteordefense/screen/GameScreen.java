@@ -112,7 +112,7 @@ public class GameScreen implements Screen, InputProcessor{
 			return false;
 		}
 		//TODO Add if(click on sky)
-		model.shoot();
+		model.shoot(screenX, screenY);
 		return true;
 	}
 

@@ -5,6 +5,7 @@ import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 
 /**
  * GameRenderer is responsible for rendering everything in the GameModel.
+ * @author Simon Nielsen
  */
 public class GameRenderer {
 

@@ -1,5 +1,7 @@
 package com.esnefedroetem.meteordefense.model;
 
+import java.util.ArrayList;
+
 /**
  * The GameModel handles all the gamelogic.
  * @author Simon Nielsen
@@ -7,11 +9,14 @@ package com.esnefedroetem.meteordefense.model;
  */
 public class GameModel {
 
+	private CannonBarrel cannonBarrel;
+	private ArrayList<Projectile> projectiles = new ArrayList<Projectile>();
+	
 	/**
 	 * Initializes the GameModel.
 	 */
 	public GameModel(){
-		
+		cannonBarrel = new CannonBarrel();
 	}
 	
 	/**
@@ -25,8 +30,9 @@ public class GameModel {
 	/**
 	 * Asks the CanonBarrel to shoot.
 	 */
-	public void shoot(){
-		
+	public void shoot(int X, int Y){
+		Projectile projectile = cannonBarrel.shoot(X, Y);
+		projectiles.add(projectile);
 	}
 	
 }
