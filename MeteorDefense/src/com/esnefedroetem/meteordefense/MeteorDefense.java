@@ -13,6 +13,7 @@ import com.badlogic.gdx.graphics.Texture.TextureFilter;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
+import com.esnefedroetem.meteordefense.renderer.MainMenuRenderer.MainMenuEvent;
 import com.esnefedroetem.meteordefense.screen.*;
 
 public class MeteorDefense extends Game implements PropertyChangeListener {
@@ -37,7 +38,7 @@ public class MeteorDefense extends Game implements PropertyChangeListener {
 	private void init(){
 		splashScreen = new SplashScreen();
 		splashScreen.addChangeListener(this);
-		mainMenuScreen = new MainMenuScreen();
+		mainMenuScreen = new MainMenuScreen(true);//change true to sound state
 		mainMenuScreen.addChangeListener(this);
 		armoryScreen = new ArmoryScreen();
 		//armoryScreen.addChangeListener(this);
@@ -53,6 +54,10 @@ public class MeteorDefense extends Game implements PropertyChangeListener {
 		
 		if(evt.getPropertyName().equals(SplashScreen.SplashScreenEvent.SPLASHSCREEN_ENDED.toString())){
 			setScreen(mainMenuScreen);
+		}else if(evt.getPropertyName().equals(MainMenuEvent.MAINMENU_PLAY_CLICKED.toString())){
+			
+		}else if(evt.getPropertyName().equals(MainMenuEvent.MAINMENU_SOUND_CLICKED.toString())){
+			
 		}
 		
 	}
