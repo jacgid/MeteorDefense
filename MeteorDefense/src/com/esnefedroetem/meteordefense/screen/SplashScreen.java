@@ -36,7 +36,7 @@ public class SplashScreen implements Screen {
 		Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
 		
 		spriteBatch.begin();
-		spriteBatch.draw(splashTexture, 0, 0);
+		//spriteBatch.draw(splashTexture, 0, 0);
 		spriteBatch.end();
 		
 		if(TimeUtils.millis() - startTime > splashTime){
@@ -74,7 +74,7 @@ public class SplashScreen implements Screen {
 	@Override
 	public void dispose() {
 		spriteBatch.dispose();
-		splashTexture.dispose();
+		//splashTexture.dispose();
 	}
 
 }

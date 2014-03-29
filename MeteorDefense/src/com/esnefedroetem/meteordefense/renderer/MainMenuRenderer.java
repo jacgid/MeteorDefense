@@ -4,8 +4,20 @@ import java.beans.PropertyChangeListener;
 import java.beans.PropertyChangeSupport;
 
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.graphics.Color;
+import com.badlogic.gdx.graphics.GL20;
+import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import com.badlogic.gdx.scenes.scene2d.Actor;
+import com.badlogic.gdx.scenes.scene2d.InputEvent;
+import com.badlogic.gdx.scenes.scene2d.InputListener;
 import com.badlogic.gdx.scenes.scene2d.Stage;
+import com.badlogic.gdx.scenes.scene2d.ui.Button;
+import com.badlogic.gdx.scenes.scene2d.ui.Table;
+import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
+import com.badlogic.gdx.scenes.scene2d.ui.TextButton.TextButtonStyle;
+import com.badlogic.gdx.scenes.scene2d.utils.ChangeListener;
+import com.badlogic.gdx.scenes.scene2d.utils.ChangeListener.ChangeEvent;
 
 public class MainMenuRenderer {
 	
@@ -20,14 +32,61 @@ public class MainMenuRenderer {
 	
 	public MainMenuRenderer(boolean sound){
 		pcs = new PropertyChangeSupport(this);
+
+		spriteBatch = new SpriteBatch();
+		stage = new Stage();
+		
+		//Layout components
+		
+		Table table = new Table();
+		table.setFillParent(true);
+		stage.addActor(table);
+		
+		TextButtonStyle playButtonstyle = new TextButtonStyle();
+		playButtonstyle.font = new BitmapFont();
+		playButtonstyle.font.scale(5);
+		
+		TextButtonStyle soundButtonstyle = new TextButtonStyle();
+		soundButtonstyle.font = new BitmapFont();
+		soundButtonstyle.font.scale(2);
+
+		TextButton playButton = new TextButton("Play", playButtonstyle);
+		TextButton soundButton = new TextButton("Sound", soundButtonstyle);
+		
+		table.add(playButton).expand().bottom();
+		table.row().bottom().left().expand();
+		table.add(soundButton).left().bottom();
+		
+		soundButton.setChecked(!sound);
+		
+		soundButton.addListener(new InputListener() {
+			public boolean touchDown (InputEvent event, float x, float y, int pointer, int button) {
+				event.getListenerActor().setColor(Color.RED);
+				return true;
+		 	}
+		 
+		 	public void touchUp (InputEvent event, float x, float y, int pointer, int button) {
+				event.getListenerActor().setColor(Color.BLUE);		 		
+		 	}
+
+		});
+		
+		playButton.addListener(new InputListener() {
+			public boolean touchDown (InputEvent event, float x, float y, int pointer, int button) {
+				event.getListenerActor().setColor(Color.RED);
+				return true;
+		 	}
+		 
+		 	public void touchUp (InputEvent event, float x, float y, int pointer, int button) {
+				event.getListenerActor().setColor(Color.BLUE);		 		
+		 	}
+
+		});
+		
 	}
 	
 	public void init(){
-		spriteBatch = new SpriteBatch();
-		stage = new Stage();
-		Gdx.input.setInputProcessor(stage);
-		
-		//Layout components
+		Gdx.input.setInputProcessor(stage);		
 	}
 	
 	public void addChangeListener(PropertyChangeListener listener){
@@ -35,7 +94,14 @@ public class MainMenuRenderer {
 	}
 	
 	public void render(){
+		stage.act();
+		Gdx.gl.glClearColor(0, 0, 0, 0);
+		Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
 		
+		spriteBatch.begin();
+		stage.draw();
+		spriteBatch.end();
+
 	}
 	
 	public void dispose(){

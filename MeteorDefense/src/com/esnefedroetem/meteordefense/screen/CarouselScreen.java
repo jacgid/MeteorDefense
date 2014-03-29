@@ -7,6 +7,10 @@ import com.badlogic.gdx.Screen;
 
 public class CarouselScreen implements Screen {
 	private PropertyChangeSupport pcs;
+	
+	public CarouselScreen(){
+		pcs = new PropertyChangeSupport(this);
+	}
 
 	@Override
 	public void render(float delta) {

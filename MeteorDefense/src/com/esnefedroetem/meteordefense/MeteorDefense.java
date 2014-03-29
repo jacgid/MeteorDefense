@@ -22,7 +22,7 @@ public class MeteorDefense extends Game implements PropertyChangeListener {
 	private MainMenuScreen mainMenuScreen;
 	private ArmoryScreen armoryScreen;
 	private ArmoryDetailedScreen armoryDetaliedScreen;
-	//private GameScreen gameScreen;
+	private GameScreen gameScreen;
 	private CarouselScreen carouselScreen;
 	
 	
