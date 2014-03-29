@@ -36,8 +36,6 @@ public class MainMenuRenderer {
 		spriteBatch = new SpriteBatch();
 		stage = new Stage();
 		
-		//Layout components
-		
 		Table table = new Table();
 		table.setFillParent(true);
 		stage.addActor(table);
@@ -61,24 +59,22 @@ public class MainMenuRenderer {
 		
 		soundButton.addListener(new InputListener() {
 			public boolean touchDown (InputEvent event, float x, float y, int pointer, int button) {
-				event.getListenerActor().setColor(Color.RED);
 				return true;
 		 	}
 		 
 		 	public void touchUp (InputEvent event, float x, float y, int pointer, int button) {
-				event.getListenerActor().setColor(Color.BLUE);		 		
+		 		pcs.firePropertyChange(MainMenuEvent.MAINMENU_SOUND_CLICKED.toString(), false, true);
 		 	}
 
 		});
 		
 		playButton.addListener(new InputListener() {
 			public boolean touchDown (InputEvent event, float x, float y, int pointer, int button) {
-				event.getListenerActor().setColor(Color.RED);
 				return true;
 		 	}
 		 
 		 	public void touchUp (InputEvent event, float x, float y, int pointer, int button) {
-				event.getListenerActor().setColor(Color.BLUE);		 		
+		 		pcs.firePropertyChange(MainMenuEvent.MAINMENU_PLAY_CLICKED.toString(), false, true);
 		 	}
 
 		});

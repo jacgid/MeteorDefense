@@ -15,6 +15,7 @@ import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.esnefedroetem.meteordefense.renderer.MainMenuRenderer.MainMenuEvent;
 import com.esnefedroetem.meteordefense.screen.*;
+import com.esnefedroetem.meteordefense.screen.SplashScreen.SplashScreenEvent;
 
 public class MeteorDefense extends Game implements PropertyChangeListener {
 	
@@ -48,16 +49,20 @@ public class MeteorDefense extends Game implements PropertyChangeListener {
 		carouselScreen.addChangeListener(this);
 		
 	}
+	
+	private void changeSound(){
+		
+	}
 
 	@Override
 	public void propertyChange(PropertyChangeEvent evt) {
 		
-		if(evt.getPropertyName().equals(SplashScreen.SplashScreenEvent.SPLASHSCREEN_ENDED.toString())){
+		if(evt.getPropertyName().equals(SplashScreenEvent.SPLASHSCREEN_ENDED.toString())){
 			setScreen(mainMenuScreen);
 		}else if(evt.getPropertyName().equals(MainMenuEvent.MAINMENU_PLAY_CLICKED.toString())){
-			
+			setScreen(carouselScreen);
 		}else if(evt.getPropertyName().equals(MainMenuEvent.MAINMENU_SOUND_CLICKED.toString())){
-			
+			changeSound();
 		}
 		
 	}
