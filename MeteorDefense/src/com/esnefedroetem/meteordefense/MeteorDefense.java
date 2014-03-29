@@ -25,6 +25,9 @@ public class MeteorDefense extends Game implements PropertyChangeListener {
 	private ArmoryDetailedScreen armoryDetaliedScreen;
 	private GameScreen gameScreen;
 	private CarouselScreen carouselScreen;
+	private GameScreen gamescreen;
+	
+	private Player player;
 	
 	
 	@Override
@@ -47,6 +50,8 @@ public class MeteorDefense extends Game implements PropertyChangeListener {
 		//armoryDetaliedScreen.addChangeListener(this);
 		carouselScreen = new CarouselScreen();
 		carouselScreen.addChangeListener(this);
+		player = new Player();
+		gamescreen = new GameScreen(player);
 		
 	}
 	

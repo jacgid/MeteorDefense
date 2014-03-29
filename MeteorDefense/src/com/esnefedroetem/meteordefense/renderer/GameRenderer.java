@@ -1,5 +1,8 @@
 package com.esnefedroetem.meteordefense.renderer;
 
+import java.beans.PropertyChangeListener;
+import java.beans.PropertyChangeSupport;
+
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 
@@ -9,8 +12,8 @@ import com.badlogic.gdx.graphics.g2d.SpriteBatch;
  */
 public class GameRenderer {
 
-	private static final float CAMERA_WIDTH = 100f;
-	private static final float CAMERA_HEIGHT = 200f;
+	private float cameraWidth = 100f;
+	private float cameraHeight = 200f;
 	
 	private OrthographicCamera cam;
 	private SpriteBatch spriteBatch;
@@ -18,14 +21,19 @@ public class GameRenderer {
 	private int width, height;
 	private float ppuX, ppuY;
 	
+	private PropertyChangeSupport pcs;
+	
 	/**
 	 * Initializes GameRenderer.
 	 */
-	public GameRenderer(){
-		cam = new OrthographicCamera(CAMERA_WIDTH, CAMERA_HEIGHT);
-		cam.position.set(CAMERA_WIDTH/2, CAMERA_HEIGHT/2, 0);
+	public GameRenderer(float width, float height){
+		cameraWidth = width;
+		cameraHeight = height;
+		cam = new OrthographicCamera(cameraWidth, cameraHeight);
+		cam.position.set(cameraWidth/2, cameraHeight/2, 0);
 		cam.update();
 		spriteBatch = new SpriteBatch();
+		pcs = new PropertyChangeSupport(this);
 		loadTextures();
 	}
 	
@@ -53,8 +61,12 @@ public class GameRenderer {
 	public void setSize(int width, int height){
 		this.width = width;
 		this.height = height;
-		ppuX = (float) width / CAMERA_WIDTH;
-		ppuY = (float) height / CAMERA_HEIGHT;
+		ppuX = (float) width / cameraWidth;
+		ppuY = (float) height / cameraHeight;
+	}
+	
+	public void addChangeListener(PropertyChangeListener listener){
+		pcs.addPropertyChangeListener(listener);
 	}
 	
 }

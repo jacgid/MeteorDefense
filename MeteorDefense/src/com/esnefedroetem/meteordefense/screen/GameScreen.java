@@ -1,10 +1,14 @@
 package com.esnefedroetem.meteordefense.screen;
 
+import java.beans.PropertyChangeListener;
+import java.beans.PropertyChangeSupport;
+
+import com.badlogic.gdx.Application.ApplicationType;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.InputProcessor;
 import com.badlogic.gdx.Screen;
-import com.badlogic.gdx.Application.ApplicationType;
 import com.badlogic.gdx.graphics.GL10;
+import com.esnefedroetem.meteordefense.Player;
 import com.esnefedroetem.meteordefense.model.GameModel;
 import com.esnefedroetem.meteordefense.renderer.GameRenderer;
 
@@ -17,8 +21,14 @@ public class GameScreen implements Screen, InputProcessor{
 
 	private GameModel model;
 	private GameRenderer renderer;
+	private Player player;
 	
 	private int width, height;
+	private float uppX, uppY; // Units per pixel
+	
+	public GameScreen(Player player){
+		this.player = player;
+	}
 	
 	/**
 	 * The render method which updates the model and then calls the renderer to render.
@@ -42,6 +52,8 @@ public class GameScreen implements Screen, InputProcessor{
 		renderer.setSize(width, height);
 		this.width = width;
 		this.height = height;
+		uppX = GameModel.WIDTH/width;
+		uppY = GameModel.HEIGHT/height;
 	}
 
 	/**
@@ -49,8 +61,8 @@ public class GameScreen implements Screen, InputProcessor{
 	 */
 	@Override
 	public void show() {
-		model = new GameModel();
-		renderer = new GameRenderer();
+		model = new GameModel(player);
+		renderer = new GameRenderer(GameModel.WIDTH, GameModel.HEIGHT);
 		Gdx.input.setInputProcessor(this);
 	}
 
@@ -87,6 +99,11 @@ public class GameScreen implements Screen, InputProcessor{
 	public void dispose() {
 		Gdx.input.setInputProcessor(null);
 	}
+	
+	public void addChangeListener(PropertyChangeListener listener){
+		renderer.addChangeListener(listener);
+		model.addChangeListener(listener);
+	}
 
 	@Override
 	public boolean keyDown(int keycode) {
@@ -112,7 +129,7 @@ public class GameScreen implements Screen, InputProcessor{
 			return false;
 		}
 		//TODO Add if(click on sky)
-		model.shoot(screenX, screenY);
+		model.shoot(screenX*uppX, screenY*uppY);
 		return true;
 	}
 

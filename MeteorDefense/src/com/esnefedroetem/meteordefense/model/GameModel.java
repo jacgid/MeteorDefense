@@ -1,6 +1,10 @@
 package com.esnefedroetem.meteordefense.model;
 
+import java.beans.PropertyChangeListener;
+import java.beans.PropertyChangeSupport;
 import java.util.ArrayList;
+
+import com.esnefedroetem.meteordefense.Player;
 
 /**
  * The GameModel handles all the gamelogic.
@@ -9,14 +13,19 @@ import java.util.ArrayList;
  */
 public class GameModel {
 
-	private CannonBarrel cannonBarrel;
 	private ArrayList<Projectile> projectiles = new ArrayList<Projectile>();
+	private Player player;
+	public static final float WIDTH = 100f;
+	public static final float HEIGHT = 200f;
+	
+	private PropertyChangeSupport pcs;
 	
 	/**
 	 * Initializes the GameModel.
 	 */
-	public GameModel(){
-		cannonBarrel = new CannonBarrel();
+	public GameModel(Player player){
+		this.player = player;
+		pcs = new PropertyChangeSupport(this);
 	}
 	
 	/**
@@ -28,11 +37,15 @@ public class GameModel {
 	}
 	
 	/**
-	 * Asks the CanonBarrel to shoot.
+	 * Tells the player to shoot.
 	 */
-	public void shoot(int X, int Y){
-		Projectile projectile = cannonBarrel.shoot(X, Y);
+	public void shoot(float X, float Y){
+		Projectile projectile = player.shoot(X, Y);
 		projectiles.add(projectile);
+	}
+	
+	public void addChangeListener(PropertyChangeListener listener){
+		pcs.addPropertyChangeListener(listener);
 	}
 	
 }
