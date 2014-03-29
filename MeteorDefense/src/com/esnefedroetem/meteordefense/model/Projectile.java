@@ -19,8 +19,8 @@ public class Projectile {
 	}
 	
 	public void move(float delta){
-		position.x = (float) (position.x + (speed * delta * Math.sin(angle)));
-		position.y = (float) (position.y + (speed * delta * Math.cos(angle)));
+		position.x = (float) (position.x + (speed * delta * Math.cos(angle)));
+		position.y = (float) (position.y + (speed * delta * Math.sin(angle)));
 		bounds.x = position.x;
 		bounds.y = position.y;
 	}
