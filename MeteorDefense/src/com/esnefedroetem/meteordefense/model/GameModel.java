@@ -24,7 +24,7 @@ public class GameModel {
 	/**
 	 * Initializes the GameModel.
 	 */
-	public GameModel(Player player, MeteorShower meteorShower){
+	public GameModel(Player player, City city){
 		this.player = player;
 		this.meteorShower = meteorShower;
 		pcs = new PropertyChangeSupport(this);
@@ -71,6 +71,14 @@ public class GameModel {
 	}
 	public boolean collisionOccurs(Projectile projectile, Meteor meteor) {
 		return projectile.getBounds().overlaps(meteor.getBounds());
+	}
+	
+	public ArrayList<Projectile> getVisibleProjectiles(){
+		return projectiles;
+	}
+	
+	public ArrayList<Meteor> getVisibleMeteors(){
+		return meteorShower.getNowFlyingMeteors();
 	}
 	
 }

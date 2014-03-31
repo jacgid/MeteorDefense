@@ -3,8 +3,15 @@ package com.esnefedroetem.meteordefense.renderer;
 import java.beans.PropertyChangeListener;
 import java.beans.PropertyChangeSupport;
 
+import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
+import com.badlogic.gdx.graphics.glutils.ShapeRenderer.ShapeType;
+import com.badlogic.gdx.math.Circle;
+import com.esnefedroetem.meteordefense.model.GameModel;
+import com.esnefedroetem.meteordefense.model.Meteor;
+import com.esnefedroetem.meteordefense.model.Projectile;
 
 /**
  * GameRenderer is responsible for rendering everything in the GameModel.
@@ -21,14 +28,19 @@ public class GameRenderer {
 	private int width, height;
 	private float ppuX, ppuY;
 	
+	private GameModel model;
+	
 	private PropertyChangeSupport pcs;
+	
+	private ShapeRenderer debugRenderer = new ShapeRenderer();
 	
 	/**
 	 * Initializes GameRenderer.
 	 */
-	public GameRenderer(float width, float height){
-		cameraWidth = width;
-		cameraHeight = height;
+	public GameRenderer(GameModel model){
+		this.model = model;
+		cameraWidth = GameModel.WIDTH;
+		cameraHeight = GameModel.HEIGHT;
 		cam = new OrthographicCamera(cameraWidth, cameraHeight);
 		cam.position.set(cameraWidth/2, cameraHeight/2, 0);
 		cam.update();
@@ -51,6 +63,7 @@ public class GameRenderer {
 		spriteBatch.begin();
 		//Drawing is done here
 		spriteBatch.end();
+		drawDebug();
 	}
 	
 	/**
@@ -67,6 +80,33 @@ public class GameRenderer {
 	
 	public void addChangeListener(PropertyChangeListener listener){
 		pcs.addPropertyChangeListener(listener);
+	}
+	
+	private void drawDebug(){
+		debugRenderer.setProjectionMatrix(cam.combined);
+		debugRenderer.begin(ShapeType.Filled);
+		float x, y;
+		
+		// Render meteors
+		debugRenderer.setColor(Color.BLACK);
+		for(Meteor meteor : model.getVisibleMeteors()){
+			Circle circle = meteor.getBounds();
+			x = meteor.getX() + circle.x;
+			y = meteor.getY() + circle.y;
+			debugRenderer.circle(x, y, circle.radius);
+		}
+		
+		// Render projectiles
+		debugRenderer.setColor(Color.RED);
+		for(Projectile projectile : model.getVisibleProjectiles()){
+			Circle circle = projectile.getBounds();
+			x = projectile.getX() + circle.x;
+			y = projectile.getY() + circle.y;
+			debugRenderer.circle(x, y, circle.radius);
+		}
+		
+		debugRenderer.end();
+		
 	}
 	
 }

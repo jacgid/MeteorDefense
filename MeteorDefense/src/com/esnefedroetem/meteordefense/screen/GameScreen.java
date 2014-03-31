@@ -1,7 +1,6 @@
 package com.esnefedroetem.meteordefense.screen;
 
 import java.beans.PropertyChangeListener;
-import java.beans.PropertyChangeSupport;
 
 import com.badlogic.gdx.Application.ApplicationType;
 import com.badlogic.gdx.Gdx;
@@ -9,8 +8,8 @@ import com.badlogic.gdx.InputProcessor;
 import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.graphics.GL10;
 import com.esnefedroetem.meteordefense.Player;
+import com.esnefedroetem.meteordefense.model.City;
 import com.esnefedroetem.meteordefense.model.GameModel;
-import com.esnefedroetem.meteordefense.model.MeteorShower;
 import com.esnefedroetem.meteordefense.renderer.GameRenderer;
 
 /**
@@ -23,14 +22,14 @@ public class GameScreen implements Screen, InputProcessor{
 	private GameModel model;
 	private GameRenderer renderer;
 	private Player player;
-	private MeteorShower meteorShower;
+	private City city;
 	
 	private int width, height;
 	private float uppX, uppY; // Units per pixel
 	
-	public GameScreen(Player player, MeteorShower meteorShower){
+	public GameScreen(Player player, City city){
 		this.player = player;
-		this.meteorShower = meteorShower;
+		this.city = city;
 	}
 	
 	/**
@@ -64,8 +63,8 @@ public class GameScreen implements Screen, InputProcessor{
 	 */
 	@Override
 	public void show() {
-		model = new GameModel(player, meteorShower);
-		renderer = new GameRenderer(GameModel.WIDTH, GameModel.HEIGHT);
+		model = new GameModel(player, city);
+		renderer = new GameRenderer(model);
 		Gdx.input.setInputProcessor(this);
 	}
 

@@ -3,18 +3,15 @@ package com.esnefedroetem.meteordefense;
 import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
 
-import com.badlogic.gdx.ApplicationListener;
 import com.badlogic.gdx.Game;
-import com.badlogic.gdx.Gdx;
-import com.badlogic.gdx.graphics.GL10;
-import com.badlogic.gdx.graphics.OrthographicCamera;
-import com.badlogic.gdx.graphics.Texture;
-import com.badlogic.gdx.graphics.Texture.TextureFilter;
-import com.badlogic.gdx.graphics.g2d.Sprite;
-import com.badlogic.gdx.graphics.g2d.SpriteBatch;
-import com.badlogic.gdx.graphics.g2d.TextureRegion;
+import com.esnefedroetem.meteordefense.model.City;
 import com.esnefedroetem.meteordefense.renderer.MainMenuRenderer.MainMenuEvent;
-import com.esnefedroetem.meteordefense.screen.*;
+import com.esnefedroetem.meteordefense.screen.ArmoryDetailedScreen;
+import com.esnefedroetem.meteordefense.screen.ArmoryScreen;
+import com.esnefedroetem.meteordefense.screen.CarouselScreen;
+import com.esnefedroetem.meteordefense.screen.GameScreen;
+import com.esnefedroetem.meteordefense.screen.MainMenuScreen;
+import com.esnefedroetem.meteordefense.screen.SplashScreen;
 import com.esnefedroetem.meteordefense.screen.SplashScreen.SplashScreenEvent;
 
 public class MeteorDefense extends Game implements PropertyChangeListener {
@@ -51,7 +48,7 @@ public class MeteorDefense extends Game implements PropertyChangeListener {
 		carouselScreen = new CarouselScreen();
 		carouselScreen.addChangeListener(this);
 		player = new Player();
-		gamescreen = new GameScreen(player);
+		gamescreen = new GameScreen(player, new City());
 		
 	}
 	
