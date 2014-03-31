@@ -36,6 +36,10 @@ public class MainMenuRenderer {
 		spriteBatch = new SpriteBatch();
 		stage = new Stage();
 		
+		create(sound);
+	}
+	
+	private void create(boolean sound){
 		Table table = new Table();
 		table.setFillParent(true);
 		stage.addActor(table);
