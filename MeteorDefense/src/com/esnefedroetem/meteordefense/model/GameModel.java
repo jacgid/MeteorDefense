@@ -15,6 +15,7 @@ public class GameModel {
 
 	private ArrayList<Projectile> projectiles = new ArrayList<Projectile>();
 	private Player player;
+	private MeteorShower meteorShower;
 	public static final float WIDTH = 100f;
 	public static final float HEIGHT = 200f;
 	
@@ -23,8 +24,9 @@ public class GameModel {
 	/**
 	 * Initializes the GameModel.
 	 */
-	public GameModel(Player player){
+	public GameModel(Player player, MeteorShower meteorShower){
 		this.player = player;
+		this.meteorShower = meteorShower;
 		pcs = new PropertyChangeSupport(this);
 	}
 	
@@ -47,6 +49,28 @@ public class GameModel {
 	
 	public void addChangeListener(PropertyChangeListener listener){
 		pcs.addPropertyChangeListener(listener);
+	}
+	
+	public void collisionControll() {
+		for(Projectile projectile: projectiles) {
+			ArrayList<Meteor> meteors = meteorShower.getNowFlyingMeteors();
+			for (Meteor meteor: meteors) {
+			if (collisionOccurs(projectile, meteor)) {
+				handleCollision(projectile, meteor);
+			}
+		}
+		}
+	}
+	
+	public void handleCollision(Projectile projectile, Meteor meteor) {
+		meteor.life = meteor.life - projectile.getDamage();
+		if (meteor.life <= 0) {
+			meteorShower.getNowFlyingMeteors().remove(meteor);
+		}
+		projectiles.remove(projectile);
+	}
+	public boolean collisionOccurs(Projectile projectile, Meteor meteor) {
+		return projectile.getBounds().overlaps(meteor.getBounds());
 	}
 	
 }
