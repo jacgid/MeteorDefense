@@ -2,11 +2,11 @@ package com.esnefedroetem.meteordefense.model;
 
 import com.badlogic.gdx.math.Circle;
 import com.badlogic.gdx.math.Vector2;
+import com.esnefedroetem.meteordefense.util.*;
 
 public class Projectile {
 
-	public static final float DEFAULT_SPEED = 50f;
-	public static final float DEFAULT_SIZE = 2f;
+	
 	
 	private float size;
 	private float speed; // Units per second
@@ -17,11 +17,11 @@ public class Projectile {
 	private int damage;
 	
 	public Projectile(double angle, int damage){
-		this(angle, damage, DEFAULT_SIZE, DEFAULT_SPEED);
+		this(angle, damage, Constants.DEFAULT_SIZE, Constants.DEFAULT_SPEED);
 	}
 	
 	public Projectile(double angle, int damage, float size){
-		this(angle, damage, DEFAULT_SIZE, DEFAULT_SPEED);
+		this(angle, damage, Constants.DEFAULT_SIZE, Constants.DEFAULT_SPEED);
 	}
 	
 	public Projectile(double angle, int damage, float size, float speed){
