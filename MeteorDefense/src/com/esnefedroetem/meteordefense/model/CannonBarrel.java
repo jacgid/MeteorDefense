@@ -13,10 +13,10 @@ public class CannonBarrel {
 		float b;
 		if(X<cannonX){
 			b = cannonX-X;
-			return new Projectile(Math.atan(a/b));
+			return new Projectile(Math.atan(a/b), 1);
 		}else{
 			b = X-cannonX;
-			return new Projectile(Math.atan(Math.PI-(a/b)));
+			return new Projectile(Math.atan(Math.PI-(a/b)), 1);
 		}
 	}
 	

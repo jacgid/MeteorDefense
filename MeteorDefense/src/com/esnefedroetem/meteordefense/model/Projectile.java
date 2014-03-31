@@ -5,17 +5,35 @@ import com.badlogic.gdx.math.Vector2;
 
 public class Projectile {
 
-	private static final float SIZE = 2f;
-	private float speed = 50f; // Units per second
+	public static final float DEFAULT_SPEED = 50f;
+	public static final float DEFAULT_SIZE = 2f;
+	
+	private float size;
+	private float speed; // Units per second
 	private Vector2 position;
 	private double angle;
 	private Circle bounds;
 	
-	public Projectile(double angle){
+	private int damage;
+	
+	public Projectile(double angle, int damage){
+		this(angle, damage, DEFAULT_SIZE, DEFAULT_SPEED);
+	}
+	
+	public Projectile(double angle, int damage, float size){
+		this(angle, damage, DEFAULT_SIZE, DEFAULT_SPEED);
+	}
+	
+	public Projectile(double angle, int damage, float size, float speed){
 		this.angle = angle;
+		this.damage = damage;
+		this.size = size;
+		this.speed = speed;
+		position.x = 50f;
+		position.y = 10f;
 		bounds.x = position.x;
 		bounds.y = position.y;
-		bounds.radius = SIZE/2;
+		bounds.radius = size/2;
 	}
 	
 	public void move(float delta){
@@ -39,5 +57,9 @@ public class Projectile {
 	
 	public void setSpeed(float speed){
 		this.speed = speed;
+	}
+	
+	public int getDamage(){
+		return damage;
 	}
 }
