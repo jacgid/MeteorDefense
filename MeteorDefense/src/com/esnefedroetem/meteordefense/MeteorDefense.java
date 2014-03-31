@@ -5,6 +5,7 @@ import java.beans.PropertyChangeListener;
 
 import com.badlogic.gdx.Game;
 import com.esnefedroetem.meteordefense.model.City;
+import com.esnefedroetem.meteordefense.renderer.CarouselRenderer.CarouselEvent;
 import com.esnefedroetem.meteordefense.renderer.MainMenuRenderer.MainMenuEvent;
 import com.esnefedroetem.meteordefense.screen.ArmoryDetailedScreen;
 import com.esnefedroetem.meteordefense.screen.ArmoryScreen;
@@ -22,7 +23,6 @@ public class MeteorDefense extends Game implements PropertyChangeListener {
 	private ArmoryDetailedScreen armoryDetaliedScreen;
 	private GameScreen gameScreen;
 	private CarouselScreen carouselScreen;
-	private GameScreen gamescreen;
 	
 	private Player player;
 	
@@ -48,12 +48,16 @@ public class MeteorDefense extends Game implements PropertyChangeListener {
 		carouselScreen = new CarouselScreen();
 		carouselScreen.addChangeListener(this);
 		player = new Player();
-		gamescreen = new GameScreen(player, new City());
 		
 	}
 	
 	private void changeSound(){
 		
+	}
+	
+	private void newGame(City city){
+		gameScreen = new GameScreen(player, city);
+		setScreen(gameScreen);
 	}
 
 	@Override
@@ -65,6 +69,8 @@ public class MeteorDefense extends Game implements PropertyChangeListener {
 			setScreen(carouselScreen);
 		}else if(evt.getPropertyName().equals(MainMenuEvent.MAINMENU_SOUND_CLICKED.toString())){
 			changeSound();
+		}else if(evt.getPropertyName().equals(CarouselEvent.CAROUSEL_NEWGAME.toString())){
+			newGame((City)evt.getNewValue());
 		}
 		
 	}

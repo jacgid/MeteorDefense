@@ -1,13 +1,14 @@
 package com.esnefedroetem.meteordefense.model;
 
 import java.util.ArrayList;
+import java.util.List;
 
 public class Continent {
 	
 	private String name;
-	private ArrayList<City> cities;
+	private List<City> cities;
 	
-	public Continent(String name, ArrayList<City> cities){
+	public Continent(String name, List<City> cities){
 		this.name = name;
 		this.cities = cities;
 	}
@@ -16,7 +17,7 @@ public class Continent {
 		return name;
 	}
 	
-	public ArrayList<City> getCities(){
+	public List<City> getCities(){
 		return cities;
 	}
 	

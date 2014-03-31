@@ -112,4 +112,11 @@ public class PagedScrollPane extends ScrollPane {
 					.clamp(pageX - (width - pageWidth) / 2, 0, maxX));
 		}
 	}
+	
+	public void removeAllPages(){
+		if(content != null){
+			content.clearChildren();
+		}
+		content.invalidate();
+	}
 }

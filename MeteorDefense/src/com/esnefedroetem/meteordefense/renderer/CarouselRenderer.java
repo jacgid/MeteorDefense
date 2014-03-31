@@ -1,5 +1,6 @@
 package com.esnefedroetem.meteordefense.renderer;
 
+import java.beans.PropertyChangeListener;
 import java.beans.PropertyChangeSupport;
 import java.util.List;
 
@@ -10,12 +11,13 @@ import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.InputListener;
 import com.badlogic.gdx.scenes.scene2d.Stage;
+import com.badlogic.gdx.scenes.scene2d.ui.Button;
 import com.badlogic.gdx.scenes.scene2d.ui.Table;
 import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
 import com.badlogic.gdx.scenes.scene2d.ui.TextButton.TextButtonStyle;
+import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 import com.esnefedroetem.meteordefense.model.City;
 import com.esnefedroetem.meteordefense.model.Continent;
-import com.esnefedroetem.meteordefense.renderer.MainMenuRenderer.MainMenuEvent;
 
 public class CarouselRenderer {
 	
@@ -26,8 +28,15 @@ public class CarouselRenderer {
 	
 	public enum CarouselEvent{
 		CAROUSEL_ARMORY_CLICKED,
-		CAROUSEL_CLICKED
+		CAROUSEL_CLICKED,
+		CAROUSEL_NEWGAME
 	}
+	
+	private ClickListener carouselListener = new ClickListener(){
+	 	public void clicked (InputEvent event, float x, float y) {
+	 		pcs.firePropertyChange(CarouselEvent.CAROUSEL_CLICKED.toString(), -1, Integer.parseInt(event.getListenerActor().getName()));
+	 	}		
+	};
 	
 	public CarouselRenderer(){
 		pcs = new PropertyChangeSupport(this);
@@ -73,12 +82,50 @@ public class CarouselRenderer {
 		Gdx.input.setInputProcessor(stage);
 	}
 	
+	public void addChangeListener(PropertyChangeListener listener){
+		pcs.addPropertyChangeListener(listener);
+	}
+	
 	public void displayContinents(List<Continent> list){
+		scroll.removeAllPages();
+		int count = 0;
+		for(Continent continent : list){
+			scroll.addPage(getContinentPage(continent, count));
+			count++;
+		}
+	}
+	
+	private Button getContinentPage(Continent continent, int position){
+		TextButtonStyle style = new TextButtonStyle();
+		style.font = new BitmapFont();
+		style.font.scale(2);
+
+		TextButton btn = new TextButton(continent.getName(), style);
+		btn.setName(position + "");
+		btn.addListener(carouselListener);
 		
+		return btn;
 	}
 	
 	public void displayCities(List<City> list){
-		
+		scroll.removeAllPages();
+		int count = 0;
+		for(City city : list){
+			scroll.addPage(getCityPage(city, count));
+			count++;
+		}
+	}
+
+	private Button getCityPage(City city, int position){
+		TextButtonStyle style = new TextButtonStyle();
+		style.font = new BitmapFont();
+		style.font.scale(2);
+
+		TextButton btn = new TextButton(city.getName(), style);
+		btn.setName(position + "");
+		btn.addListener(carouselListener);
+
+		return btn;
 	}
 
 	public void render(){
