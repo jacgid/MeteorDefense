@@ -1,5 +1,13 @@
 package com.esnefedroetem.meteordefense.model;
 
-public class Meteor {
+import com.badlogic.gdx.math.Circle;
 
+public class Meteor {
+	
+	public int life;
+	
+	
+	public Circle getBounds(){
+		return null;
+	}
 }
