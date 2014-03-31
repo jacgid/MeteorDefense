@@ -33,15 +33,16 @@ public class GameModel {
 	 * @param delta The time since this method was called last.
 	 */
 	public void update(float delta){
-		
+		for(int i = 0; i < projectiles.size(); i++){
+			projectiles.get(i).move(delta);
+		}
 	}
 	
 	/**
 	 * Tells the player to shoot.
 	 */
 	public void shoot(float X, float Y){
-		Projectile projectile = player.shoot(X, Y);
-		projectiles.add(projectile);
+		projectiles.add(player.shoot(X, Y));
 	}
 	
 	public void addChangeListener(PropertyChangeListener listener){
