@@ -63,8 +63,8 @@ public class GameModel {
 	}
 	
 	public void handleCollision(Projectile projectile, Meteor meteor) {
-		meteor.life = meteor.life - projectile.getDamage();
-		if (meteor.life <= 0) {
+		meteor.setLife(meteor.getLife() - projectile.getDamage());
+		if (meteor.getLife() <= 0) {
 			meteorShower.getNowFlyingMeteors().remove(meteor);
 		}
 		projectiles.remove(projectile);
