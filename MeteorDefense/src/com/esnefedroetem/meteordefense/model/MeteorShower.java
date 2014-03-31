@@ -2,6 +2,7 @@ package com.esnefedroetem.meteordefense.model;
 
 import java.util.ArrayList;
 
+
 public class MeteorShower {
 	
 	private ArrayList<Meteor> nowFlyingMeteors = new ArrayList<Meteor>();

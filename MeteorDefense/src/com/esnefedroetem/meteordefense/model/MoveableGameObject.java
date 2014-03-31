@@ -12,13 +12,18 @@ public abstract class MoveableGameObject {
 	private Circle bounds;
 	private int damage;
 	
-	public MoveableGameObject(double angle, int damage, float size, float speed){
+	
+	public MoveableGameObject(double angle, int damage, float size, float speed, Vector2 startPosition){
 		this.angle = angle;
 		this.damage = damage;
 		this.size = size;
 		this.speed = speed;
-		position.x = 50f;
-		position.y = 10f;
+		this.position.x = startPosition.x;
+		this.position.y = startPosition.y;
+		calculateBounds();
+		
+	}
+	public void calculateBounds(){
 		bounds.x = position.x;
 		bounds.y = position.y;
 		bounds.radius = size/2;
@@ -26,8 +31,7 @@ public abstract class MoveableGameObject {
 	public void move(float delta){
 		position.x = (float) (position.x + (speed * delta * Math.cos(angle)));
 		position.y = (float) (position.y + (speed * delta * Math.sin(angle)));
-		bounds.x = position.x;
-		bounds.y = position.y;
+		calculateBounds();
 	}
 	public float getX(){
 		return position.x;
