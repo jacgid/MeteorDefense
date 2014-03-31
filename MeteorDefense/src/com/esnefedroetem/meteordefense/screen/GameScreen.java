@@ -10,6 +10,7 @@ import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.graphics.GL10;
 import com.esnefedroetem.meteordefense.Player;
 import com.esnefedroetem.meteordefense.model.GameModel;
+import com.esnefedroetem.meteordefense.model.MeteorShower;
 import com.esnefedroetem.meteordefense.renderer.GameRenderer;
 
 /**
@@ -22,12 +23,14 @@ public class GameScreen implements Screen, InputProcessor{
 	private GameModel model;
 	private GameRenderer renderer;
 	private Player player;
+	private MeteorShower meteorShower;
 	
 	private int width, height;
 	private float uppX, uppY; // Units per pixel
 	
-	public GameScreen(Player player){
+	public GameScreen(Player player, MeteorShower meteorShower){
 		this.player = player;
+		this.meteorShower = meteorShower;
 	}
 	
 	/**
@@ -61,7 +64,7 @@ public class GameScreen implements Screen, InputProcessor{
 	 */
 	@Override
 	public void show() {
-		model = new GameModel(player);
+		model = new GameModel(player, meteorShower);
 		renderer = new GameRenderer(GameModel.WIDTH, GameModel.HEIGHT);
 		Gdx.input.setInputProcessor(this);
 	}
