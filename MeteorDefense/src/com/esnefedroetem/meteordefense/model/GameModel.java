@@ -26,7 +26,7 @@ public class GameModel {
 	 */
 	public GameModel(Player player, City city){
 		this.player = player;
-		this.meteorShower = meteorShower;
+		this.meteorShower = city.getMeteorShower();
 		pcs = new PropertyChangeSupport(this);
 	}
 	
