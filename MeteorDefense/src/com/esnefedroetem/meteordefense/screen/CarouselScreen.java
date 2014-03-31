@@ -4,18 +4,23 @@ import java.beans.PropertyChangeListener;
 import java.beans.PropertyChangeSupport;
 
 import com.badlogic.gdx.Screen;
+import com.esnefedroetem.meteordefense.model.CarouselModel;
+import com.esnefedroetem.meteordefense.renderer.CarouselRenderer;
 
 public class CarouselScreen implements Screen {
 	private PropertyChangeSupport pcs;
+	private CarouselRenderer renderer;
+	private CarouselModel model;
 	
 	public CarouselScreen(){
 		pcs = new PropertyChangeSupport(this);
+		renderer = new CarouselRenderer();
+		model = new CarouselModel();
 	}
 
 	@Override
 	public void render(float delta) {
-		// TODO Auto-generated method stub
-		
+		renderer.render();
 	}
 
 	@Override
@@ -26,8 +31,7 @@ public class CarouselScreen implements Screen {
 
 	@Override
 	public void show() {
-		// TODO Auto-generated method stub
-		
+		renderer.init();
 	}
 
 	@Override
@@ -50,8 +54,7 @@ public class CarouselScreen implements Screen {
 
 	@Override
 	public void dispose() {
-		// TODO Auto-generated method stub
-		
+		renderer.dispose();
 	}
 	public void addChangeListener(PropertyChangeListener listener){
 		pcs.addPropertyChangeListener(listener);
