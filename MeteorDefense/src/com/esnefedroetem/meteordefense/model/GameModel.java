@@ -28,6 +28,7 @@ public class GameModel {
 		this.player = player;
 		this.meteorShower = city.getMeteorShower();
 		pcs = new PropertyChangeSupport(this);
+		meteorShower.start();
 	}
 	
 	/**
@@ -35,6 +36,7 @@ public class GameModel {
 	 * @param delta The time since this method was called last.
 	 */
 	public void update(float delta){
+		meteorShower.update(delta);
 		for(int i = 0; i < projectiles.size(); i++){
 			projectiles.get(i).move(delta);
 		}
@@ -53,7 +55,7 @@ public class GameModel {
 	
 	public void collisionControll() {
 		for(Projectile projectile: projectiles) {
-			ArrayList<Meteor> meteors = meteorShower.getNowFlyingMeteors();
+			ArrayList<Meteor> meteors = meteorShower.getVisibleMeteors();
 			for (Meteor meteor: meteors) {
 			if (collisionOccurs(projectile, meteor)) {
 				handleCollision(projectile, meteor);
@@ -65,7 +67,7 @@ public class GameModel {
 	public void handleCollision(Projectile projectile, Meteor meteor) {
 		meteor.setLife(meteor.getLife() - projectile.getDamage());
 		if (meteor.getLife() <= 0) {
-			meteorShower.getNowFlyingMeteors().remove(meteor);
+			meteorShower.getVisibleMeteors().remove(meteor);
 		}
 		projectiles.remove(projectile);
 	}
@@ -78,7 +80,7 @@ public class GameModel {
 	}
 	
 	public ArrayList<Meteor> getVisibleMeteors(){
-		return meteorShower.getNowFlyingMeteors();
+		return meteorShower.getVisibleMeteors();
 	}
 	
 }
