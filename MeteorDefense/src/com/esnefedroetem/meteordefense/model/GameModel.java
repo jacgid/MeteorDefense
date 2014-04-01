@@ -4,6 +4,8 @@ import java.beans.PropertyChangeListener;
 import java.beans.PropertyChangeSupport;
 import java.util.ArrayList;
 
+
+import com.badlogic.gdx.math.Rectangle;
 import com.esnefedroetem.meteordefense.Player;
 
 /**
@@ -38,6 +40,8 @@ public class GameModel {
 		for(int i = 0; i < projectiles.size(); i++){
 			projectiles.get(i).move(delta);
 		}
+		collisionControll();
+		removeProjectilesBeyondGameField();
 	}
 	
 	/**
@@ -71,6 +75,25 @@ public class GameModel {
 	}
 	public boolean collisionOccurs(Projectile projectile, Meteor meteor) {
 		return projectile.getBounds().overlaps(meteor.getBounds());
+	}
+	
+	public void removeProjectilesBeyondGameField() {
+		int length = projectiles.size();
+		
+		for(int i = 0; i < length; i++) {
+			if (outOfBounds(projectiles.get(i))) {
+				projectiles.remove(projectiles.get(i));
+				length--;
+				i--;
+			}
+		}
+	}
+	
+	public boolean outOfBounds(MoveableGameObject object) {
+		float x = object.getX() + object.getBounds().radius;
+		float y = object.getY() + object.getBounds().radius;
+		
+		return (x < 0 || x > WIDTH || y > HEIGHT);
 	}
 	
 	public ArrayList<Projectile> getVisibleProjectiles(){
