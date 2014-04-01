@@ -15,7 +15,7 @@ public class SplashScreen implements Screen {
 	private PropertyChangeSupport pcs;
 	private SpriteBatch spriteBatch;
 	private Texture splashTexture;
-	private final int splashTime = 4000;
+	private final int splashTime = 1000;
 	private long startTime;
 	
 	public enum SplashScreenEvent{
