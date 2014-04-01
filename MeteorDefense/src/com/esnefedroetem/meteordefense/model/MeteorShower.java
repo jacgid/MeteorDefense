@@ -70,8 +70,8 @@ public class MeteorShower {
 
 		// used for testing, dummy meteors.
 		for (int i = 0; i < 10; i++) {
-			invisibleMeteors.add(new Meteor(new Vector2((int) (Math.random() * (Constants.SCREEN_SIZE_X + 1)),
-					Constants.SCREEN_SIZE_Y + 5)));
+			invisibleMeteors.add(new Meteor(new Vector2((int) (Math.random() * (Constants.LOGIC_SCREEN_WIDTH + 1)),
+					Constants.LOGIC_SCREEN_HEIGHT + 5)));
 		}
 	}
 

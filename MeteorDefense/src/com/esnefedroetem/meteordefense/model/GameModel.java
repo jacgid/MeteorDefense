@@ -5,8 +5,10 @@ import java.beans.PropertyChangeSupport;
 import java.util.ArrayList;
 
 
+
 import com.badlogic.gdx.math.Rectangle;
 import com.esnefedroetem.meteordefense.Player;
+import com.esnefedroetem.meteordefense.util.Constants;
 
 /**
  * The GameModel handles all the gamelogic.
@@ -18,8 +20,8 @@ public class GameModel {
 	private ArrayList<Projectile> projectiles = new ArrayList<Projectile>();
 	private Player player;
 	private MeteorShower meteorShower;
-	public static final float WIDTH = 100f;
-	public static final float HEIGHT = 200f;
+	public static final float WIDTH = Constants.LOGIC_SCREEN_WIDTH;
+	public static final float HEIGHT = Constants.LOGIC_SCREEN_HEIGHT;
 	
 	private PropertyChangeSupport pcs;
 	

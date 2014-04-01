@@ -1,8 +1,9 @@
 package com.esnefedroetem.meteordefense.model;
+import com.esnefedroetem.meteordefense.util.*;
 
 public class CannonBarrel {
 
-	private float cannonX = 50, cannonY = 10;
+	private float cannonX = Constants.LOGIC_SCREEN_WIDTH/2, cannonY = 10;
 	
 	public CannonBarrel(){
 		

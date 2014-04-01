@@ -14,6 +14,7 @@ import com.badlogic.gdx.math.Vector3;
 import com.esnefedroetem.meteordefense.model.GameModel;
 import com.esnefedroetem.meteordefense.model.Meteor;
 import com.esnefedroetem.meteordefense.model.Projectile;
+import com.esnefedroetem.meteordefense.util.Constants;
 
 /**
  * GameRenderer is responsible for rendering everything in the GameModel.
@@ -21,8 +22,8 @@ import com.esnefedroetem.meteordefense.model.Projectile;
  */
 public class GameRenderer {
 
-	private float cameraWidth = 100f;
-	private float cameraHeight = 200f;
+	private float cameraWidth = Constants.LOGIC_SCREEN_WIDTH;
+	private float cameraHeight = Constants.LOGIC_SCREEN_HEIGHT;
 	
 	private OrthographicCamera cam;
 	private SpriteBatch spriteBatch;
