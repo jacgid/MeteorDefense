@@ -61,19 +61,21 @@ public class GameModel {
 	}
 
 	public void collisionControll() {
-		boolean collisionOccured = false;
-		for (Projectile projectile : projectiles) {
+		int count1 = 0;
+		while(count1 < projectiles.size()){
+			Projectile projectile = projectiles.get(count1);
 			ArrayList<Meteor> meteors = meteorShower.getVisibleMeteors();
-			for (Meteor meteor : meteors) {
-				collisionOccured = collisionOccurs(projectile, meteor);
-				if (collisionOccured) {
+			int count2 = 0;
+			while(count2 < meteors.size()){
+				Meteor meteor = meteors.get(count2);
+				if(collisionOccurs(projectile, meteor)){
 					handleCollision(projectile, meteor);
-					break;
+					count1--;
+					count2--;
 				}
+				count2++;
 			}
-			if (collisionOccured) {
-				break;
-			}
+			count1++;
 		}
 	}
 
