@@ -14,12 +14,12 @@ public class CarouselModel {
 		currentContinent = null;
 		continents = new ArrayList<Continent>();
 		List<City> cities = new ArrayList<City>();
-		cities.add(new City("Paris", 100, new MeteorShower()));
-		cities.add(new City("London", 75, new MeteorShower()));
-		cities.add(new City("Berlin", 50, new MeteorShower()));
-		continents.add(new Continent("Europa", cities));
-		continents.add(new Continent("Asien", cities));
-		continents.add(new Continent("Afrika", cities));
+		cities.add(new City("ParisParisParisParis", 100, new MeteorShower()));
+		cities.add(new City("LondonLondonLondonLondon", 75, new MeteorShower()));
+		cities.add(new City("BerlinBerlinBerlinBerlin", 50, new MeteorShower()));
+		continents.add(new Continent("EuropaEuropaEuropaEuropa", cities));
+		continents.add(new Continent("AsienAsienAsienAsien", cities));
+		continents.add(new Continent("AfrikaAfrikaAfrikaAfrika", cities));
 		
 	}
 	

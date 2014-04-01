@@ -49,7 +49,7 @@ public class CarouselRenderer {
 	private void create(){
 		scroll = new PagedScrollPane();
 		scroll.setFlingTime(0.1f);
-		scroll.setPageSpacing(25);
+		scroll.setPageSpacing(50);
 		
 		Table table = new Table();
 		stage.addActor(table);
