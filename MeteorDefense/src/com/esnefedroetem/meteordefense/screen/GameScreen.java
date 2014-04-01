@@ -7,6 +7,7 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.InputProcessor;
 import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.graphics.GL10;
+import com.badlogic.gdx.math.Vector2;
 import com.esnefedroetem.meteordefense.Player;
 import com.esnefedroetem.meteordefense.model.City;
 import com.esnefedroetem.meteordefense.model.GameModel;
@@ -23,9 +24,6 @@ public class GameScreen implements Screen, InputProcessor{
 	private GameRenderer renderer;
 	private Player player;
 	private City city;
-	
-	private int width, height;
-	private float uppX, uppY; // Units per pixel
 	
 	public GameScreen(Player player, City city){
 		this.player = player;
@@ -52,10 +50,6 @@ public class GameScreen implements Screen, InputProcessor{
 	@Override
 	public void resize(int width, int height) {
 		renderer.setSize(width, height);
-		this.width = width;
-		this.height = height;
-		uppX = GameModel.WIDTH/width;
-		uppY = GameModel.HEIGHT/height;
 	}
 
 	/**
@@ -127,11 +121,13 @@ public class GameScreen implements Screen, InputProcessor{
 
 	@Override
 	public boolean touchDown(int screenX, int screenY, int pointer, int button) {
-		if (!Gdx.app.getType().equals(ApplicationType.Android)) {
-			return false;
-		}
+//		if (!Gdx.app.getType().equals(ApplicationType.Android)) {
+//			return false;
+//		}
 		//TODO Add if(click on sky)
-		model.shoot(screenX*uppX, screenY*uppY);
+		Vector2 temp = renderer.unproject(screenX, screenY);
+		model.shoot(temp.x, temp.y);
+		System.out.println("X: " + temp.x + " Y: " + temp.y);
 		return true;
 	}
 

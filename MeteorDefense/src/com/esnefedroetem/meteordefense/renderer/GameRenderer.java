@@ -9,6 +9,8 @@ import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer.ShapeType;
 import com.badlogic.gdx.math.Circle;
+import com.badlogic.gdx.math.Vector2;
+import com.badlogic.gdx.math.Vector3;
 import com.esnefedroetem.meteordefense.model.GameModel;
 import com.esnefedroetem.meteordefense.model.Meteor;
 import com.esnefedroetem.meteordefense.model.Projectile;
@@ -45,6 +47,7 @@ public class GameRenderer {
 		cam.position.set(cameraWidth/2, cameraHeight/2, 0);
 		cam.update();
 		spriteBatch = new SpriteBatch();
+		spriteBatch.setProjectionMatrix(cam.combined);
 		pcs = new PropertyChangeSupport(this);
 		loadTextures();
 	}
@@ -88,11 +91,11 @@ public class GameRenderer {
 		float x, y;
 		
 		// Render meteors
-		debugRenderer.setColor(Color.BLACK);
+		debugRenderer.setColor(Color.BLUE);
 		for(Meteor meteor : model.getVisibleMeteors()){
 			Circle circle = meteor.getBounds();
-			x = meteor.getX() + circle.x;
-			y = meteor.getY() + circle.y;
+			x = meteor.getX();
+			y = meteor.getY();
 			debugRenderer.circle(x, y, circle.radius);
 		}
 		
@@ -100,13 +103,20 @@ public class GameRenderer {
 		debugRenderer.setColor(Color.RED);
 		for(Projectile projectile : model.getVisibleProjectiles()){
 			Circle circle = projectile.getBounds();
-			x = projectile.getX() + circle.x;
-			y = projectile.getY() + circle.y;
+			x = projectile.getX();
+			y = projectile.getY();
 			debugRenderer.circle(x, y, circle.radius);
+			//System.out.println("ScreenX: " + screenX + " ScreenY: " + screenY + "\n" + "GameX: " + screenX*uppX + " GameY: " + screenY*uppY);
 		}
 		
 		debugRenderer.end();
 		
+	}
+	
+	public Vector2 unproject(int x, int y){
+		Vector3 temp = new Vector3(x,y,0);
+		cam.unproject(temp);
+		return new Vector2(temp.x, temp.y);
 	}
 	
 }
