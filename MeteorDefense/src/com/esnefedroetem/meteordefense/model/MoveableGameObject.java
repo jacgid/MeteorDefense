@@ -7,9 +7,9 @@ import com.esnefedroetem.meteordefense.util.Constants;
 public abstract class MoveableGameObject {
 	private float size;
 	private float speed; // Units per second
-	private Vector2 position;
+	private Vector2 position = new Vector2();
 	private double angle;
-	private Circle bounds;
+	private Circle bounds = new Circle();
 	private int damage;
 	
 	
