@@ -4,6 +4,7 @@ import com.esnefedroetem.meteordefense.util.*;
 public class CannonBarrel {
 
 	private float cannonX = Constants.LOGIC_SCREEN_WIDTH/2, cannonY = 10;
+	private float angle = (float)(Math.PI/2);
 	
 	public CannonBarrel(){
 		
@@ -13,10 +14,15 @@ public class CannonBarrel {
 		float a = Y-cannonY;
 		float b = Math.abs(cannonX-X);
 		if(X<cannonX){
-			return new Projectile(Math.PI-(Math.atan(a/b)), 1);
+			angle = (float)(Math.PI-(Math.atan(a/b)));
 		}else{
-			return new Projectile(Math.atan(a/b), 1);
+			angle = (float)Math.atan(a/b);
 		}
+		return new Projectile(angle, 1);
+	}
+	
+	public float getAngle(){
+		return angle;
 	}
 	
 }

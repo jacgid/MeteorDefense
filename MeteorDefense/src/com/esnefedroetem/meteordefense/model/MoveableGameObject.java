@@ -8,12 +8,12 @@ public abstract class MoveableGameObject {
 	private float size;
 	private float speed; // Units per second
 	private Vector2 position = new Vector2();
-	private double angle;
+	private float angle;
 	private Circle bounds = new Circle();
 	private int damage;
 	
 	
-	public MoveableGameObject(double angle, int damage, float size, float speed, Vector2 startPosition){
+	public MoveableGameObject(float angle, int damage, float size, float speed, Vector2 startPosition){
 		this.angle = angle;
 		this.damage = damage;
 		this.size = size;

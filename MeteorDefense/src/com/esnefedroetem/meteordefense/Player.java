@@ -15,4 +15,8 @@ public class Player {
 		return cannonBarrel.shoot(X, Y);
 	}
 	
+	public CannonBarrel getCannonBarrel(){
+		return cannonBarrel;
+	}
+	
 }

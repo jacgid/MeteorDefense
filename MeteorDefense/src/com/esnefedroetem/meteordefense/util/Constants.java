@@ -11,7 +11,7 @@ public class Constants {
 	
 	public static final float DEFAULT_METEOR_SPEED = 50f;
 	public static final float DEFAULT_METEOR_SIZE = 10f;
-	public static final double DEFAULT_METEOR_ANGLE = 1.5*Math.PI;
+	public static final float DEFAULT_METEOR_ANGLE = (float)(1.5*Math.PI);
 	public static final int DEFAULT_METEOR_DAMAGE = 1;
 	public static final int DEFAULT_METEOR_LIFE = 1;
 	

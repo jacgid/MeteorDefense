@@ -79,7 +79,7 @@ public class GameModel {
 		}
 	}
 
-	public void handleCollision(Projectile projectile, Meteor meteor) {
+	private void handleCollision(Projectile projectile, Meteor meteor) {
 		meteor.setLife(meteor.getLife() - projectile.getDamage());
 		if (meteor.getLife() <= 0) {
 			meteorShower.getVisibleMeteors().remove(meteor);
@@ -87,11 +87,11 @@ public class GameModel {
 		projectiles.remove(projectile);
 	}
 
-	public boolean collisionOccurs(Projectile projectile, Meteor meteor) {
+	private boolean collisionOccurs(Projectile projectile, Meteor meteor) {
 		return projectile.getBounds().overlaps(meteor.getBounds());
 	}
 
-	public void removeProjectilesBeyondGameField() {
+	private void removeProjectilesBeyondGameField() {
 		int length = projectiles.size();
 
 		for (int i = 0; i < length; i++) {
@@ -103,7 +103,7 @@ public class GameModel {
 		}
 	}
 
-	public boolean outOfBounds(MoveableGameObject object) {
+	private boolean outOfBounds(MoveableGameObject object) {
 		float x = object.getX() + object.getBounds().radius;
 		float y = object.getY() + object.getBounds().radius;
 
@@ -118,4 +118,7 @@ public class GameModel {
 		return meteorShower.getVisibleMeteors();
 	}
 
+	public float getCannonAngle(){
+		return player.getCannonBarrel().getAngle();
+	}
 }
