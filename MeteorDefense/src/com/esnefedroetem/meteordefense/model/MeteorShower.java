@@ -43,6 +43,9 @@ public class MeteorShower {
 		lastMeteorSpawn = TimeUtils.millis();
 
 	}
+	public boolean gameover(){
+		return invisibleMeteors.size()<=0 && visibleMeteors.size() <=0;
+	}
 
 	public void update(float delta) {
 		if (TimeUtils.timeSinceMillis(lastMeteorSpawn) > meteorSpawnRate) {
