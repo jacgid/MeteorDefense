@@ -7,12 +7,7 @@ import com.badlogic.gdx.Game;
 import com.esnefedroetem.meteordefense.model.City;
 import com.esnefedroetem.meteordefense.renderer.CarouselRenderer.CarouselEvent;
 import com.esnefedroetem.meteordefense.renderer.MainMenuRenderer.MainMenuEvent;
-import com.esnefedroetem.meteordefense.screen.ArmoryDetailedScreen;
-import com.esnefedroetem.meteordefense.screen.ArmoryScreen;
-import com.esnefedroetem.meteordefense.screen.CarouselScreen;
-import com.esnefedroetem.meteordefense.screen.GameScreen;
-import com.esnefedroetem.meteordefense.screen.MainMenuScreen;
-import com.esnefedroetem.meteordefense.screen.SplashScreen;
+import com.esnefedroetem.meteordefense.screen.*;
 import com.esnefedroetem.meteordefense.screen.SplashScreen.SplashScreenEvent;
 
 public class MeteorDefense extends Game implements PropertyChangeListener {
@@ -23,7 +18,7 @@ public class MeteorDefense extends Game implements PropertyChangeListener {
 	private ArmoryDetailedScreen armoryDetaliedScreen;
 	private GameScreen gameScreen;
 	private CarouselScreen carouselScreen;
-	
+	private ScoreScreen scoreScreen;
 	private Player player;
 	
 	
@@ -47,6 +42,8 @@ public class MeteorDefense extends Game implements PropertyChangeListener {
 		//armoryDetaliedScreen.addChangeListener(this);
 		carouselScreen = new CarouselScreen();
 		carouselScreen.addChangeListener(this);
+		scoreScreen = new ScoreScreen();
+		//scoreScreen.addChangeListener(this);
 		player = new Player();
 		
 	}
