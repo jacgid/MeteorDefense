@@ -11,9 +11,8 @@ public abstract class MoveableGameObject {
 	private float angle;
 	private Circle bounds = new Circle();
 	private int damage;
-	
-	
-	public MoveableGameObject(float angle, int damage, float size, float speed, Vector2 startPosition){
+
+	public MoveableGameObject(float angle, int damage, float size, float speed, Vector2 startPosition) {
 		this.angle = angle;
 		this.damage = damage;
 		this.size = size;
@@ -21,36 +20,48 @@ public abstract class MoveableGameObject {
 		this.position.x = startPosition.x;
 		this.position.y = startPosition.y;
 		calculateBounds();
-		
+
 	}
-	public void calculateBounds(){
+
+	public void calculateBounds() {
 		bounds.x = position.x;
 		bounds.y = position.y;
-		bounds.radius = size/2;
+		bounds.radius = size / 2;
 	}
-	public void move(float delta){
+
+	public void move(float delta) {
 		position.x = (float) (position.x + (speed * delta * Math.cos(angle)));
 		position.y = (float) (position.y + (speed * delta * Math.sin(angle)));
 		calculateBounds();
 	}
-	public float getX(){
+
+	public float getX() {
 		return position.x;
 	}
-	
-	public float getY(){
+
+	public float getY() {
 		return position.y;
 	}
-	
-	public Circle getBounds(){
+
+	public Circle getBounds() {
 		return bounds;
 	}
-	
-	public void setSpeed(float speed){
+
+	public void setSpeed(float speed) {
 		this.speed = speed;
 	}
-	
-	public int getDamage(){
+
+	public int getDamage() {
 		return damage;
+	}
+
+	public void setSize(float size) {
+		this.size = size;
+
+	}
+
+	public float getSize() {
+		return size;
 	}
 
 }
