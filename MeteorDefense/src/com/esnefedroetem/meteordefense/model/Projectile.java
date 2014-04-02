@@ -10,8 +10,8 @@ public class Projectile extends MoveableGameObject{
 		super(angle, Constants.DEFAULT_PROJECTILE_DAMAGE, Constants.DEFAULT_PROJECTILE_SIZE, Constants.DEFAULT_PROJECTILE_SPEED, Constants.DEFAULT_PROJECTILE_SPAWN);
 	}
 	
-	public Projectile(float angle, int damage){
-		super(angle, damage, Constants.DEFAULT_PROJECTILE_SIZE, Constants.DEFAULT_PROJECTILE_SPEED, Constants.DEFAULT_PROJECTILE_SPAWN);
+	public Projectile(float angle, Vector2 startPosition){
+		super(angle, Constants.DEFAULT_PROJECTILE_DAMAGE, Constants.DEFAULT_PROJECTILE_SIZE, Constants.DEFAULT_PROJECTILE_SPEED, startPosition);
 	}
 	
 	public Projectile(float angle, int damage, float size){

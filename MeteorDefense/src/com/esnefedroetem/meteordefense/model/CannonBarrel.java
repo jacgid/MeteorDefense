@@ -1,5 +1,6 @@
 package com.esnefedroetem.meteordefense.model;
-import com.esnefedroetem.meteordefense.util.*;
+import com.badlogic.gdx.math.Vector2;
+import com.esnefedroetem.meteordefense.util.Constants;
 
 public class CannonBarrel {
 
@@ -18,7 +19,12 @@ public class CannonBarrel {
 		}else{
 			angle = (float)Math.atan(a/b);
 		}
-		return new Projectile(angle, 1);
+		//Calculate the spawn point for the projectile.
+		Vector2 startPosition = new Vector2(Constants.LOGIC_SCREEN_WIDTH/2,0);
+		startPosition.x = (float) (startPosition.x + (Constants.CANNONBARREL_LENGTH * Math.cos(angle)));
+		startPosition.y = (float) (startPosition.y + (Constants.CANNONBARREL_LENGTH * Math.sin(angle)));
+		
+		return new Projectile(angle, startPosition);
 	}
 	
 	public float getAngle(){

@@ -18,4 +18,6 @@ public class Constants {
 	
 	public static final float LOGIC_SCREEN_WIDTH = 100f;
 	public static final float LOGIC_SCREEN_HEIGHT = 150f;
+	
+	public static final float CANNONBARREL_LENGTH = 10f;
 }

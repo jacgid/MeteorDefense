@@ -12,7 +12,7 @@ import com.badlogic.gdx.math.Circle;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.math.Vector3;
 import com.esnefedroetem.meteordefense.model.GameModel;
-import com.esnefedroetem.meteordefense.model.Meteor;
+import com.esnefedroetem.meteordefense.model.BasicMeteor;
 import com.esnefedroetem.meteordefense.model.Projectile;
 import com.esnefedroetem.meteordefense.util.Constants;
 
@@ -93,7 +93,7 @@ public class GameRenderer {
 		
 		// Render meteors
 		debugRenderer.setColor(Color.BLUE);
-		for(Meteor meteor : model.getVisibleMeteors()){
+		for(BasicMeteor meteor : model.getVisibleMeteors()){
 			Circle circle = meteor.getBounds();
 			x = meteor.getX();
 			y = meteor.getY();
@@ -111,7 +111,7 @@ public class GameRenderer {
 		}
 		
 		debugRenderer.setColor(Color.GREEN);
-		debugRenderer.rect(48f, 0f, 4f, 10f, 2f, 0f, (float)(model.getCannonAngle()*(180/Math.PI)-180)+90);
+		debugRenderer.rect(48f, 0f, 4f, Constants.CANNONBARREL_LENGTH, 2f, 0f, (float)(model.getCannonAngle()*(180/Math.PI)-180)+90);
 		System.out.println(model.getCannonAngle()*(180/Math.PI));
 		
 		debugRenderer.end();
