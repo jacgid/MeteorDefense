@@ -15,6 +15,7 @@ public class MeteorShower {
 	private int meteorSpawnRate = 2000;
 
 	public MeteorShower() {
+		
 		// used for testing, dummy meteors.
 		addMeteor(new BasicMeteor(randomStartPos(Constants.DEFAULT_METEOR_SIZE)));
 		addMeteor(new BasicMeteor(randomStartPos(Constants.DEFAULT_METEOR_SIZE)));
@@ -64,7 +65,7 @@ public class MeteorShower {
 	// TODO: make me do something useful
 	private BasicMeteor getRandomElement(ArrayList<BasicMeteor> meteors) {
 		if (invisibleMeteors.size() > 0)
-			return meteors.remove((int)(Math.random()*meteors.size() - 1));
+			return meteors.remove((int)(Math.random()*meteors.size()));
 
 		return null;
 
