@@ -29,7 +29,8 @@ public class CarouselRenderer {
 	public enum CarouselEvent{
 		CAROUSEL_ARMORY_CLICKED,
 		CAROUSEL_CLICKED,
-		CAROUSEL_NEWGAME
+		CAROUSEL_NEWGAME,
+		CAROUSEL_BACKBUTTON
 	}
 	
 	private ClickListener carouselListener = new ClickListener(){

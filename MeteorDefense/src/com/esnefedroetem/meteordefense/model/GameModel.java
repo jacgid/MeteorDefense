@@ -27,11 +27,14 @@ public class GameModel {
 	/**
 	 * Initializes the GameModel.
 	 */
-	public GameModel(Player player, City city) {
-		this.player = player;
-		this.meteorShower = city.getMeteorShower();
+	public GameModel() {
 		pcs = new PropertyChangeSupport(this);
+	}
+	
+	public void newGame(City city){
+		meteorShower = city.getMeteorShower();
 		meteorShower.start();
+		player = new Player(); //REMOVE!!!!
 	}
 
 	/**

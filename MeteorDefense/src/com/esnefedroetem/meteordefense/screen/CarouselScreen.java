@@ -3,29 +3,30 @@ package com.esnefedroetem.meteordefense.screen;
 import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
 import java.beans.PropertyChangeSupport;
+import java.util.List;
 
 import com.badlogic.gdx.Screen;
-import com.esnefedroetem.meteordefense.model.CarouselModel;
+import com.esnefedroetem.meteordefense.model.Continent;
 import com.esnefedroetem.meteordefense.renderer.CarouselRenderer;
 import com.esnefedroetem.meteordefense.renderer.CarouselRenderer.CarouselEvent;
+import com.esnefedroetem.meteordefense.screen.SplashScreen.SplashScreenEvent;
 
 public class CarouselScreen implements Screen, PropertyChangeListener {
 	private PropertyChangeSupport pcs;
 	private CarouselRenderer renderer;
-	private CarouselModel model;
+	private boolean isCitiesDisplayed;
+	private List<Continent> continents;
+	private Continent currentContinent;
+
 	
-	public CarouselScreen(){
+	public CarouselScreen(CarouselRenderer renderer, List<Continent> continents){
 		pcs = new PropertyChangeSupport(this);
-		renderer = new CarouselRenderer();
-		model = new CarouselModel();
+		this.renderer = renderer;
 		renderer.addChangeListener(this);
-		
-		if(model.isCitiesDisplayed()){
-			renderer.displayCities(model.getCurrentCitites());			
-		}else{
-			renderer.displayContinents(model.displayContinents());
-		}
-		
+		this.continents = continents;
+		isCitiesDisplayed = false;
+		currentContinent = null;
+		renderer.displayContinents(continents);
 	}
 
 	@Override
@@ -76,14 +77,27 @@ public class CarouselScreen implements Screen, PropertyChangeListener {
 	public void propertyChange(PropertyChangeEvent evt) {
 		if(evt.getPropertyName().equals(CarouselRenderer.CarouselEvent.CAROUSEL_CLICKED.toString())){
 			processCarouselClick((Integer) evt.getNewValue());
+		}else if(evt.getPropertyName().equals(CarouselRenderer.CarouselEvent.CAROUSEL_BACKBUTTON.toString())){
+			onBackPressed();
+		}
+	}
+	
+	private void onBackPressed(){
+		if(isCitiesDisplayed){
+			renderer.displayContinents(continents);
+			isCitiesDisplayed = false;
+		}else{
+			pcs.firePropertyChange(SplashScreenEvent.SPLASHSCREEN_ENDED.toString(), false, true);
 		}
 	}
 	
 	private void processCarouselClick(int position){
-		if(model.isCitiesDisplayed()){
-			pcs.firePropertyChange(CarouselEvent.CAROUSEL_NEWGAME.toString(), null, model.getCity(position));
+		if(isCitiesDisplayed){
+			pcs.firePropertyChange(CarouselEvent.CAROUSEL_NEWGAME.toString(), null, currentContinent.getCities().get(position));
 		}else{
-			renderer.displayCities(model.displayCities(position));
+			currentContinent = continents.get(position);
+			renderer.displayCities(currentContinent.getCities());
+			isCitiesDisplayed = true;
 		}
 	}
 	
