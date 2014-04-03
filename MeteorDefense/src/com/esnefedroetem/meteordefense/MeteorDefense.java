@@ -19,7 +19,6 @@ public class MeteorDefense extends Game implements PropertyChangeListener {
 	private GameScreen gameScreen;
 	private CarouselScreen carouselScreen;
 	private ScoreScreen scoreScreen;
-	private Player player;
 	
 	
 	@Override
@@ -32,19 +31,19 @@ public class MeteorDefense extends Game implements PropertyChangeListener {
 	 * Initiate screens
 	 */
 	private void init(){
-		splashScreen = new SplashScreen();
+		splashScreen = GameFactory.createSplashScreen();
 		splashScreen.addChangeListener(this);
-		mainMenuScreen = new MainMenuScreen(true);//change true to sound state
+		mainMenuScreen = GameFactory.createMainMenuScreen();//change true to sound state
 		mainMenuScreen.addChangeListener(this);
-		armoryScreen = new ArmoryScreen();
+		armoryScreen = GameFactory.createArmoryScreen();
 		//armoryScreen.addChangeListener(this);
-		armoryDetaliedScreen = new ArmoryDetailedScreen();
+		armoryDetaliedScreen = GameFactory.cretateArmoryDetailedScreen();
 		//armoryDetaliedScreen.addChangeListener(this);
-		carouselScreen = new CarouselScreen();
+		carouselScreen = GameFactory.createCarouselScreen();
 		carouselScreen.addChangeListener(this);
-		scoreScreen = new ScoreScreen();
+		scoreScreen = GameFactory.createScoreScreen();
 		//scoreScreen.addChangeListener(this);
-		player = new Player();
+		gameScreen = GameFactory.createGameScreen();
 		
 	}
 	
@@ -53,7 +52,7 @@ public class MeteorDefense extends Game implements PropertyChangeListener {
 	}
 	
 	private void newGame(City city){
-		gameScreen = new GameScreen(player, city);
+		gameScreen.newGame(city);
 		setScreen(gameScreen);
 	}
 

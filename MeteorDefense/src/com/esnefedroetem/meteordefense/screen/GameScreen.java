@@ -22,12 +22,10 @@ public class GameScreen implements Screen, InputProcessor{
 
 	private GameModel model;
 	private GameRenderer renderer;
-	private Player player;
-	private City city;
 	
-	public GameScreen(Player player, City city){
-		this.player = player;
-		this.city = city;
+	public GameScreen(GameModel model, GameRenderer renderer){
+		this.model = model;
+		this.renderer = renderer;
 	}
 	
 	/**
@@ -57,8 +55,6 @@ public class GameScreen implements Screen, InputProcessor{
 	 */
 	@Override
 	public void show() {
-		model = new GameModel(player, city);
-		renderer = new GameRenderer(model);
 		Gdx.input.setInputProcessor(this);
 	}
 
@@ -99,6 +95,10 @@ public class GameScreen implements Screen, InputProcessor{
 	public void addChangeListener(PropertyChangeListener listener){
 		renderer.addChangeListener(listener);
 		model.addChangeListener(listener);
+	}
+	
+	public void newGame(City city){
+		model.newGame(city);
 	}
 
 	@Override
