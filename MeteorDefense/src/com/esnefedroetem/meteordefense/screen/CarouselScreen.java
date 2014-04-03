@@ -26,7 +26,7 @@ public class CarouselScreen implements Screen, PropertyChangeListener {
 		this.continents = continents;
 		isCitiesDisplayed = false;
 		currentContinent = null;
-		
+		renderer.displayContinents(continents);
 	}
 
 	@Override
