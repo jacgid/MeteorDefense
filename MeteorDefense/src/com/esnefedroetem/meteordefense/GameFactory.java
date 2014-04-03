@@ -1,5 +1,6 @@
 package com.esnefedroetem.meteordefense;
 
+import com.esnefedroetem.meteordefense.renderer.MainMenuRenderer;
 import com.esnefedroetem.meteordefense.renderer.ScoreRenderer;
 import com.esnefedroetem.meteordefense.screen.*;
 
@@ -10,7 +11,7 @@ public class GameFactory {
 	}
 	
 	public static MainMenuScreen createMainMenuScreen(){
-		return new MainMenuScreen();
+		return new MainMenuScreen(new MainMenuRenderer(true));
 	}
 	
 	public static CarouselScreen createCarouselScreen(){

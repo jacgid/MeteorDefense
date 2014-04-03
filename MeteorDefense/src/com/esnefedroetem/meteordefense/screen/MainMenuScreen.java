@@ -13,12 +13,10 @@ public class MainMenuScreen implements Screen {
 	
 	private PropertyChangeSupport pcs;
 	private MainMenuRenderer renderer;
-	private boolean sound;
 	
-	public MainMenuScreen(boolean sound){
+	public MainMenuScreen(MainMenuRenderer renderer){
 		pcs = new PropertyChangeSupport(this);
-		this.sound = sound;
-		renderer = new MainMenuRenderer(sound);
+		this.renderer = renderer;
 	}
 	
 	public void addChangeListener(PropertyChangeListener listener){
