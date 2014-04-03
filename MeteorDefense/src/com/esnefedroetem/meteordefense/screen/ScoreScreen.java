@@ -1,10 +1,17 @@
 package com.esnefedroetem.meteordefense.screen;
 
 import com.badlogic.gdx.Screen;
+import com.esnefedroetem.meteordefense.renderer.ScoreRenderer;
 
 
 public class ScoreScreen implements Screen{
-
+	
+	private ScoreRenderer renderer;
+	
+	public ScoreScreen(ScoreRenderer renderer){
+		this.renderer = renderer;
+	}
+	
 	@Override
 	public void render(float delta) {
 		// TODO Auto-generated method stub

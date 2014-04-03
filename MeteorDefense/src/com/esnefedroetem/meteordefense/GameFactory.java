@@ -1,5 +1,6 @@
 package com.esnefedroetem.meteordefense;
 
+import com.esnefedroetem.meteordefense.renderer.ScoreRenderer;
 import com.esnefedroetem.meteordefense.screen.*;
 
 public class GameFactory {
@@ -29,7 +30,7 @@ public class GameFactory {
 	}
 	
 	public static ScoreScreen createScoreScreen(){
-		return new ScoreScreen();
+		return new ScoreScreen(new ScoreRenderer());
 	}
 	
 	
