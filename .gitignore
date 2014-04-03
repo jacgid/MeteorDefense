@@ -5,4 +5,7 @@
 # generated files
 bin/
 Thumbs.db
+
+MeteorDefense-android/.classpath
+MeteorDefense-android/.settings/org.eclipse.jdt.core.prefs
 MeteorDefense-android/gen/com/esnefedroetem/meteordefense/BuildConfig.java
