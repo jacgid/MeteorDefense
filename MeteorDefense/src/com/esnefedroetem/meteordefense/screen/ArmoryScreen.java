@@ -1,8 +1,19 @@
 package com.esnefedroetem.meteordefense.screen;
 
-import com.badlogic.gdx.Screen;
+import java.util.ArrayList;
 
-public class ArmoryScreen implements Screen{
+import com.badlogic.gdx.Screen;
+import com.esnefedroetem.meteordefense.model.AbstractArmoryItem;
+
+/** 
+ * 
+ *  @author Emma Lindholm
+ *  
+ */
+
+public class ArmoryScreen implements Screen {
+	
+	private ArrayList<AbstractArmoryItem> armoryItems, selectedArmoryItems;
 
 	@Override
 	public void render(float delta) {
