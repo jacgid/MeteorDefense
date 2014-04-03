@@ -1,9 +1,16 @@
 package com.esnefedroetem.meteordefense.screen;
 
 import com.badlogic.gdx.Screen;
+import com.esnefedroetem.meteordefense.renderer.ArmoryRenderer;
 
 public class ArmoryScreen implements Screen{
-
+	
+	private ArmoryRenderer renderer;
+	
+	public ArmoryScreen(ArmoryRenderer renderer){
+		this.renderer = renderer;
+	}
+	
 	@Override
 	public void render(float delta) {
 		// TODO Auto-generated method stub
