@@ -14,7 +14,7 @@ public abstract class AbstractDefenseArmoryItem extends AbstractArmoryItem {
 		getPropertyChangeSupport().firePropertyChange("addCity", null, this);
 	}
 	
-	public void addCity(City city) {
+	public void execute(City city) {
 		this.city = city;
 	}
 

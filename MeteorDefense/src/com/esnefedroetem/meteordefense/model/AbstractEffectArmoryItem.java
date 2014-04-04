@@ -16,7 +16,7 @@ public abstract class AbstractEffectArmoryItem extends AbstractArmoryItem {
 		getPropertyChangeSupport().firePropertyChange("addVisibleMeteors", null, this);
 	}
 	
-	public void addVisibleMeteors(ArrayList<BasicMeteor> visibleMeteors) {
+	public void execute(ArrayList<BasicMeteor> visibleMeteors) {
 		this.visibleMeteors = visibleMeteors;
 	}
 

@@ -143,11 +143,11 @@ public class GameModel implements PropertyChangeListener {
 		
 		} else if(evt.getPropertyName().equals("addCity")) {
 			AbstractDefenseArmoryItem defenseArmoryItem = (AbstractDefenseArmoryItem) evt.getNewValue();
-			defenseArmoryItem.addCity(city);
+			defenseArmoryItem.execute(city);
 			
 		} else if(evt.getPropertyName().equals("addVisibleMeteors")) {
 			AbstractEffectArmoryItem effectArmoryItem = (AbstractEffectArmoryItem) evt.getNewValue();
-			effectArmoryItem.addVisibleMeteors(meteorShower.getVisibleMeteors());
+			effectArmoryItem.execute(meteorShower.getVisibleMeteors());
 		}
 		
 	}
