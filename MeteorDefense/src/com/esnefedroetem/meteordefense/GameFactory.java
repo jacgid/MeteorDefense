@@ -23,7 +23,7 @@ public class GameFactory {
 	}
 	
 	public static MainMenuScreen createMainMenuScreen(){
-		return new MainMenuScreen(new MainMenuRenderer(true));
+		return new MainMenuScreen(new MainMenuRenderer(true)); // TODO load sound state
 	}
 	
 	public static CarouselScreen createCarouselScreen(){
@@ -39,7 +39,7 @@ public class GameFactory {
 	}
 	
 	public static ArmoryScreen createArmoryScreen(){
-		return new ArmoryScreen(new ArmoryRenderer());
+		return new ArmoryScreen(new ArmoryRenderer(), null ,null); // TODO load weapons
 	}
 	
 	public static ArmoryDetailedScreen cretateArmoryDetailedScreen(){
