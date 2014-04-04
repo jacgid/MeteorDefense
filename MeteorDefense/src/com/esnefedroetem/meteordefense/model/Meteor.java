@@ -1,7 +1,7 @@
 package com.esnefedroetem.meteordefense.model;
 
 import com.badlogic.gdx.math.Vector2;
-import com.esnefedroetem.meteordefense.util.Constants;
+import com.esnefedroetem.meteordefense.util.Constants.meteorEffects;
 
 /**
  * 
@@ -39,17 +39,17 @@ public abstract class Meteor extends MoveableGameObject {
 
 	public void decreaseHealth(int value) {
 		life -= value;
-
 	}
 
 	/**
 	 * Checks if the meteor will survive a hit with the specified damage
 	 * 
 	 * @param damage
-	 * @return true if it will survie, false otherwise
+	 * @return true if it will survive, false otherwise
 	 */
 	public boolean willSurvive(int damage) {
 		return life - damage > 0;
 	}
+	public abstract meteorEffects getEffect();
 
 }

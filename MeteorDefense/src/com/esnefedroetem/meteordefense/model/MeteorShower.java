@@ -4,6 +4,7 @@ import java.util.ArrayList;
 
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.utils.TimeUtils;
+import com.esnefedroetem.meteordefense.model.meteor.BasicMeteor;
 import com.esnefedroetem.meteordefense.util.Constants;
 
 public class MeteorShower {
@@ -17,8 +18,6 @@ public class MeteorShower {
 	public MeteorShower() {
 		// used for testing, dummy meteors.
 		addMeteor(new BasicMeteor(randomStartPos(Constants.DEFAULT_METEOR_SIZE)));
-		
-		addMeteor(new BasicMeteor(randomStartPos(Constants.DEFAULT_METEOR_SIZE*3),3));
 		
 	}
 

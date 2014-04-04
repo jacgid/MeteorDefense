@@ -1,7 +1,9 @@
-package com.esnefedroetem.meteordefense.model;
+package com.esnefedroetem.meteordefense.model.meteor;
 
 import com.badlogic.gdx.math.Vector2;
+import com.esnefedroetem.meteordefense.model.Meteor;
 import com.esnefedroetem.meteordefense.util.Constants;
+import com.esnefedroetem.meteordefense.util.Constants.meteorEffects;
 
 public class BasicMeteor extends Meteor {
 
@@ -36,6 +38,11 @@ public class BasicMeteor extends Meteor {
 			decreaseHealth(damage);
 			decreaseSize(damage * 10);
 			
+		}
+
+		@Override
+		public meteorEffects getEffect() {
+			return meteorEffects.NONE;
 		}
 
 }
