@@ -7,7 +7,7 @@ import com.esnefedroetem.meteordefense.util.Constants.meteorEffects;
 
 public class BasicMeteor extends Meteor {
 
-	// This is for making testing easy
+	// This constructor is for making testing easy
 		public BasicMeteor(Vector2 startPosition, int scale) {
 			super(startPosition, Constants.DEFAULT_METEOR_ANGLE,Constants.DEFAULT_METEOR_LIFE*scale, Constants.DEFAULT_METEOR_DAMAGE*scale, Constants.DEFAULT_METEOR_SIZE*scale,
 					Constants.DEFAULT_METEOR_SPEED);

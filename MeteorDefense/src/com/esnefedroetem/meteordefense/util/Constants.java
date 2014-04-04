@@ -22,4 +22,5 @@ public class Constants {
 	public static final float CANNONBARREL_LENGTH = 10f;
 	
 	public enum meteorEffects{NONE, RADIOACTIVE, FIRE}
+	
 }
