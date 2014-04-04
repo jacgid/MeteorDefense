@@ -100,19 +100,19 @@ public class MeteorShower {
 	private void addMeteor(int basicMeteorAmount, int fireMeteorAmount, int fastMeteorAmount, int iceMeteorAmount,
 			int radioactiveMeteorAmount) {
 		for (int i = 0; i < basicMeteorAmount; i++) {
-			basicMeteors.add(new BasicMeteor(randomStartPos(Constants.DEFAULT_METEOR_SIZE)));
+			basicMeteors.add(new BasicMeteor(randomStartPos(Constants.BASE_METEOR_SIZE)));
 		}
 		for (int i = 0; i < fireMeteorAmount; i++) {
-			fireMeteors.add(new FireMeteor(randomStartPos(Constants.DEFAULT_METEOR_SIZE)));
+			fireMeteors.add(new FireMeteor(randomStartPos(Constants.BASE_METEOR_SIZE)));
 		}
 		for (int i = 0; i < fastMeteorAmount; i++) {
-			fastMeteors.add(new FastMeteor(randomStartPos(Constants.DEFAULT_METEOR_SIZE)));
+			fastMeteors.add(new FastMeteor(randomStartPos(Constants.BASE_METEOR_SIZE)));
 		}
 		for (int i = 0; i < iceMeteorAmount; i++) {
-			iceMeteors.add(new IceMeteor(randomStartPos(Constants.DEFAULT_METEOR_SIZE)));
+			iceMeteors.add(new IceMeteor(randomStartPos(Constants.BASE_METEOR_SIZE)));
 		}
 		for (int i = 0; i < radioactiveMeteorAmount; i++) {
-			radioactiveMeteors.add(new RadioactiveMeteor(randomStartPos(Constants.DEFAULT_METEOR_SIZE * 2)));
+			radioactiveMeteors.add(new RadioactiveMeteor(randomStartPos(Constants.BASE_METEOR_SIZE * 2)));
 		}
 
 		allStoredMeteors.add(basicMeteors);

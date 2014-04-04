@@ -11,12 +11,12 @@ import com.esnefedroetem.meteordefense.util.Constants.ProjectileType;
  */
 public class FastMeteor extends Meteor {
 	private static final int DAMAGE = 2;
-	private static final float SPEED = (float) (Constants.DEFAULT_METEOR_SPEED*2.4);
+	private static final float SPEED = (float) (Constants.BASE_METEOR_SPEED*2.4);
 	private static final int LIFE = 1;
-	private static final float SIZE = Constants.DEFAULT_METEOR_SIZE;
+	private static final float SIZE = Constants.BASE_METEOR_SIZE;
 	
 	public FastMeteor(Vector2 startPosition) {
-		super(startPosition, Constants.DEFAULT_METEOR_ANGLE, LIFE, DAMAGE, SIZE, SPEED);
+		super(startPosition, Constants.BASE_METEOR_ANGLE, LIFE, DAMAGE, SIZE, SPEED);
 		
 	}
 
