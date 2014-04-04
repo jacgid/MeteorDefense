@@ -128,7 +128,6 @@ public class GameScreen implements Screen, InputProcessor{
 		//TODO Add if(click on sky)
 		Vector2 temp = renderer.unproject(screenX, screenY);
 		model.shoot(temp.x, temp.y);
-		System.out.println("X: " + temp.x + " Y: " + temp.y);
 		return true;
 	}
 
