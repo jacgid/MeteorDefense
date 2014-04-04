@@ -12,7 +12,7 @@ import com.badlogic.gdx.math.Circle;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.math.Vector3;
 import com.esnefedroetem.meteordefense.model.GameModel;
-import com.esnefedroetem.meteordefense.model.BasicMeteor;
+import com.esnefedroetem.meteordefense.model.Meteor;
 import com.esnefedroetem.meteordefense.model.Projectile;
 import com.esnefedroetem.meteordefense.util.Constants;
 
@@ -93,7 +93,7 @@ public class GameRenderer {
 		
 		// Render meteors
 		debugRenderer.setColor(Color.BLUE);
-		for(BasicMeteor meteor : model.getVisibleMeteors()){
+		for(Meteor meteor : model.getVisibleMeteors()){
 			Circle circle = meteor.getBounds();
 			x = meteor.getX();
 			y = meteor.getY();

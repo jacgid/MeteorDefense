@@ -10,13 +10,13 @@ import java.util.ArrayList;
 
 public abstract class AbstractEffectArmoryItem extends AbstractArmoryItem {
 	
-	private ArrayList<BasicMeteor> visibleMeteors;
+	private ArrayList<Meteor> visibleMeteors;
 	
 	public void act() {
 		getPropertyChangeSupport().firePropertyChange("addVisibleMeteors", null, this);
 	}
 	
-	public void execute(ArrayList<BasicMeteor> visibleMeteors) {
+	public void execute(ArrayList<Meteor> visibleMeteors) {
 		this.visibleMeteors = visibleMeteors;
 	}
 

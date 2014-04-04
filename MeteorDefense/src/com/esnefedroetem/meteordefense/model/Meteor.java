@@ -8,35 +8,12 @@ import com.esnefedroetem.meteordefense.util.Constants;
  * @author Andreas Pegelow
  * 
  */
-public class BasicMeteor extends MoveableGameObject {
+public abstract class Meteor extends MoveableGameObject {
 
 	private int life;
 
-	// This is for making testing easy
-	public BasicMeteor(Vector2 startPosition, int scale) {
-		super(Constants.DEFAULT_METEOR_ANGLE, Constants.DEFAULT_METEOR_DAMAGE * scale, Constants.DEFAULT_METEOR_SIZE
-				* scale, Constants.DEFAULT_METEOR_SPEED, startPosition);
-		life = Constants.DEFAULT_METEOR_LIFE * scale;
-	}
-
-	public BasicMeteor(Vector2 startPosition) {
-		super(Constants.DEFAULT_METEOR_ANGLE, Constants.DEFAULT_METEOR_DAMAGE, Constants.DEFAULT_METEOR_SIZE,
-				Constants.DEFAULT_METEOR_SPEED, startPosition);
-		life = Constants.DEFAULT_METEOR_LIFE;
-	}
-
-	public BasicMeteor(Vector2 startPosition, int life, int damage, float size) {
-		super(Constants.DEFAULT_METEOR_ANGLE, damage, size, Constants.DEFAULT_METEOR_SPEED, startPosition);
-		this.life = life;
-	}
-
-	public BasicMeteor(Vector2 startPosition, int life, float angle, int damage, float size) {
-		super(angle, damage, size, Constants.DEFAULT_METEOR_SPEED, startPosition);
-		this.life = life;
-	}
-
-	public BasicMeteor(Vector2 startPosition, int life, int damage, float size, float speed) {
-		super(Constants.DEFAULT_METEOR_ANGLE, damage, size, speed, startPosition);
+	public Meteor(Vector2 startPosition,float angle, int life, int damage, float size, float speed) {
+		super(angle, damage, size, speed, startPosition);
 		this.life = life;
 	}
 
@@ -54,11 +31,7 @@ public class BasicMeteor extends MoveableGameObject {
 	 * 
 	 * @param damage
 	 */
-	public void hit(int damage) {
-		decreaseHealth(damage);
-		decreaseSize(damage * 10);
-
-	}
+	public abstract void hit(int damage);
 
 	public void decreaseSize(int value) {
 		setSize(getSize() - value);

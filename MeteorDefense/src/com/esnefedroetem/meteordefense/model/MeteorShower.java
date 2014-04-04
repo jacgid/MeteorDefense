@@ -8,34 +8,25 @@ import com.esnefedroetem.meteordefense.util.Constants;
 
 public class MeteorShower {
 	// Meteors flying over the screen
-	private ArrayList<BasicMeteor> visibleMeteors = new ArrayList<BasicMeteor>();
+	private ArrayList<Meteor> visibleMeteors = new ArrayList<Meteor>();
 	// Meteors not yet deployed.
-	private ArrayList<BasicMeteor> invisibleMeteors = new ArrayList<BasicMeteor>();
+	private ArrayList<Meteor> invisibleMeteors = new ArrayList<Meteor>();
 	private long lastMeteorSpawn;
 	private int meteorSpawnRate = 2000;
 
 	public MeteorShower() {
 		// used for testing, dummy meteors.
 		addMeteor(new BasicMeteor(randomStartPos(Constants.DEFAULT_METEOR_SIZE)));
-		addMeteor(new BasicMeteor(randomStartPos(Constants.DEFAULT_METEOR_SIZE)));
-		addMeteor(new BasicMeteor(randomStartPos(Constants.DEFAULT_METEOR_SIZE)));
-		addMeteor(new BasicMeteor(randomStartPos(Constants.DEFAULT_METEOR_SIZE)));
-		addMeteor(new BasicMeteor(randomStartPos(Constants.DEFAULT_METEOR_SIZE)));
-		addMeteor(new BasicMeteor(randomStartPos(Constants.DEFAULT_METEOR_SIZE)));
-		
-		addMeteor(new BasicMeteor(randomStartPos(Constants.DEFAULT_METEOR_SIZE*2),2));
-		addMeteor(new BasicMeteor(randomStartPos(Constants.DEFAULT_METEOR_SIZE*2),2));
-		addMeteor(new BasicMeteor(randomStartPos(Constants.DEFAULT_METEOR_SIZE*2),2));
-		addMeteor(new BasicMeteor(randomStartPos(Constants.DEFAULT_METEOR_SIZE*2),2));
 		
 		addMeteor(new BasicMeteor(randomStartPos(Constants.DEFAULT_METEOR_SIZE*3),3));
+		
 	}
 
-	public MeteorShower(ArrayList<BasicMeteor> meteors) {
+	public MeteorShower(ArrayList<Meteor> meteors) {
 		this.invisibleMeteors = meteors;
 	}
 
-	public ArrayList<BasicMeteor> getVisibleMeteors() {
+	public ArrayList<Meteor> getVisibleMeteors() {
 		return visibleMeteors;
 	}
 
@@ -62,7 +53,7 @@ public class MeteorShower {
 	}
 
 	// TODO: make me do something useful
-	private BasicMeteor getRandomElement(ArrayList<BasicMeteor> meteors) {
+	private Meteor getRandomElement(ArrayList<Meteor> meteors) {
 		if (invisibleMeteors.size() > 0)
 			return meteors.remove((int)(Math.random()*meteors.size() - 1));
 
@@ -72,6 +63,7 @@ public class MeteorShower {
 
 	private void deployMeteor() {
 		visibleMeteors.add(getRandomElement(invisibleMeteors));
+		addMeteor(new BasicMeteor(randomStartPos(Constants.DEFAULT_METEOR_SIZE*((int)(Math.random()*3)+1)),(int)(Math.random()*3)+1));
 
 	}
 
@@ -81,7 +73,7 @@ public class MeteorShower {
 	 * @param meteor
 	 *            The meteor to be added to the meteorshower
 	 */
-	public void addMeteor(BasicMeteor meteor) {
+	public void addMeteor(Meteor meteor) {
 		invisibleMeteors.add(meteor);
 
 	}
@@ -92,7 +84,7 @@ public class MeteorShower {
 	 * @param meteor
 	 * @param damage
 	 */
-	public void meteorHit(BasicMeteor meteor, int damage) {
+	public void meteorHit(Meteor meteor, int damage) {
 		if (meteor.willSurvive(damage)) {
 			meteor.hit(damage);
 		} else {

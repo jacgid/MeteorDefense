@@ -78,10 +78,10 @@ public class GameModel implements PropertyChangeListener {
 		int count1 = 0;
 		while (count1 < projectiles.size()) {
 			Projectile projectile = projectiles.get(count1);
-			ArrayList<BasicMeteor> meteors = meteorShower.getVisibleMeteors();
+			ArrayList<Meteor> meteors = meteorShower.getVisibleMeteors();
 			int count2 = 0;
 			while (count2 < meteors.size()) {
-				BasicMeteor meteor = meteors.get(count2);
+				Meteor meteor = meteors.get(count2);
 				if (collisionOccurs(projectile, meteor)) {
 					handleCollision(projectile, meteor);
 //					count1--;
@@ -93,14 +93,14 @@ public class GameModel implements PropertyChangeListener {
 		}
 	}
 
-	private void handleCollision(Projectile projectile, BasicMeteor meteor) {
+	private void handleCollision(Projectile projectile, Meteor meteor) {
 		
 		meteorShower.meteorHit(meteor, projectile.getDamage());
 		projectiles.remove(projectile);
 		
 	}
 
-	private boolean collisionOccurs(Projectile projectile, BasicMeteor meteor) {
+	private boolean collisionOccurs(Projectile projectile, Meteor meteor) {
 		return projectile.getBounds().overlaps(meteor.getBounds());
 	}
 
@@ -127,7 +127,7 @@ public class GameModel implements PropertyChangeListener {
 		return projectiles;
 	}
 
-	public ArrayList<BasicMeteor> getVisibleMeteors() {
+	public ArrayList<Meteor> getVisibleMeteors() {
 		return meteorShower.getVisibleMeteors();
 	}
 
