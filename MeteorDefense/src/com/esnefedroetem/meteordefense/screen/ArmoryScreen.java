@@ -18,8 +18,10 @@ public class ArmoryScreen implements Screen{
 	private ArrayList<AbstractArmoryItem> armoryItems, selectedArmoryItems;
 	private ArmoryRenderer renderer;
 	
-	public ArmoryScreen(ArmoryRenderer renderer){
+	public ArmoryScreen(ArmoryRenderer renderer, ArrayList<AbstractArmoryItem> armoryItems, ArrayList<AbstractArmoryItem> selectedArmoryItems){
 		this.renderer = renderer;
+		this.armoryItems = armoryItems;
+		this.selectedArmoryItems = selectedArmoryItems;
 	}
 	
 
