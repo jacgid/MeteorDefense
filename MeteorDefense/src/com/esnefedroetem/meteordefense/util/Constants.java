@@ -21,6 +21,9 @@ public class Constants {
 	
 	public static final float CANNONBARREL_LENGTH = 10f;
 	
+	public static final String walletPath = "wallet.txt";
+	public static final String soundStatePath = "sound.txt";
+	
 	public enum meteorEffects{NONE, RADIOACTIVE, FIRE}
 	
 }

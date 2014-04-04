@@ -23,7 +23,7 @@ public class GameFactory {
 	}
 	
 	public static MainMenuScreen createMainMenuScreen(){
-		return new MainMenuScreen(new MainMenuRenderer(true)); // TODO load sound state
+		return new MainMenuScreen(new MainMenuRenderer(LoadService.getSoundState()));
 	}
 	
 	public static CarouselScreen createCarouselScreen(){
@@ -31,7 +31,7 @@ public class GameFactory {
 	}
 	
 	public static ArmoryScreen createArmoryScreen(){
-		return new ArmoryScreen(new ArmoryRenderer(), WeaponFactory.getWeapons(), WeaponFactory.getChoosenWeapons()); // TODO load weapons
+		return new ArmoryScreen(new ArmoryRenderer(), WeaponFactory.getWeapons(), WeaponFactory.getChoosenWeapons());
 	}
 	
 	public static ArmoryDetailedScreen cretateArmoryDetailedScreen(){
@@ -39,7 +39,7 @@ public class GameFactory {
 	}
 	
 	public static GameScreen createGameScreen(){
-		GameModel model = new GameModel(new Wallet()); // TODO load wallet from file
+		GameModel model = new GameModel(LoadService.getWallet());
 		GameRenderer renderer = new GameRenderer(model);
 		return new GameScreen(model, renderer);
 	}
