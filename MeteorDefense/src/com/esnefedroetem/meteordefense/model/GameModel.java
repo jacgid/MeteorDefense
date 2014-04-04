@@ -26,6 +26,7 @@ public class GameModel implements PropertyChangeListener {
 	public static final float HEIGHT = Constants.LOGIC_SCREEN_HEIGHT;
 	
 	private boolean standardWeaponSelected = true; // TODO temporary solution, fix
+	private AbstractArmoryItem selectedArmoryItem;
 	
 
 	private PropertyChangeSupport pcs;
@@ -41,7 +42,7 @@ public class GameModel implements PropertyChangeListener {
 	public void newGame(City city){
 		meteorShower = city.getMeteorShower();
 		meteorShower.start();
-		cannonBarrel = new CannonBarrel();
+		cannonBarrel = new CannonBarrel(); // TODO temporary solution, fix
 		this.city = city;
 	}
 
@@ -60,13 +61,13 @@ public class GameModel implements PropertyChangeListener {
 		removeProjectilesBeyondGameField();
 	}
 
-	/**
-	 * Tells the player to shoot.
-	 */
 	public void shoot(float X, float Y) {
 		cannonBarrel.calculateAngle(X, Y);
-		
-		projectiles.add(cannonBarrel.shoot());
+		if (standardWeaponSelected) {
+			projectiles.add(cannonBarrel.shoot());
+		} else {
+			selectedArmoryItem.act();
+		}
 	}
 
 	public void addChangeListener(PropertyChangeListener listener) {
@@ -139,9 +140,11 @@ public class GameModel implements PropertyChangeListener {
 		if (evt.getPropertyName().equals("loadCannonBarrel")) {
 			AbstractProjectileArmoryItem projectileArmoryItem = (AbstractProjectileArmoryItem) evt.getNewValue();
 			projectiles.add(new Projectile(cannonBarrel.getAngle() , projectileArmoryItem.getPower(), projectileArmoryItem.getProjectileSize()));
+		
 		} else if(evt.getPropertyName().equals("addCity")) {
 			AbstractDefenseArmoryItem defenseArmoryItem = (AbstractDefenseArmoryItem) evt.getNewValue();
 			defenseArmoryItem.addCity(city);
+			
 		} else if(evt.getPropertyName().equals("addVisibleMeteors")) {
 			AbstractEffectArmoryItem effectArmoryItem = (AbstractEffectArmoryItem) evt.getNewValue();
 			effectArmoryItem.addVisibleMeteors(meteorShower.getVisibleMeteors());
