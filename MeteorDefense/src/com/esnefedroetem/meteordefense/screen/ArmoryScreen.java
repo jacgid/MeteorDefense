@@ -1,9 +1,9 @@
 package com.esnefedroetem.meteordefense.screen;
 
 import java.util.ArrayList;
+import java.util.List;
 
 import com.badlogic.gdx.Screen;
-
 import com.esnefedroetem.meteordefense.model.AbstractArmoryItem;
 import com.esnefedroetem.meteordefense.renderer.ArmoryRenderer;
 
@@ -15,10 +15,10 @@ import com.esnefedroetem.meteordefense.renderer.ArmoryRenderer;
 
 public class ArmoryScreen implements Screen{
 	
-	private ArrayList<AbstractArmoryItem> armoryItems, selectedArmoryItems;
+	private List<AbstractArmoryItem> armoryItems, selectedArmoryItems;
 	private ArmoryRenderer renderer;
 	
-	public ArmoryScreen(ArmoryRenderer renderer, ArrayList<AbstractArmoryItem> armoryItems, ArrayList<AbstractArmoryItem> selectedArmoryItems){
+	public ArmoryScreen(ArmoryRenderer renderer, List<AbstractArmoryItem> armoryItems, List<AbstractArmoryItem> selectedArmoryItems){
 		this.renderer = renderer;
 		this.armoryItems = armoryItems;
 		this.selectedArmoryItems = selectedArmoryItems;

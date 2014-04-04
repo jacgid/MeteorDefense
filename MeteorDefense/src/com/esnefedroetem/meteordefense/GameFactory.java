@@ -27,11 +27,11 @@ public class GameFactory {
 	}
 	
 	public static CarouselScreen createCarouselScreen(){
-		return new CarouselScreen(new CarouselRenderer(), ContinentFactory.createContinents()); // TODO load continents
+		return new CarouselScreen(new CarouselRenderer(), ContinentFactory.createContinents());
 	}
 	
 	public static ArmoryScreen createArmoryScreen(){
-		return new ArmoryScreen(new ArmoryRenderer(), null ,null); // TODO load weapons
+		return new ArmoryScreen(new ArmoryRenderer(), WeaponFactory.getWeapons(), WeaponFactory.getChoosenWeapons()); // TODO load weapons
 	}
 	
 	public static ArmoryDetailedScreen cretateArmoryDetailedScreen(){
