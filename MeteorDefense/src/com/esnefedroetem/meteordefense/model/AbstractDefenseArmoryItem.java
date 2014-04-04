@@ -8,8 +8,14 @@ package com.esnefedroetem.meteordefense.model;
 
 public abstract class AbstractDefenseArmoryItem extends AbstractArmoryItem {
 	
+	private City city;
+	
 	public void act() {
 		getPropertyChangeSupport().firePropertyChange("addCity", null, this);
+	}
+	
+	public void addCity(City city) {
+		this.city = city;
 	}
 
 }

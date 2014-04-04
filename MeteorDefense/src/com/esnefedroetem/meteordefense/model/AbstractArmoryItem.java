@@ -59,6 +59,14 @@ public abstract class AbstractArmoryItem {
 		}
 	}
 	
+	public int getPower() {
+		return power;
+	}
+	
+	public int getCooldown() {
+		return cooldown;
+	}
+	
 	public abstract void act();
 	
 }

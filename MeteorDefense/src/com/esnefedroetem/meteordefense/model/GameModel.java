@@ -1,11 +1,11 @@
 package com.esnefedroetem.meteordefense.model;
 
+import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
 import java.beans.PropertyChangeSupport;
 import java.util.ArrayList;
 
 import com.badlogic.gdx.math.Rectangle;
-import com.esnefedroetem.meteordefense.Player;
 import com.esnefedroetem.meteordefense.util.Constants;
 
 /**
@@ -14,27 +14,35 @@ import com.esnefedroetem.meteordefense.util.Constants;
  * @author Simon Nielsen
  * 
  */
-public class GameModel {
+public class GameModel implements PropertyChangeListener {
 
 	private ArrayList<Projectile> projectiles = new ArrayList<Projectile>();
-	private Player player;
+	private ArrayList<AbstractArmoryItem> selectedArmoryItems = new ArrayList<AbstractArmoryItem>();
+	private CannonBarrel cannonBarrel;
+	private City city;
+	private Wallet wallet;
 	private MeteorShower meteorShower;
 	public static final float WIDTH = Constants.LOGIC_SCREEN_WIDTH;
 	public static final float HEIGHT = Constants.LOGIC_SCREEN_HEIGHT;
+	
+	private boolean standardWeaponSelected = true; // TODO temporary solution, fix
+	
 
 	private PropertyChangeSupport pcs;
 
 	/**
 	 * Initializes the GameModel.
 	 */
-	public GameModel() {
+	public GameModel(Wallet wallet) {
 		pcs = new PropertyChangeSupport(this);
+		this.wallet = wallet;
 	}
 	
 	public void newGame(City city){
 		meteorShower = city.getMeteorShower();
 		meteorShower.start();
-		player = new Player(); //REMOVE!!!!
+		cannonBarrel = new CannonBarrel();
+		this.city = city;
 	}
 
 	/**
@@ -56,7 +64,9 @@ public class GameModel {
 	 * Tells the player to shoot.
 	 */
 	public void shoot(float X, float Y) {
-		projectiles.add(player.shoot(X, Y));
+		cannonBarrel.calculateAngle(X, Y);
+		
+		projectiles.add(cannonBarrel.shoot());
 	}
 
 	public void addChangeListener(PropertyChangeListener listener) {
@@ -121,6 +131,21 @@ public class GameModel {
 	}
 
 	public float getCannonAngle() {
-		return player.getCannonBarrel().getAngle();
+		return cannonBarrel.getAngle();
+	}
+
+	@Override
+	public void propertyChange(PropertyChangeEvent evt) {
+		if (evt.getPropertyName().equals("loadCannonBarrel")) {
+			AbstractProjectileArmoryItem projectileArmoryItem = (AbstractProjectileArmoryItem) evt.getNewValue();
+			projectiles.add(new Projectile(cannonBarrel.getAngle() , projectileArmoryItem.getPower(), projectileArmoryItem.getProjectileSize()));
+		} else if(evt.getPropertyName().equals("addCity")) {
+			AbstractDefenseArmoryItem defenseArmoryItem = (AbstractDefenseArmoryItem) evt.getNewValue();
+			defenseArmoryItem.addCity(city);
+		} else if(evt.getPropertyName().equals("addVisibleMeteors")) {
+			AbstractEffectArmoryItem effectArmoryItem = (AbstractEffectArmoryItem) evt.getNewValue();
+			effectArmoryItem.addVisibleMeteors(meteorShower.getVisibleMeteors());
+		}
+		
 	}
 }
