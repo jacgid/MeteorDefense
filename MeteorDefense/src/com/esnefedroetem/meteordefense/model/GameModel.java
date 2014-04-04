@@ -32,9 +32,9 @@ public class GameModel implements PropertyChangeListener {
 	/**
 	 * Initializes the GameModel.
 	 */
-	public GameModel(Wallet wallet) {
+	public GameModel(Wallet wallet, CannonBarrel cannonBarrel) {
 		pcs = new PropertyChangeSupport(this);
-		cannonBarrel = new CannonBarrel(); // TODO temporary solution, fix
+		this.cannonBarrel = cannonBarrel;
 		this.wallet = wallet;
 	}	
 	
