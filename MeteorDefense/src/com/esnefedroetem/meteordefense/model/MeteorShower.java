@@ -6,6 +6,7 @@ import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.utils.TimeUtils;
 import com.esnefedroetem.meteordefense.model.meteor.BasicMeteor;
 import com.esnefedroetem.meteordefense.util.Constants;
+import com.esnefedroetem.meteordefense.util.Constants.ProjectileType;
 
 public class MeteorShower {
 	// Meteors flying over the screen
@@ -83,9 +84,9 @@ public class MeteorShower {
 	 * @param meteor
 	 * @param damage
 	 */
-	public void meteorHit(Meteor meteor, int damage) {
+	public void meteorHit(Meteor meteor, int damage, ProjectileType projectileType) {
 		if (meteor.willSurvive(damage)) {
-			meteor.hit(damage);
+			meteor.hit(damage, projectileType);
 		} else {
 			visibleMeteors.remove(meteor);
 		}

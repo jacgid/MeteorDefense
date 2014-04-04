@@ -4,7 +4,11 @@ import com.badlogic.gdx.math.Vector2;
 import com.esnefedroetem.meteordefense.model.Meteor;
 import com.esnefedroetem.meteordefense.util.Constants;
 import com.esnefedroetem.meteordefense.util.Constants.MeteorEffects;
-
+import com.esnefedroetem.meteordefense.util.Constants.ProjectileType;
+/** 
+ * @author Andreas Pegelow
+ *
+ */
 public class FastMeteor extends Meteor {
 	private static final int DAMAGE = 2;
 	private static final float SPEED = (float) (Constants.DEFAULT_METEOR_SPEED*2.4);
@@ -17,7 +21,7 @@ public class FastMeteor extends Meteor {
 	}
 
 	@Override
-	public void hit(int damage) {
+	public void hit(int damage, ProjectileType projectiletype) {
 		decreaseHealth(damage);
 	}
 

@@ -4,7 +4,11 @@ import com.badlogic.gdx.math.Vector2;
 import com.esnefedroetem.meteordefense.model.Meteor;
 import com.esnefedroetem.meteordefense.util.Constants;
 import com.esnefedroetem.meteordefense.util.Constants.MeteorEffects;
-
+import com.esnefedroetem.meteordefense.util.Constants.ProjectileType;
+/** 
+ * @author Andreas Pegelow
+ *
+ */
 public class BasicMeteor extends Meteor {
 
 	// This constructor is for making testing easy
@@ -34,7 +38,7 @@ public class BasicMeteor extends Meteor {
 		}
 
 		@Override
-		public void hit(int damage) {
+		public void hit(int damage, ProjectileType projectiletype) {
 			decreaseHealth(damage);
 			decreaseSize(damage * 10);
 			
@@ -44,5 +48,6 @@ public class BasicMeteor extends Meteor {
 		public MeteorEffects getEffect() {
 			return MeteorEffects.NONE;
 		}
+
 
 }

@@ -2,6 +2,7 @@ package com.esnefedroetem.meteordefense.model;
 
 import com.badlogic.gdx.math.Vector2;
 import com.esnefedroetem.meteordefense.util.Constants.MeteorEffects;
+import com.esnefedroetem.meteordefense.util.Constants.ProjectileType;
 
 /**
  * 
@@ -27,11 +28,11 @@ public abstract class Meteor extends MoveableGameObject {
 
 	/**
 	 * Called when the meteor is hit, when creating new types of meteors this
-	 * should be overwriten to change the behavior
+	 * should be implemented to get different behavior
 	 * 
 	 * @param damage
 	 */
-	public abstract void hit(int damage);
+	public abstract void hit(int damage, ProjectileType projectiletype);
 
 	public void decreaseSize(int value) {
 		setSize(getSize() - value);

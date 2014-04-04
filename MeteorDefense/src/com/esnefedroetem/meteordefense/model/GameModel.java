@@ -92,7 +92,7 @@ public class GameModel implements PropertyChangeListener {
 
 	private void handleCollision(Projectile projectile, Meteor meteor) {
 		
-		meteorShower.meteorHit(meteor, projectile.getDamage());
+		meteorShower.meteorHit(meteor, projectile.getDamage(), projectile.getProjectileType());
 		projectiles.remove(projectile);
 		
 	}
