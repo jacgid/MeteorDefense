@@ -24,7 +24,9 @@ public class ArmoryScreen implements Screen{
 		this.selectedArmoryItems = selectedArmoryItems;
 	}
 	
-
+	public List<AbstractArmoryItem> getSelectedArmoryItems() {
+		return selectedArmoryItems;
+	}
 	@Override
 	public void render(float delta) {
 		// TODO Auto-generated method stub

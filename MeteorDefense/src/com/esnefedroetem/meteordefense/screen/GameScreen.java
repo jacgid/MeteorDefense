@@ -1,6 +1,7 @@
 package com.esnefedroetem.meteordefense.screen;
 
 import java.beans.PropertyChangeListener;
+import java.util.List;
 
 import com.badlogic.gdx.Application.ApplicationType;
 import com.badlogic.gdx.Gdx;
@@ -8,6 +9,7 @@ import com.badlogic.gdx.InputProcessor;
 import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.graphics.GL10;
 import com.badlogic.gdx.math.Vector2;
+import com.esnefedroetem.meteordefense.model.AbstractArmoryItem;
 import com.esnefedroetem.meteordefense.model.City;
 import com.esnefedroetem.meteordefense.model.GameModel;
 import com.esnefedroetem.meteordefense.renderer.GameRenderer;
@@ -96,8 +98,8 @@ public class GameScreen implements Screen, InputProcessor{
 		model.addChangeListener(listener);
 	}
 	
-	public void newGame(City city){
-		model.newGame(city);
+	public void newGame(City city, List<AbstractArmoryItem> selectedArmoryItems){
+		model.newGame(city, selectedArmoryItems);
 	}
 
 	@Override

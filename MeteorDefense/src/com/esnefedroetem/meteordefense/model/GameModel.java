@@ -4,9 +4,8 @@ import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
 import java.beans.PropertyChangeSupport;
 import java.util.ArrayList;
+import java.util.List;
 
-import com.badlogic.gdx.math.Rectangle;
-import com.esnefedroetem.meteordefense.model.AbstractArmoryItem.State;
 import com.esnefedroetem.meteordefense.util.Constants;
 
 /**
@@ -17,8 +16,9 @@ import com.esnefedroetem.meteordefense.util.Constants;
  */
 public class GameModel implements PropertyChangeListener {
 
-	private ArrayList<Projectile> projectiles = new ArrayList<Projectile>();
-	private ArrayList<AbstractArmoryItem> selectedArmoryItems = new ArrayList<AbstractArmoryItem>();
+	private List<Projectile> projectiles = new ArrayList<Projectile>();
+	private List<AbstractArmoryItem> selectedArmoryItems;
+	private AbstractArmoryItem selectedArmoryItem;
 	private CannonBarrel cannonBarrel;
 	private City city;
 	private Wallet wallet;
@@ -26,8 +26,7 @@ public class GameModel implements PropertyChangeListener {
 	public static final float WIDTH = Constants.LOGIC_SCREEN_WIDTH;
 	public static final float HEIGHT = Constants.LOGIC_SCREEN_HEIGHT;
 	
-	private AbstractArmoryItem selectedArmoryItem = new StandardArmoryItem(State.UNLOCKED, 2); // TODO temporary solution, fix
-
+	
 	private PropertyChangeSupport pcs;
 
 	/**
@@ -35,15 +34,17 @@ public class GameModel implements PropertyChangeListener {
 	 */
 	public GameModel(Wallet wallet) {
 		pcs = new PropertyChangeSupport(this);
+		cannonBarrel = new CannonBarrel(); // TODO temporary solution, fix
 		this.wallet = wallet;
-		selectedArmoryItem.addChangeListener(this); // TODO temporary solution, fix
-	}
+	}	
 	
-	public void newGame(City city){
+	public void newGame(City city, List<AbstractArmoryItem> selectedArmoryItems){
 		meteorShower = city.getMeteorShower();
 		meteorShower.start();
-		cannonBarrel = new CannonBarrel(); // TODO temporary solution, fix
 		this.city = city;
+		this.selectedArmoryItems = selectedArmoryItems;
+		selectedArmoryItem = selectedArmoryItems.get(0);
+		selectedArmoryItem.addChangeListener(this); // TODO temporary solution, fix
 	}
 
 	/**
@@ -119,7 +120,7 @@ public class GameModel implements PropertyChangeListener {
 		return (x < 0 || x > WIDTH || y > HEIGHT);
 	}
 
-	public ArrayList<Projectile> getVisibleProjectiles() {
+	public List<Projectile> getVisibleProjectiles() {
 		return projectiles;
 	}
 
