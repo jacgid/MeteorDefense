@@ -6,6 +6,7 @@ import java.beans.PropertyChangeSupport;
 import java.util.ArrayList;
 
 import com.badlogic.gdx.math.Rectangle;
+import com.esnefedroetem.meteordefense.model.AbstractArmoryItem.State;
 import com.esnefedroetem.meteordefense.util.Constants;
 
 /**
@@ -25,9 +26,7 @@ public class GameModel implements PropertyChangeListener {
 	public static final float WIDTH = Constants.LOGIC_SCREEN_WIDTH;
 	public static final float HEIGHT = Constants.LOGIC_SCREEN_HEIGHT;
 	
-	private boolean standardWeaponSelected = true; // TODO temporary solution, fix
-	private AbstractArmoryItem selectedArmoryItem;
-	
+	private AbstractArmoryItem selectedArmoryItem = new StandardArmoryItem(State.UNLOCKED, 2); // TODO temporary solution, fix
 
 	private PropertyChangeSupport pcs;
 
@@ -37,6 +36,7 @@ public class GameModel implements PropertyChangeListener {
 	public GameModel(Wallet wallet) {
 		pcs = new PropertyChangeSupport(this);
 		this.wallet = wallet;
+		selectedArmoryItem.addChangeListener(this); // TODO temporary solution, fix
 	}
 	
 	public void newGame(City city){
@@ -60,14 +60,10 @@ public class GameModel implements PropertyChangeListener {
 		collisionControll();
 		removeProjectilesBeyondGameField();
 	}
-
+	
 	public void shoot(float X, float Y) {
 		cannonBarrel.calculateAngle(X, Y);
-		if (standardWeaponSelected) {
-			projectiles.add(cannonBarrel.shoot());
-		} else {
-			selectedArmoryItem.act();
-		}
+		selectedArmoryItem.act();
 	}
 
 	public void addChangeListener(PropertyChangeListener listener) {
