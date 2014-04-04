@@ -3,7 +3,7 @@ package com.esnefedroetem.meteordefense.model.meteor;
 import com.badlogic.gdx.math.Vector2;
 import com.esnefedroetem.meteordefense.model.Meteor;
 import com.esnefedroetem.meteordefense.util.Constants;
-import com.esnefedroetem.meteordefense.util.Constants.meteorEffects;
+import com.esnefedroetem.meteordefense.util.Constants.MeteorEffects;
 
 public class RadioactiveMeteor extends Meteor {
 	private static final int DAMAGE = 30;
@@ -23,8 +23,8 @@ public class RadioactiveMeteor extends Meteor {
 	}
 
 	@Override
-	public meteorEffects getEffect() {
-		return meteorEffects.RADIOACTIVE;
+	public MeteorEffects getEffect() {
+		return MeteorEffects.RADIOACTIVE;
 	}
 
 }
