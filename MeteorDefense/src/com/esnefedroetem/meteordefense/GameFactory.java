@@ -27,15 +27,7 @@ public class GameFactory {
 	}
 	
 	public static CarouselScreen createCarouselScreen(){
-		List<Continent> continents = new ArrayList<Continent>();
-		List<City> cities = new ArrayList<City>();
-		cities.add(new City("ParisParisParisParis", 100, new MeteorShower()));
-		cities.add(new City("LondonLondonLondonLondon", 75, new MeteorShower()));
-		cities.add(new City("BerlinBerlinBerlinBerlin", 50, new MeteorShower()));
-		continents.add(new Continent("EuropaEuropaEuropaEuropa", cities));
-		continents.add(new Continent("AsienAsienAsienAsien", cities));
-		continents.add(new Continent("AfrikaAfrikaAfrikaAfrika", cities));
-		return new CarouselScreen(new CarouselRenderer(), continents);
+		return new CarouselScreen(new CarouselRenderer(), ContinentFactory.createContinents()); // TODO load continents
 	}
 	
 	public static ArmoryScreen createArmoryScreen(){
