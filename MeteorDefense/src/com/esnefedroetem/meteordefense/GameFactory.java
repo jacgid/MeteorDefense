@@ -7,6 +7,7 @@ import com.esnefedroetem.meteordefense.model.City;
 import com.esnefedroetem.meteordefense.model.Continent;
 import com.esnefedroetem.meteordefense.model.GameModel;
 import com.esnefedroetem.meteordefense.model.MeteorShower;
+import com.esnefedroetem.meteordefense.model.Wallet;
 import com.esnefedroetem.meteordefense.renderer.ArmoryDetailedRenderer;
 import com.esnefedroetem.meteordefense.renderer.ArmoryRenderer;
 import com.esnefedroetem.meteordefense.renderer.CarouselRenderer;
@@ -46,7 +47,7 @@ public class GameFactory {
 	}
 	
 	public static GameScreen createGameScreen(){
-		GameModel model = new GameModel();
+		GameModel model = new GameModel(new Wallet()); // TODO load wallet from file
 		GameRenderer renderer = new GameRenderer(model);
 		return new GameScreen(model, renderer);
 	}
