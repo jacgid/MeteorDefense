@@ -11,12 +11,17 @@ import com.esnefedroetem.meteordefense.util.Constants.ProjectileType;
 public class MeteorShower {
 	// Meteors flying over the screen
 	private ArrayList<Meteor> visibleMeteors = new ArrayList<Meteor>();
+	
 	// Meteors not yet deployed.
-	private ArrayList<Meteor> invisibleMeteors = new ArrayList<Meteor>();
+	private ArrayList<Meteor> basicMeteors = new ArrayList<Meteor>();
+	private ArrayList<Meteor> fireMeteors = new ArrayList<Meteor>();
+	private ArrayList<Meteor> fastMeteors = new ArrayList<Meteor>();
+	private ArrayList<Meteor> iceMeteors = new ArrayList<Meteor>();
+	private ArrayList<Meteor> radioactiveMeteors = new ArrayList<Meteor>();
 	private long lastMeteorSpawn;
 	private int meteorSpawnRate = 2000;
 
-	public MeteorShower() {
+	public MeteorShower(int BasicMeteor, int FireMeteor, int FastMeteor, int IceMeteor, int RadioactiveMeteor) {
 		// used for testing, dummy meteors.
 		addMeteor(new BasicMeteor(randomStartPos(Constants.DEFAULT_METEOR_SIZE)));
 		
