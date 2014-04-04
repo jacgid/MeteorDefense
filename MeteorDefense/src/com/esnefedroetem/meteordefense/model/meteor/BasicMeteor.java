@@ -3,7 +3,7 @@ package com.esnefedroetem.meteordefense.model.meteor;
 import com.badlogic.gdx.math.Vector2;
 import com.esnefedroetem.meteordefense.model.Meteor;
 import com.esnefedroetem.meteordefense.util.Constants;
-import com.esnefedroetem.meteordefense.util.Constants.MeteorEffects;
+import com.esnefedroetem.meteordefense.util.Constants.MeteorType;
 import com.esnefedroetem.meteordefense.util.Constants.ProjectileType;
 /** 
  * @author Andreas Pegelow
@@ -45,8 +45,8 @@ public class BasicMeteor extends Meteor {
 		}
 
 		@Override
-		public MeteorEffects getEffect() {
-			return MeteorEffects.NONE;
+		public MeteorType getType() {
+			return MeteorType.NONE;
 		}
 
 

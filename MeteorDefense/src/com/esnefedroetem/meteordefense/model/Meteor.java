@@ -1,7 +1,7 @@
 package com.esnefedroetem.meteordefense.model;
 
 import com.badlogic.gdx.math.Vector2;
-import com.esnefedroetem.meteordefense.util.Constants.MeteorEffects;
+import com.esnefedroetem.meteordefense.util.Constants.MeteorType;
 import com.esnefedroetem.meteordefense.util.Constants.ProjectileType;
 
 /**
@@ -51,6 +51,6 @@ public abstract class Meteor extends MoveableGameObject {
 	public boolean willSurvive(int damage) {
 		return life - damage > 0;
 	}
-	public abstract MeteorEffects getEffect();
+	public abstract MeteorType getType();
 
 }
