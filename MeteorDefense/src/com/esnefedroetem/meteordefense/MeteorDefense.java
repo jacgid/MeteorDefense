@@ -31,8 +31,7 @@ public class MeteorDefense extends Game implements PropertyChangeListener {
 	@Override
 	public void pause(){
 		SaveService.saveSoundState(SoundService.getSoundState());
-		//SaveService.saveWallet(wallet);
-		// TODO save wallet
+		SaveService.saveWallet(gameScreen.getModel().getWallet());
 	}
 	
 	/**

@@ -131,6 +131,10 @@ public class GameModel implements PropertyChangeListener {
 	public float getCannonAngle() {
 		return cannonBarrel.getAngle();
 	}
+	
+	public Wallet getWallet(){
+		return wallet;
+	}
 
 	@Override
 	public void propertyChange(PropertyChangeEvent evt) {

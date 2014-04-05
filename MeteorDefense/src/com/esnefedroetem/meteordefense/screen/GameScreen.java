@@ -101,6 +101,10 @@ public class GameScreen implements Screen, InputProcessor{
 	public void newGame(City city, List<AbstractArmoryItem> selectedArmoryItems){
 		model.newGame(city, selectedArmoryItems);
 	}
+	
+	public GameModel getModel(){
+		return model;
+	}
 
 	@Override
 	public boolean keyDown(int keycode) {
