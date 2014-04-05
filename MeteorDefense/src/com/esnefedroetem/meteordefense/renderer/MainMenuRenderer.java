@@ -53,13 +53,14 @@ public class MainMenuRenderer {
 		soundButtonstyle.font.scale(2);
 
 		TextButton playButton = new TextButton("Play", playButtonstyle);
-		TextButton soundButton = new TextButton("Sound", soundButtonstyle);
+		final TextButton soundButton = new TextButton("Sound", soundButtonstyle);
 		
 		table.add(playButton).expand().bottom();
 		table.row().bottom().left().expand();
 		table.add(soundButton).left().bottom();
 		
 		soundButton.setChecked(!sound);
+		soundButton.setText(!soundButton.isChecked() + "");
 		
 		soundButton.addListener(new InputListener() {
 			public boolean touchDown (InputEvent event, float x, float y, int pointer, int button) {
@@ -68,6 +69,7 @@ public class MainMenuRenderer {
 		 
 		 	public void touchUp (InputEvent event, float x, float y, int pointer, int button) {
 		 		pcs.firePropertyChange(MainMenuEvent.MAINMENU_SOUND_CLICKED.toString(), false, true);
+				soundButton.setText(!soundButton.isChecked() + "");
 		 	}
 
 		});

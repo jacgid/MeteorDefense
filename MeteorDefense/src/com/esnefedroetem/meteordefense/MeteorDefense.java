@@ -9,6 +9,7 @@ import com.esnefedroetem.meteordefense.renderer.CarouselRenderer.CarouselEvent;
 import com.esnefedroetem.meteordefense.renderer.MainMenuRenderer.MainMenuEvent;
 import com.esnefedroetem.meteordefense.screen.*;
 import com.esnefedroetem.meteordefense.screen.SplashScreen.SplashScreenEvent;
+import com.esnefedroetem.meteordefense.util.SoundService;
 
 public class MeteorDefense extends Game implements PropertyChangeListener {
 	
@@ -25,6 +26,13 @@ public class MeteorDefense extends Game implements PropertyChangeListener {
 	public void create() {
 		init();
 		setScreen(splashScreen);
+	}
+	
+	@Override
+	public void pause(){
+		SaveService.saveSoundState(SoundService.getSoundState());
+		//SaveService.saveWallet(wallet);
+		// TODO save wallet
 	}
 	
 	/**
@@ -48,7 +56,7 @@ public class MeteorDefense extends Game implements PropertyChangeListener {
 	}
 	
 	private void changeSound(){
-		
+		SoundService.changeSoundState();
 	}
 	
 	private void newGame(City city){

@@ -16,6 +16,7 @@ import com.esnefedroetem.meteordefense.screen.GameScreen;
 import com.esnefedroetem.meteordefense.screen.MainMenuScreen;
 import com.esnefedroetem.meteordefense.screen.ScoreScreen;
 import com.esnefedroetem.meteordefense.screen.SplashScreen;
+import com.esnefedroetem.meteordefense.util.SoundService;
 
 public class GameFactory {
 	
@@ -24,7 +25,9 @@ public class GameFactory {
 	}
 	
 	public static MainMenuScreen createMainMenuScreen(){
-		return new MainMenuScreen(new MainMenuRenderer(LoadService.getSoundState()));
+		boolean soundState = LoadService.getSoundState();
+		SoundService.setSoundState(soundState);
+		return new MainMenuScreen(new MainMenuRenderer(soundState));
 	}
 	
 	public static CarouselScreen createCarouselScreen(){
