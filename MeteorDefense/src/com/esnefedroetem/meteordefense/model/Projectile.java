@@ -25,9 +25,9 @@ public class Projectile extends MoveableGameObject {
 		this.projectileType = projectileType;
 	}
 
-	public Projectile(float angle, int damage, float size, ProjectileType projectileType) {
+	public Projectile(float angle, int damage, float size, Vector2 spawn, ProjectileType projectileType) {
 		super(angle, damage, Constants.DEFAULT_PROJECTILE_SIZE, Constants.DEFAULT_PROJECTILE_SPEED,
-				Constants.DEFAULT_PROJECTILE_SPAWN);
+				spawn);
 		this.projectileType = projectileType;
 	}
 

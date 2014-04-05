@@ -9,11 +9,11 @@ public class Constants {
 	public static final int DEFAULT_PROJECTILE_DAMAGE = 1;
 	
 	
-	public static final float DEFAULT_METEOR_SPEED = 40f;
-	public static final float DEFAULT_METEOR_SIZE = 10f;
-	public static final float DEFAULT_METEOR_ANGLE = (float)(1.5*Math.PI);
-	public static final int DEFAULT_METEOR_DAMAGE = 1;
-	public static final int DEFAULT_METEOR_LIFE = 1;
+	public static final float BASE_METEOR_SPEED = 40f;
+	public static final float BASE_METEOR_SIZE = 10f;
+	public static final float BASE_METEOR_ANGLE = (float)(1.5*Math.PI);
+	public static final int BASE_METEOR_DAMAGE = 1;
+	public static final int BASE_METEOR_LIFE = 1;
 	
 	
 	public static final float LOGIC_SCREEN_WIDTH = 100f;
@@ -24,7 +24,7 @@ public class Constants {
 	public static final String walletPath = "wallet.txt";
 	public static final String soundStatePath = "sound.txt";
 	
-	public enum MeteorEffects{NONE, RADIOACTIVE, FIRE}
+	public enum MeteorType{NONE, RADIOACTIVE, FIRE, FAST, ICE}
 	public enum ProjectileType{NONE, WATER, FIRE}
 	
 }
