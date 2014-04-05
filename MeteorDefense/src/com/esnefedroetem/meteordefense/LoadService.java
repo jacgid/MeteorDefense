@@ -1,7 +1,10 @@
 package com.esnefedroetem.meteordefense;
 
+import java.util.List;
+
 import com.badlogic.gdx.files.FileHandle;
 import com.badlogic.gdx.utils.Json;
+import com.esnefedroetem.meteordefense.model.Continent;
 import com.esnefedroetem.meteordefense.model.Wallet;
 import com.esnefedroetem.meteordefense.util.Constants;
 
@@ -26,6 +29,17 @@ public class LoadService {
 			return Boolean.parseBoolean(str);
 		}else{
 			return true;
+		}		
+	}
+	
+	public static List<Continent> getContinents(){
+		FileHandle file = new FileHandle(Constants.continentPath);
+		if(file.exists()){
+			String str = file.readString();
+			Json json = new Json();
+			return json.fromJson(List.class, str);
+		}else{
+			return null;
 		}		
 	}
 	

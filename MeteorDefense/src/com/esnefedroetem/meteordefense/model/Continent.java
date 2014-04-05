@@ -13,12 +13,22 @@ public class Continent {
 		this.cities = cities;
 	}
 	
+	public Continent(){
+		//Used by the loadService
+	}
+	
 	public String getName(){
 		return name;
 	}
 	
 	public List<City> getCities(){
 		return cities;
+	}
+	
+	public void unLoadMeteors(){
+		for(City city : cities){
+			city.unLoadMeteors();
+		}
 	}
 	
 }

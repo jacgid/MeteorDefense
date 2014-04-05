@@ -26,12 +26,19 @@ public class MeteorShower {
 	private ArrayList<ArrayList> allStoredMeteors = new ArrayList<ArrayList>();
 	private long lastMeteorSpawn;
 	private int meteorSpawnRate = 2000;
+	private int basicMeteor, fireMeteor, fastMeteor, iceMeteor, radioactiveMeteor;
 
 	public MeteorShower() {
+		//Used by loadService
 	}
 
 	public MeteorShower(int basicMeteor, int fireMeteor, int fastMeteor, int iceMeteor, int radioactiveMeteor) {
-		addMeteor(basicMeteor, fireMeteor, fastMeteor, iceMeteor, radioactiveMeteor);
+		//addMeteor(basicMeteor, fireMeteor, fastMeteor, iceMeteor, radioactiveMeteor);
+		this.basicMeteor = basicMeteor;
+		this.fireMeteor = fireMeteor;
+		this.fastMeteor = fastMeteor;
+		this.iceMeteor = iceMeteor;
+		this.radioactiveMeteor = radioactiveMeteor;
 
 	}
 
@@ -150,5 +157,19 @@ public class MeteorShower {
 		int randomX = (int) ((sizeOfMeteor / 2) + (Math.random() * (Constants.LOGIC_SCREEN_WIDTH - sizeOfMeteor + 1)));
 		return new Vector2(randomX, Constants.LOGIC_SCREEN_HEIGHT + sizeOfMeteor / 2);
 
+	}
+	
+	public void unLoadMeteors(){
+		visibleMeteors.clear();
+		basicMeteors.clear();
+		fireMeteors.clear();
+		fastMeteors.clear();
+		iceMeteors.clear();
+		radioactiveMeteors.clear();
+		allStoredMeteors.clear();
+	}
+	
+	public void loadMeteors(){
+		addMeteor(basicMeteor, fireMeteor, fastMeteor, iceMeteor, radioactiveMeteor);
 	}
 }

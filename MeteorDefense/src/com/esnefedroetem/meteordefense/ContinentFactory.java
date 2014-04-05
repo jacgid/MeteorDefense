@@ -11,13 +11,14 @@ import com.esnefedroetem.meteordefense.model.MeteorShower;
 public class ContinentFactory {
 
 	public static List<Continent> createContinents(){
-		List<Continent> continents = new ArrayList<Continent>(4);
-		continents.add(createEurope());
-		continents.add(createAsia());
-		continents.add(createAmerica());
-		continents.add(createAntarctica());
-		
-		
+		List<Continent> continents = LoadService.getContinents();
+		if(continents == null){
+			continents = new ArrayList<Continent>(4);
+			continents.add(createEurope());
+			continents.add(createAsia());
+			continents.add(createAmerica());
+			continents.add(createAntarctica());			
+		}
 		return continents;
 	}
 	

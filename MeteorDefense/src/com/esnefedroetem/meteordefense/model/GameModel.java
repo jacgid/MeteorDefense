@@ -40,6 +40,7 @@ public class GameModel implements PropertyChangeListener {
 	
 	public void newGame(City city, List<AbstractArmoryItem> selectedArmoryItems){
 		meteorShower = city.getMeteorShower();
+		meteorShower.loadMeteors();
 		meteorShower.start();
 		this.city = city;
 		this.selectedArmoryItems = selectedArmoryItems;

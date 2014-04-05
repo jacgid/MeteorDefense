@@ -2,7 +2,6 @@ package com.esnefedroetem.meteordefense;
 
 import com.esnefedroetem.meteordefense.model.CannonBarrel;
 import com.esnefedroetem.meteordefense.model.GameModel;
-import com.esnefedroetem.meteordefense.model.Wallet;
 import com.esnefedroetem.meteordefense.renderer.ArmoryDetailedRenderer;
 import com.esnefedroetem.meteordefense.renderer.ArmoryRenderer;
 import com.esnefedroetem.meteordefense.renderer.CarouselRenderer;

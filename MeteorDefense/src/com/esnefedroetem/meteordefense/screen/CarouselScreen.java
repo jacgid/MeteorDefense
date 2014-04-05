@@ -82,6 +82,10 @@ public class CarouselScreen implements Screen, PropertyChangeListener {
 		}
 	}
 	
+	public List<Continent> getContinents(){
+		return continents;
+	}
+	
 	private void onBackPressed(){
 		if(isCitiesDisplayed){
 			renderer.displayContinents(continents);

@@ -2,9 +2,11 @@ package com.esnefedroetem.meteordefense;
 
 import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
+import java.util.List;
 
 import com.badlogic.gdx.Game;
 import com.esnefedroetem.meteordefense.model.City;
+import com.esnefedroetem.meteordefense.model.Continent;
 import com.esnefedroetem.meteordefense.renderer.CarouselRenderer.CarouselEvent;
 import com.esnefedroetem.meteordefense.renderer.MainMenuRenderer.MainMenuEvent;
 import com.esnefedroetem.meteordefense.screen.*;
@@ -32,6 +34,11 @@ public class MeteorDefense extends Game implements PropertyChangeListener {
 	public void pause(){
 		SaveService.saveSoundState(SoundService.getSoundState());
 		SaveService.saveWallet(gameScreen.getModel().getWallet());
+		List<Continent> continents = carouselScreen.getContinents();
+		for(Continent continent : continents){
+			continent.unLoadMeteors(); //TODO unload meteors in when a game is finished not now!
+		}
+		SaveService.saveContinents(continents);
 	}
 	
 	/**
