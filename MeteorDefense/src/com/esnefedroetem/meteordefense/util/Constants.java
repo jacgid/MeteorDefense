@@ -24,6 +24,8 @@ public class Constants {
 	public static final String walletPath = "wallet.txt";
 	public static final String soundStatePath = "sound.txt";
 	public static final String continentPath = "continents.txt";
+	public static final String weaponPath = "weapons.txt";
+	public static final String choosenWeaponPath = "choosenWeapons.txt";
 	
 	public enum MeteorType{NONE, RADIOACTIVE, FIRE, FAST, ICE}
 	public enum ProjectileType{NONE, WATER, FIRE}

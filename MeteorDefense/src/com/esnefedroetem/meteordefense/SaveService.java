@@ -4,6 +4,7 @@ import java.util.List;
 
 import com.badlogic.gdx.files.FileHandle;
 import com.badlogic.gdx.utils.Json;
+import com.esnefedroetem.meteordefense.model.AbstractArmoryItem;
 import com.esnefedroetem.meteordefense.model.Continent;
 import com.esnefedroetem.meteordefense.model.Wallet;
 import com.esnefedroetem.meteordefense.util.Constants;
@@ -29,4 +30,18 @@ public class SaveService {
 		file.writeString(str, false);
 	}
 	
+	public static void saveWeapons(List<AbstractArmoryItem> weapons){
+		Json json = new Json();
+		String str = json.toJson(weapons);
+		FileHandle file = new FileHandle(Constants.weaponPath);
+		file.writeString(str, false);
+	}
+
+	public static void saveChoosenWeapons(List<AbstractArmoryItem> weapons){
+		Json json = new Json();
+		String str = json.toJson(weapons);
+		FileHandle file = new FileHandle(Constants.choosenWeaponPath);
+		file.writeString(str, false);
+	}
+
 }
