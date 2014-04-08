@@ -126,7 +126,63 @@ public abstract class AssetsLoader {
 		return particleEffect;
 	}
 	
-	//TODO: Add unload, clear and dispose methods
+	public static void unloadTexture(String filename){
+		manager.unload(textureDir+filename);
+	}
+	
+	public static void unloadTextures(String[] filenames){
+		for(String files: filenames){
+			unloadTexture(files);
+		}
+	}
+	
+	public static void unloadMusic(String filename){
+		manager.unload(musicDir+filename);
+	}
+	
+	public static void unloadMusics(String[] filenames){
+		for(String files: filenames){
+			unloadMusic(files);
+		}
+	}
+	
+	public static void unloadSound(String filename){
+		manager.unload(soundDir+filename);
+	}
+	
+	public static void unloadSounds(String[] filenames){
+		for(String files: filenames){
+			unloadSound(files);
+		}
+	}
+	
+	public static void unloadBitmapFont(String filename){
+		manager.unload(fontDir+filename);
+	}
+	
+	public static void unloadBitmapFonts(String[] filenames){
+		for(String files: filenames){
+			unloadBitmapFont(files);
+		}
+	}
+	
+	public static void unloadParticleEffect(String filename){
+		manager.unload(particlesDir+filename);
+	}
+	
+	public static void unloadParticleEffects(String[] filenames){
+		for(String files: filenames){
+			unloadParticleEffect(files);
+		}
+	}
+	
+	public static void clear(){
+		manager.clear();
+	}
+	
+	public static void dispose(){
+		manager.dispose();
+	}
 	
 	public static boolean update(){
 		return manager.update();
