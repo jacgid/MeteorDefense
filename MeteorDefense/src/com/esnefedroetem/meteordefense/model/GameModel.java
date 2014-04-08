@@ -25,6 +25,7 @@ public class GameModel implements PropertyChangeListener {
 	private MeteorShower meteorShower;
 	public static final float WIDTH = Constants.LOGIC_SCREEN_WIDTH;
 	public static final float HEIGHT = Constants.LOGIC_SCREEN_HEIGHT;
+	private int score = 0;
 	
 	
 	private PropertyChangeSupport pcs;
@@ -61,11 +62,22 @@ public class GameModel implements PropertyChangeListener {
 		}
 		collisionControll();
 		removeProjectilesBeyondGameField();
+		if(meteorShower.gameover() || city.getLife() < 0){
+			gameover();
+		}
 	}
 	
 	public void shoot(float X, float Y) {
 		cannonBarrel.calculateAngle(X, Y);
 		selectedArmoryItem.act();
+	}
+	
+	private void gameover(){
+		if(city.getLife()>0){
+			pcs.firePropertyChange("Gameover", true, score);
+		}else{
+			pcs.firePropertyChange("Gameover", false, score);
+		}
 	}
 
 	public void addChangeListener(PropertyChangeListener listener) {
