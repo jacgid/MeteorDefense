@@ -6,6 +6,7 @@ import java.beans.PropertyChangeSupport;
 import java.util.List;
 
 import com.badlogic.gdx.Screen;
+import com.esnefedroetem.meteordefense.model.City;
 import com.esnefedroetem.meteordefense.model.Continent;
 import com.esnefedroetem.meteordefense.renderer.CarouselRenderer;
 import com.esnefedroetem.meteordefense.renderer.CarouselRenderer.CarouselEvent;
@@ -97,7 +98,10 @@ public class CarouselScreen implements Screen, PropertyChangeListener {
 	
 	private void processCarouselClick(int position){
 		if(isCitiesDisplayed){
-			pcs.firePropertyChange(CarouselEvent.CAROUSEL_NEWGAME.toString(), null, currentContinent.getCities().get(position));
+			City city = currentContinent.getCities().get(position);
+			if(city.getState() == City.State.UNLOCKED){
+				pcs.firePropertyChange(CarouselEvent.CAROUSEL_NEWGAME.toString(), null, city);
+			}
 		}else{
 			currentContinent = continents.get(position);
 			renderer.displayCities(currentContinent.getCities());

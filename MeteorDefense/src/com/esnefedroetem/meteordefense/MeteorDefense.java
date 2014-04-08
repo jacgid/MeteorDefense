@@ -47,7 +47,7 @@ public class MeteorDefense extends Game implements PropertyChangeListener {
 	private void init(){
 		splashScreen = GameFactory.createSplashScreen();
 		splashScreen.addChangeListener(this);
-		mainMenuScreen = GameFactory.createMainMenuScreen();//change true to sound state
+		mainMenuScreen = GameFactory.createMainMenuScreen();
 		mainMenuScreen.addChangeListener(this);
 		armoryScreen = GameFactory.createArmoryScreen();
 		//armoryScreen.addChangeListener(this);
