@@ -97,6 +97,25 @@ public class GameRenderer {
 			Circle circle = meteor.getBounds();
 			x = meteor.getX();
 			y = meteor.getY();
+			switch(meteor.getType()){
+			case NONE:
+				debugRenderer.setColor(Color.BLUE);
+				break;
+			case FAST:
+				debugRenderer.setColor(Color.YELLOW);
+				break;
+			case FIRE:
+				debugRenderer.setColor(Color.RED);
+				break;
+			case ICE:
+				debugRenderer.setColor(Color.CYAN);
+				break;
+			case RADIOACTIVE:
+				debugRenderer.setColor(Color.GREEN);
+				break;
+			default:
+				break;
+			}
 			debugRenderer.circle(x, y, circle.radius);
 		}
 		

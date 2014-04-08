@@ -9,3 +9,7 @@ Thumbs.db
 MeteorDefense-android/.classpath
 MeteorDefense-android/.settings/org.eclipse.jdt.core.prefs
 MeteorDefense-android/gen/com/esnefedroetem/meteordefense/BuildConfig.java
+
+MeteorDefense-android/continents.txt
+MeteorDefense-android/sound.txt
+MeteorDefense-android/wallet.txt
