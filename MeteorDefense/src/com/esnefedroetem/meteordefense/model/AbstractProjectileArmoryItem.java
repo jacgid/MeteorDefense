@@ -13,7 +13,7 @@ public abstract class AbstractProjectileArmoryItem extends AbstractArmoryItem {
 	private int projectileSize;
 	private ProjectileType projectileType;
 	
-	public void act() {
+	public void performAct() {
 		getPropertyChangeSupport().firePropertyChange("loadCannonBarrel", null, this);
 	}
 	

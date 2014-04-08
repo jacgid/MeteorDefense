@@ -19,6 +19,7 @@ public abstract class AbstractArmoryItem {
 	
 	private State state;
 	private int power, cooldown, sellValue, upgradeIndex;
+	private float timeSinceUsed;
 	private ArrayList<Upgrade> upgrades;
 	
 	public void upgrade() {
@@ -95,8 +96,19 @@ public abstract class AbstractArmoryItem {
 		return upgrades.get(upgradeIndex).getValue();
 	}
 	
-	public abstract void act();
+	public void update(float delta) {
+		timeSinceUsed -= delta;
+	}
+	
+	public void act() {
+		if(timeSinceUsed <= 0) {
+			timeSinceUsed = cooldown;
+			performAct();
+		}
+	}
+	
+	public abstract void performAct();
 	
 	public abstract void initUpgrades();
-	
+		
 }
