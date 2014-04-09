@@ -2,13 +2,18 @@ package com.esnefedroetem.meteordefense;
 
 import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
+import java.util.List;
 
+import com.badlogic.gdx.Application.ApplicationType;
 import com.badlogic.gdx.Game;
+import com.badlogic.gdx.Gdx;
 import com.esnefedroetem.meteordefense.model.City;
+import com.esnefedroetem.meteordefense.model.Continent;
 import com.esnefedroetem.meteordefense.renderer.CarouselRenderer.CarouselEvent;
 import com.esnefedroetem.meteordefense.renderer.MainMenuRenderer.MainMenuEvent;
 import com.esnefedroetem.meteordefense.screen.*;
 import com.esnefedroetem.meteordefense.screen.SplashScreen.SplashScreenEvent;
+import com.esnefedroetem.meteordefense.util.SoundService;
 
 public class MeteorDefense extends Game implements PropertyChangeListener {
 	
@@ -19,41 +24,66 @@ public class MeteorDefense extends Game implements PropertyChangeListener {
 	private GameScreen gameScreen;
 	private CarouselScreen carouselScreen;
 	private ScoreScreen scoreScreen;
-	private Player player;
 	
 	
 	@Override
 	public void create() {
 		init();
+		Gdx.input.setCatchBackKey(true);
 		setScreen(splashScreen);
+	}
+	
+	@Override
+	public void pause(){
+		super.pause();
+		if(Gdx.app.getType() == ApplicationType.Android){
+			save();
+		}
+	}
+	
+	
+	@Override
+	public void dispose(){
+		super.dispose();
+		if(Gdx.app.getType() != ApplicationType.Android){
+			save();
+		}		
+	}
+	
+	private void save(){
+		SaveService.saveSoundState(SoundService.getSoundState());
+		SaveService.saveWallet(gameScreen.getModel().getWallet());
+		List<Continent> continents = carouselScreen.getContinents();
+		SaveService.saveContinents(continents);
 	}
 	
 	/**
 	 * Initiate screens
 	 */
 	private void init(){
-		splashScreen = new SplashScreen();
+		splashScreen = GameFactory.createSplashScreen();
 		splashScreen.addChangeListener(this);
-		mainMenuScreen = new MainMenuScreen(true);//change true to sound state
+		mainMenuScreen = GameFactory.createMainMenuScreen();
 		mainMenuScreen.addChangeListener(this);
-		armoryScreen = new ArmoryScreen();
+		armoryScreen = GameFactory.createArmoryScreen();
 		//armoryScreen.addChangeListener(this);
-		armoryDetaliedScreen = new ArmoryDetailedScreen();
+		armoryDetaliedScreen = GameFactory.cretateArmoryDetailedScreen();
 		//armoryDetaliedScreen.addChangeListener(this);
-		carouselScreen = new CarouselScreen();
+		carouselScreen = GameFactory.createCarouselScreen();
 		carouselScreen.addChangeListener(this);
-		scoreScreen = new ScoreScreen();
-		//scoreScreen.addChangeListener(this);
-		player = new Player();
+		scoreScreen = GameFactory.createScoreScreen();
+		scoreScreen.addChangeListener(this);
+		gameScreen = GameFactory.createGameScreen();
+		gameScreen.addChangeListener(this);
 		
 	}
 	
 	private void changeSound(){
-		
+		SoundService.changeSoundState();
 	}
 	
 	private void newGame(City city){
-		gameScreen = new GameScreen(player, city);
+		gameScreen.newGame(city, armoryScreen.getSelectedArmoryItems());
 		setScreen(gameScreen);
 	}
 
@@ -68,6 +98,10 @@ public class MeteorDefense extends Game implements PropertyChangeListener {
 			changeSound();
 		}else if(evt.getPropertyName().equals(CarouselEvent.CAROUSEL_NEWGAME.toString())){
 			newGame((City)evt.getNewValue());
+		}else if(evt.getPropertyName().equals("Gameover")){
+			setScreen(scoreScreen);
+		}else if(evt.getPropertyName().equals("Scorescreen_finished")){
+			setScreen(carouselScreen);	
 		}
 		
 	}

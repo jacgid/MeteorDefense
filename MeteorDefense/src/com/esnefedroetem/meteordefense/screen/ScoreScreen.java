@@ -1,13 +1,33 @@
 package com.esnefedroetem.meteordefense.screen;
 
+import java.beans.PropertyChangeListener;
+
 import com.badlogic.gdx.Screen;
+import com.esnefedroetem.meteordefense.renderer.ScoreRenderer;
 
 
 public class ScoreScreen implements Screen{
-
+	
+	private ScoreRenderer renderer;
+	
+	
+	public ScoreScreen(ScoreRenderer renderer){
+		this.renderer = renderer;
+	}
+	
+	public void setScore(int score){
+		
+		renderer.setScore(score);
+		
+	}
+	
+	public void addChangeListener(PropertyChangeListener listener){
+		renderer.addChangeListener(listener);
+	}
+	
 	@Override
 	public void render(float delta) {
-		// TODO Auto-generated method stub
+		renderer.render();
 		
 	}
 
@@ -19,7 +39,7 @@ public class ScoreScreen implements Screen{
 
 	@Override
 	public void show() {
-		// TODO Auto-generated method stub
+		renderer.show();
 		
 	}
 

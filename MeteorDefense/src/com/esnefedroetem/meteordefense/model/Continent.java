@@ -13,6 +13,10 @@ public class Continent {
 		this.cities = cities;
 	}
 	
+	public Continent(){
+		//Used by the loadService
+	}
+	
 	public String getName(){
 		return name;
 	}
@@ -20,5 +24,5 @@ public class Continent {
 	public List<City> getCities(){
 		return cities;
 	}
-	
+		
 }

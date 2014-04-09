@@ -5,6 +5,7 @@ import java.beans.PropertyChangeSupport;
 import java.util.List;
 
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.Input.Keys;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
@@ -29,7 +30,8 @@ public class CarouselRenderer {
 	public enum CarouselEvent{
 		CAROUSEL_ARMORY_CLICKED,
 		CAROUSEL_CLICKED,
-		CAROUSEL_NEWGAME
+		CAROUSEL_NEWGAME,
+		CAROUSEL_BACKBUTTON
 	}
 	
 	private ClickListener carouselListener = new ClickListener(){
@@ -74,6 +76,21 @@ public class CarouselRenderer {
 		 		pcs.firePropertyChange(CarouselEvent.CAROUSEL_ARMORY_CLICKED.toString(), false, true);
 		 	}
 
+		});
+		
+		stage.addListener(new InputListener(){
+			
+			@Override
+			public boolean keyDown(InputEvent event,
+		              int keycode){
+				
+				if(keycode == Keys.BACK){
+			 		pcs.firePropertyChange(CarouselEvent.CAROUSEL_BACKBUTTON.toString(), false, true);					
+				}
+				
+				return true;
+			}
+			
 		});
 		
 	}

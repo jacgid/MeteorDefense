@@ -1,11 +1,11 @@
 package com.esnefedroetem.meteordefense.model;
 
+import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
 import java.beans.PropertyChangeSupport;
 import java.util.ArrayList;
+import java.util.List;
 
-import com.badlogic.gdx.math.Rectangle;
-import com.esnefedroetem.meteordefense.Player;
 import com.esnefedroetem.meteordefense.util.Constants;
 
 /**
@@ -14,24 +14,39 @@ import com.esnefedroetem.meteordefense.util.Constants;
  * @author Simon Nielsen
  * 
  */
-public class GameModel {
+public class GameModel implements PropertyChangeListener {
 
-	private ArrayList<Projectile> projectiles = new ArrayList<Projectile>();
-	private Player player;
+	private List<Projectile> projectiles = new ArrayList<Projectile>();
+	private List<AbstractArmoryItem> selectedArmoryItems;
+	private AbstractArmoryItem selectedArmoryItem;
+	private CannonBarrel cannonBarrel;
+	private City city;
+	private Wallet wallet;
 	private MeteorShower meteorShower;
 	public static final float WIDTH = Constants.LOGIC_SCREEN_WIDTH;
 	public static final float HEIGHT = Constants.LOGIC_SCREEN_HEIGHT;
-
+	private int score = 0;
+	
+	
 	private PropertyChangeSupport pcs;
 
 	/**
 	 * Initializes the GameModel.
 	 */
-	public GameModel(Player player, City city) {
-		this.player = player;
-		this.meteorShower = city.getMeteorShower();
+	public GameModel(Wallet wallet, CannonBarrel cannonBarrel) {
 		pcs = new PropertyChangeSupport(this);
+		this.cannonBarrel = cannonBarrel;
+		this.wallet = wallet;
+	}	
+	
+	public void newGame(City city, List<AbstractArmoryItem> selectedArmoryItems){
+		meteorShower = city.getMeteorShower();
+		meteorShower.loadMeteors();
 		meteorShower.start();
+		this.city = city;
+		this.selectedArmoryItems = selectedArmoryItems;
+		selectedArmoryItem = selectedArmoryItems.get(0);
+		selectedArmoryItem.addChangeListener(this); // TODO temporary solution, fix
 	}
 
 	/**
@@ -45,15 +60,31 @@ public class GameModel {
 		for (int i = 0; i < projectiles.size(); i++) {
 			projectiles.get(i).move(delta);
 		}
+		for(AbstractArmoryItem armoryItem : selectedArmoryItems) {
+			armoryItem.update(delta);
+		}
 		collisionControll();
 		removeProjectilesBeyondGameField();
+		if(meteorShower.gameover() || city.getLife() <= 0){
+			gameover();
+		}
+		city.update(delta);
+		
 	}
-
-	/**
-	 * Tells the player to shoot.
-	 */
+	
 	public void shoot(float X, float Y) {
-		projectiles.add(player.shoot(X, Y));
+		cannonBarrel.calculateAngle(X, Y);
+		selectedArmoryItem.act();
+	}
+	
+	private void gameover(){
+		System.out.println("GAMEOVER!");
+		if(city.getLife()>0){
+			pcs.firePropertyChange("Gameover", true, score);
+		}else{
+			pcs.firePropertyChange("Gameover", false, score);
+		}
+		city.reset();
 	}
 
 	public void addChangeListener(PropertyChangeListener listener) {
@@ -62,32 +93,36 @@ public class GameModel {
 
 	public void collisionControll() {
 		int count1 = 0;
-		while (count1 < projectiles.size()) {
-			Projectile projectile = projectiles.get(count1);
-			ArrayList<BasicMeteor> meteors = meteorShower.getVisibleMeteors();
-			int count2 = 0;
-			while (count2 < meteors.size()) {
-				BasicMeteor meteor = meteors.get(count2);
-				if (collisionOccurs(projectile, meteor)) {
-					handleCollision(projectile, meteor);
-//					count1--;
-//					count2--;
+		while(count1 < meteorShower.getVisibleMeteors().size()) {
+			Meteor meteor = meteorShower.getVisibleMeteors().get(count1);
+			if (collisionWithCityOccurs(meteor)) {
+				city.hit(meteor);
+				meteorShower.getVisibleMeteors().remove(meteor);
+			} else {
+				int count2 = 0;
+				while(count2 < projectiles.size()) {
+					Projectile projectile = projectiles.get(count2);
+					if(collisionOccurs(projectile, meteor)) {
+						handleMeteorCollision(projectile, meteor);
+					}
+					count2++;
 				}
-				count2++;
 			}
 			count1++;
 		}
 	}
 
-	private void handleCollision(Projectile projectile, BasicMeteor meteor) {
-		
-		meteorShower.meteorHit(meteor, projectile.getDamage());
-		projectiles.remove(projectile);
-		
+	private void handleMeteorCollision(Projectile projectile, Meteor meteor) {
+		meteorShower.meteorHit(meteor, projectile.getDamage(), projectile.getProjectileType());
+		projectiles.remove(projectile);	
 	}
 
-	private boolean collisionOccurs(Projectile projectile, BasicMeteor meteor) {
+	private boolean collisionOccurs(Projectile projectile, Meteor meteor) {
 		return projectile.getBounds().overlaps(meteor.getBounds());
+	}
+	
+	private boolean collisionWithCityOccurs(Meteor meteor) {
+		return city.getBounds().contains(meteor.getBounds().x, meteor.getBounds().y);
 	}
 
 	private void removeProjectilesBeyondGameField() {
@@ -109,15 +144,40 @@ public class GameModel {
 		return (x < 0 || x > WIDTH || y > HEIGHT);
 	}
 
-	public ArrayList<Projectile> getVisibleProjectiles() {
+	public List<Projectile> getVisibleProjectiles() {
 		return projectiles;
 	}
 
-	public ArrayList<BasicMeteor> getVisibleMeteors() {
+	public ArrayList<Meteor> getVisibleMeteors() {
 		return meteorShower.getVisibleMeteors();
 	}
 
 	public float getCannonAngle() {
-		return player.getCannonBarrel().getAngle();
+		return cannonBarrel.getAngle();
+	}
+	
+	public Wallet getWallet(){
+		return wallet;
+	}
+	
+	public City getCity(){
+		return city;
+	}
+
+	@Override
+	public void propertyChange(PropertyChangeEvent evt) {
+		if (evt.getPropertyName().equals("loadCannonBarrel")) {
+			AbstractProjectileArmoryItem projectileArmoryItem = (AbstractProjectileArmoryItem) evt.getNewValue();
+			projectiles.add(new Projectile(cannonBarrel.getAngle() , projectileArmoryItem.getPower(), projectileArmoryItem.getProjectileSize(), cannonBarrel.getStartPosition(), projectileArmoryItem.getProjectileType()));
+		
+		} else if(evt.getPropertyName().equals("addCity")) {
+			AbstractDefenseArmoryItem defenseArmoryItem = (AbstractDefenseArmoryItem) evt.getNewValue();
+			defenseArmoryItem.execute(city);
+			
+		} else if(evt.getPropertyName().equals("addVisibleMeteors")) {
+			AbstractEffectArmoryItem effectArmoryItem = (AbstractEffectArmoryItem) evt.getNewValue();
+			effectArmoryItem.execute(meteorShower.getVisibleMeteors());
+		}
+		
 	}
 }

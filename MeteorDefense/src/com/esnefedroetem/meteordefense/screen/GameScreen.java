@@ -1,6 +1,7 @@
 package com.esnefedroetem.meteordefense.screen;
 
 import java.beans.PropertyChangeListener;
+import java.util.List;
 
 import com.badlogic.gdx.Application.ApplicationType;
 import com.badlogic.gdx.Gdx;
@@ -8,7 +9,7 @@ import com.badlogic.gdx.InputProcessor;
 import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.graphics.GL10;
 import com.badlogic.gdx.math.Vector2;
-import com.esnefedroetem.meteordefense.Player;
+import com.esnefedroetem.meteordefense.model.AbstractArmoryItem;
 import com.esnefedroetem.meteordefense.model.City;
 import com.esnefedroetem.meteordefense.model.GameModel;
 import com.esnefedroetem.meteordefense.renderer.GameRenderer;
@@ -22,12 +23,10 @@ public class GameScreen implements Screen, InputProcessor{
 
 	private GameModel model;
 	private GameRenderer renderer;
-	private Player player;
-	private City city;
 	
-	public GameScreen(Player player, City city){
-		this.player = player;
-		this.city = city;
+	public GameScreen(GameModel model, GameRenderer renderer){
+		this.model = model;
+		this.renderer = renderer;
 	}
 	
 	/**
@@ -57,8 +56,6 @@ public class GameScreen implements Screen, InputProcessor{
 	 */
 	@Override
 	public void show() {
-		model = new GameModel(player, city);
-		renderer = new GameRenderer(model);
 		Gdx.input.setInputProcessor(this);
 	}
 
@@ -100,6 +97,14 @@ public class GameScreen implements Screen, InputProcessor{
 		renderer.addChangeListener(listener);
 		model.addChangeListener(listener);
 	}
+	
+	public void newGame(City city, List<AbstractArmoryItem> selectedArmoryItems){
+		model.newGame(city, selectedArmoryItems);
+	}
+	
+	public GameModel getModel(){
+		return model;
+	}
 
 	@Override
 	public boolean keyDown(int keycode) {
@@ -127,7 +132,6 @@ public class GameScreen implements Screen, InputProcessor{
 		//TODO Add if(click on sky)
 		Vector2 temp = renderer.unproject(screenX, screenY);
 		model.shoot(temp.x, temp.y);
-		System.out.println("X: " + temp.x + " Y: " + temp.y);
 		return true;
 	}
 
