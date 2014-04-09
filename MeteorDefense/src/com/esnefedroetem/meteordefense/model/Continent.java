@@ -24,11 +24,5 @@ public class Continent {
 	public List<City> getCities(){
 		return cities;
 	}
-	
-	public void unLoadMeteors(){
-		for(City city : cities){
-			city.unLoadMeteors();
-		}
-	}
-	
+		
 }

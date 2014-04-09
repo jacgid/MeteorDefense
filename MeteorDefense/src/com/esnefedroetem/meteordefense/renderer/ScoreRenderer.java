@@ -9,6 +9,7 @@ import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 
 public class ScoreRenderer {
+
 	private PropertyChangeSupport pcs;
 	
 	private SpriteBatch spriteBatch;
