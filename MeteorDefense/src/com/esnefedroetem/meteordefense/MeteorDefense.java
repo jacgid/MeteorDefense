@@ -33,13 +33,13 @@ public class MeteorDefense extends Game implements PropertyChangeListener {
 	}
 	
 	@Override
-	public void pause(){
+	public void dispose(){
 		SaveService.saveSoundState(SoundService.getSoundState());
 		SaveService.saveWallet(gameScreen.getModel().getWallet());
 		List<Continent> continents = carouselScreen.getContinents();
-		for(Continent continent : continents){
-			continent.unLoadMeteors(); //TODO unload meteors in when a game is finished not now!
-		}
+//		for(Continent continent : continents){
+//			continent.unLoadMeteors(); //TODO unload meteors in when a game is finished not now!
+//		}
 		SaveService.saveContinents(continents);
 	}
 	
@@ -60,6 +60,7 @@ public class MeteorDefense extends Game implements PropertyChangeListener {
 		scoreScreen = GameFactory.createScoreScreen();
 		//scoreScreen.addChangeListener(this);
 		gameScreen = GameFactory.createGameScreen();
+		gameScreen.addChangeListener(this);
 		
 	}
 	

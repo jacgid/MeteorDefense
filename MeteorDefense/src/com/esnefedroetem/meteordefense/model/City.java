@@ -14,7 +14,7 @@ public class City {
 	}
 	private State state;
 	private String name;
-	private int life;
+	private int currentLife, maxLife;
 	private Rectangle bounds = Constants.CITY_BOUNDS;
 	private MeteorShower meteorShower;
 	private List<Meteor> dashedMeteors = new ArrayList<Meteor>();
@@ -22,7 +22,8 @@ public class City {
 	
 	public City(String name, int life, MeteorShower meteorShower, State state){
 		this.name = name;
-		this.life = life;
+		this.currentLife = life;
+		maxLife = life;
 		this.meteorShower = meteorShower;
 		this.state = state;
 	}
@@ -36,7 +37,7 @@ public class City {
 	}
 
 	public int getLife() {
-		return life;
+		return currentLife;
 	}
 
 	public MeteorShower getMeteorShower(){
@@ -51,9 +52,13 @@ public class City {
 		return state;
 	}
 	
-	public void unLoadMeteors(){
+	public void reset(){
 		meteorShower.unLoadMeteors();
 		dashedMeteors.clear();
+		currentLife = maxLife;
+		lastTime = 0;
+		lastDelta = 0;
+		totalTimePassed = 0;
 	}
 	
 	public Rectangle getBounds() {
@@ -62,7 +67,7 @@ public class City {
 	
 	public void hit(Meteor meteor) {
 		System.out.println("Meteor hit city");
-		life -= meteor.getDamage();
+		currentLife -= meteor.getDamage();
 		if(meteor.getType() == Constants.MeteorType.RADIOACTIVE) {
 			dashedMeteors.add(meteor);			
 		}
@@ -75,7 +80,7 @@ public class City {
 			for(int i = 0; i<size; i++){
 				RadioactiveMeteor radio = (RadioactiveMeteor)dashedMeteors.get(i);
 				if(radio.getDot()>=0){
-					life -= radio.getDot();
+					currentLife -= radio.getDot();
 				}else{
 					dashedMeteors.remove(i);
 					size = dashedMeteors.size();

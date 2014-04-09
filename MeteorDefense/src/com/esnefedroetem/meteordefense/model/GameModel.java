@@ -84,6 +84,7 @@ public class GameModel implements PropertyChangeListener {
 		}else{
 			pcs.firePropertyChange("Gameover", false, score);
 		}
+		city.reset();
 	}
 
 	public void addChangeListener(PropertyChangeListener listener) {

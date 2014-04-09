@@ -167,6 +167,7 @@ public class MeteorShower {
 		iceMeteors.clear();
 		radioactiveMeteors.clear();
 		allStoredMeteors.clear();
+		lastMeteorSpawn = 0;
 	}
 	
 	public void loadMeteors(){
