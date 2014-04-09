@@ -60,15 +60,16 @@ public class GameModel implements PropertyChangeListener {
 		for (int i = 0; i < projectiles.size(); i++) {
 			projectiles.get(i).move(delta);
 		}
+		for(AbstractArmoryItem armoryItem : selectedArmoryItems) {
+			armoryItem.update(delta);
+		}
 		collisionControll();
 		removeProjectilesBeyondGameField();
 		if(meteorShower.gameover() || city.getLife() < 0){
 			gameover();
 		}
 		city.update(delta);
-		for(AbstractArmoryItem armoryItem : selectedArmoryItems) {
-			armoryItem.update(delta);
-		}
+		
 	}
 	
 	public void shoot(float X, float Y) {
@@ -94,6 +95,7 @@ public class GameModel implements PropertyChangeListener {
 			Meteor meteor = meteorShower.getVisibleMeteors().get(count1);
 			if (collisionWithCityOccurs(meteor)) {
 				city.hit(meteor);
+				meteorShower.getVisibleMeteors().remove(meteor);
 			} else {
 				int count2 = 0;
 				while(count2 < projectiles.size()) {
@@ -118,7 +120,6 @@ public class GameModel implements PropertyChangeListener {
 	}
 	
 	private boolean collisionWithCityOccurs(Meteor meteor) {
-		System.out.println("Meteor hit city");
 		return city.getBounds().contains(meteor.getBounds().x, meteor.getBounds().y);
 	}
 

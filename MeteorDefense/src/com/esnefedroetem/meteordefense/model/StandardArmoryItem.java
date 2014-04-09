@@ -22,9 +22,9 @@ public class StandardArmoryItem extends AbstractProjectileArmoryItem {
 	public void initUpgrades() {
 		ArrayList<Upgrade> upgrades = new ArrayList<Upgrade>();
 		for(int i = 0; i < 4; i++) {
-			int cooldownDecrement = 0;
+			float cooldownDecrement = 0f;
 			if(i == 0) {
-				cooldownDecrement = 10;
+				cooldownDecrement = 0.2f;
 			}
 			upgrades.add(new Upgrade(1, cooldownDecrement, i * 1000));
 		}

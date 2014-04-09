@@ -18,7 +18,8 @@ public abstract class AbstractArmoryItem {
 	private PropertyChangeSupport pcs = new PropertyChangeSupport(this);
 	
 	private State state;
-	private int power, cooldown, sellValue, upgradeIndex;
+	private int power, sellValue, upgradeIndex;
+	private float cooldown;
 	private float timeSinceUsed;
 	private ArrayList<Upgrade> upgrades;
 	
@@ -61,7 +62,7 @@ public abstract class AbstractArmoryItem {
 		return power;
 	}
 		
-	public int getCooldown() {
+	public float getCooldown() {
 		return cooldown;
 	}
 	

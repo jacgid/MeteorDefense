@@ -51,6 +51,7 @@ public class City {
 	
 	public void unLoadMeteors(){
 		meteorShower.unLoadMeteors();
+		dashedMeteors.clear();
 	}
 	
 	public Rectangle getBounds() {
@@ -58,6 +59,7 @@ public class City {
 	}
 	
 	public void hit(Meteor meteor) {
+		System.out.println("Meteor hit city");
 		life -= meteor.getDamage();
 		if(meteor.getType() == Constants.MeteorType.RADIOACTIVE) {
 			dashedMeteors.add(meteor);			

@@ -23,7 +23,7 @@ public class Constants {
 	public static final float CANNONBARREL_LENGTH = 10f;
 	
 	
-	public static final Rectangle CITY_BOUNDS = new Rectangle(0, LOGIC_SCREEN_HEIGHT, LOGIC_SCREEN_WIDTH, LOGIC_SCREEN_HEIGHT/4);
+	public static final Rectangle CITY_BOUNDS = new Rectangle(0, 0, LOGIC_SCREEN_WIDTH, LOGIC_SCREEN_HEIGHT/6);
 	
 	public static final String walletPath = "wallet.txt";
 	public static final String soundStatePath = "sound.txt";
