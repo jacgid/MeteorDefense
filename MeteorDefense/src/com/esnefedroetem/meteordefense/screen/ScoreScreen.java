@@ -1,5 +1,7 @@
 package com.esnefedroetem.meteordefense.screen;
 
+import java.beans.PropertyChangeListener;
+
 import com.badlogic.gdx.Screen;
 import com.esnefedroetem.meteordefense.renderer.ScoreRenderer;
 
@@ -12,9 +14,13 @@ public class ScoreScreen implements Screen{
 		this.renderer = renderer;
 	}
 	
+	public void addChangeListener(PropertyChangeListener listener){
+		renderer.addChangeListener(listener);
+	}
+	
 	@Override
 	public void render(float delta) {
-		// TODO Auto-generated method stub
+		renderer.render();
 		
 	}
 

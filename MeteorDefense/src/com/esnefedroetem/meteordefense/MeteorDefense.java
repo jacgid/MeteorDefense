@@ -58,7 +58,7 @@ public class MeteorDefense extends Game implements PropertyChangeListener {
 		carouselScreen = GameFactory.createCarouselScreen();
 		carouselScreen.addChangeListener(this);
 		scoreScreen = GameFactory.createScoreScreen();
-		//scoreScreen.addChangeListener(this);
+		scoreScreen.addChangeListener(this);
 		gameScreen = GameFactory.createGameScreen();
 		
 	}
