@@ -5,6 +5,7 @@ import java.beans.PropertyChangeListener;
 import java.util.List;
 
 import com.badlogic.gdx.Game;
+import com.badlogic.gdx.Gdx;
 import com.esnefedroetem.meteordefense.model.City;
 import com.esnefedroetem.meteordefense.model.Continent;
 import com.esnefedroetem.meteordefense.renderer.CarouselRenderer.CarouselEvent;
@@ -27,6 +28,7 @@ public class MeteorDefense extends Game implements PropertyChangeListener {
 	@Override
 	public void create() {
 		init();
+		Gdx.input.setCatchBackKey(true);
 		setScreen(splashScreen);
 	}
 	
