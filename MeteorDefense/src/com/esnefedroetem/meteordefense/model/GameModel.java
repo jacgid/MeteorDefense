@@ -65,7 +65,7 @@ public class GameModel implements PropertyChangeListener {
 		}
 		collisionControll();
 		removeProjectilesBeyondGameField();
-		if(meteorShower.gameover() || city.getLife() < 0){
+		if(meteorShower.gameover() || city.getLife() <= 0){
 			gameover();
 		}
 		city.update(delta);
@@ -78,6 +78,7 @@ public class GameModel implements PropertyChangeListener {
 	}
 	
 	private void gameover(){
+		System.out.println("GAMEOVER!");
 		if(city.getLife()>0){
 			pcs.firePropertyChange("Gameover", true, score);
 		}else{
@@ -156,6 +157,10 @@ public class GameModel implements PropertyChangeListener {
 	
 	public Wallet getWallet(){
 		return wallet;
+	}
+	
+	public City getCity(){
+		return city;
 	}
 
 	@Override
