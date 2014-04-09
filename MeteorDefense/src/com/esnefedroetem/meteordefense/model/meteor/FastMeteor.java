@@ -15,6 +15,9 @@ public class FastMeteor extends Meteor {
 	private static final int LIFE = 1;
 	private static final float SIZE = Constants.BASE_METEOR_SIZE;
 	
+	public FastMeteor(){
+		
+	}
 	public FastMeteor(Vector2 startPosition) {
 		super(startPosition, Constants.BASE_METEOR_ANGLE, LIFE, DAMAGE, SIZE, SPEED);
 		

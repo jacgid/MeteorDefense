@@ -17,6 +17,9 @@ public class RadioactiveMeteor extends Meteor {
 	private static final float SIZE = Constants.BASE_METEOR_SIZE*2;
 	private int amountOfDots = -1;
 	
+	public RadioactiveMeteor(){
+		
+	}
 	public RadioactiveMeteor(Vector2 startPosition) {
 		super(startPosition, Constants.BASE_METEOR_ANGLE, LIFE, DAMAGE, SIZE, SPEED);
 

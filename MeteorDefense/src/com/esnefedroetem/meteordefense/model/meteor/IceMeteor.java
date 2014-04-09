@@ -5,6 +5,7 @@ import com.esnefedroetem.meteordefense.model.Meteor;
 import com.esnefedroetem.meteordefense.util.Constants;
 import com.esnefedroetem.meteordefense.util.Constants.MeteorType;
 import com.esnefedroetem.meteordefense.util.Constants.ProjectileType;
+import com.sun.jndi.url.iiopname.iiopnameURLContextFactory;
 /** 
  * @author Andreas Pegelow
  *
@@ -15,6 +16,9 @@ public class IceMeteor extends Meteor {
 	private static final int LIFE = 10;
 	private static final float SIZE = Constants.BASE_METEOR_SIZE;
 
+	public IceMeteor(){
+		
+	}
 	public IceMeteor(Vector2 startPosition) {
 		super(startPosition, Constants.BASE_METEOR_ANGLE, LIFE, DAMAGE, SIZE, SPEED);
 

@@ -14,7 +14,10 @@ public class FireMeteor extends Meteor {
 	private static final float SPEED = Constants.BASE_METEOR_SPEED;
 	private static final int LIFE = 3;
 	private static final float SIZE = Constants.BASE_METEOR_SIZE;
-
+	
+	public FireMeteor(){
+		
+	}
 	public FireMeteor(Vector2 startPosition) {
 		super(startPosition, Constants.BASE_METEOR_ANGLE, LIFE, DAMAGE, SIZE, SPEED);
 

@@ -12,7 +12,9 @@ import com.esnefedroetem.meteordefense.util.Constants.ProjectileType;
 public abstract class Meteor extends MoveableGameObject {
 
 	private int life;
-
+	public  Meteor(){
+		
+	}
 	public Meteor(Vector2 startPosition,float angle, int life, int damage, float size, float speed) {
 		super(angle, damage, size, speed, startPosition);
 		this.life = life;

@@ -11,6 +11,10 @@ public abstract class MoveableGameObject {
 	private float angle;
 	private Circle bounds = new Circle();
 	private int damage;
+	
+	public MoveableGameObject(){
+		
+	}
 
 	public MoveableGameObject(float angle, int damage, float size, float speed, Vector2 startPosition) {
 		this.angle = angle;
