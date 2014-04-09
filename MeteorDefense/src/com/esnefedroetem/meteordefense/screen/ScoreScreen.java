@@ -10,8 +10,15 @@ public class ScoreScreen implements Screen{
 	
 	private ScoreRenderer renderer;
 	
+	
 	public ScoreScreen(ScoreRenderer renderer){
 		this.renderer = renderer;
+	}
+	
+	public void setScore(int score){
+		
+		renderer.setScore(score);
+		
 	}
 	
 	public void addChangeListener(PropertyChangeListener listener){
@@ -32,7 +39,7 @@ public class ScoreScreen implements Screen{
 
 	@Override
 	public void show() {
-		// TODO Auto-generated method stub
+		renderer.show();
 		
 	}
 
