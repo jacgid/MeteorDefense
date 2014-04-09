@@ -4,6 +4,7 @@ import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
 import java.util.List;
 
+import com.badlogic.gdx.Application.ApplicationType;
 import com.badlogic.gdx.Game;
 import com.badlogic.gdx.Gdx;
 import com.esnefedroetem.meteordefense.model.City;
@@ -33,13 +34,26 @@ public class MeteorDefense extends Game implements PropertyChangeListener {
 	}
 	
 	@Override
+	public void pause(){
+		super.pause();
+		if(Gdx.app.getType() == ApplicationType.Android){
+			save();
+		}
+	}
+	
+	
+	@Override
 	public void dispose(){
+		super.dispose();
+		if(Gdx.app.getType() != ApplicationType.Android){
+			save();
+		}		
+	}
+	
+	private void save(){
 		SaveService.saveSoundState(SoundService.getSoundState());
 		SaveService.saveWallet(gameScreen.getModel().getWallet());
 		List<Continent> continents = carouselScreen.getContinents();
-//		for(Continent continent : continents){
-//			continent.unLoadMeteors(); //TODO unload meteors in when a game is finished not now!
-//		}
 		SaveService.saveContinents(continents);
 	}
 	

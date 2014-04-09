@@ -171,6 +171,7 @@ public class MeteorShower {
 	}
 	
 	public void loadMeteors(){
+		unLoadMeteors();
 		addMeteor(basicMeteor, fireMeteor, fastMeteor, iceMeteor, radioactiveMeteor);
 	}
 }

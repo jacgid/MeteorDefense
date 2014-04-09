@@ -1,7 +1,9 @@
 package com.esnefedroetem.meteordefense;
 
+import java.io.File;
 import java.util.List;
 
+import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.files.FileHandle;
 import com.badlogic.gdx.utils.Json;
 import com.esnefedroetem.meteordefense.model.AbstractArmoryItem;
@@ -13,7 +15,7 @@ public class LoadService {
 	
 	
 	public static Wallet getWallet(){
-		FileHandle file = new FileHandle(Constants.walletPath);
+		FileHandle file = new FileHandle(new File(Gdx.files.getLocalStoragePath() + Constants.walletPath));
 		if(file.exists()){
 			String str = file.readString();
 			Json json = new Json();
@@ -24,7 +26,7 @@ public class LoadService {
 	}
 	
 	public static boolean getSoundState(){
-		FileHandle file = new FileHandle(Constants.soundStatePath);
+		FileHandle file = new FileHandle(new File(Gdx.files.getLocalStoragePath() + Constants.soundStatePath));
 		if(file.exists()){
 			String str = file.readString();
 			return Boolean.parseBoolean(str);
@@ -34,7 +36,7 @@ public class LoadService {
 	}
 	
 	public static List<Continent> getContinents(){
-		FileHandle file = new FileHandle(Constants.continentPath);
+		FileHandle file = new FileHandle(new File(Gdx.files.getLocalStoragePath() + Constants.continentPath));
 		if(file.exists()){
 			String str = file.readString();
 			Json json = new Json();
@@ -45,7 +47,7 @@ public class LoadService {
 	}
 	
 	public static List<AbstractArmoryItem> getWeapons(){
-		FileHandle file = new FileHandle(Constants.weaponPath);
+		FileHandle file = new FileHandle(new File(Gdx.files.getLocalStoragePath() + Constants.weaponPath));
 		if(file.exists()){
 			String str = file.readString();
 			Json json = new Json();
@@ -55,7 +57,7 @@ public class LoadService {
 	}
 
 	public static List<AbstractArmoryItem> getChoosenWeapons(){
-		FileHandle file = new FileHandle(Constants.choosenWeaponPath);
+		FileHandle file = new FileHandle(new File(Gdx.files.getLocalStoragePath() + Constants.choosenWeaponPath));
 		if(file.exists()){
 			String str = file.readString();
 			Json json = new Json();
