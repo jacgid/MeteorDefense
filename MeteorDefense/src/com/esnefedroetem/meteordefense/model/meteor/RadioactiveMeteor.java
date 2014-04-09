@@ -10,11 +10,13 @@ import com.esnefedroetem.meteordefense.util.Constants.ProjectileType;
  *
  */
 public class RadioactiveMeteor extends Meteor {
-	private static final int DAMAGE = 30;
+	private static final int DAMAGE = 10;
+	private static final int DOT = 2;
 	private static final float SPEED = Constants.BASE_METEOR_SPEED;
 	private static final int LIFE = 10;
 	private static final float SIZE = Constants.BASE_METEOR_SIZE*2;
-
+	private int amountOfDots = -1;
+	
 	public RadioactiveMeteor(Vector2 startPosition) {
 		super(startPosition, Constants.BASE_METEOR_ANGLE, LIFE, DAMAGE, SIZE, SPEED);
 
@@ -24,11 +26,18 @@ public class RadioactiveMeteor extends Meteor {
 	@Override
 	public void hit(int damage, ProjectileType projectiletype) {
 		decreaseHealth(damage);
+		decreaseSize(2);
+		damage = damage-2;
 	}
 
 	@Override
 	public MeteorType getType() {
 		return MeteorType.RADIOACTIVE;
+	}
+	
+	public int getDot(){
+		amountOfDots += 1;
+		return DOT-amountOfDots;
 	}
 
 }

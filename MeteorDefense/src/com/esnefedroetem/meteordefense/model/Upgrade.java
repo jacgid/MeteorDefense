@@ -8,7 +8,8 @@ package com.esnefedroetem.meteordefense.model;
 
 public class Upgrade {
 	
-	private int powerIncrement, cooldownDecrement, value;
+	private int powerIncrement, value;
+	private float cooldownDecrement;
 	
 	/**
 	 * 
@@ -16,13 +17,13 @@ public class Upgrade {
 	 * @param cooldownDecrement negative value of milliseconds to be added to weapons cooldown
 	 * @param value value in coins that the upgrade is worth
 	 */
-	public Upgrade(int powerIncrement, int cooldownDecrement, int value) {
+	public Upgrade(int powerIncrement, float cooldownDecrement, int value) {
 		this.powerIncrement = powerIncrement;
 		this.cooldownDecrement = cooldownDecrement;
 		this.value = value;
 	}
 	
-	public int getCooldownDecrement() {
+	public float getCooldownDecrement() {
 		return cooldownDecrement;
 	}
 	

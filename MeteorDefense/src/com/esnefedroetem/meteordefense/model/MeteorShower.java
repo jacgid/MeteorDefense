@@ -63,10 +63,10 @@ public class MeteorShower {
 
 	public boolean gameover() {
 
-		if (allMeteorsDepolyed() && visibleMeteors.size() > 0)
-			return false;
+		if (allMeteorsDepolyed() && visibleMeteors.size() <= 0)
+			return true;
 
-		return true;
+		return false;
 	}
 
 	public void update(float delta) {

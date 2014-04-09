@@ -60,11 +60,16 @@ public class GameModel implements PropertyChangeListener {
 		for (int i = 0; i < projectiles.size(); i++) {
 			projectiles.get(i).move(delta);
 		}
+		for(AbstractArmoryItem armoryItem : selectedArmoryItems) {
+			armoryItem.update(delta);
+		}
 		collisionControll();
 		removeProjectilesBeyondGameField();
-		if(meteorShower.gameover() || city.getLife() < 0){
+		if(meteorShower.gameover() || city.getLife() <= 0){
 			gameover();
 		}
+		city.update(delta);
+		
 	}
 	
 	public void shoot(float X, float Y) {
@@ -73,6 +78,7 @@ public class GameModel implements PropertyChangeListener {
 	}
 	
 	private void gameover(){
+		System.out.println("GAMEOVER!");
 		if(city.getLife()>0){
 			pcs.firePropertyChange("Gameover", true, score);
 		}else{
@@ -86,32 +92,36 @@ public class GameModel implements PropertyChangeListener {
 
 	public void collisionControll() {
 		int count1 = 0;
-		while (count1 < projectiles.size()) {
-			Projectile projectile = projectiles.get(count1);
-			ArrayList<Meteor> meteors = meteorShower.getVisibleMeteors();
-			int count2 = 0;
-			while (count2 < meteors.size()) {
-				Meteor meteor = meteors.get(count2);
-				if (collisionOccurs(projectile, meteor)) {
-					handleCollision(projectile, meteor);
-//					count1--;
-//					count2--;
+		while(count1 < meteorShower.getVisibleMeteors().size()) {
+			Meteor meteor = meteorShower.getVisibleMeteors().get(count1);
+			if (collisionWithCityOccurs(meteor)) {
+				city.hit(meteor);
+				meteorShower.getVisibleMeteors().remove(meteor);
+			} else {
+				int count2 = 0;
+				while(count2 < projectiles.size()) {
+					Projectile projectile = projectiles.get(count2);
+					if(collisionOccurs(projectile, meteor)) {
+						handleMeteorCollision(projectile, meteor);
+					}
+					count2++;
 				}
-				count2++;
 			}
 			count1++;
 		}
 	}
 
-	private void handleCollision(Projectile projectile, Meteor meteor) {
-		
+	private void handleMeteorCollision(Projectile projectile, Meteor meteor) {
 		meteorShower.meteorHit(meteor, projectile.getDamage(), projectile.getProjectileType());
-		projectiles.remove(projectile);
-		
+		projectiles.remove(projectile);	
 	}
 
 	private boolean collisionOccurs(Projectile projectile, Meteor meteor) {
 		return projectile.getBounds().overlaps(meteor.getBounds());
+	}
+	
+	private boolean collisionWithCityOccurs(Meteor meteor) {
+		return city.getBounds().contains(meteor.getBounds().x, meteor.getBounds().y);
 	}
 
 	private void removeProjectilesBeyondGameField() {
@@ -147,6 +157,10 @@ public class GameModel implements PropertyChangeListener {
 	
 	public Wallet getWallet(){
 		return wallet;
+	}
+	
+	public City getCity(){
+		return city;
 	}
 
 	@Override

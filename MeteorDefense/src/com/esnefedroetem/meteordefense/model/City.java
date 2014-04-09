@@ -1,5 +1,12 @@
 package com.esnefedroetem.meteordefense.model;
 
+import java.util.ArrayList;
+import java.util.List;
+
+import com.badlogic.gdx.math.Rectangle;
+import com.esnefedroetem.meteordefense.model.meteor.RadioactiveMeteor;
+import com.esnefedroetem.meteordefense.util.Constants;
+
 public class City {
 	
 	public enum State {
@@ -8,7 +15,10 @@ public class City {
 	private State state;
 	private String name;
 	private int life;
+	private Rectangle bounds = Constants.CITY_BOUNDS;
 	private MeteorShower meteorShower;
+	private List<Meteor> dashedMeteors = new ArrayList<Meteor>();
+	private float lastTime, lastDelta, totalTimePassed;
 	
 	public City(String name, int life, MeteorShower meteorShower, State state){
 		this.name = name;
@@ -43,6 +53,35 @@ public class City {
 	
 	public void unLoadMeteors(){
 		meteorShower.unLoadMeteors();
+		dashedMeteors.clear();
 	}
 	
+	public Rectangle getBounds() {
+		return bounds;
+	}
+	
+	public void hit(Meteor meteor) {
+		System.out.println("Meteor hit city");
+		life -= meteor.getDamage();
+		if(meteor.getType() == Constants.MeteorType.RADIOACTIVE) {
+			dashedMeteors.add(meteor);			
+		}
+	}
+	public void update(float delta) {
+		// TODO implement dashedMeteors continuously damaging city
+		totalTimePassed = totalTimePassed + delta;
+		if(totalTimePassed > 1){
+			int size = dashedMeteors.size();
+			for(int i = 0; i<size; i++){
+				RadioactiveMeteor radio = (RadioactiveMeteor)dashedMeteors.get(i);
+				if(radio.getDot()>=0){
+					life -= radio.getDot();
+				}else{
+					dashedMeteors.remove(i);
+					size = dashedMeteors.size();
+				}
+			}
+			totalTimePassed = 0;
+		}
+	}
 }
