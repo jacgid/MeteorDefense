@@ -4,6 +4,8 @@ import java.beans.PropertyChangeListener;
 import java.beans.PropertyChangeSupport;
 import java.util.ArrayList;
 
+import com.badlogic.gdx.utils.TimeUtils;
+
 /** 
  * 
  *  @author Emma Lindholm
@@ -20,7 +22,7 @@ public abstract class AbstractArmoryItem {
 	private State state;
 	private int power, sellValue, upgradeIndex;
 	private float cooldown;
-	private float timeSinceUsed;
+	private long lastUsed;
 	private ArrayList<Upgrade> upgrades;
 	
 	public void upgrade() {
@@ -97,13 +99,9 @@ public abstract class AbstractArmoryItem {
 		return upgrades.get(upgradeIndex).getValue();
 	}
 	
-	public void update(float delta) {
-		timeSinceUsed -= delta;
-	}
-	
 	public void act() {
-		if(timeSinceUsed <= 0) {
-			timeSinceUsed = cooldown;
+		if(TimeUtils.timeSinceMillis(lastUsed) > cooldown * 1000) {
+			lastUsed = TimeUtils.millis();
 			performAct();
 		}
 	}

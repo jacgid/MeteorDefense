@@ -60,16 +60,15 @@ public class GameModel implements PropertyChangeListener {
 		for (int i = 0; i < projectiles.size(); i++) {
 			projectiles.get(i).move(delta);
 		}
-		for(AbstractArmoryItem armoryItem : selectedArmoryItems) {
-			armoryItem.update(delta);
-		}
+		
 		collisionControll();
 		removeProjectilesBeyondGameField();
-		if(meteorShower.gameover() || city.getLife() <= 0){
-			gameover();
-		}
+		
 		city.update(delta);
 		
+		if(meteorShower.gameover() || city.getLife() <= 0){
+			gameover();
+		}	
 	}
 	
 	public void shoot(float X, float Y) {
