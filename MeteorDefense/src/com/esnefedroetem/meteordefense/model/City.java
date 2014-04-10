@@ -89,4 +89,7 @@ public class City {
 			totalTimePassed = 0;
 		}
 	}
+	public float getRemainingLife(){
+		return ((float)getLife())/maxLife;
+	}
 }

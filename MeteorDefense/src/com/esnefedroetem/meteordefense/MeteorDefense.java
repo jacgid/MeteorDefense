@@ -99,6 +99,7 @@ public class MeteorDefense extends Game implements PropertyChangeListener {
 		}else if(evt.getPropertyName().equals(CarouselEvent.CAROUSEL_NEWGAME.toString())){
 			newGame((City)evt.getNewValue());
 		}else if(evt.getPropertyName().equals("Gameover")){
+			scoreScreen.setScore((Integer)evt.getNewValue(), (Boolean)evt.getOldValue());
 			setScreen(scoreScreen);
 		}else if(evt.getPropertyName().equals("Scorescreen_finished")){
 			setScreen(carouselScreen);	
