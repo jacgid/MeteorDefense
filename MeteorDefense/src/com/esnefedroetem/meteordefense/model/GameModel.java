@@ -147,7 +147,7 @@ public class GameModel implements PropertyChangeListener {
 		return projectiles;
 	}
 
-	public ArrayList<Meteor> getVisibleMeteors() {
+	public List<Meteor> getVisibleMeteors() {
 		return meteorShower.getVisibleMeteors();
 	}
 

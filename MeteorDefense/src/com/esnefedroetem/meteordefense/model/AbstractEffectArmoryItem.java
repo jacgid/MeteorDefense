@@ -1,6 +1,7 @@
 package com.esnefedroetem.meteordefense.model;
 
 import java.util.ArrayList;
+import java.util.List;
 
 /** 
  * 
@@ -14,6 +15,6 @@ public abstract class AbstractEffectArmoryItem extends AbstractArmoryItem {
 		getPropertyChangeSupport().firePropertyChange("addVisibleMeteors", null, this);
 	}
 	
-	public abstract void execute(ArrayList<Meteor> visibleMeteors);
+	public abstract void execute(List<Meteor> list);
 
 }

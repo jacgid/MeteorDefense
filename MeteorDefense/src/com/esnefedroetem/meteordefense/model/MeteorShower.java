@@ -1,6 +1,7 @@
 package com.esnefedroetem.meteordefense.model;
 
 import java.util.ArrayList;
+import java.util.List;
 
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.utils.TimeUtils;
@@ -14,16 +15,16 @@ import com.esnefedroetem.meteordefense.util.Constants.ProjectileType;
 
 public class MeteorShower {
 	// Meteors flying over the screen
-	private ArrayList<Meteor> visibleMeteors = new ArrayList<Meteor>();
+	private List<Meteor> visibleMeteors = new ArrayList<Meteor>();
 
 	// Meteors not yet deployed.
-	private ArrayList<Meteor> basicMeteors = new ArrayList<Meteor>();
-	private ArrayList<Meteor> fireMeteors = new ArrayList<Meteor>();
-	private ArrayList<Meteor> fastMeteors = new ArrayList<Meteor>();
-	private ArrayList<Meteor> iceMeteors = new ArrayList<Meteor>();
-	private ArrayList<Meteor> radioactiveMeteors = new ArrayList<Meteor>();
+	private List<Meteor> basicMeteors = new ArrayList<Meteor>();
+	private List<Meteor> fireMeteors = new ArrayList<Meteor>();
+	private List<Meteor> fastMeteors = new ArrayList<Meteor>();
+	private List<Meteor> iceMeteors = new ArrayList<Meteor>();
+	private List<Meteor> radioactiveMeteors = new ArrayList<Meteor>();
 
-	private ArrayList<ArrayList> allStoredMeteors = new ArrayList<ArrayList>();
+	private List<List<Meteor>> allStoredMeteors = new ArrayList<List<Meteor>>();
 	private long lastMeteorSpawn;
 	private int meteorSpawnRate = 2000;
 	private int basicMeteor, fireMeteor, fastMeteor, iceMeteor, radioactiveMeteor;
@@ -42,7 +43,7 @@ public class MeteorShower {
 
 	}
 
-	public ArrayList<Meteor> getVisibleMeteors() {
+	public List<Meteor> getVisibleMeteors() {
 		return visibleMeteors;
 	}
 
@@ -52,7 +53,7 @@ public class MeteorShower {
 	}
 
 	private boolean allMeteorsDepolyed() {
-		for (ArrayList<Meteor> list : allStoredMeteors) {
+		for (List<Meteor> list : allStoredMeteors) {
 
 			if (list.size() > 0) {
 				return false;
@@ -87,7 +88,7 @@ public class MeteorShower {
 
 	// TODO: make me do something useful
 	private Meteor getRandomElement() {
-		ArrayList<Meteor> templist = null;
+		List<Meteor> templist = null;
 		if (!allMeteorsDepolyed())
 
 			do {

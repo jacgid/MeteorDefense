@@ -3,6 +3,7 @@ package com.esnefedroetem.meteordefense.model;
 import java.beans.PropertyChangeListener;
 import java.beans.PropertyChangeSupport;
 import java.util.ArrayList;
+import java.util.List;
 
 import com.badlogic.gdx.utils.TimeUtils;
 
@@ -23,7 +24,7 @@ public abstract class AbstractArmoryItem {
 	private int power, sellValue, upgradeIndex;
 	private float cooldown;
 	private long lastUsed;
-	private ArrayList<Upgrade> upgrades;
+	private List<Upgrade> upgrades;
 	
 	public void upgrade() {
 		Upgrade upgrade = upgrades.get(upgradeIndex);
