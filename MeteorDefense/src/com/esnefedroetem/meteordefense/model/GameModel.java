@@ -45,6 +45,7 @@ public class GameModel implements PropertyChangeListener {
 		this.city = city;
 		this.selectedArmoryItems = selectedArmoryItems;
 		selectedArmoryItem = selectedArmoryItems.get(0);
+		selectedArmoryItem.removeChangeListener(this);
 		selectedArmoryItem.addChangeListener(this); // TODO temporary solution,
 													// fix
 	}
