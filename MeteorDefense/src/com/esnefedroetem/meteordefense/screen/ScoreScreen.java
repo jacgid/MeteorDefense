@@ -15,9 +15,9 @@ public class ScoreScreen implements Screen{
 		this.renderer = renderer;
 	}
 	
-	public void setScore(int score){
+	public void setScore(int score, boolean win){
 		
-		renderer.setScore(score);
+		renderer.setScore(score, win);
 		
 	}
 	

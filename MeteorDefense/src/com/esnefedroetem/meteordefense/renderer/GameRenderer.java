@@ -9,6 +9,7 @@ import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.Texture.TextureFilter;
 import com.badlogic.gdx.graphics.g2d.Sprite;
+import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer.ShapeType;
@@ -16,6 +17,10 @@ import com.badlogic.gdx.math.Circle;
 import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.math.Vector3;
+import com.badlogic.gdx.scenes.scene2d.Stage;
+import com.badlogic.gdx.scenes.scene2d.ui.Label;
+import com.badlogic.gdx.scenes.scene2d.ui.Table;
+import com.badlogic.gdx.scenes.scene2d.ui.Label.LabelStyle;
 import com.esnefedroetem.meteordefense.model.GameModel;
 import com.esnefedroetem.meteordefense.model.Meteor;
 import com.esnefedroetem.meteordefense.model.Projectile;
@@ -41,6 +46,10 @@ public class GameRenderer {
 	
 	private PropertyChangeSupport pcs;
 	
+	private Stage stage;
+	private Table table;
+	private Label lifeLabel;
+	
 	private ShapeRenderer debugRenderer = new ShapeRenderer();
 	private boolean done = false;
 	
@@ -64,7 +73,23 @@ public class GameRenderer {
 		spriteBatch = new SpriteBatch();
 		spriteBatch.setProjectionMatrix(cam.combined);
 		pcs = new PropertyChangeSupport(this);
+		stage = new Stage();
 		loadTextures();
+		
+		create();
+	}
+
+	private void create() {
+		table = new Table();
+		table.bottom().padLeft(10).left();
+		table.setFillParent(true);
+		stage.addActor(table);
+		
+		LabelStyle lifeLabelStyle = new LabelStyle();
+		lifeLabelStyle.font = new BitmapFont();
+		lifeLabelStyle.font.scale(1);
+		lifeLabel = new Label("", lifeLabelStyle);
+		table.add(lifeLabel).left();
 	}
 	
 	/**
@@ -103,6 +128,7 @@ public class GameRenderer {
 			done = true;
 		}
 		spriteBatch.begin();
+		stage.draw();
 		//Drawing is done here
 		for(Projectile projectile : model.getVisibleProjectiles()){
 			float x = projectile.getX();
@@ -119,7 +145,11 @@ public class GameRenderer {
 			meteorSprite.draw(spriteBatch);
 		}
 		spriteBatch.end();
+		
 		//drawDebug();
+		
+		lifeLabel.setText(model.getCity().getLife() + "");
+
 	}
 	
 	/**

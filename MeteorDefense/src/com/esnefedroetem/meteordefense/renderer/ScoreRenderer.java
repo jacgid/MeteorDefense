@@ -4,6 +4,7 @@ import java.beans.PropertyChangeListener;
 import java.beans.PropertyChangeSupport;
 
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
@@ -24,6 +25,7 @@ public class ScoreRenderer {
 	private Stage stage;
 	private int score;
 	private Label scoreLabel;
+	private Color color;
 
 	public ScoreRenderer() {
 		pcs = new PropertyChangeSupport(this);
@@ -35,6 +37,8 @@ public class ScoreRenderer {
 	}
 
 	private void create() {
+		color = new Color(255,0,0,0);
+		
 		Table table = new Table();
 		table.setFillParent(true);
 
@@ -76,7 +80,8 @@ public class ScoreRenderer {
 	}
 
 	public void render() {
-		Gdx.gl.glClearColor(255, 0, 0, 0);
+		Gdx.gl.glClearColor(color.r, color.g, color.b, color.a);
+		
 		Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
 
 		spriteBatch.begin();
@@ -85,7 +90,10 @@ public class ScoreRenderer {
 
 	}
 
-	public void setScore(int score) {
+	public void setScore(int score, boolean win) {
+		if(win){
+			color.set(0, 255, 0, 0);
+		}
 		scoreLabel.setText("Score: " + score);
 
 	}

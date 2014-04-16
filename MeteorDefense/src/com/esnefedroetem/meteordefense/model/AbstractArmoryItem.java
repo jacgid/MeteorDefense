@@ -46,6 +46,10 @@ public abstract class AbstractArmoryItem {
 		pcs.addPropertyChangeListener(pcl);
 	}
 	
+	public void removeChangeListener(PropertyChangeListener pcl) {
+		pcs.removePropertyChangeListener(pcl);
+	}
+
 	public PropertyChangeSupport getPropertyChangeSupport() {
 		return pcs;
 	}

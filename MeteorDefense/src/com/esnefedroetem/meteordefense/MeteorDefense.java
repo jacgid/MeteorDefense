@@ -24,6 +24,7 @@ public class MeteorDefense extends Game implements PropertyChangeListener {
 	private GameScreen gameScreen;
 	private CarouselScreen carouselScreen;
 	private ScoreScreen scoreScreen;
+	private boolean inGame= false;
 	
 	
 	@Override
@@ -45,9 +46,14 @@ public class MeteorDefense extends Game implements PropertyChangeListener {
 	@Override
 	public void dispose(){
 		super.dispose();
-		if(Gdx.app.getType() != ApplicationType.Android){
-			save();
+		if(inGame){
+			for ( Continent c : carouselScreen.getContinents()){
+				for(City city : c.getCities()){
+					city.reset();
+				}
+			}
 		}		
+		save();
 	}
 	
 	private void save(){
@@ -85,6 +91,7 @@ public class MeteorDefense extends Game implements PropertyChangeListener {
 	private void newGame(City city){
 		gameScreen.newGame(city, armoryScreen.getSelectedArmoryItems());
 		setScreen(gameScreen);
+		inGame = true;
 	}
 
 	@Override
@@ -99,6 +106,8 @@ public class MeteorDefense extends Game implements PropertyChangeListener {
 		}else if(evt.getPropertyName().equals(CarouselEvent.CAROUSEL_NEWGAME.toString())){
 			newGame((City)evt.getNewValue());
 		}else if(evt.getPropertyName().equals("Gameover")){
+			inGame= false;
+			scoreScreen.setScore((Integer)evt.getNewValue(), (Boolean)evt.getOldValue());
 			setScreen(scoreScreen);
 		}else if(evt.getPropertyName().equals("Scorescreen_finished")){
 			setScreen(carouselScreen);	
