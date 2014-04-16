@@ -5,9 +5,11 @@ import java.util.List;
 
 import com.badlogic.gdx.Application.ApplicationType;
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.Graphics;
 import com.badlogic.gdx.InputProcessor;
 import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.graphics.GL10;
+import com.badlogic.gdx.graphics.GL11;
 import com.badlogic.gdx.math.Vector2;
 import com.esnefedroetem.meteordefense.model.AbstractArmoryItem;
 import com.esnefedroetem.meteordefense.model.City;
@@ -35,8 +37,8 @@ public class GameScreen implements Screen, InputProcessor{
 	 */
 	@Override
 	public void render(float delta) {
-		Gdx.gl.glClearColor(0.1f, 0.1f, 0.1f, 1);
-		Gdx.gl.glClear(GL10.GL_COLOR_BUFFER_BIT);
+		Gdx.gl.glClearColor(94f, 97f, 225f, 1);
+		Gdx.gl.glClear(GL11.GL_COLOR_BUFFER_BIT|GL11.GL_STENCIL_BUFFER_BIT);
 		model.update(delta);
 		renderer.render();
 	}
@@ -90,6 +92,7 @@ public class GameScreen implements Screen, InputProcessor{
 	 */
 	@Override
 	public void dispose() {
+		renderer.unloadTextures();
 		Gdx.input.setInputProcessor(null);
 	}
 	
