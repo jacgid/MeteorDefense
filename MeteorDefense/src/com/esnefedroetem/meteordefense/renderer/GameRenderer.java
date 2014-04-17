@@ -8,8 +8,8 @@ import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.Texture.TextureFilter;
-import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
+import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer.ShapeType;
@@ -19,8 +19,8 @@ import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.math.Vector3;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.scenes.scene2d.ui.Label;
-import com.badlogic.gdx.scenes.scene2d.ui.Table;
 import com.badlogic.gdx.scenes.scene2d.ui.Label.LabelStyle;
+import com.badlogic.gdx.scenes.scene2d.ui.Table;
 import com.esnefedroetem.meteordefense.model.GameModel;
 import com.esnefedroetem.meteordefense.model.Meteor;
 import com.esnefedroetem.meteordefense.model.Projectile;
@@ -36,7 +36,7 @@ public class GameRenderer {
 	private float cameraWidth = Constants.LOGIC_SCREEN_WIDTH;
 	private float cameraHeight = Constants.LOGIC_SCREEN_HEIGHT;
 	
-	private OrthographicCamera cam;
+	private OrthographicCamera gameCam, bgCam;
 	private SpriteBatch spriteBatch;
 	
 	private int width, height;
@@ -67,11 +67,10 @@ public class GameRenderer {
 		this.model = model;
 		cameraWidth = GameModel.WIDTH;
 		cameraHeight = GameModel.HEIGHT;
-		cam = new OrthographicCamera(cameraWidth, cameraHeight);
-		cam.position.set(cameraWidth/2, cameraHeight/2, 0);
-		cam.update();
+		gameCam = new OrthographicCamera(cameraWidth, cameraHeight);
+		gameCam.position.set(cameraWidth/2, cameraHeight/2, 0);
+		gameCam.update();
 		spriteBatch = new SpriteBatch();
-		spriteBatch.setProjectionMatrix(cam.combined);
 		pcs = new PropertyChangeSupport(this);
 		stage = new Stage();
 		loadTextures();
@@ -110,16 +109,33 @@ public class GameRenderer {
 		projectileTexture.setFilter(TextureFilter.Linear, TextureFilter.Linear);
 		projectileSprite = new Sprite(projectileTexture, 8, 16);
 		meteorSprite = new Sprite(meteorTexture, 32, 32);
-		meteorSprite.scale(width/(meteorSprite.getWidth()*Constants.LOGIC_SCREEN_WIDTH/Constants.BASE_METEOR_SIZE));
-		projectileSprite.scale(width/(projectileSprite.getWidth()*Constants.LOGIC_SCREEN_WIDTH/Constants.DEFAULT_PROJECTILE_SIZE));
+//		meteorSprite.scale(width/(meteorSprite.getWidth()*Constants.LOGIC_SCREEN_WIDTH/Constants.BASE_METEOR_SIZE));
+		meteorSprite.setSize(Constants.BASE_METEOR_SIZE, Constants.BASE_METEOR_SIZE);
+		projectileSprite.setSize(Constants.DEFAULT_PROJECTILE_SIZE, Constants.DEFAULT_PROJECTILE_SIZE);
 	}
 
 	/**
 	 * Renders the view. Draws all the textures to the screen.
 	 */
 	public void render(){
-		cam.update();
-		cam.apply(Gdx.gl10);
+		
+		bgCam.update();
+		bgCam.apply(Gdx.gl10);
+		Gdx.gl.glViewport(0, 0, width, height);
+		
+		spriteBatch.setProjectionMatrix(bgCam.combined);
+		spriteBatch.begin();
+		debugRenderer.setProjectionMatrix(bgCam.combined);
+		debugRenderer.begin(ShapeType.Filled);
+		debugRenderer.setColor(Color.LIGHT_GRAY);
+		debugRenderer.rect(0, 0, width, height);
+		debugRenderer.end();
+		spriteBatch.end();
+		
+		spriteBatch.setProjectionMatrix(gameCam.combined);
+		
+		gameCam.update();
+		gameCam.apply(Gdx.gl10);
 		Gdx.gl.glViewport((int) viewport.x, (int) viewport.y,
                 (int) viewport.width, (int) viewport.height);
 		
@@ -128,25 +144,30 @@ public class GameRenderer {
 			done = true;
 		}
 		spriteBatch.begin();
-		stage.draw();
 		//Drawing is done here
+		
+		debugRenderer.setProjectionMatrix(gameCam.combined);
+		debugRenderer.begin(ShapeType.Filled);
+		debugRenderer.setColor(Color.PINK);
+		debugRenderer.rect(0, 0, gameCam.viewportWidth, gameCam.viewportHeight);
+		debugRenderer.end();
+		
 		for(Projectile projectile : model.getVisibleProjectiles()){
 			float x = projectile.getX();
 			float y = projectile.getY();
-			//TODO: Set rotation
 			projectileSprite.setPosition(x, y);
-			projectileSprite.setRotation((float) (model.getCannonAngle()*(180/Math.PI))-90);
+			projectileSprite.setRotation((float) (projectile.getAngle()*(180/Math.PI))-90);
 			projectileSprite.draw(spriteBatch);
 		}
 		for(Meteor meteor : model.getVisibleMeteors()){
-			float x = meteor.getX();
-			float y = meteor.getY();
+			float x = meteor.getX()- (meteor.getBounds().radius/2);
+			float y = meteor.getY()- (meteor.getBounds().radius/2);
 			meteorSprite.setPosition(x, y);
 			meteorSprite.draw(spriteBatch);
 		}
 		spriteBatch.end();
-		
-		//drawDebug();
+		stage.draw();
+//		drawDebug();
 		
 		lifeLabel.setText(model.getCity().getLife() + "");
 
@@ -160,6 +181,11 @@ public class GameRenderer {
 	public void setSize(int width, int height){
 		this.width = width;
 		this.height = height;
+		
+		bgCam = new OrthographicCamera(width, height);
+		bgCam.position.set(width/2, height/2, 0);
+		bgCam.update();
+		
 		ppuX = (float) width / Constants.LOGIC_SCREEN_WIDTH;
 		ppuY = (float) height / Constants.LOGIC_SCREEN_HEIGHT;
 		
@@ -192,7 +218,7 @@ public class GameRenderer {
 	}
 	
 	private void drawDebug(){
-		debugRenderer.setProjectionMatrix(cam.combined);
+		debugRenderer.setProjectionMatrix(gameCam.combined);
 		debugRenderer.begin(ShapeType.Filled);
 		float x, y;
 		
@@ -247,7 +273,7 @@ public class GameRenderer {
 	
 	public Vector2 unproject(int x, int y){
 		Vector3 temp = new Vector3(x,y,0);
-		cam.unproject(temp);
+		gameCam.unproject(temp);
 		return new Vector2(temp.x, temp.y);
 	}
 	
