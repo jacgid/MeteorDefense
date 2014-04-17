@@ -67,5 +67,9 @@ public abstract class MoveableGameObject {
 	public float getSize() {
 		return size;
 	}
+	
+	public float getAngle(){
+		return angle;
+	}
 
 }

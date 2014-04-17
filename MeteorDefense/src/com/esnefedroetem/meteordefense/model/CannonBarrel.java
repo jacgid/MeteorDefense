@@ -16,15 +16,26 @@ public class CannonBarrel {
 	public void calculateAngle(float X, float Y) {
 		float a = Y - cannonY;
 		float b = Math.abs(cannonX - X);
+		float barrelAngle;
 		if (X < cannonX) {
+			barrelAngle = (float) (Math.PI - (Math.atan(a / b)));
+			startPosition = new Vector2(Constants.LOGIC_SCREEN_WIDTH / 2, 0);
+			startPosition.x = (float) (startPosition.x + (Constants.CANNONBARREL_LENGTH * Math.cos(barrelAngle)));
+			startPosition.y = (float) (startPosition.y + (Constants.CANNONBARREL_LENGTH * Math.sin(barrelAngle)));
+			a = Y - startPosition.y;
+			b = Math.abs(startPosition.x- X);
 			angle = (float) (Math.PI - (Math.atan(a / b)));
 		} else {
+			barrelAngle = (float) Math.atan(a / b);
+			startPosition = new Vector2(Constants.LOGIC_SCREEN_WIDTH / 2, 0);
+			startPosition.x = (float) (startPosition.x + (Constants.CANNONBARREL_LENGTH * Math.cos(barrelAngle)));
+			startPosition.y = (float) (startPosition.y + (Constants.CANNONBARREL_LENGTH * Math.sin(barrelAngle)));
 			angle = (float) Math.atan(a / b);
 		}
 		// Calculate the spawn point for the projectile.
-		startPosition = new Vector2(Constants.LOGIC_SCREEN_WIDTH / 2, 0);
-		startPosition.x = (float) (startPosition.x + (Constants.CANNONBARREL_LENGTH * Math.cos(angle)));
-		startPosition.y = (float) (startPosition.y + (Constants.CANNONBARREL_LENGTH * Math.sin(angle)));
+//		startPosition = new Vector2(Constants.LOGIC_SCREEN_WIDTH / 2, 0);
+//		startPosition.x = (float) (startPosition.x + (Constants.CANNONBARREL_LENGTH * Math.cos(angle)));
+//		startPosition.y = (float) (startPosition.y + (Constants.CANNONBARREL_LENGTH * Math.sin(angle)));
 	}
 
 	public Projectile shoot() {
