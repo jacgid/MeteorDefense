@@ -37,9 +37,7 @@ public class GameFactory {
 	}
 	
 	public static ArmoryScreen createArmoryScreen(){
-		List<AbstractArmoryItem> items =  WeaponFactory.getWeapons();
-		List<AbstractArmoryItem> choosenItems =WeaponFactory.getChoosenWeapons();
-		return new ArmoryScreen(new ArmoryRenderer(items, choosenItems), items, choosenItems);
+		return new ArmoryScreen(new ArmoryRenderer(WeaponFactory.getWeapons(), WeaponFactory.getChoosenWeapons()));
 	}
 	
 	public static ArmoryDetailedScreen cretateArmoryDetailedScreen(){

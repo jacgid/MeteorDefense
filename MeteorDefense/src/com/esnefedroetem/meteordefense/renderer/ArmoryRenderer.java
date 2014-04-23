@@ -249,10 +249,24 @@ public class ArmoryRenderer {
 		}
 	}
 	
+	public List<AbstractArmoryItem> getSelectedArmoryItems(){
+		List<AbstractArmoryItem> choosenItems = new ArrayList<AbstractArmoryItem>(5);
+		for(Actor actor : bottomTable.getChildren()){
+			choosenItems.add((AbstractArmoryItem)actor.getUserObject());
+		}
+		return choosenItems;
+	}
+	
+	public List<AbstractArmoryItem> getUnselectedArmoryItems(){
+		List<AbstractArmoryItem> items = new ArrayList<AbstractArmoryItem>();
+		for(Actor actor : topTable.getChildren()){
+			items.add((AbstractArmoryItem)actor.getUserObject());
+		}
+		return items;
+	}
 	
 	public void init(){
 		Gdx.input.setInputProcessor(stage);
-		AssetsLoader.loadTexture("weaponslot.png");
 	}
 	
 	public void render(){

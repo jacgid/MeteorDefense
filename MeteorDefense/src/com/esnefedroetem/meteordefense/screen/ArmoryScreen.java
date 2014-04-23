@@ -16,17 +16,14 @@ import com.esnefedroetem.meteordefense.renderer.ArmoryRenderer;
 
 public class ArmoryScreen implements Screen{
 	
-	private List<AbstractArmoryItem> armoryItems, selectedArmoryItems;
 	private ArmoryRenderer renderer;
 	
-	public ArmoryScreen(ArmoryRenderer renderer, List<AbstractArmoryItem> armoryItems, List<AbstractArmoryItem> selectedArmoryItems){
+	public ArmoryScreen(ArmoryRenderer renderer){
 		this.renderer = renderer;
-		this.armoryItems = armoryItems;
-		this.selectedArmoryItems = selectedArmoryItems;
 	}
 	
 	public List<AbstractArmoryItem> getSelectedArmoryItems() {
-		return selectedArmoryItems;
+		return renderer.getSelectedArmoryItems();
 	}
 	
 	public void addChangeListener(PropertyChangeListener listener){

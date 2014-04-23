@@ -44,7 +44,7 @@ public class GameModel implements PropertyChangeListener {
 		meteorShower.start();
 		this.city = city;
 		this.selectedArmoryItems = selectedArmoryItems;
-		selectedArmoryItem = selectedArmoryItems.get(0);
+		selectedArmoryItem = selectedArmoryItems.get(2);
 		selectedArmoryItem.removeChangeListener(this);
 		selectedArmoryItem.addChangeListener(this); // TODO temporary solution,
 													// fix
