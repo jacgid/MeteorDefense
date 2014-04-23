@@ -114,5 +114,7 @@ public abstract class AbstractArmoryItem {
 	public abstract void performAct();
 	
 	public abstract void initUpgrades();
+
+	public abstract void update(float delta);
 		
 }
