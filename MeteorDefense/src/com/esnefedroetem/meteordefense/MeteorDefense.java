@@ -9,6 +9,7 @@ import com.badlogic.gdx.Game;
 import com.badlogic.gdx.Gdx;
 import com.esnefedroetem.meteordefense.model.City;
 import com.esnefedroetem.meteordefense.model.Continent;
+import com.esnefedroetem.meteordefense.renderer.ArmoryRenderer.ArmoryEvent;
 import com.esnefedroetem.meteordefense.renderer.CarouselRenderer.CarouselEvent;
 import com.esnefedroetem.meteordefense.renderer.MainMenuRenderer.MainMenuEvent;
 import com.esnefedroetem.meteordefense.screen.*;
@@ -72,7 +73,7 @@ public class MeteorDefense extends Game implements PropertyChangeListener {
 		mainMenuScreen = GameFactory.createMainMenuScreen();
 		mainMenuScreen.addChangeListener(this);
 		armoryScreen = GameFactory.createArmoryScreen();
-		//armoryScreen.addChangeListener(this);
+		armoryScreen.addChangeListener(this);
 		armoryDetaliedScreen = GameFactory.cretateArmoryDetailedScreen();
 		//armoryDetaliedScreen.addChangeListener(this);
 		carouselScreen = GameFactory.createCarouselScreen();
@@ -111,6 +112,10 @@ public class MeteorDefense extends Game implements PropertyChangeListener {
 			setScreen(scoreScreen);
 		}else if(evt.getPropertyName().equals("Scorescreen_finished")){
 			setScreen(carouselScreen);	
+		}else if(evt.getPropertyName().equals(ArmoryEvent.ARMORY_BACK_PRESSED.toString())){
+			setScreen(carouselScreen);			
+		}else if(evt.getPropertyName().equals(CarouselEvent.CAROUSEL_ARMORY_CLICKED.toString())){
+			setScreen(armoryScreen);
 		}
 		
 	}

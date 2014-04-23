@@ -1,5 +1,6 @@
 package com.esnefedroetem.meteordefense.screen;
 
+import java.beans.PropertyChangeListener;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -27,10 +28,14 @@ public class ArmoryScreen implements Screen{
 	public List<AbstractArmoryItem> getSelectedArmoryItems() {
 		return selectedArmoryItems;
 	}
+	
+	public void addChangeListener(PropertyChangeListener listener){
+		renderer.addChangeListener(listener);
+	}
+	
 	@Override
 	public void render(float delta) {
-		// TODO Auto-generated method stub
-		
+		renderer.render();
 	}
 
 	@Override
@@ -41,7 +46,7 @@ public class ArmoryScreen implements Screen{
 
 	@Override
 	public void show() {
-		// TODO Auto-generated method stub
+		renderer.init();
 		
 	}
 
@@ -65,8 +70,7 @@ public class ArmoryScreen implements Screen{
 
 	@Override
 	public void dispose() {
-		// TODO Auto-generated method stub
-		
+		renderer.dispose();
 	}
 
 }

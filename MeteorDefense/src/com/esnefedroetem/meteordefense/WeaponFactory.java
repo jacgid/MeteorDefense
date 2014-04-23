@@ -8,16 +8,25 @@ import com.esnefedroetem.meteordefense.model.AbstractArmoryItem.State;
 import com.esnefedroetem.meteordefense.model.StandardArmoryItem;
 
 public class WeaponFactory {
-	
-	public static List<AbstractArmoryItem> getChoosenWeapons(){
-		 ArrayList<AbstractArmoryItem> selectedArmoryItems = new  ArrayList<AbstractArmoryItem>();
-		 selectedArmoryItems.add(new StandardArmoryItem(State.UNLOCKED, 1));
-		return selectedArmoryItems;
-	}
-	
-	public static List<AbstractArmoryItem> getWeapons(){
-		return null;
+
+	public static List<AbstractArmoryItem> getChoosenWeapons() {
+		ArrayList<AbstractArmoryItem> armoryItems = new ArrayList<AbstractArmoryItem>(5);
+		armoryItems.add(null);
+		armoryItems.add(null);
+		armoryItems.add(new StandardArmoryItem(State.UNLOCKED, 1));
+		armoryItems.add(null);
+		armoryItems.add(null);
+		return armoryItems;
 	}
 
-	
+	public static List<AbstractArmoryItem> getWeapons() {
+		ArrayList<AbstractArmoryItem> selectedArmoryItems = new ArrayList<AbstractArmoryItem>(5);
+		selectedArmoryItems.add(new StandardArmoryItem(State.UNLOCKED, 1));
+		selectedArmoryItems.add(new StandardArmoryItem(State.UNLOCKED, 1));
+		selectedArmoryItems.add(new StandardArmoryItem(State.UNLOCKED, 1));
+		selectedArmoryItems.add(new StandardArmoryItem(State.UNLOCKED, 1));
+		selectedArmoryItems.add(new StandardArmoryItem(State.UNLOCKED, 1));
+		return selectedArmoryItems;
+	}
+
 }

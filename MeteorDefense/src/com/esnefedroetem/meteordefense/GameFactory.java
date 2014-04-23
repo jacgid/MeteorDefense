@@ -1,5 +1,8 @@
 package com.esnefedroetem.meteordefense;
 
+import java.util.List;
+
+import com.esnefedroetem.meteordefense.model.AbstractArmoryItem;
 import com.esnefedroetem.meteordefense.model.CannonBarrel;
 import com.esnefedroetem.meteordefense.model.GameModel;
 import com.esnefedroetem.meteordefense.renderer.ArmoryDetailedRenderer;
@@ -34,7 +37,9 @@ public class GameFactory {
 	}
 	
 	public static ArmoryScreen createArmoryScreen(){
-		return new ArmoryScreen(new ArmoryRenderer(), WeaponFactory.getWeapons(), WeaponFactory.getChoosenWeapons());
+		List<AbstractArmoryItem> items =  WeaponFactory.getWeapons();
+		List<AbstractArmoryItem> choosenItems =WeaponFactory.getChoosenWeapons();
+		return new ArmoryScreen(new ArmoryRenderer(items, choosenItems), items, choosenItems);
 	}
 	
 	public static ArmoryDetailedScreen cretateArmoryDetailedScreen(){

@@ -18,6 +18,7 @@ import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
 import com.badlogic.gdx.scenes.scene2d.ui.TextButton.TextButtonStyle;
 import com.badlogic.gdx.scenes.scene2d.utils.ChangeListener;
 import com.badlogic.gdx.scenes.scene2d.utils.ChangeListener.ChangeEvent;
+import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 
 public class MainMenuRenderer {
 	
@@ -61,28 +62,20 @@ public class MainMenuRenderer {
 		
 		soundButton.setChecked(!sound);
 		soundButton.setText(!soundButton.isChecked() + "");
-		
-		soundButton.addListener(new InputListener() {
-			public boolean touchDown (InputEvent event, float x, float y, int pointer, int button) {
-				return true;
-		 	}
-		 
-		 	public void touchUp (InputEvent event, float x, float y, int pointer, int button) {
+				
+		soundButton.addListener(new ClickListener(){
+			@Override
+			public void clicked(InputEvent event, float x, float y) {
 		 		pcs.firePropertyChange(MainMenuEvent.MAINMENU_SOUND_CLICKED.toString(), false, true);
-				soundButton.setText(!soundButton.isChecked() + "");
-		 	}
-
+				soundButton.setText(!soundButton.isChecked() + "");				
+			}
 		});
 		
-		playButton.addListener(new InputListener() {
-			public boolean touchDown (InputEvent event, float x, float y, int pointer, int button) {
-				return true;
-		 	}
-		 
-		 	public void touchUp (InputEvent event, float x, float y, int pointer, int button) {
-		 		pcs.firePropertyChange(MainMenuEvent.MAINMENU_PLAY_CLICKED.toString(), false, true);
-		 	}
-
+		playButton.addListener(new ClickListener(){
+			@Override
+			public void clicked(InputEvent event, float x, float y) {
+		 		pcs.firePropertyChange(MainMenuEvent.MAINMENU_PLAY_CLICKED.toString(), false, true);				
+			}
 		});
 		
 	}
