@@ -72,4 +72,11 @@ public abstract class MoveableGameObject {
 		return angle;
 	}
 
+	public void setAngle(float angle) {
+		this.angle = angle;
+	}
+	
+	public float getSpeed() {
+		return speed;
+	}
 }
