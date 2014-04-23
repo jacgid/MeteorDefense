@@ -31,6 +31,12 @@ public class StandardArmoryItem extends AbstractProjectileArmoryItem {
 		setUpgradeList(upgrades);
 		
 	}
+
+	@Override
+	public void update(float delta) {
+		// TODO Auto-generated method stub
+		
+	}
 	
 
 }
