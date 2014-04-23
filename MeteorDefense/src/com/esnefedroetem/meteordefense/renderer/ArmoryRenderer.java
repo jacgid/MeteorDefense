@@ -39,16 +39,17 @@ public class ArmoryRenderer {
 	private PropertyChangeSupport pcs;
 	private DragAndDrop dragAndDrop;
 	private Table topTable, bottomTable;
-	private int topTableCount, bottomTableCount;
+	private int topTableCount;
 	
 	private ClickListener clickListener = new ClickListener(){
 		public void clicked(InputEvent event, float x, float y) {
-			System.out.println("click");
+			pcs.firePropertyChange(ArmoryEvent.ARMORY_ITEM_PRESSED.toString(), null, event.getListenerActor().getUserObject());
 		};
 	};
 	
 	public enum ArmoryEvent{
-		ARMORY_BACK_PRESSED
+		ARMORY_BACK_PRESSED,
+		ARMORY_ITEM_PRESSED
 	}
 	
 	public ArmoryRenderer(List<AbstractArmoryItem> items, List<AbstractArmoryItem> choosenItems){
@@ -76,7 +77,6 @@ public class ArmoryRenderer {
 		createItemGrid(topTable, dragAndDrop, items);
 		
 		topTableCount = topTable.getChildren().size;
-		bottomTableCount = bottomTable.getChildren().size;
 		
 		topTable.top();
 		bottomTable.bottom();
@@ -119,9 +119,11 @@ public class ArmoryRenderer {
 			actor.setUserObject(items.get(i));
 			actor.setName(i + "");
 			table.add(actor).pad(10);
-
-			dragAndDrop.addTarget(getTarget(actor));
-			dragAndDrop.addSource(getSource(actor));
+			
+			if(i != 2){
+				dragAndDrop.addTarget(getTarget(actor));
+				dragAndDrop.addSource(getSource(actor));
+			}
 		}
 		
 	}

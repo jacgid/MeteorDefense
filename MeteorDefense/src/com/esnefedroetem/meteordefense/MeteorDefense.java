@@ -9,6 +9,7 @@ import com.badlogic.gdx.Game;
 import com.badlogic.gdx.Gdx;
 import com.esnefedroetem.meteordefense.model.City;
 import com.esnefedroetem.meteordefense.model.Continent;
+import com.esnefedroetem.meteordefense.renderer.ArmoryDetailedRenderer.ArmoryDetaliedEvent;
 import com.esnefedroetem.meteordefense.renderer.ArmoryRenderer.ArmoryEvent;
 import com.esnefedroetem.meteordefense.renderer.CarouselRenderer.CarouselEvent;
 import com.esnefedroetem.meteordefense.renderer.MainMenuRenderer.MainMenuEvent;
@@ -75,7 +76,7 @@ public class MeteorDefense extends Game implements PropertyChangeListener {
 		armoryScreen = GameFactory.createArmoryScreen();
 		armoryScreen.addChangeListener(this);
 		armoryDetaliedScreen = GameFactory.cretateArmoryDetailedScreen();
-		//armoryDetaliedScreen.addChangeListener(this);
+		armoryDetaliedScreen.addChangeListener(this);
 		carouselScreen = GameFactory.createCarouselScreen();
 		carouselScreen.addChangeListener(this);
 		scoreScreen = GameFactory.createScoreScreen();
@@ -115,6 +116,10 @@ public class MeteorDefense extends Game implements PropertyChangeListener {
 		}else if(evt.getPropertyName().equals(ArmoryEvent.ARMORY_BACK_PRESSED.toString())){
 			setScreen(carouselScreen);			
 		}else if(evt.getPropertyName().equals(CarouselEvent.CAROUSEL_ARMORY_CLICKED.toString())){
+			setScreen(armoryScreen);
+		}else if(evt.getPropertyName().equals(ArmoryEvent.ARMORY_ITEM_PRESSED.toString())){
+			setScreen(armoryDetaliedScreen);
+		}else if(evt.getPropertyName().equals(ArmoryDetaliedEvent.ARMORY_DETAILED_BACK_PRESSED.toString())){
 			setScreen(armoryScreen);
 		}
 		

@@ -26,6 +26,10 @@ public class ArmoryScreen implements Screen{
 		return renderer.getSelectedArmoryItems();
 	}
 	
+	public List<AbstractArmoryItem> getUnselectedArmoryItems() {
+		return renderer.getUnselectedArmoryItems();
+	}
+
 	public void addChangeListener(PropertyChangeListener listener){
 		renderer.addChangeListener(listener);
 	}
