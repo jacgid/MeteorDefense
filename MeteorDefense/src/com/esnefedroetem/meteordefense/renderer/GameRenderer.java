@@ -51,11 +51,11 @@ public class GameRenderer {
 	private Label lifeLabel;
 	
 	private ShapeRenderer debugRenderer = new ShapeRenderer();
-	private boolean done = false;
+	private boolean spritesLoaded = false;
 	
-	private String[] textures = {"meteor1.png", "projectile1.png"};
-	private Texture meteorTexture, gunbarrel, projectileTexture;
-	private Sprite projectileSprite, meteorSprite;
+	private String[] textures = {"meteor1.png", "projectile1.png", "cannonbarrel.png", "city1.png", "toolbar1.png"};
+	private Texture meteorTexture, gunbarrel, projectileTexture, cannonTexture, cityTexture, toolbarTexture;
+	private Sprite projectileSprite, meteorSprite, cannonSprite, citySprite, toolbarSprite;
 	private Rectangle viewport;
 	private float scale;
 	
@@ -102,16 +102,28 @@ public class GameRenderer {
 		AssetsLoader.unloadTextures(textures);
 	}
 	
-	private void getTextures(){
+	private void loadSprites(){
 		meteorTexture = AssetsLoader.getTexture(textures[0]);
 		projectileTexture = AssetsLoader.getTexture(textures[1]);
+		cannonTexture = AssetsLoader.getTexture(textures[2]);
+		cityTexture = AssetsLoader.getTexture(textures[3]);
+		toolbarTexture = AssetsLoader.getTexture(textures[4]);
 		meteorTexture.setFilter(TextureFilter.Linear, TextureFilter.Linear);
 		projectileTexture.setFilter(TextureFilter.Linear, TextureFilter.Linear);
-		projectileSprite = new Sprite(projectileTexture, 8, 16);
-		meteorSprite = new Sprite(meteorTexture, 32, 32);
+		cannonTexture.setFilter(TextureFilter.Linear, TextureFilter.Linear);
+		cityTexture.setFilter(TextureFilter.Linear, TextureFilter.Linear);
+		toolbarTexture.setFilter(TextureFilter.Linear, TextureFilter.Linear);
+		projectileSprite = new Sprite(projectileTexture);
+		meteorSprite = new Sprite(meteorTexture);
+		cannonSprite = new Sprite(cannonTexture);
+		citySprite = new Sprite(cityTexture);
+		toolbarSprite = new Sprite(toolbarTexture);
 //		meteorSprite.scale(width/(meteorSprite.getWidth()*Constants.LOGIC_SCREEN_WIDTH/Constants.BASE_METEOR_SIZE));
 		meteorSprite.setSize(Constants.BASE_METEOR_SIZE, Constants.BASE_METEOR_SIZE);
 		projectileSprite.setSize(Constants.DEFAULT_PROJECTILE_SIZE, Constants.DEFAULT_PROJECTILE_SIZE);
+		cannonSprite.setSize(Constants.CANNONBARREL_LENGTH/2, Constants.CANNONBARREL_LENGTH);
+		citySprite.setSize(Constants.CITY_BOUNDS.width, Constants.CITY_BOUNDS.height);
+		toolbarSprite.setSize(Constants.CITY_BOUNDS.width, Constants.CITY_BOUNDS.height);
 	}
 
 	/**
@@ -139,9 +151,9 @@ public class GameRenderer {
 		Gdx.gl.glViewport((int) viewport.x, (int) viewport.y,
                 (int) viewport.width, (int) viewport.height);
 		
-		if(AssetsLoader.update() && done==false){
-			getTextures();
-			done = true;
+		if(AssetsLoader.update() && spritesLoaded==false){
+			loadSprites();
+			spritesLoaded = true;
 		}
 		spriteBatch.begin();
 		//Drawing is done here
@@ -152,6 +164,33 @@ public class GameRenderer {
 		debugRenderer.rect(0, 0, gameCam.viewportWidth, gameCam.viewportHeight);
 		debugRenderer.end();
 		
+		if(spritesLoaded){
+			drawSprites();
+		}
+		
+		spriteBatch.end();
+		stage.draw();
+//		drawDebug();
+		
+		lifeLabel.setText(model.getCity().getLife() + "");
+
+	}
+	
+	private void drawSprites(){
+		for(Meteor meteor : model.getVisibleMeteors()){
+			float x = meteor.getX()- (meteor.getBounds().radius/2);
+			float y = meteor.getY()- (meteor.getBounds().radius/2);
+			meteorSprite.setPosition(x, y);
+			meteorSprite.draw(spriteBatch);
+		}
+		citySprite.setPosition(Constants.CITY_BOUNDS.x, Constants.CITY_BOUNDS.y);
+		citySprite.draw(spriteBatch);
+		toolbarSprite.setPosition(Constants.CITY_BOUNDS.x, Constants.CITY_BOUNDS.y-(Constants.CITY_BOUNDS.height/((float)7/6)));
+		toolbarSprite.draw(spriteBatch);
+		cannonSprite.setPosition(Constants.LOGIC_SCREEN_WIDTH/2-(Constants.CANNONBARREL_LENGTH/4), Constants.LOGIC_SCREEN_HEIGHT/20);
+		cannonSprite.setOrigin(cannonSprite.getWidth()/2, cannonSprite.getHeight()/3);
+		cannonSprite.setRotation((float) Math.toDegrees(model.getCannonAngle())-90);
+		cannonSprite.draw(spriteBatch);
 		for(Projectile projectile : model.getVisibleProjectiles()){
 			float x = projectile.getX();
 			float y = projectile.getY();
@@ -159,18 +198,6 @@ public class GameRenderer {
 			projectileSprite.setRotation((float) (projectile.getAngle()*(180/Math.PI))-90);
 			projectileSprite.draw(spriteBatch);
 		}
-		for(Meteor meteor : model.getVisibleMeteors()){
-			float x = meteor.getX()- (meteor.getBounds().radius/2);
-			float y = meteor.getY()- (meteor.getBounds().radius/2);
-			meteorSprite.setPosition(x, y);
-			meteorSprite.draw(spriteBatch);
-		}
-		spriteBatch.end();
-		stage.draw();
-//		drawDebug();
-		
-		lifeLabel.setText(model.getCity().getLife() + "");
-
 	}
 	
 	/**

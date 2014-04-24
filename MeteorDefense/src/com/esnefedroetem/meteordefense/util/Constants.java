@@ -15,7 +15,7 @@ public class Constants {
 	public static final int BASE_METEOR_DAMAGE = 1;
 	public static final int BASE_METEOR_LIFE = 1;
 	
-	public static final float CANNONBARREL_LENGTH = LOGIC_SCREEN_HEIGHT/15f;
+	public static final float CANNONBARREL_LENGTH = LOGIC_SCREEN_HEIGHT/8f;
 	
 	public static final float DEFAULT_PROJECTILE_SPEED = LOGIC_SCREEN_HEIGHT*1.5f;
 	public static final float DEFAULT_PROJECTILE_SIZE = LOGIC_SCREEN_WIDTH/50f;
@@ -23,7 +23,7 @@ public class Constants {
 	public static final int DEFAULT_PROJECTILE_DAMAGE = 1;
 	
 	
-	public static final Rectangle CITY_BOUNDS = new Rectangle(0, 0, LOGIC_SCREEN_WIDTH, LOGIC_SCREEN_HEIGHT/6);
+	public static final Rectangle CITY_BOUNDS = new Rectangle(0, LOGIC_SCREEN_HEIGHT/8, LOGIC_SCREEN_WIDTH, LOGIC_SCREEN_WIDTH/4);
 	
 	public static final String walletPath = "wallet.txt";
 	public static final String soundStatePath = "sound.txt";
