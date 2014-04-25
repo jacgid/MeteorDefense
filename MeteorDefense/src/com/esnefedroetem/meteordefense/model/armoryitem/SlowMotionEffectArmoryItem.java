@@ -1,6 +1,8 @@
-package com.esnefedroetem.meteordefense.model;
+package com.esnefedroetem.meteordefense.model.armoryitem;
 
 import java.util.List;
+
+import com.esnefedroetem.meteordefense.model.Meteor;
 
 public class SlowMotionEffectArmoryItem extends AbstractEffectArmoryItem {
 

@@ -1,9 +1,11 @@
 /**
  * 
  */
-package com.esnefedroetem.meteordefense.model;
+package com.esnefedroetem.meteordefense.model.armoryitem;
 
 import java.util.ArrayList;
+
+import com.esnefedroetem.meteordefense.model.Upgrade;
 
 /**
  * @author Emma Lindholm

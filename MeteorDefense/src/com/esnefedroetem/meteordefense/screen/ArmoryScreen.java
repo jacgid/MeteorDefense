@@ -5,7 +5,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import com.badlogic.gdx.Screen;
-import com.esnefedroetem.meteordefense.model.AbstractArmoryItem;
+import com.esnefedroetem.meteordefense.model.armoryitem.AbstractArmoryItem;
 import com.esnefedroetem.meteordefense.renderer.ArmoryRenderer;
 
 /** 

@@ -6,6 +6,10 @@ import java.beans.PropertyChangeSupport;
 import java.util.ArrayList;
 import java.util.List;
 
+import com.esnefedroetem.meteordefense.model.armoryitem.AbstractArmoryItem;
+import com.esnefedroetem.meteordefense.model.armoryitem.AbstractDefenseArmoryItem;
+import com.esnefedroetem.meteordefense.model.armoryitem.AbstractEffectArmoryItem;
+import com.esnefedroetem.meteordefense.model.armoryitem.AbstractProjectileArmoryItem;
 import com.esnefedroetem.meteordefense.util.Constants;
 
 /**

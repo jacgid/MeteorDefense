@@ -29,7 +29,7 @@ import com.badlogic.gdx.scenes.scene2d.utils.Drawable;
 import com.badlogic.gdx.scenes.scene2d.utils.TextureRegionDrawable;
 import com.badlogic.gdx.scenes.scene2d.utils.DragAndDrop.*;
 import com.badlogic.gdx.utils.SnapshotArray;
-import com.esnefedroetem.meteordefense.model.AbstractArmoryItem;
+import com.esnefedroetem.meteordefense.model.armoryitem.AbstractArmoryItem;
 import com.esnefedroetem.meteordefense.util.AssetsLoader;
 
 public class ArmoryRenderer {

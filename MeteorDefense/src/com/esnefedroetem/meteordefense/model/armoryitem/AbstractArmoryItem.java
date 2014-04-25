@@ -1,4 +1,4 @@
-package com.esnefedroetem.meteordefense.model;
+package com.esnefedroetem.meteordefense.model.armoryitem;
 
 import java.beans.PropertyChangeListener;
 import java.beans.PropertyChangeSupport;
@@ -6,6 +6,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import com.badlogic.gdx.utils.TimeUtils;
+import com.esnefedroetem.meteordefense.model.Upgrade;
 
 /** 
  * 

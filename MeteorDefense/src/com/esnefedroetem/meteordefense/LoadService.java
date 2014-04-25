@@ -6,9 +6,9 @@ import java.util.List;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.files.FileHandle;
 import com.badlogic.gdx.utils.Json;
-import com.esnefedroetem.meteordefense.model.AbstractArmoryItem;
 import com.esnefedroetem.meteordefense.model.Continent;
 import com.esnefedroetem.meteordefense.model.Wallet;
+import com.esnefedroetem.meteordefense.model.armoryitem.AbstractArmoryItem;
 import com.esnefedroetem.meteordefense.util.Constants;
 
 public class LoadService {

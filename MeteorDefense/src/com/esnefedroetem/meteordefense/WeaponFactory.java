@@ -3,9 +3,9 @@ package com.esnefedroetem.meteordefense;
 import java.util.ArrayList;
 import java.util.List;
 
-import com.esnefedroetem.meteordefense.model.AbstractArmoryItem;
-import com.esnefedroetem.meteordefense.model.AbstractArmoryItem.State;
-import com.esnefedroetem.meteordefense.model.StandardArmoryItem;
+import com.esnefedroetem.meteordefense.model.armoryitem.AbstractArmoryItem;
+import com.esnefedroetem.meteordefense.model.armoryitem.StandardArmoryItem;
+import com.esnefedroetem.meteordefense.model.armoryitem.AbstractArmoryItem.State;
 
 public class WeaponFactory {
 

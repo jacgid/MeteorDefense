@@ -2,9 +2,9 @@ package com.esnefedroetem.meteordefense;
 
 import java.util.List;
 
-import com.esnefedroetem.meteordefense.model.AbstractArmoryItem;
 import com.esnefedroetem.meteordefense.model.CannonBarrel;
 import com.esnefedroetem.meteordefense.model.GameModel;
+import com.esnefedroetem.meteordefense.model.armoryitem.AbstractArmoryItem;
 import com.esnefedroetem.meteordefense.renderer.ArmoryDetailedRenderer;
 import com.esnefedroetem.meteordefense.renderer.ArmoryRenderer;
 import com.esnefedroetem.meteordefense.renderer.CarouselRenderer;

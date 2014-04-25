@@ -1,8 +1,9 @@
-package com.esnefedroetem.meteordefense.model;
+package com.esnefedroetem.meteordefense.model.armoryitem;
 
 import java.util.ArrayList;
 import java.util.List;
 
+import com.esnefedroetem.meteordefense.model.Meteor;
 import com.esnefedroetem.meteordefense.util.Constants;
 
 public class ReversedGravityEffectArmoryItem extends AbstractEffectArmoryItem {
