@@ -14,6 +14,11 @@ import com.esnefedroetem.meteordefense.model.Upgrade;
 
 public class StandardArmoryItem extends AbstractProjectileArmoryItem {
 	
+	public StandardArmoryItem() {
+		setName("Standard Weapon");
+		setDescription("This weapon is your standard weapon, and isn't tradeable. You may however upgrade its power and cooldown.");
+	}
+	
 	public StandardArmoryItem(State state, int upgradeIndex) {
 		initUpgrades();
 		setState(state);

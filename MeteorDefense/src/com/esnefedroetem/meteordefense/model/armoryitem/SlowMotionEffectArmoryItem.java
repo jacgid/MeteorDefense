@@ -6,6 +6,12 @@ import com.esnefedroetem.meteordefense.model.Meteor;
 
 public class SlowMotionEffectArmoryItem extends AbstractEffectArmoryItem {
 
+	public SlowMotionEffectArmoryItem() {
+		setName("Slow Motion Effect");
+		setDescription("Lorem ipsum dolor sit amet, consectetur adipiscing elit. Phasellus pulvinar, felis hendrerit venenatis imperdiet, nisi ante mattis diam, ut suscipit augue massa vel enim. Fusce.");
+
+	}
+	
 	@Override
 	public void execute(List<Meteor> list) {
 		for(Meteor meteor : list) {
