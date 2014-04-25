@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import com.esnefedroetem.meteordefense.model.Meteor;
+import com.esnefedroetem.meteordefense.model.Upgrade;
 import com.esnefedroetem.meteordefense.model.armoryitem.AbstractArmoryItem.State;
 import com.esnefedroetem.meteordefense.util.Constants;
 
@@ -33,7 +34,16 @@ public class ReversedGravityEffectArmoryItem extends AbstractEffectArmoryItem {
 
 	@Override
 	public void initUpgrades() {
-		// TODO Auto-generated method stub
+		// TODO change upgrades
+		ArrayList<Upgrade> upgrades = new ArrayList<Upgrade>();
+		for(int i = 0; i < 4; i++) {
+			float cooldownDecrement = 0f;
+			if(i == 0) {
+				cooldownDecrement = 0.2f;
+			}
+			upgrades.add(new Upgrade(1, cooldownDecrement, i * 1000));
+		}
+		setUpgradeList(upgrades);
 
 	}
 
