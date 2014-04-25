@@ -26,6 +26,7 @@ public abstract class AbstractArmoryItem {
 	private float cooldown;
 	private long lastUsed;
 	private List<Upgrade> upgrades;
+	private String name, description;
 	
 	public void upgrade() {
 		Upgrade upgrade = upgrades.get(upgradeIndex);
@@ -110,6 +111,14 @@ public abstract class AbstractArmoryItem {
 			lastUsed = TimeUtils.millis();
 			performAct();
 		}
+	}
+	
+	public String getName() {
+		return name;
+	}
+	
+	public String getDescription() {
+		return description;
 	}
 	
 	public abstract void performAct();
