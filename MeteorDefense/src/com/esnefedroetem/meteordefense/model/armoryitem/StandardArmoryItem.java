@@ -20,9 +20,8 @@ public class StandardArmoryItem extends AbstractProjectileArmoryItem {
 	}
 	
 	public StandardArmoryItem(State state, int upgradeIndex) {
-		initUpgrades();
-		setState(state);
-		setUpgradeIndex(upgradeIndex);
+		this();
+		init(state, upgradeIndex);
 	}
 
 	@Override

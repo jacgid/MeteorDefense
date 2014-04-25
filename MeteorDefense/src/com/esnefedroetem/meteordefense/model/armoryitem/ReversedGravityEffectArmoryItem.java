@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import com.esnefedroetem.meteordefense.model.Meteor;
+import com.esnefedroetem.meteordefense.model.armoryitem.AbstractArmoryItem.State;
 import com.esnefedroetem.meteordefense.util.Constants;
 
 public class ReversedGravityEffectArmoryItem extends AbstractEffectArmoryItem {
@@ -14,6 +15,11 @@ public class ReversedGravityEffectArmoryItem extends AbstractEffectArmoryItem {
 	public ReversedGravityEffectArmoryItem() {
 		setName("Reversed Gravity Effect");
 		setDescription("Lorem ipsum dolor sit amet, consectetur adipiscing elit. Phasellus pulvinar, felis hendrerit venenatis imperdiet, nisi ante mattis diam, ut suscipit augue massa vel enim. Fusce.");
+	}
+	
+	public ReversedGravityEffectArmoryItem(State state, int upgradeIndex) {
+		this();
+		init(state, upgradeIndex);
 	}
 
 	@Override

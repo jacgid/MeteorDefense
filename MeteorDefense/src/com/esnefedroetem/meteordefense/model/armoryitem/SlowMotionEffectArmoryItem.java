@@ -3,6 +3,7 @@ package com.esnefedroetem.meteordefense.model.armoryitem;
 import java.util.List;
 
 import com.esnefedroetem.meteordefense.model.Meteor;
+import com.esnefedroetem.meteordefense.model.armoryitem.AbstractArmoryItem.State;
 
 public class SlowMotionEffectArmoryItem extends AbstractEffectArmoryItem {
 
@@ -10,6 +11,11 @@ public class SlowMotionEffectArmoryItem extends AbstractEffectArmoryItem {
 		setName("Slow Motion Effect");
 		setDescription("Lorem ipsum dolor sit amet, consectetur adipiscing elit. Phasellus pulvinar, felis hendrerit venenatis imperdiet, nisi ante mattis diam, ut suscipit augue massa vel enim. Fusce.");
 
+	}
+	
+	public SlowMotionEffectArmoryItem(State state, int upgradeIndex) {
+		this();
+		init(state, upgradeIndex);
 	}
 	
 	@Override
