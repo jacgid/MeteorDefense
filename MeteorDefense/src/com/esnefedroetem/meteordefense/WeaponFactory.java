@@ -4,6 +4,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 import com.esnefedroetem.meteordefense.model.armoryitem.AbstractArmoryItem;
+import com.esnefedroetem.meteordefense.model.armoryitem.ReversedGravityEffectArmoryItem;
+import com.esnefedroetem.meteordefense.model.armoryitem.SlowMotionEffectArmoryItem;
 import com.esnefedroetem.meteordefense.model.armoryitem.StandardArmoryItem;
 import com.esnefedroetem.meteordefense.model.armoryitem.AbstractArmoryItem.State;
 
@@ -12,9 +14,9 @@ public class WeaponFactory {
 	public static List<AbstractArmoryItem> getChoosenWeapons() {
 		ArrayList<AbstractArmoryItem> armoryItems = new ArrayList<AbstractArmoryItem>(5);
 		armoryItems.add(null);
-		armoryItems.add(null);
+		armoryItems.add(new ReversedGravityEffectArmoryItem(State.UNLOCKED, 1));
 		armoryItems.add(new StandardArmoryItem(State.UNLOCKED, 1));
-		armoryItems.add(null);
+		armoryItems.add(new SlowMotionEffectArmoryItem(State.UNLOCKED, 1));
 		armoryItems.add(null);
 		return armoryItems;
 	}
