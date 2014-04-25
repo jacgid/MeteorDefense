@@ -28,6 +28,13 @@ public abstract class AbstractArmoryItem {
 	private List<Upgrade> upgrades;
 	private String name, description;
 	
+	
+	public void init(State state, int upgradeIndex) {
+		initUpgrades();
+		this.state = state;
+		setUpgradeIndex(upgradeIndex);
+	}
+	
 	public void upgrade() {
 		Upgrade upgrade = upgrades.get(upgradeIndex);
 		power = power + upgrade.getPowerIncrement();
