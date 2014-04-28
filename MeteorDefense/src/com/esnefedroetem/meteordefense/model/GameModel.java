@@ -176,6 +176,10 @@ public class GameModel implements PropertyChangeListener {
 	public City getCity() {
 		return city;
 	}
+	
+	public CannonBarrel getCannonBarrel(){
+		return cannonBarrel;
+	}
 
 	@Override
 	public void propertyChange(PropertyChangeEvent evt) {
