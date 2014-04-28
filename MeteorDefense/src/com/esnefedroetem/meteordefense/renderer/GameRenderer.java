@@ -17,10 +17,14 @@ import com.badlogic.gdx.math.Circle;
 import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.math.Vector3;
+import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.Stage;
+import com.badlogic.gdx.scenes.scene2d.ui.ImageButton;
 import com.badlogic.gdx.scenes.scene2d.ui.Label;
 import com.badlogic.gdx.scenes.scene2d.ui.Label.LabelStyle;
 import com.badlogic.gdx.scenes.scene2d.ui.Table;
+import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
+import com.badlogic.gdx.scenes.scene2d.utils.SpriteDrawable;
 import com.esnefedroetem.meteordefense.model.GameModel;
 import com.esnefedroetem.meteordefense.model.Meteor;
 import com.esnefedroetem.meteordefense.model.Projectile;
@@ -47,8 +51,9 @@ public class GameRenderer {
 	private PropertyChangeSupport pcs;
 	
 	private Stage stage;
-	private Table table;
+	private Table debugTable;
 	private Label lifeLabel;
+	private Table toolbarTable;
 	
 	private ShapeRenderer debugRenderer = new ShapeRenderer();
 	private boolean spritesLoaded = false;
@@ -73,22 +78,56 @@ public class GameRenderer {
 		spriteBatch = new SpriteBatch();
 		pcs = new PropertyChangeSupport(this);
 		stage = new Stage();
+		stage.setCamera(gameCam);
 		loadTextures();
 		
-		create();
+		createUI();
 	}
 
-	private void create() {
-		table = new Table();
-		table.bottom().padLeft(10).left();
-		table.setFillParent(true);
-		stage.addActor(table);
+	private void createUI() {
+		debugTable = new Table();
+		debugTable.bottom().padLeft(10).left();
+		debugTable.setFillParent(true);
+		stage.addActor(debugTable);
 		
 		LabelStyle lifeLabelStyle = new LabelStyle();
 		lifeLabelStyle.font = new BitmapFont();
-		lifeLabelStyle.font.scale(1);
+		lifeLabelStyle.font.scale(5);
 		lifeLabel = new Label("", lifeLabelStyle);
-		table.add(lifeLabel).left();
+		debugTable.add(lifeLabel).left();
+		
+		toolbarTable = new Table();
+		toolbarTable.setHeight(Constants.TOOLBAR_HEIGHT);
+		toolbarTable.setWidth(Constants.LOGIC_SCREEN_WIDTH);
+		toolbarTable.bottom();
+		toolbarTable.setFillParent(true);
+		stage.addActor(toolbarTable);
+	}
+	
+	private void loadUI(){
+		final ImageButton button1 = new ImageButton(new SpriteDrawable(meteorSprite));
+		final ImageButton button2 = new ImageButton(new SpriteDrawable(meteorSprite));
+		ImageButton button3 = new ImageButton(new SpriteDrawable(meteorSprite));
+		ImageButton button4 = new ImageButton(new SpriteDrawable(meteorSprite));
+		ClickListener click = new ClickListener(){
+			public void clicked(InputEvent event, float x, float y){
+				System.out.println("Clicked");
+				if(event.getTarget() == (com.badlogic.gdx.scenes.scene2d.Actor)button1){
+					pcs.firePropertyChange("leftButtonClicked", true, false);
+					System.out.println("Left clicked");
+				}
+				if(event.getTarget() == (com.badlogic.gdx.scenes.scene2d.Actor)button2){
+					pcs.firePropertyChange("leftMiddleButtonClicked", true, false);
+					System.out.println("Leftmiddle clicked");
+				}
+			}
+		};
+		button1.addListener(click);
+		button2.addListener(click);
+		toolbarTable.add(button1).width(Constants.LOGIC_SCREEN_WIDTH/8).padLeft(Constants.LOGIC_SCREEN_WIDTH/4).padRight(Constants.LOGIC_SCREEN_WIDTH/16);
+		toolbarTable.add(button2).width(Constants.LOGIC_SCREEN_WIDTH/8).padLeft(Constants.LOGIC_SCREEN_WIDTH/16).padRight(Constants.LOGIC_SCREEN_WIDTH/16);
+		toolbarTable.add(button3).width(Constants.LOGIC_SCREEN_WIDTH/8).padLeft(Constants.LOGIC_SCREEN_WIDTH/16).padRight(Constants.LOGIC_SCREEN_WIDTH/16);
+		toolbarTable.add(button4).width(Constants.LOGIC_SCREEN_WIDTH/8).padLeft(Constants.LOGIC_SCREEN_WIDTH/16).padRight(Constants.LOGIC_SCREEN_WIDTH/16);
 	}
 	
 	/**
@@ -108,20 +147,22 @@ public class GameRenderer {
 		cannonTexture = AssetsLoader.getTexture(textures[2]);
 		cityTexture = AssetsLoader.getTexture(textures[3]);
 		toolbarTexture = AssetsLoader.getTexture(textures[4]);
+		
 		meteorTexture.setFilter(TextureFilter.Linear, TextureFilter.Linear);
 		projectileTexture.setFilter(TextureFilter.Linear, TextureFilter.Linear);
 		cannonTexture.setFilter(TextureFilter.Linear, TextureFilter.Linear);
 		cityTexture.setFilter(TextureFilter.Linear, TextureFilter.Linear);
 		toolbarTexture.setFilter(TextureFilter.Linear, TextureFilter.Linear);
+		
 		projectileSprite = new Sprite(projectileTexture);
 		meteorSprite = new Sprite(meteorTexture);
 		cannonSprite = new Sprite(cannonTexture);
 		citySprite = new Sprite(cityTexture);
 		toolbarSprite = new Sprite(toolbarTexture);
-//		meteorSprite.scale(width/(meteorSprite.getWidth()*Constants.LOGIC_SCREEN_WIDTH/Constants.BASE_METEOR_SIZE));
+		
 		meteorSprite.setSize(Constants.BASE_METEOR_SIZE, Constants.BASE_METEOR_SIZE);
 		projectileSprite.setSize(Constants.DEFAULT_PROJECTILE_SIZE, Constants.DEFAULT_PROJECTILE_SIZE);
-		cannonSprite.setSize(Constants.CANNONBARREL_LENGTH/2, Constants.CANNONBARREL_LENGTH);
+		cannonSprite.setSize(model.getCannonBarrel().getBounds().width, model.getCannonBarrel().getBounds().height);
 		citySprite.setSize(Constants.CITY_BOUNDS.width, Constants.CITY_BOUNDS.height);
 		toolbarSprite.setSize(Constants.CITY_BOUNDS.width, Constants.CITY_BOUNDS.height);
 	}
@@ -153,6 +194,8 @@ public class GameRenderer {
 		
 		if(AssetsLoader.update() && spritesLoaded==false){
 			loadSprites();
+			loadUI();
+			Gdx.input.setInputProcessor(stage);
 			spritesLoaded = true;
 		}
 		spriteBatch.begin();
@@ -187,7 +230,7 @@ public class GameRenderer {
 		citySprite.draw(spriteBatch);
 		toolbarSprite.setPosition(Constants.CITY_BOUNDS.x, Constants.CITY_BOUNDS.y-(Constants.CITY_BOUNDS.height/((float)7/6)));
 		toolbarSprite.draw(spriteBatch);
-		cannonSprite.setPosition(Constants.LOGIC_SCREEN_WIDTH/2-(Constants.CANNONBARREL_LENGTH/4), Constants.LOGIC_SCREEN_HEIGHT/20);
+		cannonSprite.setPosition(model.getCannonBarrel().getBounds().x, model.getCannonBarrel().getBounds().y);
 		cannonSprite.setOrigin(cannonSprite.getWidth()/2, cannonSprite.getHeight()/3);
 		cannonSprite.setRotation((float) Math.toDegrees(model.getCannonAngle())-90);
 		cannonSprite.draw(spriteBatch);

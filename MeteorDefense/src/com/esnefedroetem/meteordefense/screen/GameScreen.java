@@ -1,5 +1,6 @@
 package com.esnefedroetem.meteordefense.screen;
 
+import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
 import java.util.List;
 
@@ -21,7 +22,7 @@ import com.esnefedroetem.meteordefense.renderer.GameRenderer;
  * @author Simon Nielsen
  *
  */
-public class GameScreen implements Screen, InputProcessor{
+public class GameScreen implements Screen, InputProcessor, PropertyChangeListener{
 
 	private GameModel model;
 	private GameRenderer renderer;
@@ -29,6 +30,7 @@ public class GameScreen implements Screen, InputProcessor{
 	public GameScreen(GameModel model, GameRenderer renderer){
 		this.model = model;
 		this.renderer = renderer;
+		addChangeListener(this);
 	}
 	
 	/**
@@ -160,6 +162,16 @@ public class GameScreen implements Screen, InputProcessor{
 	public boolean scrolled(int amount) {
 		// TODO Auto-generated method stub
 		return false;
+	}
+
+	@Override
+	public void propertyChange(PropertyChangeEvent evt) {
+		if(evt.getPropertyName().equals("leftButtonClicked")){
+			System.out.println("Left clicked!");
+		}
+		if(evt.getPropertyName().equals("leftMiddleButtonClicked")){
+			System.out.println("LeftMiddle clicked!");
+		}
 	}
 
 }
