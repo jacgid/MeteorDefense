@@ -58,9 +58,9 @@ public class GameRenderer {
 	private ShapeRenderer debugRenderer = new ShapeRenderer();
 	private boolean spritesLoaded = false;
 	
-	private String[] textures = {"meteor1.png", "projectile1.png", "cannonbarrel.png", "city1.png", "toolbar1.png"};
-	private Texture meteorTexture, gunbarrel, projectileTexture, cannonTexture, cityTexture, toolbarTexture;
-	private Sprite projectileSprite, meteorSprite, cannonSprite, citySprite, toolbarSprite;
+	private String[] textures = {"meteor1.png", "projectile1.png", "cannonbarrel.png", "city1.png", "toolbar1.png", "MDBG.png"};
+	private Texture meteorTexture, gunbarrel, projectileTexture, cannonTexture, cityTexture, toolbarTexture, bgTexture;
+	private Sprite projectileSprite, meteorSprite, cannonSprite, citySprite, toolbarSprite, bgSprite;
 	private Rectangle viewport;
 	private float scale;
 	
@@ -86,7 +86,7 @@ public class GameRenderer {
 
 	private void createUI() {
 		debugTable = new Table();
-		debugTable.bottom().padLeft(10).left();
+		debugTable.bottom().center().padLeft(10).left();
 		debugTable.setFillParent(true);
 		stage.addActor(debugTable);
 		
@@ -97,9 +97,9 @@ public class GameRenderer {
 		debugTable.add(lifeLabel).left();
 		
 		toolbarTable = new Table();
-		toolbarTable.setHeight(Constants.TOOLBAR_HEIGHT);
-		toolbarTable.setWidth(Constants.LOGIC_SCREEN_WIDTH);
-		toolbarTable.bottom();
+//		toolbarTable.setHeight(Constants.TOOLBAR_HEIGHT);
+//		toolbarTable.setWidth(Constants.LOGIC_SCREEN_WIDTH);
+		toolbarTable.bottom().left();
 		toolbarTable.setFillParent(true);
 		stage.addActor(toolbarTable);
 	}
@@ -107,27 +107,36 @@ public class GameRenderer {
 	private void loadUI(){
 		final ImageButton button1 = new ImageButton(new SpriteDrawable(meteorSprite));
 		final ImageButton button2 = new ImageButton(new SpriteDrawable(meteorSprite));
-		ImageButton button3 = new ImageButton(new SpriteDrawable(meteorSprite));
-		ImageButton button4 = new ImageButton(new SpriteDrawable(meteorSprite));
+		final ImageButton button3 = new ImageButton(new SpriteDrawable(meteorSprite));
+		final ImageButton button4 = new ImageButton(new SpriteDrawable(meteorSprite));
 		ClickListener click = new ClickListener(){
 			public void clicked(InputEvent event, float x, float y){
-				System.out.println("Clicked");
-				if(event.getTarget() == (com.badlogic.gdx.scenes.scene2d.Actor)button1){
-					pcs.firePropertyChange("leftButtonClicked", true, false);
+				if(event.getTarget().getParent() == button1){
+					pcs.firePropertyChange("buttonClicked", 1, false);
 					System.out.println("Left clicked");
 				}
-				if(event.getTarget() == (com.badlogic.gdx.scenes.scene2d.Actor)button2){
-					pcs.firePropertyChange("leftMiddleButtonClicked", true, false);
+				if(event.getTarget().getParent() == button2){
+					pcs.firePropertyChange("buttonClicked", 2, false);
 					System.out.println("Leftmiddle clicked");
+				}
+				if(event.getTarget().getParent() == button3){
+					pcs.firePropertyChange("buttonClicked", 4, false);
+					System.out.println("rightmiddle clicked");
+				}
+				if(event.getTarget().getParent() == button4){
+					pcs.firePropertyChange("buttonClicked", 5, false);
+					System.out.println("right clicked");
 				}
 			}
 		};
 		button1.addListener(click);
 		button2.addListener(click);
-		toolbarTable.add(button1).width(Constants.LOGIC_SCREEN_WIDTH/8).padLeft(Constants.LOGIC_SCREEN_WIDTH/4).padRight(Constants.LOGIC_SCREEN_WIDTH/16);
-		toolbarTable.add(button2).width(Constants.LOGIC_SCREEN_WIDTH/8).padLeft(Constants.LOGIC_SCREEN_WIDTH/16).padRight(Constants.LOGIC_SCREEN_WIDTH/16);
-		toolbarTable.add(button3).width(Constants.LOGIC_SCREEN_WIDTH/8).padLeft(Constants.LOGIC_SCREEN_WIDTH/16).padRight(Constants.LOGIC_SCREEN_WIDTH/16);
-		toolbarTable.add(button4).width(Constants.LOGIC_SCREEN_WIDTH/8).padLeft(Constants.LOGIC_SCREEN_WIDTH/16).padRight(Constants.LOGIC_SCREEN_WIDTH/16);
+		button3.addListener(click);
+		button4.addListener(click);
+		toolbarTable.add(button1).width(Constants.LOGIC_SCREEN_WIDTH/8).padLeft(Constants.LOGIC_SCREEN_WIDTH/32).padRight(Constants.LOGIC_SCREEN_WIDTH/32);
+		toolbarTable.add(button2).width(Constants.LOGIC_SCREEN_WIDTH/8).padLeft(Constants.LOGIC_SCREEN_WIDTH/32).padRight(Constants.LOGIC_SCREEN_WIDTH/6);
+		toolbarTable.add(button3).width(Constants.LOGIC_SCREEN_WIDTH/8).padLeft(Constants.LOGIC_SCREEN_WIDTH/6).padRight(Constants.LOGIC_SCREEN_WIDTH/32);
+		toolbarTable.add(button4).width(Constants.LOGIC_SCREEN_WIDTH/8).padLeft(Constants.LOGIC_SCREEN_WIDTH/32).padRight(Constants.LOGIC_SCREEN_WIDTH/32);
 	}
 	
 	/**
@@ -147,24 +156,28 @@ public class GameRenderer {
 		cannonTexture = AssetsLoader.getTexture(textures[2]);
 		cityTexture = AssetsLoader.getTexture(textures[3]);
 		toolbarTexture = AssetsLoader.getTexture(textures[4]);
+		bgTexture = AssetsLoader.getTexture(textures[5]);
 		
 		meteorTexture.setFilter(TextureFilter.Linear, TextureFilter.Linear);
 		projectileTexture.setFilter(TextureFilter.Linear, TextureFilter.Linear);
 		cannonTexture.setFilter(TextureFilter.Linear, TextureFilter.Linear);
 		cityTexture.setFilter(TextureFilter.Linear, TextureFilter.Linear);
 		toolbarTexture.setFilter(TextureFilter.Linear, TextureFilter.Linear);
+		bgTexture.setFilter(TextureFilter.Linear, TextureFilter.Linear);
 		
 		projectileSprite = new Sprite(projectileTexture);
 		meteorSprite = new Sprite(meteorTexture);
 		cannonSprite = new Sprite(cannonTexture);
 		citySprite = new Sprite(cityTexture);
 		toolbarSprite = new Sprite(toolbarTexture);
+		bgSprite = new Sprite(bgTexture);
 		
 		meteorSprite.setSize(Constants.BASE_METEOR_SIZE, Constants.BASE_METEOR_SIZE);
 		projectileSprite.setSize(Constants.DEFAULT_PROJECTILE_SIZE, Constants.DEFAULT_PROJECTILE_SIZE);
 		cannonSprite.setSize(model.getCannonBarrel().getBounds().width, model.getCannonBarrel().getBounds().height);
 		citySprite.setSize(Constants.CITY_BOUNDS.width, Constants.CITY_BOUNDS.height);
 		toolbarSprite.setSize(Constants.CITY_BOUNDS.width, Constants.CITY_BOUNDS.height);
+		bgSprite.setSize((int)Constants.LOGIC_SCREEN_HEIGHT, (int)Constants.LOGIC_SCREEN_HEIGHT);
 	}
 
 	/**
@@ -178,11 +191,13 @@ public class GameRenderer {
 		
 		spriteBatch.setProjectionMatrix(bgCam.combined);
 		spriteBatch.begin();
-		debugRenderer.setProjectionMatrix(bgCam.combined);
-		debugRenderer.begin(ShapeType.Filled);
-		debugRenderer.setColor(Color.LIGHT_GRAY);
-		debugRenderer.rect(0, 0, width, height);
-		debugRenderer.end();
+//		debugRenderer.setProjectionMatrix(bgCam.combined);
+//		debugRenderer.begin(ShapeType.Filled);
+//		debugRenderer.setColor(Color.LIGHT_GRAY);
+//		debugRenderer.rect(0, 0, width, height);
+//		debugRenderer.end();
+		if(spritesLoaded)
+		bgSprite.draw(spriteBatch);
 		spriteBatch.end();
 		
 		spriteBatch.setProjectionMatrix(gameCam.combined);
@@ -195,17 +210,17 @@ public class GameRenderer {
 		if(AssetsLoader.update() && spritesLoaded==false){
 			loadSprites();
 			loadUI();
-			Gdx.input.setInputProcessor(stage);
+			pcs.firePropertyChange("addInputProcessor", stage, false);
 			spritesLoaded = true;
 		}
 		spriteBatch.begin();
 		//Drawing is done here
 		
-		debugRenderer.setProjectionMatrix(gameCam.combined);
-		debugRenderer.begin(ShapeType.Filled);
-		debugRenderer.setColor(Color.PINK);
-		debugRenderer.rect(0, 0, gameCam.viewportWidth, gameCam.viewportHeight);
-		debugRenderer.end();
+//		debugRenderer.setProjectionMatrix(gameCam.combined);
+//		debugRenderer.begin(ShapeType.Filled);
+//		debugRenderer.setColor(Color.PINK);
+//		debugRenderer.rect(0, 0, gameCam.viewportWidth, gameCam.viewportHeight);
+//		debugRenderer.end();
 		
 		if(spritesLoaded){
 			drawSprites();

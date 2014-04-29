@@ -22,7 +22,7 @@ public class GameModel implements PropertyChangeListener {
 
 	private List<Projectile> projectiles = new ArrayList<Projectile>();
 	private List<AbstractArmoryItem> selectedArmoryItems;
-	private AbstractArmoryItem selectedArmoryItem;
+	private AbstractArmoryItem selectedArmoryItem, standardWeapon;
 	private CannonBarrel cannonBarrel;
 	private City city;
 	private Wallet wallet;
@@ -48,7 +48,8 @@ public class GameModel implements PropertyChangeListener {
 		meteorShower.start();
 		this.city = city;
 		this.selectedArmoryItems = selectedArmoryItems;
-		selectedArmoryItem = selectedArmoryItems.get(2);
+		standardWeapon = selectedArmoryItems.get(2);
+		selectedArmoryItem = standardWeapon;
 		selectedArmoryItem.removeChangeListener(this);
 		selectedArmoryItem.addChangeListener(this); // TODO temporary solution,
 													// fix
@@ -97,6 +98,14 @@ public class GameModel implements PropertyChangeListener {
 		numberOfProjectiles = 0;
 		meteorHits = 0;
 		cannonBarrel.reset();
+	}
+	
+	public void toolbarAct(int buttonNr){
+		System.out.println(buttonNr);
+		selectedArmoryItem.removeChangeListener(this);
+		selectedArmoryItem = selectedArmoryItems.get(buttonNr-1);
+		selectedArmoryItem.addChangeListener(this);
+		selectedArmoryItem.act();
 	}
 
 	public void addChangeListener(PropertyChangeListener listener) {
@@ -198,7 +207,10 @@ public class GameModel implements PropertyChangeListener {
 			AbstractEffectArmoryItem effectArmoryItem = (AbstractEffectArmoryItem) evt.getNewValue();
 			effectArmoryItem.execute(meteorShower.getVisibleMeteors());
 		}
-
+		
+		selectedArmoryItem.removeChangeListener(this);
+		selectedArmoryItem = standardWeapon;
+		selectedArmoryItem.addChangeListener(this);
 	}
 
 	private int calculateScore() {

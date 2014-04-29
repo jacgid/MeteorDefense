@@ -13,11 +13,11 @@ public class WeaponFactory {
 
 	public static List<AbstractArmoryItem> getChoosenWeapons() {
 		ArrayList<AbstractArmoryItem> armoryItems = new ArrayList<AbstractArmoryItem>(5);
-		armoryItems.add(null);
+		armoryItems.add(new StandardArmoryItem(State.UNLOCKED, 1));
 		armoryItems.add(new ReversedGravityEffectArmoryItem(State.UNLOCKED, 1));
 		armoryItems.add(new StandardArmoryItem(State.UNLOCKED, 1));
 		armoryItems.add(new SlowMotionEffectArmoryItem(State.UNLOCKED, 1));
-		armoryItems.add(null);
+		armoryItems.add(new StandardArmoryItem(State.UNLOCKED, 1));
 		return armoryItems;
 	}
 

@@ -4,18 +4,17 @@ import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
 import java.util.List;
 
-import com.badlogic.gdx.Application.ApplicationType;
 import com.badlogic.gdx.Gdx;
-import com.badlogic.gdx.Graphics;
+import com.badlogic.gdx.InputMultiplexer;
 import com.badlogic.gdx.InputProcessor;
 import com.badlogic.gdx.Screen;
-import com.badlogic.gdx.graphics.GL10;
 import com.badlogic.gdx.graphics.GL11;
 import com.badlogic.gdx.math.Vector2;
 import com.esnefedroetem.meteordefense.model.City;
 import com.esnefedroetem.meteordefense.model.GameModel;
 import com.esnefedroetem.meteordefense.model.armoryitem.AbstractArmoryItem;
 import com.esnefedroetem.meteordefense.renderer.GameRenderer;
+import com.esnefedroetem.meteordefense.util.Constants;
 
 /**
  * The GameScreen is the screen where the game is running.
@@ -26,11 +25,14 @@ public class GameScreen implements Screen, InputProcessor, PropertyChangeListene
 
 	private GameModel model;
 	private GameRenderer renderer;
+	private InputMultiplexer inputmultiplexer;
 	
 	public GameScreen(GameModel model, GameRenderer renderer){
 		this.model = model;
 		this.renderer = renderer;
 		addChangeListener(this);
+		inputmultiplexer = new InputMultiplexer();
+		inputmultiplexer.addProcessor(this);
 	}
 	
 	/**
@@ -60,7 +62,7 @@ public class GameScreen implements Screen, InputProcessor, PropertyChangeListene
 	 */
 	@Override
 	public void show() {
-		Gdx.input.setInputProcessor(this);
+		Gdx.input.setInputProcessor(inputmultiplexer);
 	}
 
 	/**
@@ -134,7 +136,6 @@ public class GameScreen implements Screen, InputProcessor, PropertyChangeListene
 //		if (!Gdx.app.getType().equals(ApplicationType.Android)) {
 //			return false;
 //		}
-		//TODO Add if(click on sky)
 		Vector2 temp = renderer.unproject(screenX, screenY);
 		model.shoot(temp.x, temp.y);
 		return true;
@@ -166,11 +167,14 @@ public class GameScreen implements Screen, InputProcessor, PropertyChangeListene
 
 	@Override
 	public void propertyChange(PropertyChangeEvent evt) {
-		if(evt.getPropertyName().equals("leftButtonClicked")){
-			System.out.println("Left clicked!");
+		if(evt.getPropertyName().equals("buttonClicked")){
+			model.toolbarAct((Integer)evt.getOldValue());
 		}
-		if(evt.getPropertyName().equals("leftMiddleButtonClicked")){
-			System.out.println("LeftMiddle clicked!");
+		if(evt.getPropertyName().equals("addInputProcessor")){
+			System.out.println("Adding inputprocessor");
+			inputmultiplexer.removeProcessor(this);
+			inputmultiplexer.addProcessor((InputProcessor)evt.getOldValue());
+			inputmultiplexer.addProcessor(this);
 		}
 	}
 
