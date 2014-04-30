@@ -30,6 +30,7 @@ import com.badlogic.gdx.scenes.scene2d.utils.TextureRegionDrawable;
 import com.badlogic.gdx.scenes.scene2d.utils.DragAndDrop.*;
 import com.badlogic.gdx.utils.SnapshotArray;
 import com.esnefedroetem.meteordefense.model.armoryitem.AbstractArmoryItem;
+import com.esnefedroetem.meteordefense.model.armoryitem.EmptyItem;
 import com.esnefedroetem.meteordefense.util.AssetsLoader;
 
 public class ArmoryRenderer {
@@ -53,12 +54,29 @@ public class ArmoryRenderer {
 	}
 	
 	public ArmoryRenderer(List<AbstractArmoryItem> items, List<AbstractArmoryItem> choosenItems){
+		loadTextures(items, choosenItems);
 		create(items, choosenItems);
 		pcs = new PropertyChangeSupport(this);
 	}
 	
 	public void addChangeListener(PropertyChangeListener listener){
 		pcs.addPropertyChangeListener(listener);
+	}
+	
+	private void loadTextures(List<AbstractArmoryItem> items, List<AbstractArmoryItem> choosenItems){
+		for(AbstractArmoryItem item : items){
+			if(item != null){
+				AssetsLoader.loadTexture(item.getName() + ".png");
+			}
+		}
+		for(AbstractArmoryItem item : choosenItems){
+			if(item != null){
+				AssetsLoader.loadTexture(item.getName() + ".png");
+			}
+		}
+		AssetsLoader.loadTexture("weaponslot.png");
+		AssetsLoader.finishLoading();
+		
 	}
 	
 	private void create(List<AbstractArmoryItem> items, List<AbstractArmoryItem> choosenItems){
@@ -104,22 +122,19 @@ public class ArmoryRenderer {
 	}
 	
 	private void createActionBar(Table table, final DragAndDrop dragAndDrop, List<AbstractArmoryItem> items){
-		TextButtonStyle style = new TextButtonStyle();
-		style.font = new BitmapFont();
-		style.up = new TextureRegionDrawable(new TextureRegion(new Texture("data/textures/weapon1.png")));
 
 		for(int i = 0; i < items.size(); i++){
-			Actor actor = null;
-			if(items.get(i) == null){
-				actor = new Image(new Texture("data/textures/weaponslot.png"));
-			}else{
-				actor = new TextButton("", style);
-				actor.addListener(clickListener);
-			}
+			TextButtonStyle style = new TextButtonStyle();
+			style.font = new BitmapFont();
+			style.up = new TextureRegionDrawable(new TextureRegion(AssetsLoader.getTexture((items.get(i).getName() + ".png"))));
+			Actor actor = new TextButton("", style);
 			actor.setUserObject(items.get(i));
 			actor.setName(i + "");
 			table.add(actor).pad(10);
-			
+			if(!items.get(i).equals(AbstractArmoryItem.EMPTY_ITEM)){
+				actor.addListener(clickListener);
+			}
+
 			if(i != 2){
 				dragAndDrop.addTarget(getTarget(actor));
 				dragAndDrop.addSource(getSource(actor));
@@ -132,15 +147,15 @@ public class ArmoryRenderer {
 	private void createItemGrid(Table table, DragAndDrop dragAndDrop, List<AbstractArmoryItem> items){
 		TextButtonStyle style = new TextButtonStyle();
 		style.font = new BitmapFont();
-		style.up = new TextureRegionDrawable(new TextureRegion(new Texture("data/textures/weapon1.png")));		
 		
 		table.pad(10);
 		
 		for(int i = 1; i <= items.size(); i++){
 			Actor actor = null;
 			if(items.get(i - 1) == null){
-				actor = new Image(new Texture("data/textures/weaponslot.png"));
+				actor = new Image(AssetsLoader.getTexture("weaponslot.png"));
 			}else{
+				style.up = new TextureRegionDrawable(new TextureRegion(AssetsLoader.getTexture((items.get(i - 1).getName() + ".png"))));
 				actor = new TextButton("", style);
 				actor.addListener(clickListener);
 			}
@@ -166,7 +181,8 @@ public class ArmoryRenderer {
 			@Override
 			public Payload dragStart(InputEvent event, float x, float y, int pointer) {
 				Payload payload = new Payload();
-				payload.setDragActor(getActor());
+				payload.setDragActor(new Image(AssetsLoader.getTexture(( (AbstractArmoryItem) getActor().getUserObject() ).getName() + ".png" )));
+				getActor().setVisible(false);
 				return payload;
 			}
 			
@@ -174,12 +190,7 @@ public class ArmoryRenderer {
 			public void dragStop(InputEvent event, float x, float y,
 					int pointer, Target target) {
 				if(target == null){
-					int pos = Integer.parseInt(getActor().getName());
-					if(topTable.getChildren().size < topTableCount){
-						updateTable(topTable, getActor(), pos, 3);
-					}else{
-						updateTable(bottomTable, getActor(), pos, 6);
-					}
+					getActor().setVisible(true);
 				}
 				
 			}
@@ -206,8 +217,11 @@ public class ArmoryRenderer {
 				int actorPos = Integer.parseInt(actor.getName());
 				target.setName(actorPos + "");
 				actor.setName(targetPos + "");
+				actor.setVisible(true);
 				if(target.getParent() == topTable){
-					if(topTable.getChildren().size < topTableCount){
+					topTable.removeActor(target);
+					if(topTable.getChildren().contains(actor, true)){
+						topTable.removeActor(actor);
 						if(targetPos < actorPos){
 							updateTable(topTable, actor, targetPos, 3);
 							updateTable(topTable, target, actorPos, 3);							
@@ -216,14 +230,18 @@ public class ArmoryRenderer {
 							updateTable(topTable, actor, targetPos, 3);
 						}
 					}else{
+						bottomTable.removeActor(actor);
 						updateTable(topTable, actor, targetPos, 3);
 						updateTable(bottomTable, target, actorPos, 6);
 					}
 				}else{
-					if(topTable.getChildren().size < topTableCount){
+					bottomTable.removeActor(target);
+					if(topTable.getChildren().contains(actor, true)){
+						topTable.removeActor(actor);
 						updateTable(bottomTable, actor, targetPos, 6);
 						updateTable(topTable, target, actorPos, 3);
 					}else{
+						bottomTable.removeActor(actor);
 						if(targetPos < actorPos){
 							updateTable(bottomTable, actor, targetPos, 6);
 							updateTable(bottomTable, target, actorPos, 6);							
@@ -242,6 +260,7 @@ public class ArmoryRenderer {
 	private void updateTable(Table table, Actor actor, int pos, int columns){
 		List<Actor> childs = new ArrayList<Actor>(Arrays.asList(table.getChildren().toArray()));
 		table.clearChildren();
+		//childs.remove(actor);
 		childs.add(pos, actor);
 		for(int i = 1; i <= childs.size(); i++){
 			table.add(childs.get(i - 1)).pad(10);

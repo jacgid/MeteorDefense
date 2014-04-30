@@ -191,4 +191,8 @@ public abstract class AssetsLoader {
 	public static float getProgress(){
 		return manager.getProgress();
 	}
+	
+	public static void finishLoading(){
+		manager.finishLoading();
+	}
 }

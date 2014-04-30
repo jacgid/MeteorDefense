@@ -27,6 +27,7 @@ public abstract class AbstractArmoryItem {
 	private long lastUsed;
 	private List<Upgrade> upgrades;
 	private String name, description;
+	public static final EmptyItem EMPTY_ITEM = new EmptyItem();
 	
 	
 	public void init(State state, int upgradeIndex) {
@@ -134,6 +135,14 @@ public abstract class AbstractArmoryItem {
 	
 	public void setDescription(String description) {
 		this.description = description;
+	}
+	
+	@Override
+	public boolean equals(Object o){
+		if(o instanceof AbstractArmoryItem){
+			return name.equals(((AbstractArmoryItem) o).getName());
+		}
+		return false;
 	}
 	
 	public abstract void performAct();
