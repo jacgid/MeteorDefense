@@ -91,7 +91,7 @@ public class MeteorDefense extends Game implements PropertyChangeListener {
 	}
 	
 	private void newGame(City city){
-		gameScreen.newGame(city, armoryScreen.getSelectedArmoryItems());
+		gameScreen.newGame(city, WeaponFactory.getChoosenWeapons());//armoryScreen.getSelectedArmoryItems());
 		setScreen(gameScreen);
 		inGame = true;
 	}

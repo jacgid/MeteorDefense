@@ -22,6 +22,7 @@ public class Constants {
 	public static final Vector2 DEFAULT_PROJECTILE_SPAWN = new Vector2(LOGIC_SCREEN_WIDTH/2f+DEFAULT_PROJECTILE_SIZE/2f, CANNONBARREL_LENGTH);
 	public static final int DEFAULT_PROJECTILE_DAMAGE = 1;
 	
+	public static final float TOOLBAR_HEIGHT = LOGIC_SCREEN_HEIGHT/10f;
 	
 	public static final Rectangle CITY_BOUNDS = new Rectangle(0, LOGIC_SCREEN_HEIGHT/8, LOGIC_SCREEN_WIDTH, LOGIC_SCREEN_WIDTH/4);
 	

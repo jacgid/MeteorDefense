@@ -1,5 +1,6 @@
 package com.esnefedroetem.meteordefense.model;
 
+import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.math.Vector2;
 import com.esnefedroetem.meteordefense.util.Constants;
 
@@ -8,9 +9,10 @@ public class CannonBarrel {
 	private float cannonX = Constants.LOGIC_SCREEN_WIDTH / 2, cannonY = 10;
 	private float angle = (float) (Math.PI / 2);
 	private Vector2 startPosition;
+	private Rectangle bounds;
 
 	public CannonBarrel() {
-
+		bounds = new Rectangle(Constants.LOGIC_SCREEN_WIDTH/2-(Constants.CANNONBARREL_LENGTH/4), Constants.LOGIC_SCREEN_HEIGHT/20, Constants.CANNONBARREL_LENGTH/2, Constants.CANNONBARREL_LENGTH);
 	}
 
 	public void calculateAngle(float X, float Y) {
@@ -53,6 +55,10 @@ public class CannonBarrel {
 	public void reset() {
 		angle = (float) (Math.PI * 0.5);
 
+	}
+	
+	public Rectangle getBounds(){
+		return bounds;
 	}
 
 }
