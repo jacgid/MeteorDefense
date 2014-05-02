@@ -45,10 +45,11 @@ public abstract class AbstractArmoryItem {
 	}
 	
 	public boolean hasUpgrade() {
-		return upgradeIndex > upgrades.size() - 1;
+		return upgradeIndex < upgrades.size() - 1;
 	}
 	
 	private void reset() {
+		sellValue = 0;
 		upgradeIndex = 0;
 		upgrade();
 	}
@@ -106,7 +107,7 @@ public abstract class AbstractArmoryItem {
 		return upgrades.get(0).getValue();
 	}
 	
-	public int sellValue() {
+	public int getSellValue() {
 		return sellValue;		
 	}
 	
