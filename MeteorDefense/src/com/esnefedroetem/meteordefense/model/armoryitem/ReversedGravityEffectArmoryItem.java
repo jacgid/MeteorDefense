@@ -14,8 +14,8 @@ public class ReversedGravityEffectArmoryItem extends AbstractEffectArmoryItem {
 	private List<Meteor> visibleMeteors;
 	
 	public ReversedGravityEffectArmoryItem() {
-		setName("ReversedGravityEffect");
-		setDescription("Lorem ipsum dolor sit amet, consectetur adipiscing elit. Phasellus pulvinar, felis hendrerit venenatis imperdiet, nisi ante mattis diam, ut suscipit augue massa vel enim. Fusce.");
+		name = "ReversedGravityEffect";
+		description = "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Phasellus pulvinar, felis hendrerit venenatis imperdiet, nisi ante mattis diam, ut suscipit augue massa vel enim. Fusce.";
 	}
 	
 	public ReversedGravityEffectArmoryItem(State state, int upgradeIndex) {

@@ -26,7 +26,7 @@ public abstract class AbstractArmoryItem {
 	private float cooldown;
 	private long lastUsed;
 	private List<Upgrade> upgrades;
-	private String name, description;
+	protected String name, description;
 	public static final EmptyItem EMPTY_ITEM = new EmptyItem();
 	
 	

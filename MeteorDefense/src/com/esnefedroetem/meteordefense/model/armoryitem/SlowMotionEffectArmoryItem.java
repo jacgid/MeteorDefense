@@ -10,8 +10,8 @@ import com.esnefedroetem.meteordefense.model.armoryitem.AbstractArmoryItem.State
 public class SlowMotionEffectArmoryItem extends AbstractEffectArmoryItem {
 
 	public SlowMotionEffectArmoryItem() {
-		setName("SlowMotionEffect");
-		setDescription("Lorem ipsum dolor sit amet, consectetur adipiscing elit. Phasellus pulvinar, felis hendrerit venenatis imperdiet, nisi ante mattis diam, ut suscipit augue massa vel enim. Fusce.");
+		name = "SlowMotionEffect";
+		description = "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Phasellus pulvinar, felis hendrerit venenatis imperdiet, nisi ante mattis diam, ut suscipit augue massa vel enim. Fusce.";
 
 	}
 	
