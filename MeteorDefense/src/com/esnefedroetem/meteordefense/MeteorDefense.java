@@ -92,7 +92,8 @@ public class MeteorDefense extends Game implements PropertyChangeListener {
 	
 	private void newGame(City city){
 		gameScreen.newGame(city, WeaponFactory.getChoosenWeapons());//armoryScreen.getSelectedArmoryItems());
-		setScreen(gameScreen);
+		splashScreen.gameSplash(gameScreen.getRenderer());
+		setScreen(splashScreen);
 		inGame = true;
 	}
 
@@ -121,6 +122,10 @@ public class MeteorDefense extends Game implements PropertyChangeListener {
 			setScreen(armoryDetaliedScreen);
 		}else if(evt.getPropertyName().equals(ArmoryDetaliedEvent.ARMORY_DETAILED_BACK_PRESSED.toString())){
 			setScreen(armoryScreen);
+		}else if(evt.getPropertyName().equals("Exit application")){
+			Gdx.app.exit();
+		}else if(evt.getPropertyName().equals(SplashScreenEvent.GAMESPLASHSCREEN_ENDED.toString())){
+			setScreen(gameScreen);
 		}
 		
 	}

@@ -101,11 +101,14 @@ public class GameModel implements PropertyChangeListener {
 	}
 	
 	public void toolbarAct(int buttonNr){
-		System.out.println(buttonNr);
 		selectedArmoryItem.removeChangeListener(this);
 		selectedArmoryItem = selectedArmoryItems.get(buttonNr-1);
 		selectedArmoryItem.addChangeListener(this);
 		selectedArmoryItem.act();
+	}
+	
+	public void endGame(){
+		gameover();
 	}
 
 	public void addChangeListener(PropertyChangeListener listener) {
