@@ -11,7 +11,6 @@ import com.esnefedroetem.meteordefense.model.meteor.FireMeteor;
 import com.esnefedroetem.meteordefense.model.meteor.IceMeteor;
 import com.esnefedroetem.meteordefense.model.meteor.RadioactiveMeteor;
 import com.esnefedroetem.meteordefense.util.Constants;
-import com.esnefedroetem.meteordefense.util.Constants.ProjectileType;
 
 public class MeteorShower {
 	// Meteors flying over the screen
@@ -138,7 +137,7 @@ public class MeteorShower {
 	 * @param projectileType
 	 * 
 	 */
-	public void meteorHit(Meteor meteor, int damage, ProjectileType projectileType) {
+	public void meteorHit(Meteor meteor, int damage, Projectile.ProjectileType projectileType) {
 		if (meteor.willSurvive(damage)) {
 			meteor.hit(damage, projectileType);
 		} else {

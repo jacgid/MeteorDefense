@@ -1,8 +1,6 @@
 package com.esnefedroetem.meteordefense.model;
 
 import com.badlogic.gdx.math.Vector2;
-import com.esnefedroetem.meteordefense.util.Constants.MeteorType;
-import com.esnefedroetem.meteordefense.util.Constants.ProjectileType;
 
 /**
  * 
@@ -12,7 +10,9 @@ import com.esnefedroetem.meteordefense.util.Constants.ProjectileType;
 public abstract class Meteor extends MoveableGameObject {
 
 	private int life;
+	public enum MeteorType{NONE, RADIOACTIVE, FIRE, FAST, ICE}
 	public  Meteor(){
+		
 		
 	}
 	public Meteor(Vector2 startPosition,float angle, int life, int damage, float size, float speed) {
@@ -34,7 +34,7 @@ public abstract class Meteor extends MoveableGameObject {
 	 * 
 	 * @param damage
 	 */
-	public abstract void hit(int damage, ProjectileType projectiletype);
+	public abstract void hit(int damage, Projectile.ProjectileType projectileType);
 
 	public void decreaseSize(int value) {
 		setSize(getSize() - value);

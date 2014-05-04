@@ -71,7 +71,7 @@ public class City {
 		if (currentLife < 0) {
 			currentLife = 0;
 		}
-		if (meteor.getType() == Constants.MeteorType.RADIOACTIVE) {
+		if (meteor.getType() == Meteor.MeteorType.RADIOACTIVE) {
 			dashedMeteors.add(meteor);
 		}
 	}
