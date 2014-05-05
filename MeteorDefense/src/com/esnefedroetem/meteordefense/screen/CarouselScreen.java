@@ -11,6 +11,7 @@ import com.esnefedroetem.meteordefense.model.Continent;
 import com.esnefedroetem.meteordefense.renderer.CarouselRenderer;
 import com.esnefedroetem.meteordefense.renderer.CarouselRenderer.CarouselEvent;
 import com.esnefedroetem.meteordefense.screen.SplashScreen.SplashScreenEvent;
+import com.esnefedroetem.meteordefense.util.AssetsLoader;
 
 public class CarouselScreen implements Screen, PropertyChangeListener {
 	private PropertyChangeSupport pcs;
@@ -27,6 +28,16 @@ public class CarouselScreen implements Screen, PropertyChangeListener {
 		this.continents = continents;
 		isCitiesDisplayed = false;
 		currentContinent = null;
+		for(Continent continent : continents){
+			AssetsLoader.loadTexture(continent.getName() + ".png");
+			for(City city : continent.getCities()){
+				AssetsLoader.loadTexture(city.getName() + ".png");
+			}
+		}
+		AssetsLoader.loadTexture("star.png");
+		AssetsLoader.loadTexture("starGrey.png");
+		AssetsLoader.loadTexture("CarouselBackground.png");
+		AssetsLoader.finishLoading();
 		renderer.displayContinents(continents);
 	}
 
@@ -85,6 +96,14 @@ public class CarouselScreen implements Screen, PropertyChangeListener {
 	
 	public List<Continent> getContinents(){
 		return continents;
+	}
+	
+	public void update(){
+		if(isCitiesDisplayed){
+			renderer.displayCities(currentContinent.getCities());
+		}else{
+			renderer.displayContinents(continents);
+		}
 	}
 	
 	private void onBackPressed(){

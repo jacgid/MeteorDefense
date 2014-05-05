@@ -9,9 +9,12 @@ import com.esnefedroetem.meteordefense.model.Continent;
 import com.esnefedroetem.meteordefense.model.MeteorShower;
 
 public class ContinentFactory {
-
+	private static final boolean load = false;
 	public static List<Continent> createContinents(){
-		List<Continent> continents = LoadService.getContinents();
+		List<Continent> continents = null;
+		if(load){
+			continents = LoadService.getContinents();
+		}
 		if(continents == null){
 			continents = new ArrayList<Continent>(4);
 			continents.add(createEurope());
@@ -24,35 +27,35 @@ public class ContinentFactory {
 	
 	private static Continent createEurope(){
 		List<City> cities = new ArrayList<City>();
-		cities.add(new City("ParisParisParisParis", 20, new MeteorShower(5,5,5,5,5), State.UNLOCKED));
-		cities.add(new City("LondonLondonLondonLondon", 10, new MeteorShower(0,0,20,0,0), State.UNLOCKED));
-		cities.add(new City("BerlinBerlinBerlinBerlin", 50, new MeteorShower(5,0,0,0,5), State.UNLOCKED));
-		return new Continent("EuropeEuropeEuropeEurope", cities);
+		cities.add(new City("Paris", 20, new MeteorShower(5,5,5,5,5), State.UNLOCKED));
+		cities.add(new City("London", 10, new MeteorShower(0,0,20,0,0), State.UNLOCKED));
+		cities.add(new City("Berlin", 50, new MeteorShower(5,0,0,0,5), State.UNLOCKED));
+		return new Continent("Europe", cities);
 	}
 	
 	private static Continent createAsia(){
 		
 		List<City> cities = new ArrayList<City>();
-		cities.add(new City("ShanghaiShanghaiShanghai", 100, new MeteorShower(), State.UNLOCKED));
-		cities.add(new City("TokyoTokyoTokyoTokyo", 75, new MeteorShower(), State.UNLOCKED));
-		cities.add(new City("DubaiDubaiDubaiDubai", 50, new MeteorShower(), State.UNLOCKED));
-		return new Continent("AsiaAsiaAsiaAsiaAsia", cities);
+		cities.add(new City("Shanghai", 100, new MeteorShower(), State.UNLOCKED));
+		cities.add(new City("Tokyo", 75, new MeteorShower(), State.UNLOCKED));
+		cities.add(new City("Dubai", 50, new MeteorShower(), State.UNLOCKED));
+		return new Continent("Asia", cities);
 	}
 	
 	private static Continent createAmerica(){
 		List<City> cities = new ArrayList<City>();
-		cities.add(new City("NewYorkNewYorkNewYork", 100, new MeteorShower(), State.UNLOCKED));
-		cities.add(new City("WashingtonWashington", 75, new MeteorShower(), State.UNLOCKED));
-		cities.add(new City("OttawaOttawaOttawaOttawa", 50, new MeteorShower(), State.UNLOCKED));
-		return new Continent("AmericaAmericaAmerica", cities);
+		cities.add(new City("New York", 100, new MeteorShower(), State.UNLOCKED));
+		cities.add(new City("Washington", 75, new MeteorShower(), State.UNLOCKED));
+		cities.add(new City("Ottawa", 50, new MeteorShower(), State.UNLOCKED));
+		return new Continent("America", cities);
 	}
 	
 	private static Continent createAntarctica(){
 		List<City> cities = new ArrayList<City>();
-		cities.add(new City("SouthPoleSouthPoleSouthPole", 100, new MeteorShower(), State.UNLOCKED));
-		cities.add(new City("IceIceIceIceIceIceIceIce", 75, new MeteorShower(), State.UNLOCKED));
-		cities.add(new City("MountainMountainMountain", 50, new MeteorShower(), State.UNLOCKED));
-		return new Continent("AntarcticaAntarcticaAntarctica", cities);
+		cities.add(new City("SouthPole", 100, new MeteorShower(), State.UNLOCKED));
+		cities.add(new City("Ice", 75, new MeteorShower(), State.UNLOCKED));
+		cities.add(new City("Mountain", 50, new MeteorShower(), State.UNLOCKED));
+		return new Continent("Antarctica", cities);
 	}
 	
 }

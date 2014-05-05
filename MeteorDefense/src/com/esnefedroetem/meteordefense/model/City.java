@@ -15,7 +15,7 @@ public class City {
 
 	private State state;
 	private String name;
-	private int currentLife, maxLife;
+	private int currentLife, maxLife, score;
 	private Rectangle bounds = Constants.CITY_BOUNDS;
 	private MeteorShower meteorShower;
 	private List<Meteor> dashedMeteors = new ArrayList<Meteor>();
@@ -96,5 +96,15 @@ public class City {
 
 	public float getRemainingLife() {
 		return ((float) getLife()) / maxLife;
+	}
+	
+	public int getStars(){
+		//TODO implement stars
+		return 1;
+	}
+	
+	public int getScore(){
+		//TODO implement score
+		return 1;
 	}
 }

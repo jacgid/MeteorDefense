@@ -7,6 +7,7 @@ import java.util.List;
 import com.badlogic.gdx.Application.ApplicationType;
 import com.badlogic.gdx.Game;
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.graphics.Texture;
 import com.esnefedroetem.meteordefense.model.City;
 import com.esnefedroetem.meteordefense.model.Continent;
 import com.esnefedroetem.meteordefense.renderer.ArmoryDetailedRenderer.ArmoryDetaliedEvent;
@@ -31,6 +32,7 @@ public class MeteorDefense extends Game implements PropertyChangeListener {
 	
 	@Override
 	public void create() {
+		Texture.setEnforcePotImages(false);
 		init();
 		Gdx.input.setCatchBackKey(true);
 		setScreen(splashScreen);
@@ -113,6 +115,7 @@ public class MeteorDefense extends Game implements PropertyChangeListener {
 			scoreScreen.setScore((Integer)evt.getNewValue(), (Boolean)evt.getOldValue());
 			setScreen(scoreScreen);
 		}else if(evt.getPropertyName().equals("Scorescreen_finished")){
+			carouselScreen.update();
 			setScreen(carouselScreen);	
 		}else if(evt.getPropertyName().equals(ArmoryEvent.ARMORY_BACK_PRESSED.toString())){
 			setScreen(carouselScreen);			
