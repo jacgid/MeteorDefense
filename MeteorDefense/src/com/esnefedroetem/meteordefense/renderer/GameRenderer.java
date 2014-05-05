@@ -348,7 +348,8 @@ public class GameRenderer {
 	
 	public Vector2 unproject(int x, int y){
 		Vector3 temp = new Vector3(x,y,0);
-		gameCam.unproject(temp);
+		gameCam.unproject(temp, viewport.x, viewport.y,
+                viewport.width, viewport.height);
 		return new Vector2(temp.x, temp.y);
 	}
 	
