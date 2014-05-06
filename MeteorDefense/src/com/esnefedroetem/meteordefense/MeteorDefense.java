@@ -63,7 +63,7 @@ public class MeteorDefense extends Game implements PropertyChangeListener {
 	
 	private void save(){
 		SaveService.saveSoundState(SoundService.getSoundState());
-		SaveService.saveWallet(gameScreen.getModel().getWallet());
+		SaveService.saveWallet(armoryDetaliedScreen.getWallet());
 		List<Continent> continents = carouselScreen.getContinents();
 		SaveService.saveContinents(continents);
 	}

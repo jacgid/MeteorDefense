@@ -3,15 +3,18 @@ package com.esnefedroetem.meteordefense.screen;
 import java.beans.PropertyChangeListener;
 
 import com.badlogic.gdx.Screen;
+import com.esnefedroetem.meteordefense.model.Wallet;
 import com.esnefedroetem.meteordefense.model.armoryitem.AbstractArmoryItem;
 import com.esnefedroetem.meteordefense.renderer.ArmoryDetailedRenderer;
 
 public class ArmoryDetailedScreen implements Screen{
 	
 	private ArmoryDetailedRenderer renderer;
+	private Wallet wallet;
 	
-	public ArmoryDetailedScreen(ArmoryDetailedRenderer renderer){
+	public ArmoryDetailedScreen(ArmoryDetailedRenderer renderer, Wallet wallet){
 		this.renderer = renderer;
+		this.wallet = wallet;
 	}
 	
 	public void addChangeListener(PropertyChangeListener listener){
@@ -56,6 +59,10 @@ public class ArmoryDetailedScreen implements Screen{
 	public void setArmoryItem(AbstractArmoryItem armoryItem) {
 		renderer.setArmoryItem(armoryItem);
 		
+	}
+	
+	public Wallet getWallet() {
+		return wallet;
 	}
 
 }

@@ -25,7 +25,6 @@ public class GameModel implements PropertyChangeListener {
 	private AbstractArmoryItem selectedArmoryItem, standardWeapon;
 	private CannonBarrel cannonBarrel;
 	private City city;
-	private Wallet wallet;
 	private MeteorShower meteorShower;
 	public static final float WIDTH = Constants.LOGIC_SCREEN_WIDTH;
 	public static final float HEIGHT = Constants.LOGIC_SCREEN_HEIGHT;
@@ -36,10 +35,9 @@ public class GameModel implements PropertyChangeListener {
 	/**
 	 * Initializes the GameModel.
 	 */
-	public GameModel(Wallet wallet, CannonBarrel cannonBarrel) {
+	public GameModel(CannonBarrel cannonBarrel) {
 		pcs = new PropertyChangeSupport(this);
 		this.cannonBarrel = cannonBarrel;
-		this.wallet = wallet;
 	}
 
 	public void newGame(City city, List<AbstractArmoryItem> selectedArmoryItems) {
@@ -179,10 +177,6 @@ public class GameModel implements PropertyChangeListener {
 
 	public float getCannonAngle() {
 		return cannonBarrel.getAngle();
-	}
-
-	public Wallet getWallet() {
-		return wallet;
 	}
 
 	public City getCity() {

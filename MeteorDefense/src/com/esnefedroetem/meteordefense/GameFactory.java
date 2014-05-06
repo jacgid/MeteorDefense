@@ -41,11 +41,11 @@ public class GameFactory {
 	}
 	
 	public static ArmoryDetailedScreen cretateArmoryDetailedScreen(){
-		return new ArmoryDetailedScreen(new ArmoryDetailedRenderer());
+		return new ArmoryDetailedScreen(new ArmoryDetailedRenderer(), LoadService.getWallet());
 	}
 	
 	public static GameScreen createGameScreen(){
-		GameModel model = new GameModel(LoadService.getWallet(), new CannonBarrel());
+		GameModel model = new GameModel(new CannonBarrel());
 		GameRenderer renderer = new GameRenderer(model);
 		return new GameScreen(model, renderer);
 	}
