@@ -3,6 +3,7 @@ package com.esnefedroetem.meteordefense.screen;
 import java.beans.PropertyChangeListener;
 
 import com.badlogic.gdx.Screen;
+import com.esnefedroetem.meteordefense.model.armoryitem.AbstractArmoryItem;
 import com.esnefedroetem.meteordefense.renderer.ArmoryDetailedRenderer;
 
 public class ArmoryDetailedScreen implements Screen{
@@ -50,6 +51,11 @@ public class ArmoryDetailedScreen implements Screen{
 	@Override
 	public void dispose() {
 		renderer.dispose();
+	}
+
+	public void setArmoryItem(AbstractArmoryItem armoryItem) {
+		renderer.setArmoryItem(armoryItem);
+		
 	}
 
 }
