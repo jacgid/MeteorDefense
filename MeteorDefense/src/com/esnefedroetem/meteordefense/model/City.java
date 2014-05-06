@@ -15,7 +15,9 @@ public class City {
 
 	private State state;
 	private String name;
-	private int currentLife, maxLife, score;
+	private int currentLife, maxLife;
+	private int stars = 0;
+	private int score = 0;
 	private Rectangle bounds = Constants.CITY_BOUNDS;
 	private MeteorShower meteorShower;
 	private List<Meteor> dashedMeteors = new ArrayList<Meteor>();
@@ -94,17 +96,33 @@ public class City {
 		}
 	}
 
+	/**
+	 * 
+	 * @returns the remaning life in procent
+	 */
 	public float getRemainingLife() {
 		return ((float) getLife()) / maxLife;
 	}
-	
-	public int getStars(){
-		//TODO implement stars
-		return 1;
+
+	public int getMaxLife() {
+		return maxLife;
 	}
-	
-	public int getScore(){
-		//TODO implement score
-		return 1;
+
+	public int getStars() {
+		return stars;
+	}
+
+	public int getMaxScore() {
+		return score;
+	}
+
+	public void setStars(int stars) {
+		if (stars > this.stars)
+			this.stars = stars;
+
+	}
+	public void setScore(int score){
+		if(score > this.score)
+			this.score = score;
 	}
 }
