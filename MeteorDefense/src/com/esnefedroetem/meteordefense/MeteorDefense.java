@@ -10,6 +10,7 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Texture;
 import com.esnefedroetem.meteordefense.model.City;
 import com.esnefedroetem.meteordefense.model.Continent;
+import com.esnefedroetem.meteordefense.model.armoryitem.AbstractArmoryItem;
 import com.esnefedroetem.meteordefense.renderer.ArmoryDetailedRenderer.ArmoryDetaliedEvent;
 import com.esnefedroetem.meteordefense.renderer.ArmoryRenderer.ArmoryEvent;
 import com.esnefedroetem.meteordefense.renderer.CarouselRenderer.CarouselEvent;
@@ -122,6 +123,7 @@ public class MeteorDefense extends Game implements PropertyChangeListener {
 		}else if(evt.getPropertyName().equals(CarouselEvent.CAROUSEL_ARMORY_CLICKED.toString())){
 			setScreen(armoryScreen);
 		}else if(evt.getPropertyName().equals(ArmoryEvent.ARMORY_ITEM_PRESSED.toString())){
+			armoryDetaliedScreen.setArmoryItem((AbstractArmoryItem) evt.getNewValue());
 			setScreen(armoryDetaliedScreen);
 		}else if(evt.getPropertyName().equals(ArmoryDetaliedEvent.ARMORY_DETAILED_BACK_PRESSED.toString())){
 			setScreen(armoryScreen);
