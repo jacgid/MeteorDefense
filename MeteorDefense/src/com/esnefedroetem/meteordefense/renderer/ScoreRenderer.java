@@ -16,6 +16,7 @@ import com.badlogic.gdx.scenes.scene2d.ui.Label.LabelStyle;
 import com.badlogic.gdx.scenes.scene2d.ui.Table;
 import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
 import com.badlogic.gdx.scenes.scene2d.ui.TextButton.TextButtonStyle;
+import com.esnefedroetem.meteordefense.ScoreHandler;
 
 public class ScoreRenderer {
 
@@ -37,41 +38,38 @@ public class ScoreRenderer {
 	}
 
 	private void create() {
-		color = new Color(255,0,0,0);
-		
+		color = new Color(255, 0, 0, 0);
+
 		Table table = new Table();
 		table.setFillParent(true);
 
 		stage.addActor(table);
-		
-		
+
 		LabelStyle scoreLabelStyle = new LabelStyle();
 		scoreLabelStyle.font = new BitmapFont();
 		scoreLabelStyle.font.scale(3);
 		scoreLabel = new Label("Score: " + score, scoreLabelStyle);
-		
+
 		TextButtonStyle homeButtonstyle = new TextButtonStyle();
 		homeButtonstyle.font = new BitmapFont();
 		homeButtonstyle.font.scale(4);
-		
+
 		TextButton homeButton = new TextButton("Home", homeButtonstyle);
-		
+
 		table.add(scoreLabel).expand().bottom();
 		table.row();
 		table.add(homeButton).expand().bottom();
-		
+
 		homeButton.addListener(new InputListener() {
-			public boolean touchDown (InputEvent event, float x, float y, int pointer, int button) {
+			public boolean touchDown(InputEvent event, float x, float y, int pointer, int button) {
 				return true;
-		 	}
-		 
-		 	public void touchUp (InputEvent event, float x, float y, int pointer, int button) {
-		 		pcs.firePropertyChange("Scorescreen_finished", false, true);
-		 	}
+			}
+
+			public void touchUp(InputEvent event, float x, float y, int pointer, int button) {
+				pcs.firePropertyChange("Scorescreen_finished", false, true);
+			}
 
 		});
-		
-		
 
 	}
 
@@ -81,7 +79,7 @@ public class ScoreRenderer {
 
 	public void render() {
 		Gdx.gl.glClearColor(color.r, color.g, color.b, color.a);
-		
+
 		Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
 
 		spriteBatch.begin();
@@ -91,16 +89,27 @@ public class ScoreRenderer {
 	}
 
 	public void setScore(int score, boolean win) {
-		if(win){
+		if (win) {
 			color.set(0, 255, 0, 0);
 		}
 		scoreLabel.setText("Score: " + score);
 
 	}
 
+	public void setScore(ScoreHandler score) {
+		if (score.getRemaningLifeInProcent() > 0) {
+			color.set(0, 255, 0, 0);
+			scoreLabel.setText("Score: " + score.getTotalScore());
+		}else {
+			color.set(255, 0, 0, 0);
+			scoreLabel.setText("City destroyed!");
+		}
+
+	}
+
 	public void show() {
 		Gdx.input.setInputProcessor(stage);
-		
+
 	}
 
 }

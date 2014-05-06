@@ -186,7 +186,7 @@ public class CarouselRenderer {
 		
 		Button btn = new Button(btnStyle);
 		Label lblName = new Label(city.getName(), lblStyle1);
-		Label lblScore = new Label("High score: " + city.getScore(), lblStyle2);
+		Label lblScore = new Label("High score: " + city.getMaxScore(), lblStyle2);
 		Image imgCity = null;
 		Image[] stars = new Image[3];
 		for(int i = 0; i < city.getStars(); i++){

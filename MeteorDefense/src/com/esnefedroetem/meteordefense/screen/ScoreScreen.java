@@ -3,6 +3,7 @@ package com.esnefedroetem.meteordefense.screen;
 import java.beans.PropertyChangeListener;
 
 import com.badlogic.gdx.Screen;
+import com.esnefedroetem.meteordefense.ScoreHandler;
 import com.esnefedroetem.meteordefense.renderer.ScoreRenderer;
 
 
@@ -18,6 +19,10 @@ public class ScoreScreen implements Screen{
 	public void setScore(int score, boolean win){
 		
 		renderer.setScore(score, win);
+		
+	}
+	public void setScore(ScoreHandler score) {
+		renderer.setScore(score);
 		
 	}
 	
@@ -66,5 +71,7 @@ public class ScoreScreen implements Screen{
 		// TODO Auto-generated method stub
 		
 	}
+
+	
 
 }

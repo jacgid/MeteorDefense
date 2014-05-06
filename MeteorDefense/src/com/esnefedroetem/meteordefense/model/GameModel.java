@@ -6,6 +6,7 @@ import java.beans.PropertyChangeSupport;
 import java.util.ArrayList;
 import java.util.List;
 
+import com.esnefedroetem.meteordefense.ScoreHandler;
 import com.esnefedroetem.meteordefense.model.armoryitem.AbstractArmoryItem;
 import com.esnefedroetem.meteordefense.model.armoryitem.AbstractDefenseArmoryItem;
 import com.esnefedroetem.meteordefense.model.armoryitem.AbstractEffectArmoryItem;
@@ -29,6 +30,7 @@ public class GameModel implements PropertyChangeListener {
 	public static final float WIDTH = Constants.LOGIC_SCREEN_WIDTH;
 	public static final float HEIGHT = Constants.LOGIC_SCREEN_HEIGHT;
 	private int numberOfProjectiles, meteorHits, score = 0;
+	private ScoreHandler scoreHandler;
 	
 	private ArrayList<Meteor> killedMeteors = new ArrayList<Meteor>();
 
@@ -83,11 +85,11 @@ public class GameModel implements PropertyChangeListener {
 	}
 
 	private void gameover() {
-		if (city.getLife() > 0) {
-			pcs.firePropertyChange("Gameover", true, calculateScore());
-		} else {
-			pcs.firePropertyChange("Gameover", false, calculateScore());
-		}
+		handleScore();
+			pcs.firePropertyChange("Gameover", true, handleScore());
+		
+			getCity().setScore(scoreHandler.getTotalScore());
+			getCity().setStars(scoreHandler.getStars());
 		reset();
 		
 	}
@@ -200,9 +202,6 @@ public class GameModel implements PropertyChangeListener {
 		score = score + (int)((meteor.getLife()+1)*meteor.getDamage()*difficulty*0.1);
 	}
 	
-	public int getScore(){
-		return score;
-	}
 	
 	public ArrayList<Meteor> getKilledMeteors(){
 		ArrayList<Meteor> temp = new ArrayList<Meteor>();
@@ -256,12 +255,13 @@ public class GameModel implements PropertyChangeListener {
 		selectedArmoryItem.addChangeListener(this);
 	}
 
-	private int calculateScore() {
-		float hitRating = ((float) meteorHits) / numberOfProjectiles;
+	public ScoreHandler handleScore() {
 
-		int totalScore = Math.round(hitRating * getCity().getRemainingLife() * 1337);
-
-		return totalScore;
+		scoreHandler = new ScoreHandler(meteorHits, numberOfProjectiles, getCity().getLife(), getCity().getMaxLife(), score);
+		
+		
+		return scoreHandler;
 
 	}
+	
 }

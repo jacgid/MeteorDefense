@@ -118,7 +118,7 @@ public class GameRenderer {
 		LabelStyle scoreLabelStyle = new LabelStyle();
 		scoreLabelStyle.font = new BitmapFont();
 		scoreLabelStyle.font.scale(7);
-		score = model.getScore();
+//		score = model.calculateScore().getMeteorScore();
 		scoreLable = new Label(score + "", scoreLabelStyle);
 		scoreLable.setPosition(cameraWidth-scoreLable.getWidth(), cameraHeight-scoreLable.getHeight());
 //		UITable.add(scoreLable).fill();
@@ -242,8 +242,8 @@ public class GameRenderer {
 //		drawDebug();
 		
 		lifeLabel.setText(model.getCity().getLife() + "");
-		score = model.getScore();
-		scoreLable.setText(score+"");
+		score = model.handleScore().getMeteorScore();
+		scoreLable.setText(score + "");
 
 	}
 	
