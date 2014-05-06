@@ -75,6 +75,7 @@ public class GameRenderer {
 		gameCam = new OrthographicCamera(cameraWidth, cameraHeight);
 		gameCam.position.set(cameraWidth/2, cameraHeight/2, 0);
 		gameCam.update();
+		bgCam = new OrthographicCamera();
 		spriteBatch = new SpriteBatch();
 		pcs = new PropertyChangeSupport(this);
 		stage = new Stage();
@@ -97,8 +98,6 @@ public class GameRenderer {
 		debugTable.add(lifeLabel).left();
 		
 		toolbarTable = new Table();
-//		toolbarTable.setHeight(Constants.TOOLBAR_HEIGHT);
-//		toolbarTable.setWidth(Constants.LOGIC_SCREEN_WIDTH);
 		toolbarTable.bottom().left();
 		toolbarTable.setFillParent(true);
 		stage.addActor(toolbarTable);
@@ -113,19 +112,15 @@ public class GameRenderer {
 			public void clicked(InputEvent event, float x, float y){
 				if(event.getTarget().getParent() == button1){
 					pcs.firePropertyChange("buttonClicked", 1, false);
-					System.out.println("Left clicked");
 				}
 				if(event.getTarget().getParent() == button2){
 					pcs.firePropertyChange("buttonClicked", 2, false);
-					System.out.println("Leftmiddle clicked");
 				}
 				if(event.getTarget().getParent() == button3){
 					pcs.firePropertyChange("buttonClicked", 4, false);
-					System.out.println("rightmiddle clicked");
 				}
 				if(event.getTarget().getParent() == button4){
 					pcs.firePropertyChange("buttonClicked", 5, false);
-					System.out.println("right clicked");
 				}
 			}
 		};
@@ -191,11 +186,7 @@ public class GameRenderer {
 		
 		spriteBatch.setProjectionMatrix(bgCam.combined);
 		spriteBatch.begin();
-//		debugRenderer.setProjectionMatrix(bgCam.combined);
-//		debugRenderer.begin(ShapeType.Filled);
-//		debugRenderer.setColor(Color.LIGHT_GRAY);
-//		debugRenderer.rect(0, 0, width, height);
-//		debugRenderer.end();
+		
 		if(spritesLoaded)
 		bgSprite.draw(spriteBatch);
 		spriteBatch.end();
@@ -207,20 +198,8 @@ public class GameRenderer {
 		Gdx.gl.glViewport((int) viewport.x, (int) viewport.y,
                 (int) viewport.width, (int) viewport.height);
 		
-		if(AssetsLoader.update() && spritesLoaded==false){
-			loadSprites();
-			loadUI();
-			pcs.firePropertyChange("addInputProcessor", stage, false);
-			spritesLoaded = true;
-		}
 		spriteBatch.begin();
 		//Drawing is done here
-		
-//		debugRenderer.setProjectionMatrix(gameCam.combined);
-//		debugRenderer.begin(ShapeType.Filled);
-//		debugRenderer.setColor(Color.PINK);
-//		debugRenderer.rect(0, 0, gameCam.viewportWidth, gameCam.viewportHeight);
-//		debugRenderer.end();
 		
 		if(spritesLoaded){
 			drawSprites();
@@ -234,10 +213,19 @@ public class GameRenderer {
 
 	}
 	
+	public void loadScene(){
+		if(AssetsLoader.update() && spritesLoaded==false){
+			loadSprites();
+			loadUI();
+			spritesLoaded = true;
+			pcs.firePropertyChange("addInputProcessor", stage, false);
+		}
+	}
+	
 	private void drawSprites(){
 		for(Meteor meteor : model.getVisibleMeteors()){
-			float x = meteor.getX()- (meteor.getBounds().radius/2);
-			float y = meteor.getY()- (meteor.getBounds().radius/2);
+			float x = meteor.getX() - meteor.getBounds().radius;
+			float y = meteor.getY() - meteor.getBounds().radius;
 			meteorSprite.setPosition(x, y);
 			meteorSprite.draw(spriteBatch);
 		}
@@ -250,8 +238,8 @@ public class GameRenderer {
 		cannonSprite.setRotation((float) Math.toDegrees(model.getCannonAngle())-90);
 		cannonSprite.draw(spriteBatch);
 		for(Projectile projectile : model.getVisibleProjectiles()){
-			float x = projectile.getX();
-			float y = projectile.getY();
+			float x = projectile.getX() - projectile.getBounds().radius;
+			float y = projectile.getY() - projectile.getBounds().radius;
 			projectileSprite.setPosition(x, y);
 			projectileSprite.setRotation((float) (projectile.getAngle()*(180/Math.PI))-90);
 			projectileSprite.draw(spriteBatch);
@@ -268,6 +256,8 @@ public class GameRenderer {
 		this.height = height;
 		
 		bgCam = new OrthographicCamera(width, height);
+		bgCam.viewportWidth = width;
+		bgCam.viewportHeight = height;
 		bgCam.position.set(width/2, height/2, 0);
 		bgCam.update();
 		
@@ -358,8 +348,13 @@ public class GameRenderer {
 	
 	public Vector2 unproject(int x, int y){
 		Vector3 temp = new Vector3(x,y,0);
-		gameCam.unproject(temp);
+		gameCam.unproject(temp, viewport.x, viewport.y,
+                viewport.width, viewport.height);
 		return new Vector2(temp.x, temp.y);
+	}
+	
+	public boolean doneLoading(){
+		return spritesLoaded;
 	}
 	
 }

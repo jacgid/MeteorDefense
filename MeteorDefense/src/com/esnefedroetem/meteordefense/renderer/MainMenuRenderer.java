@@ -4,6 +4,7 @@ import java.beans.PropertyChangeListener;
 import java.beans.PropertyChangeSupport;
 
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.Input.Keys;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
@@ -19,6 +20,7 @@ import com.badlogic.gdx.scenes.scene2d.ui.TextButton.TextButtonStyle;
 import com.badlogic.gdx.scenes.scene2d.utils.ChangeListener;
 import com.badlogic.gdx.scenes.scene2d.utils.ChangeListener.ChangeEvent;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
+import com.esnefedroetem.meteordefense.renderer.CarouselRenderer.CarouselEvent;
 
 public class MainMenuRenderer {
 	
@@ -75,6 +77,18 @@ public class MainMenuRenderer {
 			@Override
 			public void clicked(InputEvent event, float x, float y) {
 		 		pcs.firePropertyChange(MainMenuEvent.MAINMENU_PLAY_CLICKED.toString(), false, true);				
+			}
+		});
+		
+		stage.addListener(new InputListener(){
+			
+			@Override
+			public boolean keyDown(InputEvent event,
+		              int keycode){
+				if(keycode == Keys.BACK){
+			 		pcs.firePropertyChange("Exit application", false, true);					
+				}
+				return true;
 			}
 		});
 		

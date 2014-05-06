@@ -2,9 +2,9 @@ package com.esnefedroetem.meteordefense.model.meteor;
 
 import com.badlogic.gdx.math.Vector2;
 import com.esnefedroetem.meteordefense.model.Meteor;
+import com.esnefedroetem.meteordefense.model.Projectile;
+import com.esnefedroetem.meteordefense.model.Projectile.ProjectileType;
 import com.esnefedroetem.meteordefense.util.Constants;
-import com.esnefedroetem.meteordefense.util.Constants.MeteorType;
-import com.esnefedroetem.meteordefense.util.Constants.ProjectileType;
 /** 
  * @author Andreas Pegelow
  *
@@ -24,7 +24,7 @@ public class FastMeteor extends Meteor {
 	}
 
 	@Override
-	public void hit(int damage, ProjectileType projectiletype) {
+	public void hit(int damage, ProjectileType projectileType) {
 		decreaseHealth(damage);
 	}
 

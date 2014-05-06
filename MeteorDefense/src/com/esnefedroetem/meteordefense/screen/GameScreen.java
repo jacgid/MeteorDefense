@@ -2,9 +2,11 @@ package com.esnefedroetem.meteordefense.screen;
 
 import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
+import java.beans.PropertyChangeSupport;
 import java.util.List;
 
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.Input.Keys;
 import com.badlogic.gdx.InputMultiplexer;
 import com.badlogic.gdx.InputProcessor;
 import com.badlogic.gdx.Screen;
@@ -14,7 +16,6 @@ import com.esnefedroetem.meteordefense.model.City;
 import com.esnefedroetem.meteordefense.model.GameModel;
 import com.esnefedroetem.meteordefense.model.armoryitem.AbstractArmoryItem;
 import com.esnefedroetem.meteordefense.renderer.GameRenderer;
-import com.esnefedroetem.meteordefense.util.Constants;
 
 /**
  * The GameScreen is the screen where the game is running.
@@ -26,11 +27,14 @@ public class GameScreen implements Screen, InputProcessor, PropertyChangeListene
 	private GameModel model;
 	private GameRenderer renderer;
 	private InputMultiplexer inputmultiplexer;
+	private PropertyChangeSupport pcs;
 	
 	public GameScreen(GameModel model, GameRenderer renderer){
 		this.model = model;
 		this.renderer = renderer;
-		addChangeListener(this);
+		pcs = new PropertyChangeSupport(this);
+		model.addChangeListener(this);
+		renderer.addChangeListener(this);
 		inputmultiplexer = new InputMultiplexer();
 		inputmultiplexer.addProcessor(this);
 	}
@@ -107,6 +111,7 @@ public class GameScreen implements Screen, InputProcessor, PropertyChangeListene
 	
 	public void newGame(City city, List<AbstractArmoryItem> selectedArmoryItems){
 		model.newGame(city, selectedArmoryItems);
+		
 	}
 	
 	public GameModel getModel(){
@@ -115,7 +120,10 @@ public class GameScreen implements Screen, InputProcessor, PropertyChangeListene
 
 	@Override
 	public boolean keyDown(int keycode) {
-		// TODO Auto-generated method stub
+		if(keycode == Keys.BACK){
+			model.endGame();
+			return true;
+		}
 		return false;
 	}
 
@@ -171,11 +179,14 @@ public class GameScreen implements Screen, InputProcessor, PropertyChangeListene
 			model.toolbarAct((Integer)evt.getOldValue());
 		}
 		if(evt.getPropertyName().equals("addInputProcessor")){
-			System.out.println("Adding inputprocessor");
 			inputmultiplexer.removeProcessor(this);
 			inputmultiplexer.addProcessor((InputProcessor)evt.getOldValue());
 			inputmultiplexer.addProcessor(this);
 		}
+	}
+	
+	public GameRenderer getRenderer(){
+		return renderer;
 	}
 
 }

@@ -1,6 +1,7 @@
 package com.esnefedroetem.meteordefense.model.armoryitem;
 
-import com.esnefedroetem.meteordefense.util.Constants.ProjectileType;
+
+import com.esnefedroetem.meteordefense.model.Projectile.ProjectileType;
 
 /** 
  * 
