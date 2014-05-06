@@ -28,7 +28,9 @@ public class GameModel implements PropertyChangeListener {
 	private MeteorShower meteorShower;
 	public static final float WIDTH = Constants.LOGIC_SCREEN_WIDTH;
 	public static final float HEIGHT = Constants.LOGIC_SCREEN_HEIGHT;
-	private int numberOfProjectiles, meteorHits;
+	private int numberOfProjectiles, meteorHits, score = 0;
+	
+	private ArrayList<Meteor> killedMeteors = new ArrayList<Meteor>();
 
 	private PropertyChangeSupport pcs;
 
@@ -96,6 +98,7 @@ public class GameModel implements PropertyChangeListener {
 		numberOfProjectiles = 0;
 		meteorHits = 0;
 		cannonBarrel.reset();
+		score = 0;
 	}
 	
 	public void toolbarAct(int buttonNr){
@@ -135,9 +138,14 @@ public class GameModel implements PropertyChangeListener {
 	}
 
 	private void handleMeteorCollision(Projectile projectile, Meteor meteor) {
+		int meteorcount = meteorShower.getVisibleMeteors().size();
 		meteorShower.meteorHit(meteor, projectile.getDamage(), projectile.getProjectileType());
 		projectiles.remove(projectile);
 		meteorHits += 1;
+		if(meteorShower.getVisibleMeteors().size()<meteorcount){
+			addToScore(meteor);
+			killedMeteors.add(meteor);
+		}
 	}
 
 	private boolean collisionOccurs(Projectile projectile, Meteor meteor) {
@@ -165,6 +173,44 @@ public class GameModel implements PropertyChangeListener {
 		float y = object.getY() + object.getBounds().radius;
 
 		return (x < 0 || x > WIDTH || y > HEIGHT);
+	}
+	
+	private void addToScore(Meteor meteor){
+		
+		int difficulty = 1; 
+		
+		switch(meteor.getType()){
+		case NONE:
+			difficulty = 1;
+			break;
+		case FAST:
+			difficulty = 2;
+			break;
+		case FIRE:
+			difficulty = 2;
+			break;
+		case ICE:
+			difficulty = 3;
+			break;
+		case RADIOACTIVE:
+			difficulty = 2;
+			break;
+		}
+		
+		score = score + (int)((meteor.getLife()+1)*meteor.getDamage()*difficulty*0.1);
+	}
+	
+	public int getScore(){
+		return score;
+	}
+	
+	public ArrayList<Meteor> getKilledMeteors(){
+		ArrayList<Meteor> temp = new ArrayList<Meteor>();
+		for(Meteor met : killedMeteors){
+			temp.add(met);
+		}
+		killedMeteors.clear();
+		return temp;
 	}
 
 	public List<Projectile> getVisibleProjectiles() {
@@ -213,9 +259,9 @@ public class GameModel implements PropertyChangeListener {
 	private int calculateScore() {
 		float hitRating = ((float) meteorHits) / numberOfProjectiles;
 
-		int score = Math.round(hitRating * getCity().getRemainingLife() * 1337);
+		int totalScore = Math.round(hitRating * getCity().getRemainingLife() * 1337);
 
-		return score;
+		return totalScore;
 
 	}
 }

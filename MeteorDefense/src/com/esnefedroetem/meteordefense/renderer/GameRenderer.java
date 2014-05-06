@@ -2,6 +2,7 @@ package com.esnefedroetem.meteordefense.renderer;
 
 import java.beans.PropertyChangeListener;
 import java.beans.PropertyChangeSupport;
+import java.util.ArrayList;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Color;
@@ -19,6 +20,7 @@ import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.math.Vector3;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.Stage;
+import com.badlogic.gdx.scenes.scene2d.actions.Actions;
 import com.badlogic.gdx.scenes.scene2d.ui.ImageButton;
 import com.badlogic.gdx.scenes.scene2d.ui.Label;
 import com.badlogic.gdx.scenes.scene2d.ui.Label.LabelStyle;
@@ -52,8 +54,9 @@ public class GameRenderer {
 	
 	private Stage stage;
 	private Table debugTable;
-	private Label lifeLabel;
-	private Table toolbarTable;
+	private Label lifeLabel, scoreLable, hitLable;
+	private Table toolbarTable, UITable;
+	LabelStyle hitLabelStyle;
 	
 	private ShapeRenderer debugRenderer = new ShapeRenderer();
 	private boolean spritesLoaded = false;
@@ -63,7 +66,10 @@ public class GameRenderer {
 	private Sprite projectileSprite, meteorSprite, cannonSprite, citySprite, toolbarSprite, bgSprite;
 	private Rectangle viewport;
 	private float scale;
-	
+
+	private int score;
+	private ArrayList<Meteor> lastKilledMeteors = new ArrayList<Meteor>();
+	private BitmapFont hitScore;
 	
 	/**
 	 * Initializes GameRenderer.
@@ -98,9 +104,33 @@ public class GameRenderer {
 		debugTable.add(lifeLabel).left();
 		
 		toolbarTable = new Table();
-		toolbarTable.bottom().left();
 		toolbarTable.setFillParent(true);
+		toolbarTable.bottom().left();
 		stage.addActor(toolbarTable);
+		
+		UITable = new Table();
+//		UITable.debug();
+//		UITable.debugTable();
+		UITable.setFillParent(true);
+		UITable.top().right().padRight(10);
+		stage.addActor(UITable);
+		
+		LabelStyle scoreLabelStyle = new LabelStyle();
+		scoreLabelStyle.font = new BitmapFont();
+		scoreLabelStyle.font.scale(7);
+		score = model.getScore();
+		scoreLable = new Label(score + "", scoreLabelStyle);
+		scoreLable.setPosition(cameraWidth-scoreLable.getWidth(), cameraHeight-scoreLable.getHeight());
+//		UITable.add(scoreLable).fill();
+		
+		stage.addActor(scoreLable);
+		
+		hitScore = new BitmapFont();
+		hitScore.scale(2);
+		
+		hitLabelStyle = new LabelStyle();
+		hitLabelStyle.font = new BitmapFont();
+		hitLabelStyle.font.scale(2);
 	}
 	
 	private void loadUI(){
@@ -206,10 +236,14 @@ public class GameRenderer {
 		}
 		
 		spriteBatch.end();
+		drawHits();
+		stage.act();
 		stage.draw();
 //		drawDebug();
 		
 		lifeLabel.setText(model.getCity().getLife() + "");
+		score = model.getScore();
+		scoreLable.setText(score+"");
 
 	}
 	
@@ -243,6 +277,18 @@ public class GameRenderer {
 			projectileSprite.setPosition(x, y);
 			projectileSprite.setRotation((float) (projectile.getAngle()*(180/Math.PI))-90);
 			projectileSprite.draw(spriteBatch);
+		}
+	}
+	
+	private void drawHits(){
+		
+		lastKilledMeteors = model.getKilledMeteors();
+		
+		for(Meteor meteor : lastKilledMeteors){
+			Label hitLabel = new Label("10",hitLabelStyle);
+			hitLabel.addAction(Actions.sequence(Actions.fadeOut(0.5f), Actions.removeActor()));
+			stage.addActor(hitLabel);
+			hitLabel.setPosition(meteor.getBounds().x, meteor.getBounds().y);
 		}
 	}
 	
@@ -344,6 +390,7 @@ public class GameRenderer {
 		
 		debugRenderer.end();
 		
+		Table.drawDebug(stage);
 	}
 	
 	public Vector2 unproject(int x, int y){
