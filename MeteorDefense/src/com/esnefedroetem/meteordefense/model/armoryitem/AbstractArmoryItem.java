@@ -29,6 +29,9 @@ public abstract class AbstractArmoryItem {
 	protected String name, description;
 	public static final EmptyItem EMPTY_ITEM = new EmptyItem();
 	
+	public AbstractArmoryItem() {
+		init(State.LOCKED, 0);
+	}
 	
 	public void init(State state, int upgradeIndex) {
 		initUpgrades();
@@ -151,5 +154,12 @@ public abstract class AbstractArmoryItem {
 	public abstract void initUpgrades();
 
 	public abstract void update(float delta);
+
+	public String getNextUpgradeInfo() {
+		if(upgrades.get(upgradeIndex).getPowerIncrement() == 0) {
+			return "Cooldown: " + cooldown + upgrades.get(upgradeIndex).getCooldownDecrement() + " sec";
+		}
+		return "Power: " + power + upgrades.get(upgradeIndex).getPowerIncrement();
+	}
 		
 }
