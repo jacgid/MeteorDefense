@@ -8,5 +8,17 @@ public class Wallet {
 		coins += amount;
 	}
 	
+	public void removeCoins(int amount) {
+		coins -= amount;
+	}
+	
+	public boolean canAfford(int price){
+		return coins >= price;
+	}
+	
+	public int getAssets() {
+		return coins;
+	}
+	
 	
 }
