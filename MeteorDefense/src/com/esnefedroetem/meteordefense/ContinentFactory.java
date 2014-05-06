@@ -36,25 +36,25 @@ public class ContinentFactory {
 	private static Continent createAsia(){
 		
 		List<City> cities = new ArrayList<City>();
-		cities.add(new City("Shanghai", 100, new MeteorShower(), State.UNLOCKED));
-		cities.add(new City("Tokyo", 75, new MeteorShower(), State.UNLOCKED));
-		cities.add(new City("Dubai", 50, new MeteorShower(), State.UNLOCKED));
+		cities.add(new City("Shanghai", 100, new MeteorShower(), State.LOCKED));
+		cities.add(new City("Tokyo", 75, new MeteorShower(), State.LOCKED));
+		cities.add(new City("Dubai", 50, new MeteorShower(), State.LOCKED));
 		return new Continent("Asia", cities);
 	}
 	
 	private static Continent createAmerica(){
 		List<City> cities = new ArrayList<City>();
-		cities.add(new City("New York", 100, new MeteorShower(), State.UNLOCKED));
-		cities.add(new City("Washington", 75, new MeteorShower(), State.UNLOCKED));
-		cities.add(new City("Ottawa", 50, new MeteorShower(), State.UNLOCKED));
+		cities.add(new City("New York", 100, new MeteorShower(), State.LOCKED));
+		cities.add(new City("Washington", 75, new MeteorShower(), State.LOCKED));
+		cities.add(new City("Ottawa", 50, new MeteorShower(), State.LOCKED));
 		return new Continent("America", cities);
 	}
 	
 	private static Continent createAntarctica(){
 		List<City> cities = new ArrayList<City>();
-		cities.add(new City("SouthPole", 100, new MeteorShower(), State.UNLOCKED));
-		cities.add(new City("Ice", 75, new MeteorShower(), State.UNLOCKED));
-		cities.add(new City("Mountain", 50, new MeteorShower(), State.UNLOCKED));
+		cities.add(new City("SouthPole", 100, new MeteorShower(), State.LOCKED));
+		cities.add(new City("Ice", 75, new MeteorShower(), State.LOCKED));
+		cities.add(new City("Mountain", 50, new MeteorShower(), State.LOCKED));
 		return new Continent("Antarctica", cities);
 	}
 	

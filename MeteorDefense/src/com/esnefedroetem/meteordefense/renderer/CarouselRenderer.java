@@ -115,6 +115,7 @@ public class CarouselRenderer {
 		scroll.removeAllPages();
 		ButtonStyle btnStyle = new ButtonStyle();
 		btnStyle.up = new TextureRegionDrawable(new TextureRegion(AssetsLoader.getTexture("CarouselBackground.png")));
+		btnStyle.disabled = new TextureRegionDrawable(new TextureRegion(AssetsLoader.getTexture("CarouselBackgroundLocked.png")));
 		LabelStyle lblStyle1 = new LabelStyle();
 		lblStyle1.font = new BitmapFont();
 		lblStyle1.font.getRegion().getTexture().setFilter(TextureFilter.Linear, TextureFilter.Linear);
@@ -151,7 +152,6 @@ public class CarouselRenderer {
 		float aspectRatio = imgContinent.getHeight() / imgContinent.getWidth();
 		btn.add(imgContinent).width(Gdx.graphics.getWidth() * 0.75F).height(Gdx.graphics.getWidth() * 0.75F * aspectRatio);
 		
-		
 		btn.setName(position + "");
 		btn.addListener(carouselListener);
 		
@@ -163,6 +163,7 @@ public class CarouselRenderer {
 		scroll.removeAllPages();
 		ButtonStyle btnStyle = new ButtonStyle();
 		btnStyle.up = new TextureRegionDrawable(new TextureRegion(AssetsLoader.getTexture("CarouselBackground.png")));
+		btnStyle.disabled = new TextureRegionDrawable(new TextureRegion(AssetsLoader.getTexture("CarouselBackgroundLocked.png")));
 		LabelStyle lblStyle1 = new LabelStyle();
 		lblStyle1.font = new BitmapFont();
 		lblStyle1.font.getRegion().getTexture().setFilter(TextureFilter.Linear, TextureFilter.Linear);
@@ -183,9 +184,10 @@ public class CarouselRenderer {
 
 	private Button getCityPage(City city, int position, ButtonStyle btnStyle, LabelStyle lblStyle1, LabelStyle lblStyle2){
 		
+		Button btn = new Button(btnStyle);
 		Label lblName = new Label(city.getName(), lblStyle1);
 		Label lblScore = new Label("High score: " + city.getScore(), lblStyle2);
-		Image imgCity = new Image(AssetsLoader.getTexture(city.getName() + ".png"));
+		Image imgCity = null;
 		Image[] stars = new Image[3];
 		for(int i = 0; i < city.getStars(); i++){
 			stars[i] = new Image(AssetsLoader.getTexture("star.png"));
@@ -198,7 +200,13 @@ public class CarouselRenderer {
 		starTable.add(stars[1]).pad(10).width(Gdx.graphics.getWidth() / 9).height(Gdx.graphics.getWidth() / 9);
 		starTable.add(stars[2]).pad(10).width(Gdx.graphics.getWidth() / 9).height(Gdx.graphics.getWidth() / 9);
 		
-		Button btn = new Button(btnStyle);
+		if(city.getState() == City.State.LOCKED){
+			imgCity = new Image(AssetsLoader.getTexture("lock.png"));
+			btn.setDisabled(true);
+		}else{
+			imgCity =  new Image(AssetsLoader.getTexture(city.getName() + ".png"));
+		}
+		
 		btn.add(lblName).expandX();
 		btn.row();
 		float aspectratio = imgCity.getHeight() / imgCity.getWidth();
