@@ -52,8 +52,8 @@ public class ScoreRenderer {
 		scoreLabel = new Label("Score: " + score, scoreLabelStyle);
 
 		TextButtonStyle homeButtonstyle = new TextButtonStyle();
-		homeButtonstyle.font = new BitmapFont();
-		homeButtonstyle.font.scale(4);
+		homeButtonstyle.font = AssetsLoader.getLargeFont();
+		
 
 		TextButton homeButton = new TextButton("Home", homeButtonstyle);
 
