@@ -178,28 +178,7 @@ public class GameModel implements PropertyChangeListener {
 	}
 	
 	private void addToScore(Meteor meteor){
-		
-		int difficulty = 1; 
-		
-		switch(meteor.getType()){
-		case BASIC:
-			difficulty = 1;
-			break;
-		case FAST:
-			difficulty = 2;
-			break;
-		case FIRE:
-			difficulty = 2;
-			break;
-		case ICE:
-			difficulty = 3;
-			break;
-		case RADIOACTIVE:
-			difficulty = 2;
-			break;
-		}
-		
-		score = score + (int)((meteor.getLife()+1)*meteor.getDamage()*difficulty*0.1);
+		score += meteor.getDifficulty()*10;
 	}
 	
 	

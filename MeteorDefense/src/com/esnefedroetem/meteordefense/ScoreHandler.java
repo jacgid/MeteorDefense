@@ -8,7 +8,7 @@ package com.esnefedroetem.meteordefense;
 
 public class ScoreHandler {
 	private static final int ACCURACY_CONSTANT = 500;
-	private static final int REMANING_LIFE_CONSTANT = 1000;
+	private static final int REMANING_LIFE_CONSTANT = 100;
 	private int numberOfMeteorHits;
 	private int numberOfProjectilesUsed;
 	private int remaningLife;
@@ -34,7 +34,7 @@ public class ScoreHandler {
 		int totalScore = 0;
 		if (getRemaningLife() > 0) {
 			totalScore = (int) (getAccuracy() * ACCURACY_CONSTANT + getRemaningLifeInProcent() * REMANING_LIFE_CONSTANT);
-			totalScore += meteorScore * 100;
+			totalScore += meteorScore;
 		}
 		return totalScore;
 	}

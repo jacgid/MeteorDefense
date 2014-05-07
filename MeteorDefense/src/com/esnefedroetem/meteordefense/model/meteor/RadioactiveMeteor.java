@@ -21,6 +21,7 @@ public class RadioactiveMeteor extends Meteor {
 	}
 	public RadioactiveMeteor(Vector2 startPosition) {
 		super(startPosition, Constants.BASE_METEOR_ANGLE, LIFE, DAMAGE, SIZE, SPEED);
+	
 
 	}
 

@@ -19,7 +19,6 @@ public class FireMeteor extends Meteor {
 	}
 	public FireMeteor(Vector2 startPosition) {
 		super(startPosition, Constants.BASE_METEOR_ANGLE, LIFE, DAMAGE, SIZE, SPEED);
-
 	}
 
 

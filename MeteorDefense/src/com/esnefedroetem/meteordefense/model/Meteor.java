@@ -10,16 +10,21 @@ import com.badlogic.gdx.math.Vector2;
 public abstract class Meteor extends MoveableGameObject {
 
 	private int life, startLife;
-	
-	public enum MeteorType{BASIC, RADIOACTIVE, FIRE, FAST, ICE}
-	public  Meteor(){
-		
-		
+	private int difficulty = 1;
+
+	public enum MeteorType {
+		BASIC, RADIOACTIVE, FIRE, FAST, ICE
 	}
-	public Meteor(Vector2 startPosition,float angle, int life, int damage, float size, float speed) {
+
+	public Meteor() {
+
+	}
+
+	public Meteor(Vector2 startPosition, float angle, int life, int damage, float size, float speed) {
 		super(angle, damage, size, speed, startPosition);
 		this.life = life;
 		startLife = life;
+		calculateDifficulty();
 	}
 
 	public void setLife(int life) {
@@ -29,8 +34,9 @@ public abstract class Meteor extends MoveableGameObject {
 	public int getLife() {
 		return life;
 	}
-	public int getStartLife(){
-		
+
+	public int getStartLife() {
+
 		return startLife;
 	}
 
@@ -59,6 +65,16 @@ public abstract class Meteor extends MoveableGameObject {
 	public boolean willSurvive(int damage) {
 		return life - damage > 0;
 	}
+
 	public abstract MeteorType getType();
 
+	public void calculateDifficulty() {
+		difficulty = (int) (getDamage()*0.7 + getSpeed() * 0.01 + getStartLife() * 0.7);
+		System.out.println(difficulty);
+
+	}
+
+	public int getDifficulty() {
+		return difficulty;
+	}
 }
