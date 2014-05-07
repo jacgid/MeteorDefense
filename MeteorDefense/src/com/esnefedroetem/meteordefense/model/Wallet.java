@@ -13,7 +13,7 @@ public class Wallet {
 	}
 	
 	public boolean canAfford(int price){
-		return coins >= price;
+		return coins <= price;
 	}
 	
 	public int getAssets() {

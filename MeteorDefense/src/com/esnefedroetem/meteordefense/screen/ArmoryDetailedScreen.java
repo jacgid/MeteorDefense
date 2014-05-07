@@ -4,8 +4,6 @@ import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
 import java.beans.PropertyChangeSupport;
 
-import org.hamcrest.core.IsInstanceOf;
-
 import com.badlogic.gdx.Screen;
 import com.esnefedroetem.meteordefense.model.Wallet;
 import com.esnefedroetem.meteordefense.model.armoryitem.AbstractArmoryItem;
@@ -109,6 +107,7 @@ public class ArmoryDetailedScreen implements Screen, PropertyChangeListener{
 	}
 	
 	private void initializeInfo() {
+		renderer.setAssetsLabelText(wallet.getAssets() + "");
 		renderer.setNameLabelText(armoryItem.getName());
 		renderer.setDescriptionLabelText(armoryItem.getDescription() + "\n\nPower: " + armoryItem.getPower() + "\nCooldown: " + armoryItem.getCooldown() + " sec");
 		renderer.setUpgradeLabelText("Next upgrade\n" + armoryItem.getNextUpgradeInfo());
@@ -125,16 +124,17 @@ public class ArmoryDetailedScreen implements Screen, PropertyChangeListener{
 				renderer.setUpgradeButtonDisabled(wallet.canAfford(armoryItem.getNextUpgradeValue()));
 			} else {
 				renderer.setUpgradeButtonText("No Upgrades");
-				renderer.setUpgradeButtonDisabled(false);
+				renderer.setUpgradeButtonDisabled(true);
 			}
 			
 			renderer.setTradeButtonText("Sell for " + armoryItem.getValue());
+			renderer.setTradeButtonDisabled(false);
 		}
 		
 		// standard weapon is not tradeable 
 		if(armoryItem instanceof StandardArmoryItem) {
 		renderer.setTradeButtonText("Not tradeable");
-		renderer.setUpgradeButtonDisabled(true);
+		renderer.setTradeButtonDisabled(true);
 		}
 	}
 	

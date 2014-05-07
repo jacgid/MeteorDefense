@@ -15,3 +15,5 @@ MeteorDefense-desktop/sound.txt
 MeteorDefense-desktop/wallet.txt
 *.classpath
 MeteorDefense-desktop/generated-fonts/
+*.classpath
+*.fnt

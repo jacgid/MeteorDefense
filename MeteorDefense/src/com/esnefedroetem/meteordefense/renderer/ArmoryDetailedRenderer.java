@@ -5,6 +5,7 @@ import java.beans.PropertyChangeSupport;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input.Keys;
+import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
@@ -18,15 +19,13 @@ import com.badlogic.gdx.scenes.scene2d.ui.Label.LabelStyle;
 import com.badlogic.gdx.scenes.scene2d.ui.TextButton.TextButtonStyle;
 import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
-import com.esnefedroetem.meteordefense.model.armoryitem.AbstractArmoryItem;
-import com.esnefedroetem.meteordefense.renderer.MainMenuRenderer.MainMenuEvent;
 
 public class ArmoryDetailedRenderer {
 
 	private PropertyChangeSupport pcs;
 	private Stage stage;
 	private SpriteBatch spriteBatch;
-	private Label nameLabel, descriptionLabel, upgradeLabel;
+	private Label assetsLabel, nameLabel, descriptionLabel, upgradeLabel;
 	private TextButton tradeButton, upgradeButton;
 
 	public enum ArmoryDetaliedEvent {
@@ -45,6 +44,16 @@ public class ArmoryDetailedRenderer {
 		stage = new Stage();
 		Table table = new Table();
 		table.setFillParent(true);
+		
+		// assetsLabel
+		LabelStyle textLabelStyle = new LabelStyle();
+		textLabelStyle.font = new BitmapFont();
+		assetsLabel = new Label("", textLabelStyle);
+		
+		table.add(assetsLabel).top().right().expand();
+		
+		table.row();
+		
 
 		// nameLabel
 		LabelStyle nameLabelStyle = new LabelStyle();
@@ -56,9 +65,7 @@ public class ArmoryDetailedRenderer {
 		table.row();
 		
 		// descriptionLabel
-		LabelStyle descriptionLabelStyle = new LabelStyle();
-		descriptionLabelStyle.font = new BitmapFont();
-		descriptionLabel = new Label("", descriptionLabelStyle);
+		descriptionLabel = new Label("", textLabelStyle);
 		descriptionLabel.setWrap(true);
 		
 		table.add(descriptionLabel).maxWidth(550).fill();
@@ -66,7 +73,7 @@ public class ArmoryDetailedRenderer {
 		table.row();
 		
 		// upgradeLabel
-		upgradeLabel = new Label("", descriptionLabelStyle);
+		upgradeLabel = new Label("", textLabelStyle);
 		
 		table.add(upgradeLabel);
 		
@@ -126,7 +133,7 @@ public class ArmoryDetailedRenderer {
 
 	public void render() {
 		stage.act();
-		Gdx.gl.glClearColor(0, 0, 1, 0);
+		Gdx.gl.glClearColor(0f, 0.4f, 0.5f, 0f);
 		Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
 		spriteBatch.begin();
 		stage.draw();
@@ -140,6 +147,10 @@ public class ArmoryDetailedRenderer {
 
 	public void addChangeListener(PropertyChangeListener listener) {
 		pcs.addPropertyChangeListener(listener);
+	}
+	
+	public void setAssetsLabelText(String text) {
+		assetsLabel.setText(text);
 	}
 	
 	public void setNameLabelText(String text) {
@@ -164,9 +175,19 @@ public class ArmoryDetailedRenderer {
 	
 	public void setUpgradeButtonDisabled(boolean flag) {
 		upgradeButton.setDisabled(flag);
+		if(flag) {
+			upgradeButton.setColor(Color.GRAY);
+		} else {
+			upgradeButton.setColor(Color.RED);
+		}
 	}
 
 	public void setTradeButtonDisabled(boolean flag) {
 		tradeButton.setDisabled(flag);
+		if(flag) {
+			tradeButton.setColor(Color.GRAY);
+		} else {
+			tradeButton.setColor(Color.RED);
+		}
 	}
 }
