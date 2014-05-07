@@ -1,8 +1,10 @@
 package com.esnefedroetem.meteordefense.util;
 
+import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.assets.AssetManager;
 import com.badlogic.gdx.audio.Music;
 import com.badlogic.gdx.audio.Sound;
+import com.badlogic.gdx.files.FileHandle;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.ParticleEffect;
@@ -15,6 +17,7 @@ public abstract class AssetsLoader {
 	private static final String soundDir = "data/sounds/";
 	private static final String fontDir = "data/fonts/";
 	private static final String particlesDir = "data/particleeffects/";
+	private static BitmapFont fontSmall, fontMedium, fontLarge;
 	
 	public static void loadTexture(String filename){
 		manager.load(textureDir+filename, Texture.class);
@@ -194,5 +197,25 @@ public abstract class AssetsLoader {
 	
 	public static void finishLoading(){
 		manager.finishLoading();
+	}
+	
+	public static void createFonts(){
+		SmartFontGenerator fontGen = new SmartFontGenerator();
+		FileHandle exoFile = Gdx.files.internal("data/fonts/SourceSansPro-Regular.ttf");
+		fontSmall = fontGen.createFont(exoFile, "source-small", 48);
+		fontMedium = fontGen.createFont(exoFile, "source-medium", 64);
+		fontLarge = fontGen.createFont(exoFile, "source-large", 128);
+	}
+	
+	public static BitmapFont getSmallFont(){
+		return fontSmall;
+	}
+	
+	public static BitmapFont getMediumFont(){
+		return fontMedium;
+	}
+	
+	public static BitmapFont getLargeFont(){
+		return fontLarge;
 	}
 }

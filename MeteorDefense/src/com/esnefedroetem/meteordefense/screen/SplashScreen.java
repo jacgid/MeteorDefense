@@ -23,7 +23,7 @@ public class SplashScreen implements Screen {
 	private Texture splashTexture;
 	private final int splashTime = 1000;
 	private long startTime;
-	private boolean gameSplash = false, texturesLoaded = false;
+	private boolean gameSplash = false, init = true;
 	private ShapeRenderer debugRenderer = new ShapeRenderer();
 	private float barLenght = Constants.LOGIC_SCREEN_WIDTH/4, barHeight = Constants.LOGIC_SCREEN_HEIGHT/20;
 	private OrthographicCamera cam;
@@ -52,6 +52,9 @@ public class SplashScreen implements Screen {
 	
 	private void drawStartSplash(){
 		//spriteBatch.draw(splashTexture, 0, 0);
+		debugRenderer.begin(ShapeType.Filled);
+		debugRenderer.rect(100, 100, 100, 100);
+		debugRenderer.end();
 	}
 	
 	private void drawGameSplash(){
@@ -71,6 +74,10 @@ public class SplashScreen implements Screen {
 			spriteBatch.begin();
 			drawStartSplash();
 			spriteBatch.end();
+			if(init){
+				AssetsLoader.createFonts();
+				init = false;
+			}
 		}
 		
 		if(TimeUtils.millis() - startTime > splashTime && gameSplash == false){
