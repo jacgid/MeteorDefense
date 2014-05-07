@@ -59,7 +59,6 @@ public class MeteorShower {
 				maxScore += temp.getDifficulty();
 			}
 		}
-		System.out.println(maxScore);
 	}
 	public int getMaxScore(){
 		return maxScore;
