@@ -9,7 +9,8 @@ import com.badlogic.gdx.math.Vector2;
  */
 public abstract class Meteor extends MoveableGameObject {
 
-	private int life;
+	private int life, startLife;
+	
 	public enum MeteorType{NONE, RADIOACTIVE, FIRE, FAST, ICE}
 	public  Meteor(){
 		
@@ -18,6 +19,7 @@ public abstract class Meteor extends MoveableGameObject {
 	public Meteor(Vector2 startPosition,float angle, int life, int damage, float size, float speed) {
 		super(angle, damage, size, speed, startPosition);
 		this.life = life;
+		startLife = life;
 	}
 
 	public void setLife(int life) {
@@ -26,6 +28,10 @@ public abstract class Meteor extends MoveableGameObject {
 
 	public int getLife() {
 		return life;
+	}
+	public int getStartLife(){
+		
+		return startLife;
 	}
 
 	/**
