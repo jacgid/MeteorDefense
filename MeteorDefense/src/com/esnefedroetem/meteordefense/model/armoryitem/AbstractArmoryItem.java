@@ -54,6 +54,8 @@ public abstract class AbstractArmoryItem {
 	private void reset() {
 		sellValue = 0;
 		upgradeIndex = 0;
+		power = 0;
+		cooldown = 0;
 		upgrade();
 	}
 	public void addChangeListener(PropertyChangeListener pcl) {
