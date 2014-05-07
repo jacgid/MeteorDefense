@@ -82,7 +82,9 @@ public class ArmoryDetailedRenderer {
 		upgradeButton.addListener(new ClickListener(){
 			@Override
 			public void clicked(InputEvent event, float x, float y) {
+				if(!upgradeButton.isDisabled()) {
 		 		pcs.firePropertyChange(ArmoryDetaliedEvent.ARMORY_DETAILED_ITEM_UPGRADED.toString(), null, null);
+				}
 			}
 		});
 		
@@ -94,8 +96,9 @@ public class ArmoryDetailedRenderer {
 		tradeButton.addListener(new ClickListener(){
 			@Override
 			public void clicked(InputEvent event, float x, float y) {
+				if(!tradeButton.isDisabled()) {
 				pcs.firePropertyChange(ArmoryDetaliedEvent.ARMORY_DETAILED_TRADE_BUTTON_PRESSED.toString(), null, null);				
-			
+				}
 		}});
 		
 		table.add(tradeButton).right();

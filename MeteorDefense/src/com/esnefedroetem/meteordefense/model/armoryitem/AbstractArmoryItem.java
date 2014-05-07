@@ -23,7 +23,7 @@ public abstract class AbstractArmoryItem {
 	private PropertyChangeSupport pcs = new PropertyChangeSupport(this);
 
 	private State state;
-	private int power, sellValue, upgradeIndex;
+	private int power, value, upgradeIndex;
 	private float cooldown;
 	private long lastUsed;
 	private List<Upgrade> upgrades;
@@ -44,7 +44,7 @@ public abstract class AbstractArmoryItem {
 		Upgrade upgrade = upgrades.get(upgradeIndex);
 		power = power + upgrade.getPowerIncrement();
 		cooldown = cooldown + upgrade.getCooldownDecrement();
-		calculateSellValue(upgrade.getValue());
+		calculateValue(upgrade.getValue());
 		upgradeIndex++;
 	}
 
@@ -53,7 +53,7 @@ public abstract class AbstractArmoryItem {
 	}
 
 	private void reset() {
-		sellValue = 0;
+		value = 0;
 		upgradeIndex = 0;
 		power = 0;
 		cooldown = 0;
@@ -106,16 +106,16 @@ public abstract class AbstractArmoryItem {
 		this.upgrades = upgrades;
 	}
 
-	private void calculateSellValue(int value) {
-		sellValue += value / 2;
+	private void calculateValue(int value) {
+		this.value += value / 2;
 	}
 
 	public int getPurchaseValue() {
 		return upgrades.get(0).getValue();
 	}
 
-	public int getSellValue() {
-		return sellValue;
+	public int getValue() {
+		return value;
 	}
 
 	public int getNextUpgradeValue() {
@@ -166,8 +166,8 @@ public abstract class AbstractArmoryItem {
 						+ upgrades.get(upgradeIndex).getCooldownDecrement()
 						+ " sec";
 			}
-			return "Power: " + power
-					+ upgrades.get(upgradeIndex).getPowerIncrement();
+			return "Power: " + (power
+					+ upgrades.get(upgradeIndex).getPowerIncrement());
 		}
 		return "No more upgrades available";
 	}

@@ -45,7 +45,7 @@ public class StandardArmoryItem extends AbstractProjectileArmoryItem {
 	}
 	
 	@Override
-	public int getSellValue() {
+	public int getValue() {
 		return 0;
 	}
 	

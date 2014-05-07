@@ -99,12 +99,12 @@ public class ArmoryDetailedScreen implements Screen, PropertyChangeListener{
 	}
 
 	private void itemSold() {
-		wallet.addCoins(armoryItem.getSellValue());
+		wallet.addCoins(armoryItem.getValue());
 		armoryItem.setState(AbstractArmoryItem.State.LOCKED);		
 	}
 
 	private void itemBought() {
-		wallet.removeCoins(armoryItem.getSellValue());
+		wallet.removeCoins(armoryItem.getValue());
 		armoryItem.setState(AbstractArmoryItem.State.UNLOCKED);	
 	}
 	
@@ -117,8 +117,8 @@ public class ArmoryDetailedScreen implements Screen, PropertyChangeListener{
 			renderer.setUpgradeButtonText("Upgrade for " + armoryItem.getNextUpgradeValue());
 			renderer.setUpgradeButtonDisabled(true);
 			
-			renderer.setTradeButtonText("Buy for " + armoryItem.getSellValue());
-			renderer.setTradeButtonDisabled(!wallet.canAfford(armoryItem.getSellValue()));
+			renderer.setTradeButtonText("Buy for " + armoryItem.getValue());
+			renderer.setTradeButtonDisabled(!wallet.canAfford(armoryItem.getValue()));
 		} else {
 			if(armoryItem.hasUpgrade()) {
 				renderer.setUpgradeButtonText("Upgrade for " + armoryItem.getNextUpgradeValue());
@@ -128,7 +128,7 @@ public class ArmoryDetailedScreen implements Screen, PropertyChangeListener{
 				renderer.setUpgradeButtonDisabled(false);
 			}
 			
-			renderer.setTradeButtonText("Sell for " + armoryItem.getSellValue());
+			renderer.setTradeButtonText("Sell for " + armoryItem.getValue());
 		}
 		
 		// standard weapon is not tradeable 
