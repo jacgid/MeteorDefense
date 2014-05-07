@@ -11,6 +11,9 @@ import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer.ShapeType;
+import com.badlogic.gdx.scenes.scene2d.Stage;
+import com.badlogic.gdx.scenes.scene2d.ui.Image;
+import com.badlogic.gdx.scenes.scene2d.ui.Table;
 import com.badlogic.gdx.utils.TimeUtils;
 import com.esnefedroetem.meteordefense.renderer.GameRenderer;
 import com.esnefedroetem.meteordefense.util.AssetsLoader;
@@ -19,15 +22,11 @@ import com.esnefedroetem.meteordefense.util.Constants;
 public class SplashScreen implements Screen {
 	
 	private PropertyChangeSupport pcs;
-	private SpriteBatch spriteBatch;
-	private Texture splashTexture;
 	private final int splashTime = 1000;
 	private long startTime;
-	private boolean gameSplash = false;
-	private ShapeRenderer debugRenderer = new ShapeRenderer();
-	private float barLenght = Constants.LOGIC_SCREEN_WIDTH/4, barHeight = Constants.LOGIC_SCREEN_HEIGHT/20;
-	private OrthographicCamera cam;
+	private boolean gameSplash = false, isFontCreated = false;
 	private GameRenderer gamerenderer;
+	private Stage stage;
 	
 	public enum SplashScreenEvent{
 		SPLASHSCREEN_ENDED, GAMESPLASHSCREEN_ENDED
@@ -35,10 +34,11 @@ public class SplashScreen implements Screen {
 	
 	public SplashScreen(){
 		pcs = new PropertyChangeSupport(this);
-		cam = new OrthographicCamera(Constants.LOGIC_SCREEN_WIDTH, Constants.LOGIC_SCREEN_HEIGHT);
-		cam.position.set(Constants.LOGIC_SCREEN_WIDTH/2, Constants.LOGIC_SCREEN_HEIGHT/2, 0);
-		cam.update();
-		debugRenderer.setProjectionMatrix(cam.combined);
+		stage = new Stage();
+		Table table = new Table();
+		table.setFillParent(true);
+		table.add(new Image(new Texture("data/textures/Splash.png"))).expand().width(Gdx.graphics.getWidth()).height(Gdx.graphics.getHeight());
+		stage.addActor(table);
 	}
 	
 	public void addChangeListener(PropertyChangeListener listener){
@@ -50,34 +50,21 @@ public class SplashScreen implements Screen {
 		gameSplash = true;
 	}
 	
-	private void drawStartSplash(){
-		//spriteBatch.draw(splashTexture, 0, 0);
-		debugRenderer.begin(ShapeType.Filled);
-		debugRenderer.rect(100, 100, 100, 100);
-		debugRenderer.end();
-	}
-	
-	private void drawGameSplash(){
-		debugRenderer.begin(ShapeType.Filled);
-		debugRenderer.rect(Constants.LOGIC_SCREEN_WIDTH/3, Constants.LOGIC_SCREEN_HEIGHT/2, barLenght*AssetsLoader.getProgress(), barHeight);
-		debugRenderer.end();
-	}
 	
 	@Override
 	public void render(float delta) {
-		Gdx.gl.glClearColor(0, 0, 0, 0);
+		Gdx.gl.glClearColor(1, 0, 0, 0);
 		Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
 		
-		if(gameSplash){
-			drawGameSplash();
-		}else{
-			spriteBatch.begin();
-			drawStartSplash();
-			spriteBatch.end();
-		}
-		
+		stage.draw();
 		if(TimeUtils.millis() - startTime > splashTime && gameSplash == false){
-			pcs.firePropertyChange(SplashScreenEvent.SPLASHSCREEN_ENDED.toString(), false, true);
+			if(!isFontCreated){
+				System.out.println("Före: " + TimeUtils.millis());
+				AssetsLoader.createFonts();
+				System.out.println("Efter: " + TimeUtils.millis());			
+				isFontCreated = true;
+				pcs.firePropertyChange(SplashScreenEvent.SPLASHSCREEN_ENDED.toString(), false, true);
+			}
 		}else if(gameSplash){
 			if(AssetsLoader.update()){
 				gamerenderer.loadScene();
@@ -93,8 +80,6 @@ public class SplashScreen implements Screen {
 
 	@Override
 	public void show() {
-		spriteBatch = new SpriteBatch();
-		//splashTexture = new Texture("some Path");
 		startTime = TimeUtils.millis();
 	}
 
@@ -115,8 +100,6 @@ public class SplashScreen implements Screen {
 
 	@Override
 	public void dispose() {
-		spriteBatch.dispose();
-		//splashTexture.dispose();
 	}
 
 }

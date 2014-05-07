@@ -8,6 +8,7 @@ import com.badlogic.gdx.Application.ApplicationType;
 import com.badlogic.gdx.Game;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Texture;
+import com.badlogic.gdx.utils.IntIntMap;
 import com.esnefedroetem.meteordefense.factory.GameFactory;
 import com.esnefedroetem.meteordefense.model.City;
 import com.esnefedroetem.meteordefense.model.Continent;
@@ -37,10 +38,10 @@ public class MeteorDefense extends Game implements PropertyChangeListener {
 	@Override
 	public void create() {
 		Texture.setEnforcePotImages(false);
-		AssetsLoader.createFonts();
-		init();
-		Gdx.input.setCatchBackKey(true);
+		splashScreen = GameFactory.createSplashScreen();
+		splashScreen.addChangeListener(this);
 		setScreen(splashScreen);
+		Gdx.input.setCatchBackKey(true);
 	}
 	
 	@Override
@@ -76,8 +77,6 @@ public class MeteorDefense extends Game implements PropertyChangeListener {
 	 * Initiate screens
 	 */
 	private void init(){
-		splashScreen = GameFactory.createSplashScreen();
-		splashScreen.addChangeListener(this);
 		mainMenuScreen = GameFactory.createMainMenuScreen();
 		mainMenuScreen.addChangeListener(this);
 		armoryScreen = GameFactory.createArmoryScreen();
@@ -108,6 +107,7 @@ public class MeteorDefense extends Game implements PropertyChangeListener {
 	public void propertyChange(PropertyChangeEvent evt) {
 		
 		if(evt.getPropertyName().equals(SplashScreenEvent.SPLASHSCREEN_ENDED.toString())){
+			init();
 			setScreen(mainMenuScreen);
 		}else if(evt.getPropertyName().equals(MainMenuEvent.MAINMENU_PLAY_CLICKED.toString())){
 			setScreen(carouselScreen);
