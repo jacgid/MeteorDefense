@@ -21,6 +21,7 @@ public class FastMeteor extends Meteor {
 	public FastMeteor(Vector2 startPosition) {
 		super(startPosition, Constants.BASE_METEOR_ANGLE, LIFE, DAMAGE, SIZE, SPEED);
 		
+		
 	}
 
 	@Override

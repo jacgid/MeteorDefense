@@ -120,7 +120,7 @@ public class GameRenderer {
 		scoreLabelStyle.font.scale(7);
 //		score = model.calculateScore().getMeteorScore();
 		scoreLable = new Label(score + "", scoreLabelStyle);
-		scoreLable.setPosition(cameraWidth-scoreLable.getWidth(), cameraHeight-scoreLable.getHeight());
+		scoreLable.setPosition(0, cameraHeight-scoreLable.getHeight());
 //		UITable.add(scoreLable).fill();
 		
 		stage.addActor(scoreLable);
@@ -242,7 +242,7 @@ public class GameRenderer {
 //		drawDebug();
 		
 		lifeLabel.setText(model.getCity().getLife() + "");
-		score = model.handleScore().getMeteorScore();
+		score = model.getScore();
 		scoreLable.setText(score + "");
 
 	}
@@ -350,7 +350,7 @@ public class GameRenderer {
 			x = meteor.getX();
 			y = meteor.getY();
 			switch(meteor.getType()){
-			case NONE:
+			case BASIC:
 				debugRenderer.setColor(Color.BLUE);
 				break;
 			case FAST:

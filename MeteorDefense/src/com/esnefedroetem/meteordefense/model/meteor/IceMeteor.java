@@ -19,6 +19,7 @@ public class IceMeteor extends Meteor {
 	}
 	public IceMeteor(Vector2 startPosition) {
 		super(startPosition, Constants.BASE_METEOR_ANGLE, LIFE, DAMAGE, SIZE, SPEED);
+	
 
 	}
 

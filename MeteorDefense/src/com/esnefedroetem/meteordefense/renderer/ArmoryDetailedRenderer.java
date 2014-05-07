@@ -26,20 +26,17 @@ public class ArmoryDetailedRenderer {
 	private PropertyChangeSupport pcs;
 	private Stage stage;
 	private SpriteBatch spriteBatch;
-	private AbstractArmoryItem armoryItem;
 	private Label nameLabel, descriptionLabel, upgradeLabel;
 	private TextButton tradeButton, upgradeButton;
 
 	public enum ArmoryDetaliedEvent {
 		ARMORY_DETAILED_BACK_PRESSED,
 		ARMORY_DETAILED_ITEM_UPGRADED,
-		ARMORY_DETAILED_ITEM_BOUGHT,
-		ARMORY_DETAILED_ITEM_SOLD
+		ARMORY_DETAILED_TRADE_BUTTON_PRESSED
 	}
 
 	public ArmoryDetailedRenderer() {
 		pcs = new PropertyChangeSupport(this);
-		armoryItem = AbstractArmoryItem.EMPTY_ITEM;
 		create();
 	}
 
@@ -52,7 +49,7 @@ public class ArmoryDetailedRenderer {
 		// nameLabel
 		LabelStyle nameLabelStyle = new LabelStyle();
 		nameLabelStyle.font = new BitmapFont();
-		nameLabel = new Label(armoryItem.getName(), nameLabelStyle);
+		nameLabel = new Label("", nameLabelStyle);
 		
 		table.add(nameLabel).right().expandX();
 		
@@ -61,7 +58,7 @@ public class ArmoryDetailedRenderer {
 		// descriptionLabel
 		LabelStyle descriptionLabelStyle = new LabelStyle();
 		descriptionLabelStyle.font = new BitmapFont();
-		descriptionLabel = new Label(armoryItem.getDescription() + "\n\nPower: " + armoryItem.getPower() + "\nCooldown: " + armoryItem.getCooldown() + " sec", descriptionLabelStyle);
+		descriptionLabel = new Label("", descriptionLabelStyle);
 		descriptionLabel.setWrap(true);
 		
 		table.add(descriptionLabel).maxWidth(550).fill();
@@ -69,7 +66,7 @@ public class ArmoryDetailedRenderer {
 		table.row();
 		
 		// upgradeLabel
-		upgradeLabel = new Label("Next upgrade\n" + armoryItem.getNextUpgradeInfo(), descriptionLabelStyle);
+		upgradeLabel = new Label("", descriptionLabelStyle);
 		
 		table.add(upgradeLabel);
 		
@@ -80,49 +77,28 @@ public class ArmoryDetailedRenderer {
 		textButtonStyle.font = new BitmapFont();
 
 		// upgradeButton
-		if (armoryItem.hasUpgrade()) {
-			upgradeButton = new TextButton("Upgrade for "
-					+ armoryItem.getNextUpgradeValue(), textButtonStyle);
-		} else {
-			upgradeButton = new TextButton("Upgrade", textButtonStyle);
-		}
-		
+		upgradeButton = new TextButton("", textButtonStyle);
+				
 		upgradeButton.addListener(new ClickListener(){
 			@Override
 			public void clicked(InputEvent event, float x, float y) {
-				int value = armoryItem.getNextUpgradeValue();
-		 		armoryItem.upgrade();	
-		 		setInfo();
-		 		pcs.firePropertyChange(ArmoryDetaliedEvent.ARMORY_DETAILED_ITEM_UPGRADED.toString(), null, value);
+				if(!upgradeButton.isDisabled()) {
+		 		pcs.firePropertyChange(ArmoryDetaliedEvent.ARMORY_DETAILED_ITEM_UPGRADED.toString(), null, null);
+				}
 			}
 		});
 		
-		upgradeButton.setDisabled(!armoryItem.hasUpgrade());
-
 		table.add(upgradeButton).left();
 		
 		// tradeButton
-		if (armoryItem.getState() == AbstractArmoryItem.State.LOCKED) {
-			tradeButton = new TextButton(
-					"Buy for " + armoryItem.getSellValue(), textButtonStyle);
-		} else {
-			tradeButton = new TextButton("Sell for "
-					+ armoryItem.getSellValue(), textButtonStyle);
-		}
+		tradeButton = new TextButton("", textButtonStyle);
 		
 		tradeButton.addListener(new ClickListener(){
 			@Override
 			public void clicked(InputEvent event, float x, float y) {
-				int value = armoryItem.getSellValue();			
-				if(armoryItem.getState() == AbstractArmoryItem.State.LOCKED) {
-					armoryItem.setState(AbstractArmoryItem.State.UNLOCKED);
-					setInfo();
-					pcs.firePropertyChange(ArmoryDetaliedEvent.ARMORY_DETAILED_ITEM_BOUGHT.toString(), null, value);				
-			} else {
-				armoryItem.setState(AbstractArmoryItem.State.LOCKED);
-				setInfo();
-				pcs.firePropertyChange(ArmoryDetaliedEvent.ARMORY_DETAILED_ITEM_SOLD.toString(), null, value);
-			}
+				if(!tradeButton.isDisabled()) {
+				pcs.firePropertyChange(ArmoryDetaliedEvent.ARMORY_DETAILED_TRADE_BUTTON_PRESSED.toString(), null, null);				
+				}
 		}});
 		
 		table.add(tradeButton).right();
@@ -165,32 +141,32 @@ public class ArmoryDetailedRenderer {
 	public void addChangeListener(PropertyChangeListener listener) {
 		pcs.addPropertyChangeListener(listener);
 	}
-
-	public void setArmoryItem(AbstractArmoryItem armoryItem) {
-		this.armoryItem = armoryItem;
-		setInfo();
+	
+	public void setNameLabelText(String text) {
+		nameLabel.setText(text);
 	}
 	
-	private void setInfo() {
-		nameLabel.setText(armoryItem.getName());
-		descriptionLabel.setText(armoryItem.getDescription() + "\n\nPower: " + armoryItem.getPower() + "\nCooldown: " + armoryItem.getCooldown() + " sec");
-		upgradeLabel.setText("Next upgrade\n" + armoryItem.getNextUpgradeInfo());
-		
-		if (armoryItem.hasUpgrade()) {
-			upgradeButton.setText("Upgrade for "
-					+ armoryItem.getNextUpgradeValue());
-		} else {
-			upgradeButton.setText("Upgrade");
-		}
-		upgradeButton.setDisabled(!armoryItem.hasUpgrade());
-		
-		if (armoryItem.getState() == AbstractArmoryItem.State.LOCKED) {
-			tradeButton.setText("Buy for " + armoryItem.getSellValue());
-		} else {
-			tradeButton.setText("Sell for " + armoryItem.getSellValue());
-		}
-
-
+	public void setDescriptionLabelText(String text) {
+		descriptionLabel.setText(text);
+	}
+	
+	public void setUpgradeLabelText(String text) {
+		upgradeLabel.setText(text);
+	}
+	
+	public void setUpgradeButtonText(String text) {
+		upgradeButton.setText(text);
+	}
+	
+	public void setTradeButtonText(String text) {
+		tradeButton.setText(text);
+	}
+	
+	public void setUpgradeButtonDisabled(boolean flag) {
+		upgradeButton.setDisabled(flag);
 	}
 
+	public void setTradeButtonDisabled(boolean flag) {
+		tradeButton.setDisabled(flag);
+	}
 }
