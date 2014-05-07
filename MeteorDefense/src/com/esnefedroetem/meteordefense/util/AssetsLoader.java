@@ -202,9 +202,9 @@ public abstract class AssetsLoader {
 	public static void createFonts(){
 		SmartFontGenerator fontGen = new SmartFontGenerator();
 		FileHandle exoFile = Gdx.files.internal("data/fonts/SourceSansPro-Regular.ttf");
-		fontSmall = fontGen.createFont(exoFile, "source-small", 48);
-		fontMedium = fontGen.createFont(exoFile, "source-medium", 64);
-		fontLarge = fontGen.createFont(exoFile, "source-large", 128);
+		fontSmall = fontGen.createFont(exoFile, "source-small", 96);
+		fontMedium = fontGen.createFont(exoFile, "source-medium", 128);
+		fontLarge = fontGen.createFont(exoFile, "source-large", 212);
 	}
 	
 	public static BitmapFont getSmallFont(){

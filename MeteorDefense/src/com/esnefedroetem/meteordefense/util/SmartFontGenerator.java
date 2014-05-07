@@ -66,7 +66,7 @@ public class SmartFontGenerator {
 			fontPrefs.putInteger("display-height", (int)Constants.LOGIC_SCREEN_HEIGHT);
 			fontPrefs.flush();
 
-			font = generateFontWriteFiles(fontName, fontFile, fontSize, pageSize, pageSize);
+			font = generateFontWriteFiles(fontName, fontFile, Math.round(fontSize * ratio), pageSize, pageSize);
 		}
 		return font;
 	}
