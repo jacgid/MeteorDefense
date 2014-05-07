@@ -7,16 +7,17 @@ package com.esnefedroetem.meteordefense;
  */
 
 public class ScoreHandler {
-
-	int meteorHits;
-	int numberOfProjectilesUsed;
-	int remaningLife;
-	int maxLife;
-	int meteorScore;
-	int stars;
+	private static final int ACCURACY_CONSTANT = 500;
+	private static final int REMANING_LIFE_CONSTANT = 1000;
+	private int numberOfMeteorHits;
+	private int numberOfProjectilesUsed;
+	private int remaningLife;
+	private int maxLife;
+	private int meteorScore;
+	private int stars;
 
 	public ScoreHandler(int meteorHits, int numberOfProjectilesUsed, int remaningLife, int maxLife, int meteorScore) {
-		this.meteorHits = meteorHits;
+		this.numberOfMeteorHits = meteorHits;
 		this.numberOfProjectilesUsed = numberOfProjectilesUsed;
 		this.remaningLife = remaningLife;
 		this.maxLife = maxLife;
@@ -30,21 +31,28 @@ public class ScoreHandler {
 	}
 
 	public int getTotalScore() {
-		int totalScore = Math.round(getAccuracy() * getRemaningLifeInProcent()* 1337);
-		//TODO: Make me do something useful
+		int totalScore = 0;
+		if (getRemaningLife() > 0) {
+			totalScore = (int) (getAccuracy() * ACCURACY_CONSTANT + getRemaningLifeInProcent() * REMANING_LIFE_CONSTANT);
+			totalScore += meteorScore * 100;
+		}
 		return totalScore;
 	}
 
 	public int getStars() {
-		//TODO: make me;
+		// TODO: make me;
 		return 1;
 
 	}
 
+	/**
+	 * 
+	 * @returns the accuracy in procent
+	 */
 	public float getAccuracy() {
-		if(numberOfProjectilesUsed == 0)
+		if (numberOfProjectilesUsed == 0)
 			return 0;
-		return ((float) meteorHits )/ numberOfProjectilesUsed;
+		return ((float) numberOfMeteorHits) / numberOfProjectilesUsed;
 
 	}
 
@@ -53,7 +61,7 @@ public class ScoreHandler {
 	}
 
 	public int getMeteorHits() {
-		return meteorHits;
+		return numberOfMeteorHits;
 	}
 
 	public int getNumberOfMeteors() {
