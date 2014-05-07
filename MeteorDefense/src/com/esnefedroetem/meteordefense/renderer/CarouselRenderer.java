@@ -121,13 +121,9 @@ public class CarouselRenderer {
 		btnStyle.up = new TextureRegionDrawable(new TextureRegion(AssetsLoader.getTexture("CarouselBackground.png")));
 		btnStyle.disabled = new TextureRegionDrawable(new TextureRegion(AssetsLoader.getTexture("CarouselBackgroundLocked.png")));
 		LabelStyle lblStyle1 = new LabelStyle();
-		lblStyle1.font = new BitmapFont();
-		lblStyle1.font.getRegion().getTexture().setFilter(TextureFilter.Linear, TextureFilter.Linear);
-		lblStyle1.font.scale(3);
+		lblStyle1.font = AssetsLoader.getLargeFont();
 		LabelStyle lblStyle2 = new LabelStyle();
-		lblStyle2.font = new BitmapFont();
-		lblStyle2.font.getRegion().getTexture().setFilter(TextureFilter.Linear, TextureFilter.Linear);
-		lblStyle2.font.scale(2);
+		lblStyle2.font = AssetsLoader.getMediumFont();
 		float pageWidth = Gdx.graphics.getWidth() * 0.75F;
 		float pageHeight = pageWidth * btnStyle.up.getMinHeight() / btnStyle.up.getMinWidth();
 		int count = 0;
@@ -169,13 +165,9 @@ public class CarouselRenderer {
 		btnStyle.up = new TextureRegionDrawable(new TextureRegion(AssetsLoader.getTexture("CarouselBackground.png")));
 		btnStyle.disabled = new TextureRegionDrawable(new TextureRegion(AssetsLoader.getTexture("CarouselBackgroundLocked.png")));
 		LabelStyle lblStyle1 = new LabelStyle();
-		lblStyle1.font = new BitmapFont();
-		lblStyle1.font.getRegion().getTexture().setFilter(TextureFilter.Linear, TextureFilter.Linear);
-		lblStyle1.font.scale(3);
+		lblStyle1.font = AssetsLoader.getLargeFont();
 		LabelStyle lblStyle2 = new LabelStyle();
-		lblStyle2.font = new BitmapFont();
-		lblStyle2.font.getRegion().getTexture().setFilter(TextureFilter.Linear, TextureFilter.Linear);
-		//lblStyle2.font.scale(2);
+		lblStyle2.font = AssetsLoader.getSmallFont();
 		float pageWidth = Gdx.graphics.getWidth() * 0.75F;
 		float pageHeight = pageWidth * btnStyle.up.getMinHeight() / btnStyle.up.getMinWidth();
 

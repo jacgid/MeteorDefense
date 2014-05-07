@@ -17,6 +17,7 @@ import com.esnefedroetem.meteordefense.renderer.CarouselRenderer.CarouselEvent;
 import com.esnefedroetem.meteordefense.renderer.MainMenuRenderer.MainMenuEvent;
 import com.esnefedroetem.meteordefense.screen.*;
 import com.esnefedroetem.meteordefense.screen.SplashScreen.SplashScreenEvent;
+import com.esnefedroetem.meteordefense.util.AssetsLoader;
 import com.esnefedroetem.meteordefense.util.SoundService;
 
 public class MeteorDefense extends Game implements PropertyChangeListener {
@@ -34,6 +35,7 @@ public class MeteorDefense extends Game implements PropertyChangeListener {
 	@Override
 	public void create() {
 		Texture.setEnforcePotImages(false);
+		AssetsLoader.createFonts();
 		init();
 		Gdx.input.setCatchBackKey(true);
 		setScreen(splashScreen);

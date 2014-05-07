@@ -17,6 +17,7 @@ import com.badlogic.gdx.scenes.scene2d.ui.Table;
 import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
 import com.badlogic.gdx.scenes.scene2d.ui.TextButton.TextButtonStyle;
 import com.esnefedroetem.meteordefense.ScoreHandler;
+import com.esnefedroetem.meteordefense.util.AssetsLoader;
 
 public class ScoreRenderer {
 
@@ -46,13 +47,13 @@ public class ScoreRenderer {
 		stage.addActor(table);
 
 		LabelStyle scoreLabelStyle = new LabelStyle();
-		scoreLabelStyle.font = new BitmapFont();
-		scoreLabelStyle.font.scale(3);
+		scoreLabelStyle.font = AssetsLoader.getMediumFont();
+		
 		scoreLabel = new Label("Score: " + score, scoreLabelStyle);
 
 		TextButtonStyle homeButtonstyle = new TextButtonStyle();
-		homeButtonstyle.font = new BitmapFont();
-		homeButtonstyle.font.scale(4);
+		homeButtonstyle.font = AssetsLoader.getLargeFont();
+		
 
 		TextButton homeButton = new TextButton("Home", homeButtonstyle);
 
