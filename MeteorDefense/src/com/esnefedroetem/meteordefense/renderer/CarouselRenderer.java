@@ -63,6 +63,10 @@ public class CarouselRenderer {
 		scroll.setScrollingDisabled(false, true);
 		
 		Table table = new Table();
+		Table background = new Table();
+		background.setFillParent(true);
+		background.add(new Image(AssetsLoader.getTexture("MenuBG.png"))).width(Gdx.graphics.getWidth()).height(Gdx.graphics.getHeight());
+		stage.addActor(background);
 		stage.addActor(table);
 		table.setFillParent(true);
 		AssetsLoader.loadTexture("armoryIcon.png");

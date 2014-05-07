@@ -4,12 +4,10 @@ import java.beans.PropertyChangeListener;
 import java.beans.PropertyChangeSupport;
 import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.LinkedList;
 import java.util.List;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input.Keys;
-import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
@@ -25,12 +23,11 @@ import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
 import com.badlogic.gdx.scenes.scene2d.ui.TextButton.TextButtonStyle;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 import com.badlogic.gdx.scenes.scene2d.utils.DragAndDrop;
-import com.badlogic.gdx.scenes.scene2d.utils.Drawable;
+import com.badlogic.gdx.scenes.scene2d.utils.DragAndDrop.Payload;
+import com.badlogic.gdx.scenes.scene2d.utils.DragAndDrop.Source;
+import com.badlogic.gdx.scenes.scene2d.utils.DragAndDrop.Target;
 import com.badlogic.gdx.scenes.scene2d.utils.TextureRegionDrawable;
-import com.badlogic.gdx.scenes.scene2d.utils.DragAndDrop.*;
-import com.badlogic.gdx.utils.SnapshotArray;
 import com.esnefedroetem.meteordefense.model.armoryitem.AbstractArmoryItem;
-import com.esnefedroetem.meteordefense.model.armoryitem.EmptyItem;
 import com.esnefedroetem.meteordefense.util.AssetsLoader;
 
 public class ArmoryRenderer {
@@ -41,7 +38,7 @@ public class ArmoryRenderer {
 	private DragAndDrop dragAndDrop;
 	private Table topTable, bottomTable;
 	private boolean dragFinished;
-
+	
 	private ClickListener clickListener = new ClickListener() {
 		public void clicked(InputEvent event, float x, float y) {
 			if(dragFinished){
@@ -80,6 +77,7 @@ public class ArmoryRenderer {
 			}
 		}
 		AssetsLoader.loadTexture("weaponslot.png");
+		AssetsLoader.loadTexture("MenuBG.png");
 		AssetsLoader.finishLoading();
 
 	}
@@ -89,8 +87,8 @@ public class ArmoryRenderer {
 		stage = new Stage();
 		spriteBatch = new SpriteBatch();
 
-		Table table = new Table();
-		table.setFillParent(true);
+		Table foreground = new Table();
+		foreground.setFillParent(true);
 
 		topTable = new Table();
 		bottomTable = new Table();
@@ -103,10 +101,16 @@ public class ArmoryRenderer {
 		topTable.top();
 		bottomTable.bottom();
 
-		table.add(topTable).expand().top();
-		table.row();
-		table.add(bottomTable);
-		stage.addActor(table);
+		foreground.add(topTable).expand().top();
+		foreground.row();
+		foreground.add(bottomTable);
+		
+		Table background = new Table();
+		background.setFillParent(true);
+		background.add(new Image(AssetsLoader.getTexture("MenuBG.png"))).width(Gdx.graphics.getWidth()).height(Gdx.graphics.getHeight());
+		
+		stage.addActor(background);
+		stage.addActor(foreground);
 
 		stage.addListener(new InputListener() {
 
