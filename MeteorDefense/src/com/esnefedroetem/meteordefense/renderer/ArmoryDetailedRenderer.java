@@ -49,7 +49,7 @@ public class ArmoryDetailedRenderer {
 		LabelStyle textLabelStyle = new LabelStyle();
 		textLabelStyle.font = new BitmapFont();
 		assetsLabel = new Label("", textLabelStyle);
-		table.add(assetsLabel).top().right().expand();
+		table.add(assetsLabel).top().right().expandX();
 		
 		table.row();
 		
@@ -68,12 +68,12 @@ public class ArmoryDetailedRenderer {
 		
 		table.add(descriptionLabel).maxWidth(550).fill();
 
-		table.row();
+		table.row().row();
 		
 		// upgradeLabel
 		upgradeLabel = new Label("", textLabelStyle);
 		
-		table.add(upgradeLabel);
+		table.add(upgradeLabel).left().expand();
 		
 		table.row();
 
