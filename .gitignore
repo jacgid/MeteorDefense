@@ -13,5 +13,4 @@ MeteorDefense-android/gen/com/esnefedroetem/meteordefense/BuildConfig.java
 MeteorDefense-desktop/continents.txt
 MeteorDefense-desktop/sound.txt
 MeteorDefense-desktop/wallet.txt
-MeteorDefense-desktop/.classpath
-MeteorDefense/.classpath
+*.classpath
