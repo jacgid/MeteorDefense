@@ -39,6 +39,7 @@ public class CarouselScreen implements Screen, PropertyChangeListener {
 		AssetsLoader.loadTexture("CarouselBackground.png");
 		AssetsLoader.loadTexture("CarouselBackgroundLocked.png");
 		AssetsLoader.loadTexture("lock.png");
+		AssetsLoader.loadTexture("MenuBG.png");
 		AssetsLoader.finishLoading();
 		renderer.displayContinents(continents);
 	}
