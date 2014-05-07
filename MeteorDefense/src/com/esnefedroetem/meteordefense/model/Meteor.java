@@ -11,7 +11,7 @@ public abstract class Meteor extends MoveableGameObject {
 
 	private int life, startLife;
 	
-	public enum MeteorType{NONE, RADIOACTIVE, FIRE, FAST, ICE}
+	public enum MeteorType{BASIC, RADIOACTIVE, FIRE, FAST, ICE}
 	public  Meteor(){
 		
 		

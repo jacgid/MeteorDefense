@@ -350,7 +350,7 @@ public class GameRenderer {
 			x = meteor.getX();
 			y = meteor.getY();
 			switch(meteor.getType()){
-			case NONE:
+			case BASIC:
 				debugRenderer.setColor(Color.BLUE);
 				break;
 			case FAST:

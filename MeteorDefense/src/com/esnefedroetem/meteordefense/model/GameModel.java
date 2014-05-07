@@ -182,7 +182,7 @@ public class GameModel implements PropertyChangeListener {
 		int difficulty = 1; 
 		
 		switch(meteor.getType()){
-		case NONE:
+		case BASIC:
 			difficulty = 1;
 			break;
 		case FAST:
