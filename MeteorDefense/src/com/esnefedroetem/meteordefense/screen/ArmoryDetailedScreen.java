@@ -121,7 +121,7 @@ public class ArmoryDetailedScreen implements Screen, PropertyChangeListener{
 		} else {
 			if(armoryItem.hasUpgrade()) {
 				renderer.setUpgradeButtonText("Upgrade for " + armoryItem.getNextUpgradeValue());
-				renderer.setUpgradeButtonDisabled(wallet.canAfford(armoryItem.getNextUpgradeValue()));
+				renderer.setUpgradeButtonDisabled(!wallet.canAfford(armoryItem.getNextUpgradeValue()));
 			} else {
 				renderer.setUpgradeButtonText("No Upgrades");
 				renderer.setUpgradeButtonDisabled(true);

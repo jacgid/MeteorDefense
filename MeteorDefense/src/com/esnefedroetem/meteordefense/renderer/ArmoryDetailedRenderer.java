@@ -49,12 +49,10 @@ public class ArmoryDetailedRenderer {
 		LabelStyle textLabelStyle = new LabelStyle();
 		textLabelStyle.font = new BitmapFont();
 		assetsLabel = new Label("", textLabelStyle);
-		
 		table.add(assetsLabel).top().right().expand();
 		
 		table.row();
 		
-
 		// nameLabel
 		LabelStyle nameLabelStyle = new LabelStyle();
 		nameLabelStyle.font = new BitmapFont();
@@ -82,7 +80,8 @@ public class ArmoryDetailedRenderer {
 		// textButtonStyle
 		TextButtonStyle textButtonStyle = new TextButtonStyle();
 		textButtonStyle.font = new BitmapFont();
-
+		textButtonStyle.fontColor = Color.CYAN;
+		
 		// upgradeButton
 		upgradeButton = new TextButton("", textButtonStyle);
 				
@@ -98,7 +97,8 @@ public class ArmoryDetailedRenderer {
 		table.add(upgradeButton).left();
 		
 		// tradeButton
-		tradeButton = new TextButton("", textButtonStyle);
+		TextButtonStyle tradeButtonStyle = new TextButtonStyle(textButtonStyle);
+		tradeButton = new TextButton("", tradeButtonStyle);
 		
 		tradeButton.addListener(new ClickListener(){
 			@Override
@@ -176,18 +176,18 @@ public class ArmoryDetailedRenderer {
 	public void setUpgradeButtonDisabled(boolean flag) {
 		upgradeButton.setDisabled(flag);
 		if(flag) {
-			upgradeButton.setColor(Color.GRAY);
+			upgradeButton.getStyle().fontColor = Color.LIGHT_GRAY;
 		} else {
-			upgradeButton.setColor(Color.RED);
+			upgradeButton.getStyle().fontColor = Color.CYAN;
 		}
 	}
 
 	public void setTradeButtonDisabled(boolean flag) {
 		tradeButton.setDisabled(flag);
 		if(flag) {
-			tradeButton.setColor(Color.GRAY);
+			tradeButton.getStyle().fontColor = Color.GRAY;
 		} else {
-			tradeButton.setColor(Color.RED);
+			tradeButton.getStyle().fontColor = Color.CYAN;
 		}
 	}
 }
