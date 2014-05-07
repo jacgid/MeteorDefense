@@ -1,4 +1,4 @@
-package com.esnefedroetem.meteordefense;
+package com.esnefedroetem.meteordefense.service;
 
 import java.io.File;
 import java.util.List;

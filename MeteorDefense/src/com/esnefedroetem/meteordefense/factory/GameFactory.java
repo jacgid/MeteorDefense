@@ -1,4 +1,4 @@
-package com.esnefedroetem.meteordefense;
+package com.esnefedroetem.meteordefense.factory;
 
 import java.util.List;
 
@@ -18,6 +18,7 @@ import com.esnefedroetem.meteordefense.screen.GameScreen;
 import com.esnefedroetem.meteordefense.screen.MainMenuScreen;
 import com.esnefedroetem.meteordefense.screen.ScoreScreen;
 import com.esnefedroetem.meteordefense.screen.SplashScreen;
+import com.esnefedroetem.meteordefense.service.LoadService;
 import com.esnefedroetem.meteordefense.util.SoundService;
 
 public class GameFactory {

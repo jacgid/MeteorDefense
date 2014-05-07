@@ -1,4 +1,4 @@
-package com.esnefedroetem.meteordefense;
+package com.esnefedroetem.meteordefense.factory;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -7,6 +7,7 @@ import com.esnefedroetem.meteordefense.model.City;
 import com.esnefedroetem.meteordefense.model.City.State;
 import com.esnefedroetem.meteordefense.model.Continent;
 import com.esnefedroetem.meteordefense.model.MeteorShower;
+import com.esnefedroetem.meteordefense.service.LoadService;
 
 public class ContinentFactory {
 	private static final boolean load = false;
