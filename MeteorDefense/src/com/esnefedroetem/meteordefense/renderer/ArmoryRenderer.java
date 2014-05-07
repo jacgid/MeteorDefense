@@ -34,68 +34,72 @@ import com.esnefedroetem.meteordefense.model.armoryitem.EmptyItem;
 import com.esnefedroetem.meteordefense.util.AssetsLoader;
 
 public class ArmoryRenderer {
-	
+
 	private Stage stage;
 	private SpriteBatch spriteBatch;
 	private PropertyChangeSupport pcs;
 	private DragAndDrop dragAndDrop;
 	private Table topTable, bottomTable;
-	private int topTableCount;
-	
-	private ClickListener clickListener = new ClickListener(){
+	private boolean dragFinished;
+
+	private ClickListener clickListener = new ClickListener() {
 		public void clicked(InputEvent event, float x, float y) {
-			pcs.firePropertyChange(ArmoryEvent.ARMORY_ITEM_PRESSED.toString(), null, event.getListenerActor().getUserObject());
+			if(dragFinished){
+			pcs.firePropertyChange(ArmoryEvent.ARMORY_ITEM_PRESSED.toString(),
+					null, event.getListenerActor().getUserObject());
+			}
 		};
 	};
-	
-	public enum ArmoryEvent{
-		ARMORY_BACK_PRESSED,
-		ARMORY_ITEM_PRESSED
+
+	public enum ArmoryEvent {
+		ARMORY_BACK_PRESSED, ARMORY_ITEM_PRESSED
 	}
-	
-	public ArmoryRenderer(List<AbstractArmoryItem> items, List<AbstractArmoryItem> choosenItems){
+
+	public ArmoryRenderer(List<AbstractArmoryItem> items,
+			List<AbstractArmoryItem> choosenItems) {
 		loadTextures(items, choosenItems);
 		create(items, choosenItems);
 		pcs = new PropertyChangeSupport(this);
+		dragFinished = true;
 	}
-	
-	public void addChangeListener(PropertyChangeListener listener){
+
+	public void addChangeListener(PropertyChangeListener listener) {
 		pcs.addPropertyChangeListener(listener);
 	}
-	
-	private void loadTextures(List<AbstractArmoryItem> items, List<AbstractArmoryItem> choosenItems){
-		for(AbstractArmoryItem item : items){
-			if(item != null){
+
+	private void loadTextures(List<AbstractArmoryItem> items,
+			List<AbstractArmoryItem> choosenItems) {
+		for (AbstractArmoryItem item : items) {
+			if (item != null) {
 				AssetsLoader.loadTexture(item.getName() + ".png");
 			}
 		}
-		for(AbstractArmoryItem item : choosenItems){
-			if(item != null){
+		for (AbstractArmoryItem item : choosenItems) {
+			if (item != null) {
 				AssetsLoader.loadTexture(item.getName() + ".png");
 			}
 		}
 		AssetsLoader.loadTexture("weaponslot.png");
 		AssetsLoader.finishLoading();
-		
+
 	}
-	
-	private void create(List<AbstractArmoryItem> items, List<AbstractArmoryItem> choosenItems){
+
+	private void create(List<AbstractArmoryItem> items,
+			List<AbstractArmoryItem> choosenItems) {
 		stage = new Stage();
 		spriteBatch = new SpriteBatch();
-		
+
 		Table table = new Table();
 		table.setFillParent(true);
-		
+
 		topTable = new Table();
 		bottomTable = new Table();
-		
+
 		dragAndDrop = new DragAndDrop();
-		
+
 		createActionBar(bottomTable, dragAndDrop, choosenItems);
 		createItemGrid(topTable, dragAndDrop, items);
-		
-		topTableCount = topTable.getChildren().size;
-		
+
 		topTable.top();
 		bottomTable.bottom();
 
@@ -103,104 +107,118 @@ public class ArmoryRenderer {
 		table.row();
 		table.add(bottomTable);
 		stage.addActor(table);
-		
-		stage.addListener(new InputListener(){
-			
+
+		stage.addListener(new InputListener() {
+
 			@Override
-			public boolean keyDown(InputEvent event,
-		              int keycode){
-				
-				if(keycode == Keys.BACK){
-			 		pcs.firePropertyChange(ArmoryEvent.ARMORY_BACK_PRESSED.toString(), false, true);					
+			public boolean keyDown(InputEvent event, int keycode) {
+
+				if (keycode == Keys.BACK) {
+					pcs.firePropertyChange(
+							ArmoryEvent.ARMORY_BACK_PRESSED.toString(), false,
+							true);
 				}
-				
+
 				return true;
 			}
-			
+
 		});
 
 	}
-	
-	private void createActionBar(Table table, final DragAndDrop dragAndDrop, List<AbstractArmoryItem> items){
 
-		for(int i = 0; i < items.size(); i++){
+	private void createActionBar(Table table, final DragAndDrop dragAndDrop,
+			List<AbstractArmoryItem> items) {
+
+		for (int i = 0; i < items.size(); i++) {
 			TextButtonStyle style = new TextButtonStyle();
 			style.font = new BitmapFont();
-			style.up = new TextureRegionDrawable(new TextureRegion(AssetsLoader.getTexture((items.get(i).getName() + ".png"))));
+			style.up = new TextureRegionDrawable(new TextureRegion(
+					AssetsLoader.getTexture((items.get(i).getName() + ".png"))));
 			Actor actor = new TextButton("", style);
 			actor.setUserObject(items.get(i));
 			actor.setName(i + "");
-			table.add(actor).pad(10);
-			if(!items.get(i).equals(AbstractArmoryItem.EMPTY_ITEM)){
+			table.add(actor).pad(10).width(Gdx.graphics.getWidth() / 6.5F)
+					.height(Gdx.graphics.getWidth() / 6.5F);
+			if (!items.get(i).equals(AbstractArmoryItem.EMPTY_ITEM)) {
 				actor.addListener(clickListener);
 			}
 
-			if(i != 2){
+			if (i != 2) {
 				dragAndDrop.addTarget(getTarget(actor));
 				dragAndDrop.addSource(getSource(actor));
 			}
 		}
-		
-	}
-	
 
-	private void createItemGrid(Table table, DragAndDrop dragAndDrop, List<AbstractArmoryItem> items){
+	}
+
+	private void createItemGrid(Table table, DragAndDrop dragAndDrop,
+			List<AbstractArmoryItem> items) {
 		TextButtonStyle style = new TextButtonStyle();
 		style.font = new BitmapFont();
-		
+
 		table.pad(10);
-		
-		for(int i = 1; i <= items.size(); i++){
+
+		for (int i = 1; i <= items.size(); i++) {
 			Actor actor = null;
-			if(items.get(i - 1) == null){
+			if (items.get(i - 1) == null) {
 				actor = new Image(AssetsLoader.getTexture("weaponslot.png"));
-			}else{
-				style.up = new TextureRegionDrawable(new TextureRegion(AssetsLoader.getTexture((items.get(i - 1).getName() + ".png"))));
+			} else {
+				style.up = new TextureRegionDrawable(
+						new TextureRegion(AssetsLoader.getTexture((items.get(
+								i - 1).getName() + ".png"))));
 				actor = new TextButton("", style);
 				actor.addListener(clickListener);
 			}
 			actor.setUserObject(items.get(i - 1));
 			actor.setName(i - 1 + "");
-			table.add(actor).pad(10);
-			
+			table.add(actor).pad(10).width(Gdx.graphics.getWidth() / 6.5F)
+					.height(Gdx.graphics.getWidth() / 6.5F);
+
 			dragAndDrop.addSource(getSource(actor));
 			dragAndDrop.addTarget(getTarget(actor));
-			
-			if(i % 3 == 0){
+
+			if (i % 3 == 0) {
 				table.row();
 			}
 		}
-		
-		
+
 	}
-	
-	
-	private Source getSource(Actor actor){
+
+	private Source getSource(Actor actor) {
 		return new Source(actor) {
-			
+
 			@Override
-			public Payload dragStart(InputEvent event, float x, float y, int pointer) {
+			public Payload dragStart(InputEvent event, float x, float y,
+					int pointer) {
+				dragFinished = false;
 				Payload payload = new Payload();
-				payload.setDragActor(new Image(AssetsLoader.getTexture(( (AbstractArmoryItem) getActor().getUserObject() ).getName() + ".png" )));
+				Table table = new Table();
+				table.add(
+						new Image(AssetsLoader
+								.getTexture(((AbstractArmoryItem) getActor()
+										.getUserObject()).getName() + ".png")))
+						.width(Gdx.graphics.getWidth() / 6.5F)
+						.height(Gdx.graphics.getWidth() / 6.5F);
+				payload.setDragActor(table);
 				getActor().setVisible(false);
 				return payload;
 			}
-			
+
 			@Override
 			public void dragStop(InputEvent event, float x, float y,
 					int pointer, Target target) {
-				if(target == null){
+				dragFinished = true;
+				if (target == null) {
 					getActor().setVisible(true);
 				}
-				
+
 			}
-			
+
 		};
 	}
-	
-	
-	private Target getTarget(Actor actor){
-		return new Target(actor){
+
+	private Target getTarget(Actor actor) {
+		return new Target(actor) {
 
 			@Override
 			public boolean drag(Source source, Payload payload, float x,
@@ -218,93 +236,96 @@ public class ArmoryRenderer {
 				target.setName(actorPos + "");
 				actor.setName(targetPos + "");
 				actor.setVisible(true);
-				if(target.getParent() == topTable){
+				if (target.getParent() == topTable) {
 					topTable.removeActor(target);
-					if(topTable.getChildren().contains(actor, true)){
+					if (topTable.getChildren().contains(actor, true)) {
 						topTable.removeActor(actor);
-						if(targetPos < actorPos){
+						if (targetPos < actorPos) {
 							updateTable(topTable, actor, targetPos, 3);
-							updateTable(topTable, target, actorPos, 3);							
-						}else{
-							updateTable(topTable, target, actorPos, 3);							
+							updateTable(topTable, target, actorPos, 3);
+						} else {
+							updateTable(topTable, target, actorPos, 3);
 							updateTable(topTable, actor, targetPos, 3);
 						}
-					}else{
+					} else {
 						bottomTable.removeActor(actor);
 						updateTable(topTable, actor, targetPos, 3);
 						updateTable(bottomTable, target, actorPos, 6);
 					}
-				}else{
+				} else {
 					bottomTable.removeActor(target);
-					if(topTable.getChildren().contains(actor, true)){
+					if (topTable.getChildren().contains(actor, true)) {
 						topTable.removeActor(actor);
 						updateTable(bottomTable, actor, targetPos, 6);
 						updateTable(topTable, target, actorPos, 3);
-					}else{
+					} else {
 						bottomTable.removeActor(actor);
-						if(targetPos < actorPos){
+						if (targetPos < actorPos) {
 							updateTable(bottomTable, actor, targetPos, 6);
-							updateTable(bottomTable, target, actorPos, 6);							
-						}else{
-							updateTable(bottomTable, target, actorPos, 6);							
+							updateTable(bottomTable, target, actorPos, 6);
+						} else {
+							updateTable(bottomTable, target, actorPos, 6);
 							updateTable(bottomTable, actor, targetPos, 6);
 						}
-						
-					}					
+
+					}
 				}
 			}
-			
+
 		};
 	}
-	
-	private void updateTable(Table table, Actor actor, int pos, int columns){
-		List<Actor> childs = new ArrayList<Actor>(Arrays.asList(table.getChildren().toArray()));
+
+	private void updateTable(Table table, Actor actor, int pos, int columns) {
+		List<Actor> childs = new ArrayList<Actor>(Arrays.asList(table
+				.getChildren().toArray()));
 		table.clearChildren();
-		//childs.remove(actor);
+		// childs.remove(actor);
 		childs.add(pos, actor);
-		for(int i = 1; i <= childs.size(); i++){
-			table.add(childs.get(i - 1)).pad(10);
-			if(i % columns == 0){
+		for (int i = 1; i <= childs.size(); i++) {
+			table.add(childs.get(i - 1)).pad(10)
+					.width(Gdx.graphics.getWidth() / 6.5F)
+					.height(Gdx.graphics.getWidth() / 6.5F);
+			if (i % columns == 0) {
 				table.row();
 			}
 		}
 	}
-	
-	public List<AbstractArmoryItem> getSelectedArmoryItems(){
-		List<AbstractArmoryItem> choosenItems = new ArrayList<AbstractArmoryItem>(5);
-		for(Actor actor : bottomTable.getChildren()){
-			choosenItems.add((AbstractArmoryItem)actor.getUserObject());
+
+	public List<AbstractArmoryItem> getSelectedArmoryItems() {
+		List<AbstractArmoryItem> choosenItems = new ArrayList<AbstractArmoryItem>(
+				5);
+		for (Actor actor : bottomTable.getChildren()) {
+			choosenItems.add((AbstractArmoryItem) actor.getUserObject());
 		}
 		return choosenItems;
 	}
-	
-	public List<AbstractArmoryItem> getUnselectedArmoryItems(){
+
+	public List<AbstractArmoryItem> getUnselectedArmoryItems() {
 		List<AbstractArmoryItem> items = new ArrayList<AbstractArmoryItem>();
-		for(Actor actor : topTable.getChildren()){
-			items.add((AbstractArmoryItem)actor.getUserObject());
+		for (Actor actor : topTable.getChildren()) {
+			items.add((AbstractArmoryItem) actor.getUserObject());
 		}
 		return items;
 	}
-	
-	public void init(){
+
+	public void init() {
 		Gdx.input.setInputProcessor(stage);
+		dragFinished = true;
 	}
-	
-	public void render(){
+
+	public void render() {
 		stage.act();
 		Gdx.gl.glClearColor(0, 0, 0, 0);
 		Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
-		
+
 		spriteBatch.begin();
 		stage.draw();
 		spriteBatch.end();
 	}
-	
-	public void dispose(){
+
+	public void dispose() {
 		stage.dispose();
 		spriteBatch.dispose();
 	}
-	
-	
-	
+
 }
