@@ -26,14 +26,15 @@ public class MeteorShower {
 	private List<List<Meteor>> allStoredMeteors = new ArrayList<List<Meteor>>();
 	private long lastMeteorSpawn;
 	private int meteorSpawnRate = 2000;
-	private int basicMeteor, fireMeteor, fastMeteor, iceMeteor, radioactiveMeteor;
+	private int basicMeteor, fireMeteor, fastMeteor, iceMeteor, radioactiveMeteor,maxScore;
 
 	public MeteorShower() {
-		//Used by loadService
+		// Used by loadService
 	}
 
 	public MeteorShower(int basicMeteor, int fireMeteor, int fastMeteor, int iceMeteor, int radioactiveMeteor) {
-		//addMeteor(basicMeteor, fireMeteor, fastMeteor, iceMeteor, radioactiveMeteor);
+		// addMeteor(basicMeteor, fireMeteor, fastMeteor, iceMeteor,
+		// radioactiveMeteor);
 		this.basicMeteor = basicMeteor;
 		this.fireMeteor = fireMeteor;
 		this.fastMeteor = fastMeteor;
@@ -49,6 +50,19 @@ public class MeteorShower {
 	public void start() {
 		lastMeteorSpawn = TimeUtils.millis();
 
+	}
+
+	private void calculateMaxScore() {
+		
+		for (List<Meteor> list : allStoredMeteors) {
+			for (Meteor temp : list) {
+				maxScore += temp.getDifficulty();
+			}
+		}
+		System.out.println(maxScore);
+	}
+	public int getMaxScore(){
+		return maxScore;
 	}
 
 	private boolean allMeteorsDepolyed() {
@@ -92,7 +106,7 @@ public class MeteorShower {
 
 			do {
 				templist = allStoredMeteors.get((int) (Math.random() * allStoredMeteors.size()));
-				
+
 			} while (templist.size() <= 0);
 
 		return templist.remove(0);
@@ -158,8 +172,8 @@ public class MeteorShower {
 		return new Vector2(randomX, Constants.LOGIC_SCREEN_HEIGHT + sizeOfMeteor / 2);
 
 	}
-	
-	public void unLoadMeteors(){
+
+	public void unLoadMeteors() {
 		visibleMeteors.clear();
 		basicMeteors.clear();
 		fireMeteors.clear();
@@ -168,10 +182,12 @@ public class MeteorShower {
 		radioactiveMeteors.clear();
 		allStoredMeteors.clear();
 		lastMeteorSpawn = 0;
+		maxScore = 0;
 	}
-	
-	public void loadMeteors(){
+
+	public void loadMeteors() {
 		unLoadMeteors();
 		addMeteor(basicMeteor, fireMeteor, fastMeteor, iceMeteor, radioactiveMeteor);
+		calculateMaxScore();
 	}
 }

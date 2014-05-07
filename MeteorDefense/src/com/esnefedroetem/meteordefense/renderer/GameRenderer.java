@@ -242,7 +242,7 @@ public class GameRenderer {
 //		drawDebug();
 		
 		lifeLabel.setText(model.getCity().getLife() + "");
-		score = model.handleScore().getMeteorScore();
+		score = model.getScore();
 		scoreLable.setText(score + "");
 
 	}

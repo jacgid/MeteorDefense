@@ -31,7 +31,7 @@ public class GameModel implements PropertyChangeListener {
 	public static final float HEIGHT = Constants.LOGIC_SCREEN_HEIGHT;
 	private int numberOfProjectiles, meteorHits, score = 0;
 	private ScoreHandler scoreHandler;
-	
+
 	private ArrayList<Meteor> killedMeteors = new ArrayList<Meteor>();
 
 	private PropertyChangeSupport pcs;
@@ -86,12 +86,12 @@ public class GameModel implements PropertyChangeListener {
 
 	private void gameover() {
 		handleScore();
-			pcs.firePropertyChange("Gameover", true, handleScore());
-		
-			getCity().setScore(scoreHandler.getTotalScore());
-			getCity().setStars(scoreHandler.getStars());
+		pcs.firePropertyChange("Gameover", true, handleScore());
+
+		getCity().setScore(scoreHandler.getTotalScore());
+		getCity().setStars(scoreHandler.getStars());
 		reset();
-		
+
 	}
 
 	private void reset() {
@@ -102,15 +102,15 @@ public class GameModel implements PropertyChangeListener {
 		cannonBarrel.reset();
 		score = 0;
 	}
-	
-	public void toolbarAct(int buttonNr){
+
+	public void toolbarAct(int buttonNr) {
 		selectedArmoryItem.removeChangeListener(this);
-		selectedArmoryItem = selectedArmoryItems.get(buttonNr-1);
+		selectedArmoryItem = selectedArmoryItems.get(buttonNr - 1);
 		selectedArmoryItem.addChangeListener(this);
 		selectedArmoryItem.act();
 	}
-	
-	public void endGame(){
+
+	public void endGame() {
 		gameover();
 	}
 
@@ -144,7 +144,7 @@ public class GameModel implements PropertyChangeListener {
 		meteorShower.meteorHit(meteor, projectile.getDamage(), projectile.getProjectileType());
 		projectiles.remove(projectile);
 		meteorHits += 1;
-		if(meteorShower.getVisibleMeteors().size()<meteorcount){
+		if (meteorShower.getVisibleMeteors().size() < meteorcount) {
 			addToScore(meteor);
 			killedMeteors.add(meteor);
 		}
@@ -176,15 +176,18 @@ public class GameModel implements PropertyChangeListener {
 
 		return (x < 0 || x > WIDTH || y > HEIGHT);
 	}
-	
-	private void addToScore(Meteor meteor){
-		score += meteor.getDifficulty()*10;
+
+	private void addToScore(Meteor meteor) {
+		score += meteor.getDifficulty();
 	}
-	
-	
-	public ArrayList<Meteor> getKilledMeteors(){
+	public int getScore(){
+		
+		return score;
+	}
+
+	public ArrayList<Meteor> getKilledMeteors() {
 		ArrayList<Meteor> temp = new ArrayList<Meteor>();
-		for(Meteor met : killedMeteors){
+		for (Meteor met : killedMeteors) {
 			temp.add(met);
 		}
 		killedMeteors.clear();
@@ -206,8 +209,8 @@ public class GameModel implements PropertyChangeListener {
 	public City getCity() {
 		return city;
 	}
-	
-	public CannonBarrel getCannonBarrel(){
+
+	public CannonBarrel getCannonBarrel() {
 		return cannonBarrel;
 	}
 
@@ -228,19 +231,19 @@ public class GameModel implements PropertyChangeListener {
 			AbstractEffectArmoryItem effectArmoryItem = (AbstractEffectArmoryItem) evt.getNewValue();
 			effectArmoryItem.execute(meteorShower.getVisibleMeteors());
 		}
-		
+
 		selectedArmoryItem.removeChangeListener(this);
 		selectedArmoryItem = standardWeapon;
 		selectedArmoryItem.addChangeListener(this);
 	}
 
-	public ScoreHandler handleScore() {
+	private ScoreHandler handleScore() {
 
-		scoreHandler = new ScoreHandler(meteorHits, numberOfProjectiles, getCity().getLife(), getCity().getMaxLife(), score);
-		
-		
+		scoreHandler = new ScoreHandler(meteorHits, numberOfProjectiles, getCity().getLife(), getCity().getMaxLife(),
+				score, getCity().getMeteorShower().getMaxScore());
+
 		return scoreHandler;
 
 	}
-	
+
 }

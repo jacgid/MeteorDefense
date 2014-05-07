@@ -13,15 +13,18 @@ public class ScoreHandler {
 	private int numberOfProjectilesUsed;
 	private int remaningLife;
 	private int maxLife;
-	private int meteorScore;
+	private int meteorScore, maxMeteorScore;
 	private int stars;
 
-	public ScoreHandler(int meteorHits, int numberOfProjectilesUsed, int remaningLife, int maxLife, int meteorScore) {
+	public ScoreHandler(int meteorHits, int numberOfProjectilesUsed, int remaningLife, int maxLife, int meteorScore,
+			int maxMeteorScore) {
 		this.numberOfMeteorHits = meteorHits;
 		this.numberOfProjectilesUsed = numberOfProjectilesUsed;
 		this.remaningLife = remaningLife;
 		this.maxLife = maxLife;
 		this.meteorScore = meteorScore;
+		this.maxMeteorScore = maxMeteorScore;
+		calculateMaxScore();
 
 	}
 
@@ -40,8 +43,23 @@ public class ScoreHandler {
 	}
 
 	public int getStars() {
-		// TODO: make me;
-		return 1;
+		int score = getTotalScore();
+		int maxScore = calculateMaxScore();
+		if (getRemaningLife() > 0) {
+			if (score > maxScore * 0.9) {
+				return 3;
+			} else if (score > maxScore * 0.65) {
+				return 2;
+			}
+			return 1;
+		}
+		return 0;
+
+	}
+
+	public int calculateMaxScore() {
+
+		return maxMeteorScore + ACCURACY_CONSTANT + REMANING_LIFE_CONSTANT;
 
 	}
 
