@@ -27,7 +27,7 @@ import com.esnefedroetem.meteordefense.util.AssetsLoader;
 import com.esnefedroetem.meteordefense.util.SoundService;
 
 public class MeteorDefense extends Game implements PropertyChangeListener {
-	
+
 	private SplashScreen splashScreen;
 	private MainMenuScreen mainMenuScreen;
 	private ArmoryScreen armoryScreen;
@@ -35,9 +35,8 @@ public class MeteorDefense extends Game implements PropertyChangeListener {
 	private GameScreen gameScreen;
 	private CarouselScreen carouselScreen;
 	private ScoreScreen scoreScreen;
-	private boolean inGame= false;
-	
-	
+	private boolean inGame = false;
+
 	@Override
 	public void create() {
 		Texture.setEnforcePotImages(false);
@@ -45,60 +44,60 @@ public class MeteorDefense extends Game implements PropertyChangeListener {
 		splashScreen = new SplashScreen(this);
 		setScreen(splashScreen);
 	}
-	
+
 	@Override
-	public void pause(){
+	public void pause() {
 		super.pause();
-		if(Gdx.app.getType() == ApplicationType.Android){
+		if (Gdx.app.getType() == ApplicationType.Android) {
 			save();
 		}
 	}
-	
-	
+
 	@Override
-	public void dispose(){
+	public void dispose() {
 		super.dispose();
-		if(inGame){
-			for ( Continent c : carouselScreen.getContinents()){
-				for(City city : c.getCities()){
+		if (inGame) {
+			for (Continent c : carouselScreen.getContinents()) {
+				for (City city : c.getCities()) {
 					city.reset();
 				}
 			}
-		}		
+		}
 		save();
 	}
-	
-	private void save(){
+
+	private void save() {
 		SaveService.saveSoundState(SoundService.getInstance().getSoundState());
 		SaveService.saveWallet(armoryDetaliedScreen.getWallet());
 		List<Continent> continents = carouselScreen.getContinents();
 		SaveService.saveContinents(continents);
 	}
-	
+
 	/**
 	 * Initiate screens
 	 */
-	private void init(){
+	private void init() {
 		GameFactory.getInstance().createScreens(this);
 	}
-	
-	public void setScreens(MainMenuScreen mainMenuScreen, ArmoryScreen armoryScreen,
+
+	public void setScreens(MainMenuScreen mainMenuScreen,
+			ArmoryScreen armoryScreen,
 			ArmoryDetailedScreen armoryDetaliedScreen, GameScreen gameScreen,
-			CarouselScreen carouselScreen, ScoreScreen scoreScreen){
+			CarouselScreen carouselScreen, ScoreScreen scoreScreen) {
 		this.mainMenuScreen = mainMenuScreen;
 		this.armoryScreen = armoryScreen;
 		this.armoryDetaliedScreen = armoryDetaliedScreen;
 		this.gameScreen = gameScreen;
 		this.carouselScreen = carouselScreen;
 		this.scoreScreen = scoreScreen;
-		
+
 	}
-	
-	private void changeSound(){
+
+	private void changeSound() {
 		SoundService.getInstance().changeSoundState();
 	}
-	
-	private void newGame(City city){
+
+	private void newGame(City city) {
 		gameScreen.newGame(city, armoryScreen.getSelectedArmoryItems());
 		splashScreen.gameSplash(gameScreen.getRenderer());
 		setScreen(splashScreen);
@@ -107,40 +106,75 @@ public class MeteorDefense extends Game implements PropertyChangeListener {
 
 	@Override
 	public void propertyChange(PropertyChangeEvent evt) {
-		
-		if(evt.getPropertyName().equals(SplashScreenEvent.SPLASHSCREEN_ENDED.toString())){
+
+		if (evt.getPropertyName().equals(
+				SplashScreenEvent.SPLASHSCREEN_ENDED.toString())) {
 			init();
 			setScreen(mainMenuScreen);
-		}else if(evt.getPropertyName().equals(MainMenuEvent.MAINMENU_PLAY_CLICKED.toString())){
+		} else if (evt.getPropertyName().equals(
+				MainMenuEvent.MAINMENU_PLAY_CLICKED.toString())) {
 			setScreen(carouselScreen);
-		}else if(evt.getPropertyName().equals(MainMenuEvent.MAINMENU_SOUND_CLICKED.toString())){
+		} else if (evt.getPropertyName().equals(
+				MainMenuEvent.MAINMENU_SOUND_CLICKED.toString())) {
 			changeSound();
-		}else if(evt.getPropertyName().equals(CarouselEvent.CAROUSEL_NEWGAME.toString())){
-			newGame((City)evt.getNewValue());
-		}else if(evt.getPropertyName().equals("Gameover")){
-			inGame= false;
-			ScoreHandler scoreHandler = (ScoreHandler)evt.getNewValue();
+		} else if (evt.getPropertyName().equals(
+				CarouselEvent.CAROUSEL_NEWGAME.toString())) {
+			newGame((City) evt.getNewValue());
+		} else if (evt.getPropertyName().equals("Gameover")) {
+			inGame = false;
+			ScoreHandler scoreHandler = (ScoreHandler) evt.getNewValue();
+
+			// if game is won, next city in the continent should be unlocked
+			// (unless already unlocked)
+			if (!scoreHandler.isGameLost()) {
+				City city = (City) evt.getOldValue();
+				// find which continent the city belongs to
+				for (Continent continent : carouselScreen.getContinents()) {
+					List<City> cities = continent.getCities();
+					if (cities.contains(city)) {
+						// get next city and unlock it
+						City nextCity = cities.get(cities.indexOf(city) + 1);
+						if (nextCity.getState() == City.State.LOCKED) {
+							nextCity.setState(City.State.UNLOCKED);
+						}
+					}
+				}
+			}
+
 			scoreScreen.setScore(scoreHandler);
-			armoryDetaliedScreen.getWallet().addCoins(scoreHandler.getNewMoney());
+			armoryDetaliedScreen.getWallet().addCoins(
+					scoreHandler.getNewMoney());
+
+			for (Continent continent : carouselScreen.getContinents()) {
+				if (continent.getCities().contains(evt.getOldValue())) {
+
+				}
+			}
 			setScreen(scoreScreen);
-		}else if(evt.getPropertyName().equals("Scorescreen_finished")){
+		} else if (evt.getPropertyName().equals("Scorescreen_finished")) {
 			carouselScreen.update();
-			setScreen(carouselScreen);	
-		}else if(evt.getPropertyName().equals(ArmoryEvent.ARMORY_BACK_PRESSED.toString())){
-			setScreen(carouselScreen);			
-		}else if(evt.getPropertyName().equals(CarouselEvent.CAROUSEL_ARMORY_CLICKED.toString())){
+			setScreen(carouselScreen);
+		} else if (evt.getPropertyName().equals(
+				ArmoryEvent.ARMORY_BACK_PRESSED.toString())) {
+			setScreen(carouselScreen);
+		} else if (evt.getPropertyName().equals(
+				CarouselEvent.CAROUSEL_ARMORY_CLICKED.toString())) {
 			setScreen(armoryScreen);
-		}else if(evt.getPropertyName().equals(ArmoryEvent.ARMORY_ITEM_PRESSED.toString())){
-			armoryDetaliedScreen.setArmoryItem((AbstractArmoryItem) evt.getNewValue());
+		} else if (evt.getPropertyName().equals(
+				ArmoryEvent.ARMORY_ITEM_PRESSED.toString())) {
+			armoryDetaliedScreen.setArmoryItem((AbstractArmoryItem) evt
+					.getNewValue());
 			setScreen(armoryDetaliedScreen);
-		}else if(evt.getPropertyName().equals(ArmoryDetaliedEvent.ARMORY_DETAILED_BACK_PRESSED.toString())){
+		} else if (evt.getPropertyName().equals(
+				ArmoryDetaliedEvent.ARMORY_DETAILED_BACK_PRESSED.toString())) {
 			setScreen(armoryScreen);
-		}else if(evt.getPropertyName().equals("Exit application")){
+		} else if (evt.getPropertyName().equals("Exit application")) {
 			Gdx.app.exit();
-		}else if(evt.getPropertyName().equals(SplashScreenEvent.GAMESPLASHSCREEN_ENDED.toString())){
+		} else if (evt.getPropertyName().equals(
+				SplashScreenEvent.GAMESPLASHSCREEN_ENDED.toString())) {
 			setScreen(gameScreen);
 		}
-		
+
 	}
 
 }
