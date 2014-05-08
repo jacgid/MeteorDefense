@@ -68,7 +68,7 @@ public abstract class Meteor extends MoveableGameObject {
 	public abstract MeteorType getType();
 
 	public final void calculateDifficulty() {
-		difficulty = (int) (getDamage() * 0.7 + startLife * 0.01 + startLife * 0.7)*10;
+		difficulty = (int) (getDamage() * 0.7 + startLife * 0.01 + startLife * 0.7);
 
 	}
 
