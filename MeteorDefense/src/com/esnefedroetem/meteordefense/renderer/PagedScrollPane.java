@@ -120,7 +120,7 @@ public class PagedScrollPane extends ScrollPane {
 	public void removeAllPages(){
 		if(content != null){
 			content.clearChildren();
-		}
 		content.invalidate();
+		}
 	}
 }
