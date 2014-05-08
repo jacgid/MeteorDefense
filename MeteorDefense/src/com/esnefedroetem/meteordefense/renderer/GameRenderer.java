@@ -202,7 +202,9 @@ public class GameRenderer {
 		cannonSprite.setSize(model.getCannonBarrel().getBounds().width, model.getCannonBarrel().getBounds().height);
 		citySprite.setSize(Constants.CITY_BOUNDS.width, Constants.CITY_BOUNDS.height);
 		toolbarSprite.setSize(Constants.CITY_BOUNDS.width, Constants.CITY_BOUNDS.height);
-		bgSprite.setSize((int)Constants.LOGIC_SCREEN_HEIGHT, (int)Constants.LOGIC_SCREEN_HEIGHT);
+		bgSprite.setSize(Gdx.graphics.getWidth(), Gdx.graphics.getHeight());
+
+		
 	}
 
 	/**
