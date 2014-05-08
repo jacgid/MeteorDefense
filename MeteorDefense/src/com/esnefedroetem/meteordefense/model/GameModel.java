@@ -6,7 +6,6 @@ import java.beans.PropertyChangeSupport;
 import java.util.ArrayList;
 import java.util.List;
 
-import com.esnefedroetem.meteordefense.ScoreHandler;
 import com.esnefedroetem.meteordefense.model.armoryitem.AbstractArmoryItem;
 import com.esnefedroetem.meteordefense.model.armoryitem.AbstractDefenseArmoryItem;
 import com.esnefedroetem.meteordefense.model.armoryitem.AbstractEffectArmoryItem;
@@ -79,8 +78,8 @@ public class GameModel implements PropertyChangeListener {
 		}
 	}
 
-	public void shoot(float X, float Y) {
-		cannonBarrel.calculateAngle(X, Y);
+	public void shoot(float posX, float posY) {
+		cannonBarrel.calculateAngle(posX, posY);
 		selectedArmoryItem.act();
 	}
 
@@ -174,13 +173,13 @@ public class GameModel implements PropertyChangeListener {
 		float x = object.getX() + object.getBounds().radius;
 		float y = object.getY() + object.getBounds().radius;
 
-		return (x < 0 || x > WIDTH || y > HEIGHT);
+		return x < 0 || x > WIDTH || y > HEIGHT;
 	}
 
 	private void addToScore(Meteor meteor) {
-		score += meteor.getDifficulty();
+		score += meteor.getDifficulty()*10;
 	}
-	public int getScore(){
+	public int getMeteorScore(){
 		
 		return score;
 	}

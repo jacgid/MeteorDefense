@@ -30,7 +30,6 @@ public class RadioactiveMeteor extends Meteor {
 	public void hit(int damage, ProjectileType projectileType) {
 		decreaseHealth(damage);
 		decreaseSize(2);
-		damage = damage-2;
 	}
 
 	@Override

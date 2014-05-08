@@ -6,6 +6,7 @@ import java.util.ArrayList;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Color;
+import com.badlogic.gdx.graphics.GL11;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.Texture.TextureFilter;
@@ -208,6 +209,8 @@ public class GameRenderer {
 	 * Renders the view. Draws all the textures to the screen.
 	 */
 	public void render(){
+		Gdx.gl.glClearColor(94f, 97f, 225f, 1);
+		Gdx.gl.glClear(GL11.GL_COLOR_BUFFER_BIT|GL11.GL_STENCIL_BUFFER_BIT);
 		
 		bgCam.update();
 		bgCam.apply(Gdx.gl10);
@@ -241,7 +244,7 @@ public class GameRenderer {
 //		drawDebug();
 		
 		lifeLabel.setText(model.getCity().getLife() + "");
-		score = model.getScore();
+		score = model.getMeteorScore();
 		scoreLable.setText(score + "");
 
 	}
@@ -264,7 +267,7 @@ public class GameRenderer {
 		}
 		citySprite.setPosition(Constants.CITY_BOUNDS.x, Constants.CITY_BOUNDS.y);
 		citySprite.draw(spriteBatch);
-		toolbarSprite.setPosition(Constants.CITY_BOUNDS.x, Constants.CITY_BOUNDS.y-(Constants.CITY_BOUNDS.height/((float)7/6)));
+		toolbarSprite.setPosition(Constants.CITY_BOUNDS.x, Constants.CITY_BOUNDS.y - Constants.CITY_BOUNDS.height/((float)7/6));
 		toolbarSprite.draw(spriteBatch);
 		cannonSprite.setPosition(model.getCannonBarrel().getBounds().x, model.getCannonBarrel().getBounds().y);
 		cannonSprite.setOrigin(cannonSprite.getWidth()/2, cannonSprite.getHeight()/3);

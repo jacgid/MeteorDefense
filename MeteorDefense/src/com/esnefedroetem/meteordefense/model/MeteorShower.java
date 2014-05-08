@@ -26,13 +26,15 @@ public class MeteorShower {
 	private List<List<Meteor>> allStoredMeteors = new ArrayList<List<Meteor>>();
 	private long lastMeteorSpawn;
 	private int meteorSpawnRate = 2000;
-	private int basicMeteor, fireMeteor, fastMeteor, iceMeteor, radioactiveMeteor,maxScore;
+	private int basicMeteor, fireMeteor, fastMeteor, iceMeteor,
+			radioactiveMeteor, maxScore;
 
 	public MeteorShower() {
 		// Used by loadService
 	}
 
-	public MeteorShower(int basicMeteor, int fireMeteor, int fastMeteor, int iceMeteor, int radioactiveMeteor) {
+	public MeteorShower(int basicMeteor, int fireMeteor, int fastMeteor,
+			int iceMeteor, int radioactiveMeteor) {
 		// addMeteor(basicMeteor, fireMeteor, fastMeteor, iceMeteor,
 		// radioactiveMeteor);
 		this.basicMeteor = basicMeteor;
@@ -53,14 +55,15 @@ public class MeteorShower {
 	}
 
 	private void calculateMaxScore() {
-		
+
 		for (List<Meteor> list : allStoredMeteors) {
 			for (Meteor temp : list) {
 				maxScore += temp.getDifficulty();
 			}
 		}
 	}
-	public int getMaxScore(){
+
+	public int getMaxScore() {
 		return maxScore;
 	}
 
@@ -101,14 +104,18 @@ public class MeteorShower {
 	// TODO: make me do something useful
 	private Meteor getRandomElement() {
 		List<Meteor> templist = null;
-		if (!allMeteorsDepolyed())
+		Meteor randomMeteor = new BasicMeteor();
+		if (!allMeteorsDepolyed()) {
 
 			do {
-				templist = allStoredMeteors.get((int) (Math.random() * allStoredMeteors.size()));
+				templist = allStoredMeteors
+						.get((int) (Math.random() * allStoredMeteors.size()));
 
 			} while (templist.size() <= 0);
+			randomMeteor = templist.remove(0);
+		}
 
-		return templist.remove(0);
+		return randomMeteor;
 
 	}
 
@@ -117,22 +124,28 @@ public class MeteorShower {
 
 	}
 
-	private void addMeteor(int basicMeteorAmount, int fireMeteorAmount, int fastMeteorAmount, int iceMeteorAmount,
+	private void addMeteor(int basicMeteorAmount, int fireMeteorAmount,
+			int fastMeteorAmount, int iceMeteorAmount,
 			int radioactiveMeteorAmount) {
 		for (int i = 0; i < basicMeteorAmount; i++) {
-			basicMeteors.add(new BasicMeteor(randomStartPos(Constants.BASE_METEOR_SIZE)));
+			basicMeteors.add(new BasicMeteor(
+					randomStartPos(Constants.BASE_METEOR_SIZE)));
 		}
 		for (int i = 0; i < fireMeteorAmount; i++) {
-			fireMeteors.add(new FireMeteor(randomStartPos(Constants.BASE_METEOR_SIZE)));
+			fireMeteors.add(new FireMeteor(
+					randomStartPos(Constants.BASE_METEOR_SIZE)));
 		}
 		for (int i = 0; i < fastMeteorAmount; i++) {
-			fastMeteors.add(new FastMeteor(randomStartPos(Constants.BASE_METEOR_SIZE)));
+			fastMeteors.add(new FastMeteor(
+					randomStartPos(Constants.BASE_METEOR_SIZE)));
 		}
 		for (int i = 0; i < iceMeteorAmount; i++) {
-			iceMeteors.add(new IceMeteor(randomStartPos(Constants.BASE_METEOR_SIZE)));
+			iceMeteors.add(new IceMeteor(
+					randomStartPos(Constants.BASE_METEOR_SIZE)));
 		}
 		for (int i = 0; i < radioactiveMeteorAmount; i++) {
-			radioactiveMeteors.add(new RadioactiveMeteor(randomStartPos(Constants.BASE_METEOR_SIZE * 2)));
+			radioactiveMeteors.add(new RadioactiveMeteor(
+					randomStartPos(Constants.BASE_METEOR_SIZE * 2)));
 		}
 
 		allStoredMeteors.add(basicMeteors);
@@ -150,7 +163,8 @@ public class MeteorShower {
 	 * @param projectileType
 	 * 
 	 */
-	public void meteorHit(Meteor meteor, int damage, Projectile.ProjectileType projectileType) {
+	public void meteorHit(Meteor meteor, int damage,
+			Projectile.ProjectileType projectileType) {
 		if (meteor.willSurvive(damage)) {
 			meteor.hit(damage, projectileType);
 		} else {
@@ -167,8 +181,10 @@ public class MeteorShower {
 	 * @return Position in Vector2
 	 */
 	private Vector2 randomStartPos(float sizeOfMeteor) {
-		int randomX = (int) ((sizeOfMeteor / 2) + (Math.random() * (Constants.LOGIC_SCREEN_WIDTH - sizeOfMeteor + 1)));
-		return new Vector2(randomX, Constants.LOGIC_SCREEN_HEIGHT + sizeOfMeteor / 2);
+		int randomX = (int) ((sizeOfMeteor / 2) + (Math.random() * (Constants.LOGIC_SCREEN_WIDTH
+				- sizeOfMeteor + 1)));
+		return new Vector2(randomX, Constants.LOGIC_SCREEN_HEIGHT
+				+ sizeOfMeteor / 2);
 
 	}
 
@@ -186,7 +202,8 @@ public class MeteorShower {
 
 	public void loadMeteors() {
 		unLoadMeteors();
-		addMeteor(basicMeteor, fireMeteor, fastMeteor, iceMeteor, radioactiveMeteor);
+		addMeteor(basicMeteor, fireMeteor, fastMeteor, iceMeteor,
+				radioactiveMeteor);
 		calculateMaxScore();
 	}
 }

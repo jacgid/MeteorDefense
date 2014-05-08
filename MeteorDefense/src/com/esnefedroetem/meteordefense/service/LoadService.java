@@ -30,16 +30,16 @@ public class LoadService implements ILoadService{
 		}
 		return null;
 	}
-
+		
 	@Override
 	public Wallet getWallet() {
-		Wallet wallet = load(Wallet.class, Constants.walletPath);
+		Wallet wallet = load(Wallet.class, Constants.WALLET_PATH);
 		return wallet;
 	}
 
 	@Override
 	public boolean getSoundState() {
-		Boolean state = load(Boolean.class, Constants.soundStatePath);
+		Boolean state = load(Boolean.class, Constants.SOUND_STATE_PATH);
 		if(state != null){
 			return state;
 		}
@@ -48,73 +48,20 @@ public class LoadService implements ILoadService{
 
 	@Override
 	public List<Continent> getContinents() {
-		List<Continent> continents = load(List.class, Constants.continentPath);
+		List<Continent> continents = load(List.class, Constants.CONTINENT_PATH);
 		return continents;
 	}
 
 	@Override
 	public List<AbstractArmoryItem> getArmoryItems() {
-		List<AbstractArmoryItem> items = load(List.class, Constants.weaponPath);
+		List<AbstractArmoryItem> items = load(List.class, Constants.WEAPON_PATH);
 		return items;
 	}
 
 	@Override
 	public List<AbstractArmoryItem> getChoosenArmoryItems() {
-		List<AbstractArmoryItem> items = load(List.class, Constants.choosenWeaponPath);
+		List<AbstractArmoryItem> items = load(List.class, Constants.CHOOSEN_WEAPONS_PATH);
 		return items;		
 	}
-	
-//	public static Wallet getWallet(){
-//		FileHandle file = new FileHandle(new File(Gdx.files.getLocalStoragePath() + Constants.walletPath));
-//		if(file.exists()){
-//			String str = file.readString();
-//			Json json = new Json();
-//			return json.fromJson(Wallet.class, str);
-//		}else{
-//			return new Wallet();
-//		}
-//	}
-//	
-//	public static boolean getSoundState(){
-//		FileHandle file = new FileHandle(new File(Gdx.files.getLocalStoragePath() + Constants.soundStatePath));
-//		if(file.exists()){
-//			String str = file.readString();
-//			return Boolean.parseBoolean(str);
-//		}else{
-//			return true;
-//		}		
-//	}
-//	
-//	public static List<Continent> getContinents(){
-//		FileHandle file = new FileHandle(new File(Gdx.files.getLocalStoragePath() + Constants.continentPath));
-//		if(file.exists()){
-//			String str = file.readString();
-//			Json json = new Json();
-//			return json.fromJson(List.class, str);
-//		}else{
-//			return null;
-//		}		
-//	}
-//	
-//	public static List<AbstractArmoryItem> getWeapons(){
-//		FileHandle file = new FileHandle(new File(Gdx.files.getLocalStoragePath() + Constants.weaponPath));
-//		if(file.exists()){
-//			String str = file.readString();
-//			Json json = new Json();
-//			return json.fromJson(List.class, str);
-//		}
-//		return null;
-//	}
-//
-//	public static List<AbstractArmoryItem> getChoosenWeapons(){
-//		FileHandle file = new FileHandle(new File(Gdx.files.getLocalStoragePath() + Constants.choosenWeaponPath));
-//		if(file.exists()){
-//			String str = file.readString();
-//			Json json = new Json();
-//			return json.fromJson(List.class, str);
-//		}
-//		return null;
-//	}
-
 	
 }

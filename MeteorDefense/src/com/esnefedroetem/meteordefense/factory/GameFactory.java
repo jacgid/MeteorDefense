@@ -5,6 +5,7 @@ import java.util.List;
 
 import com.badlogic.gdx.Game;
 import com.badlogic.gdx.Screen;
+import com.esnefedroetem.meteordefense.MeteorDefense;
 import com.esnefedroetem.meteordefense.model.CannonBarrel;
 import com.esnefedroetem.meteordefense.model.GameModel;
 import com.esnefedroetem.meteordefense.model.armoryitem.AbstractArmoryItem;
@@ -26,56 +27,62 @@ import com.esnefedroetem.meteordefense.util.SoundService;
 
 public class GameFactory implements IGameFactory {
 	private static final IGameFactory instance = new GameFactory();
-	
-	private GameFactory(){}
-	
-	public static IGameFactory getInstance(){
-		return instance;
-	}
-	
-	@Override
-	public void createScreens(PropertyChangeListener listener, Screen mainMenuScreen, Screen armoryScreen,
-			Screen armoryDetaliedScreen, Screen gameScreen,
-			Screen carouselScreen, Screen scoreScreen) {
-		
-		mainMenuScreen = createMainMenuScreen(listener);
-		
+
+	private GameFactory() {
 	}
 
-	
-	 private Screen createMainMenuScreen(PropertyChangeListener listener){
+	public static IGameFactory getInstance() {
+		return instance;
+	}
+
+	@Override
+	public void createScreens(MeteorDefense mainController) {
+
+		MainMenuScreen mainMenuScreen = createMainMenuScreen(mainController);
+		ArmoryScreen armoryScreen = createArmoryScreen(mainController);
+		ArmoryDetailedScreen armoryDetaliedScreen = createArmoryDetailedScreen(mainController);
+		GameScreen gameScreen = createGameScreen(mainController);
+		CarouselScreen carouselScreen = createCarouselScreen(mainController);
+		ScoreScreen scoreScreen = createScoreScreen(mainController);
+
+		mainController.setScreens(mainMenuScreen, armoryScreen,
+				armoryDetaliedScreen, gameScreen, carouselScreen, scoreScreen);
+
+	}
+
+	private MainMenuScreen createMainMenuScreen(PropertyChangeListener listener) {
 		boolean soundState = LoadService.getInstance().getSoundState();
 		SoundService.getInstance().setSoundState(soundState);
 		return new MainMenuScreen(new MainMenuRenderer(soundState, listener));
 	}
-	
-	private Screen createCarouselScreen(PropertyChangeListener listener){
-		return new CarouselScreen(new CarouselRenderer(listener), ContinentFactory.getInstance().createContinents(), listener);
+
+	private CarouselScreen createCarouselScreen(PropertyChangeListener listener) {
+		return new CarouselScreen(new CarouselRenderer(listener),
+				ContinentFactory.getInstance().createContinents(), listener);
 	}
-	
-	private Screen createArmoryScreen(PropertyChangeListener listener){
-		return new ArmoryScreen(new ArmoryRenderer(WeaponFactory.getInstance().getWeapons(), WeaponFactory.getInstance().getChoosenWeapons(), listener));
+
+	private ArmoryScreen createArmoryScreen(PropertyChangeListener listener) {
+		return new ArmoryScreen(new ArmoryRenderer(WeaponFactory.getInstance()
+				.getWeapons(), WeaponFactory.getInstance().getChoosenWeapons(),
+				listener));
 	}
-	
-	private Screen createArmoryDetailedScreen(PropertyChangeListener listener){
+
+	private ArmoryDetailedScreen createArmoryDetailedScreen(PropertyChangeListener listener) {
 		ArmoryDetailedRenderer renderer = new ArmoryDetailedRenderer(listener);
-		ArmoryDetailedScreen screen = new ArmoryDetailedScreen(renderer, LoadService.getInstance().getWallet());
+		ArmoryDetailedScreen screen = new ArmoryDetailedScreen(renderer,
+				LoadService.getInstance().getWallet());
 		renderer.addChangeListener(screen);
 		return screen;
 	}
-	
-	private Screen createGameScreen(){
+
+	private GameScreen createGameScreen(PropertyChangeListener meteorDefense) {
 		GameModel model = new GameModel(new CannonBarrel());
 		GameRenderer renderer = new GameRenderer(model);
-		return new GameScreen(model, renderer);
+		return new GameScreen(model, renderer, meteorDefense);
 	}
-	
-	private Screen createScoreScreen(PropertyChangeListener listener){
+
+	private ScoreScreen createScoreScreen(PropertyChangeListener listener) {
 		return new ScoreScreen(new ScoreRenderer(listener));
 	}
 
-	
-	
-	
-	
 }

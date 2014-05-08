@@ -14,10 +14,10 @@ public class CannonBarrel {
 		bounds = new Rectangle(Constants.LOGIC_SCREEN_WIDTH/2-(Constants.CANNONBARREL_LENGTH/4), Constants.LOGIC_SCREEN_HEIGHT/20, Constants.CANNONBARREL_LENGTH/2, Constants.CANNONBARREL_LENGTH);
 	}
 
-	public void calculateAngle(float X, float Y) {
-		float a = Y - bounds.y;
-		float b = Math.abs(bounds.x - X);
-		if (X < bounds.x) {
+	public void calculateAngle(final float posX, final float posY) {
+		float a = posY - bounds.y;
+		float b = Math.abs(bounds.x - posX);
+		if (posX < bounds.x) {
 			angle = (float) (Math.PI - (Math.atan(a / b)));
 		} else {
 			angle = (float) Math.atan(a / b);

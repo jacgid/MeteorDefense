@@ -16,33 +16,33 @@ public class SaveService {
 	public static void saveWallet(Wallet wallet){
 		Json json = new Json();
 		String str = json.toJson(wallet);
-		FileHandle file = new FileHandle(new File(Gdx.files.getLocalStoragePath() + Constants.walletPath));
+		FileHandle file = new FileHandle(new File(Gdx.files.getLocalStoragePath() + Constants.WALLET_PATH));
 		file.writeString(str, false);
 	}
 	
 	public static void saveSoundState(boolean sound){
-		FileHandle file = new FileHandle(new File(Gdx.files.getLocalStoragePath() + Constants.soundStatePath));
+		FileHandle file = new FileHandle(new File(Gdx.files.getLocalStoragePath() + Constants.SOUND_STATE_PATH));
 		file.writeString(Boolean.toString(sound), false);		
 	}
 	
 	public static void saveContinents(List<Continent> continents){
 		Json json = new Json();
 		String str = json.toJson(continents);
-		FileHandle file = new FileHandle(new File(Gdx.files.getLocalStoragePath() + Constants.continentPath));
+		FileHandle file = new FileHandle(new File(Gdx.files.getLocalStoragePath() + Constants.CONTINENT_PATH));
 		file.writeString(str, false);
 	}
 	
 	public static void saveWeapons(List<AbstractArmoryItem> weapons){
 		Json json = new Json();
 		String str = json.toJson(weapons);
-		FileHandle file = new FileHandle(new File(Gdx.files.getLocalStoragePath() + Constants.weaponPath));
+		FileHandle file = new FileHandle(new File(Gdx.files.getLocalStoragePath() + Constants.WEAPON_PATH));
 		file.writeString(str, false);
 	}
 
 	public static void saveChoosenWeapons(List<AbstractArmoryItem> weapons){
 		Json json = new Json();
 		String str = json.toJson(weapons);
-		FileHandle file = new FileHandle(new File(Gdx.files.getLocalStoragePath() + Constants.choosenWeaponPath));
+		FileHandle file = new FileHandle(new File(Gdx.files.getLocalStoragePath() + Constants.CHOOSEN_WEAPONS_PATH));
 		file.writeString(str, false);
 	}
 

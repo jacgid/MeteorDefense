@@ -27,15 +27,15 @@ public abstract class MoveableGameObject {
 
 	}
 
-	public void calculateBounds() {
+	public final void calculateBounds() {
 		bounds.x = position.x;
 		bounds.y = position.y;
 		bounds.radius = size / 2;
 	}
 
 	public void move(float delta) {
-		position.x = (float) (position.x + (speed * delta * Math.cos(angle)));
-		position.y = (float) (position.y + (speed * delta * Math.sin(angle)));
+		position.x = (float) (position.x + speed * delta * Math.cos(angle));
+		position.y = (float) (position.y + speed * delta * Math.sin(angle));
 		calculateBounds();
 	}
 

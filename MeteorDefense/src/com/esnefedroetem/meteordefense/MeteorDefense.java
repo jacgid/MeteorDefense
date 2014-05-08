@@ -7,12 +7,14 @@ import java.util.List;
 import com.badlogic.gdx.Application.ApplicationType;
 import com.badlogic.gdx.Game;
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.utils.IntIntMap;
 import com.esnefedroetem.meteordefense.factory.GameFactory;
 import com.esnefedroetem.meteordefense.factory.IGameFactory;
 import com.esnefedroetem.meteordefense.model.City;
 import com.esnefedroetem.meteordefense.model.Continent;
+import com.esnefedroetem.meteordefense.model.ScoreHandler;
 import com.esnefedroetem.meteordefense.model.armoryitem.AbstractArmoryItem;
 import com.esnefedroetem.meteordefense.renderer.ArmoryDetailedRenderer.ArmoryDetaliedEvent;
 import com.esnefedroetem.meteordefense.renderer.ArmoryRenderer.ArmoryEvent;
@@ -77,7 +79,19 @@ public class MeteorDefense extends Game implements PropertyChangeListener {
 	 * Initiate screens
 	 */
 	private void init(){
-		GameFactory.getInstance().createScreens(this, mainMenuScreen, armoryScreen, armoryDetaliedScreen, gameScreen, carouselScreen, scoreScreen);
+		GameFactory.getInstance().createScreens(this);
+	}
+	
+	public void setScreens(MainMenuScreen mainMenuScreen, ArmoryScreen armoryScreen,
+			ArmoryDetailedScreen armoryDetaliedScreen, GameScreen gameScreen,
+			CarouselScreen carouselScreen, ScoreScreen scoreScreen){
+		this.mainMenuScreen = mainMenuScreen;
+		this.armoryScreen = armoryScreen;
+		this.armoryDetaliedScreen = armoryDetaliedScreen;
+		this.gameScreen = gameScreen;
+		this.carouselScreen = carouselScreen;
+		this.scoreScreen = scoreScreen;
+		
 	}
 	
 	private void changeSound(){

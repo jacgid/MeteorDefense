@@ -57,6 +57,10 @@ public class CarouselRenderer {
 		create();
 	}
 	
+	public void addChangeListener(PropertyChangeListener listener){
+		pcs.addPropertyChangeListener(listener);
+	}
+	
 	private void create(){
 		scroll = new PagedScrollPane();
 		scroll.setFlingTime(0.1f);

@@ -24,6 +24,7 @@ public class CarouselScreen implements Screen, PropertyChangeListener {
 	public CarouselScreen(CarouselRenderer renderer, List<Continent> continents, PropertyChangeListener listener){
 		pcs = new PropertyChangeSupport(this);
 		pcs.addPropertyChangeListener(listener);
+		renderer.addChangeListener(this);
 		this.renderer = renderer;
 		this.continents = continents;
 		isCitiesDisplayed = false;
