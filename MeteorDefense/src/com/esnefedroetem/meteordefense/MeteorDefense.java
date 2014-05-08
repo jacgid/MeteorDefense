@@ -133,9 +133,12 @@ public class MeteorDefense extends Game implements PropertyChangeListener {
 					List<City> cities = continent.getCities();
 					if (cities.contains(city)) {
 						// get next city and unlock it
-						City nextCity = cities.get(cities.indexOf(city) + 1);
-						if (nextCity.getState() == City.State.LOCKED) {
-							nextCity.setState(City.State.UNLOCKED);
+						if (cities.indexOf(city) + 1 < cities.size()) {
+							City nextCity = cities
+									.get(cities.indexOf(city) + 1);
+							if (nextCity.getState() == City.State.LOCKED) {
+								nextCity.setState(City.State.UNLOCKED);
+							}
 						}
 					}
 				}

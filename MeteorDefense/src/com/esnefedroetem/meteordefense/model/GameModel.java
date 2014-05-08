@@ -182,14 +182,12 @@ public class GameModel implements PropertyChangeListener {
 		for(int i = 0; i < length; i++) {
 			// temporary meteor with same size as element but placed 150 pixels further down
 			// created to check if meteor element is far out of screen bounds
-			System.out.println("meteors: " + meteorShower.getVisibleMeteors().size());
 			Meteor meteor = meteorShower.getVisibleMeteors().get(i);
 			Meteor temp = new BasicMeteor();
-			temp.setBounds(new Circle(meteor.getX(), meteor.getY() - 150, meteor.getBounds().radius));
+			temp.setBounds(new Circle(meteor.getX(), meteor.getY() - 250, meteor.getBounds().radius));
 			
 			if(outOfBounds(temp)) {
 				meteorShower.meteorHit(meteor, meteor.getLife(), ProjectileType.NONE);
-				System.out.println("meteor out of bounds");
 				meteorHits += 1;
 				addToScore(meteor);
 				length--;
