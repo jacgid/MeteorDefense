@@ -9,21 +9,20 @@ package com.esnefedroetem.meteordefense.model;
 public class ScoreHandler {
 	private static final int ACCURACY_CONSTANT = 500;
 	private static final int REMANING_LIFE_CONSTANT = 100;
-	private int numberOfMeteorHits;
-	private int numberOfProjectilesUsed;
-	private int remaningLife;
-	private int maxLife;
+	private int numberOfMeteorHits, numberOfProjectilesUsed;
+	private int remaningLife, maxLife;
 	private int meteorScore, maxMeteorScore;
-	private int stars;
-
+	private int oldScore;
+	
 	public ScoreHandler(int meteorHits, int numberOfProjectilesUsed, int remaningLife, int maxLife, int meteorScore,
-			int maxMeteorScore) {
+			int maxMeteorScore, int oldScore) {
 		this.numberOfMeteorHits = meteorHits;
 		this.numberOfProjectilesUsed = numberOfProjectilesUsed;
 		this.remaningLife = remaningLife;
 		this.maxLife = maxLife;
 		this.meteorScore = meteorScore;
 		this.maxMeteorScore = maxMeteorScore;
+		this.oldScore = oldScore;
 		calculateMaxScore();
 
 	}
@@ -72,6 +71,19 @@ public class ScoreHandler {
 			return 0;
 		return ((float) numberOfMeteorHits) / numberOfProjectilesUsed;
 
+	}
+	public int getNewMoney(){
+		
+		
+		int currentScore = getTotalScore();
+		int difference = 0;
+		
+		if(currentScore > oldScore){
+			difference = currentScore - oldScore;
+			
+		}
+		System.out.println(difference);
+		return difference;
 	}
 
 	public int getMaxLife() {

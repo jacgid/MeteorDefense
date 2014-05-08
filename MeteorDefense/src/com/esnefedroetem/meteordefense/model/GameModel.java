@@ -241,7 +241,7 @@ public class GameModel implements PropertyChangeListener {
 	private ScoreHandler handleScore() {
 
 		scoreHandler = new ScoreHandler(meteorHits, numberOfProjectiles, getCity().getLife(), getCity().getMaxLife(),
-				score, getCity().getMeteorShower().getMaxScore());
+				score, getCity().getMeteorShower().getMaxScore(), getCity().getHighScore());
 
 		return scoreHandler;
 
