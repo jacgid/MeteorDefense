@@ -2,7 +2,6 @@ package com.esnefedroetem.meteordefense.screen;
 
 import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
-import java.beans.PropertyChangeSupport;
 import java.util.List;
 
 import com.badlogic.gdx.Gdx;
@@ -10,7 +9,6 @@ import com.badlogic.gdx.Input.Keys;
 import com.badlogic.gdx.InputMultiplexer;
 import com.badlogic.gdx.InputProcessor;
 import com.badlogic.gdx.Screen;
-import com.badlogic.gdx.graphics.GL11;
 import com.badlogic.gdx.math.Vector2;
 import com.esnefedroetem.meteordefense.model.City;
 import com.esnefedroetem.meteordefense.model.GameModel;
@@ -27,14 +25,16 @@ public class GameScreen implements Screen, InputProcessor, PropertyChangeListene
 	private GameModel model;
 	private GameRenderer renderer;
 	private InputMultiplexer inputmultiplexer;
-	private PropertyChangeSupport pcs;
 	
-	public GameScreen(GameModel model, GameRenderer renderer){
+	public GameScreen(GameModel model, GameRenderer renderer, PropertyChangeListener meteorDefense){
 		this.model = model;
 		this.renderer = renderer;
-		pcs = new PropertyChangeSupport(this);
-		model.addChangeListener(this);
+		
 		renderer.addChangeListener(this);
+		
+		renderer.addChangeListener(meteorDefense);
+		model.addChangeListener(meteorDefense);
+		
 		inputmultiplexer = new InputMultiplexer();
 		inputmultiplexer.addProcessor(this);
 	}
@@ -45,8 +45,6 @@ public class GameScreen implements Screen, InputProcessor, PropertyChangeListene
 	 */
 	@Override
 	public void render(float delta) {
-		Gdx.gl.glClearColor(94f, 97f, 225f, 1);
-		Gdx.gl.glClear(GL11.GL_COLOR_BUFFER_BIT|GL11.GL_STENCIL_BUFFER_BIT);
 		model.update(delta);
 		renderer.render();
 	}
@@ -102,11 +100,6 @@ public class GameScreen implements Screen, InputProcessor, PropertyChangeListene
 	public void dispose() {
 		renderer.unloadTextures();
 		Gdx.input.setInputProcessor(null);
-	}
-	
-	public void addChangeListener(PropertyChangeListener listener){
-		renderer.addChangeListener(listener);
-		model.addChangeListener(listener);
 	}
 	
 	public void newGame(City city, List<AbstractArmoryItem> selectedArmoryItems){

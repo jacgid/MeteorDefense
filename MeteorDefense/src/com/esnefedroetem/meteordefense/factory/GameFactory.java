@@ -1,5 +1,6 @@
 package com.esnefedroetem.meteordefense.factory;
 
+import java.beans.PropertyChangeListener;
 import java.util.List;
 
 import com.esnefedroetem.meteordefense.model.CannonBarrel;
@@ -45,10 +46,10 @@ public class GameFactory {
 		return new ArmoryDetailedScreen(new ArmoryDetailedRenderer(), LoadService.getWallet());
 	}
 	
-	public static GameScreen createGameScreen(){
+	public static GameScreen createGameScreen(PropertyChangeListener meteorDefense){
 		GameModel model = new GameModel(new CannonBarrel());
 		GameRenderer renderer = new GameRenderer(model);
-		return new GameScreen(model, renderer);
+		return new GameScreen(model, renderer, meteorDefense);
 	}
 	
 	public static ScoreScreen createScoreScreen(){
