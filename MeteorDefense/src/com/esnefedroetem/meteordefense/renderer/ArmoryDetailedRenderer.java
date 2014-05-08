@@ -34,9 +34,14 @@ public class ArmoryDetailedRenderer {
 		ARMORY_DETAILED_TRADE_BUTTON_PRESSED
 	}
 
-	public ArmoryDetailedRenderer() {
+	public ArmoryDetailedRenderer(PropertyChangeListener listener) {
 		pcs = new PropertyChangeSupport(this);
+		pcs.addPropertyChangeListener(listener);
 		create();
+	}
+	
+	public void addChangeListener(PropertyChangeListener listener){
+		pcs.addPropertyChangeListener(listener);
 	}
 
 	private void create() {
@@ -145,10 +150,6 @@ public class ArmoryDetailedRenderer {
 		spriteBatch.dispose();
 	}
 
-	public void addChangeListener(PropertyChangeListener listener) {
-		pcs.addPropertyChangeListener(listener);
-	}
-	
 	public void setAssetsLabelText(String text) {
 		assetsLabel.setText(text);
 	}

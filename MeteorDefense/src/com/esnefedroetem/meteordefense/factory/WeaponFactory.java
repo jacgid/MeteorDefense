@@ -10,9 +10,17 @@ import com.esnefedroetem.meteordefense.model.armoryitem.SlowMotionEffectArmoryIt
 import com.esnefedroetem.meteordefense.model.armoryitem.StandardArmoryItem;
 import com.esnefedroetem.meteordefense.model.armoryitem.AbstractArmoryItem.State;
 
-public class WeaponFactory {
+class WeaponFactory {
+	
+	private static final WeaponFactory instance = new WeaponFactory();
+	
+	private WeaponFactory(){}
+	
+	protected static WeaponFactory getInstance(){
+		return instance;
+	}
 
-	public static List<AbstractArmoryItem> getChoosenWeapons() {
+	protected List<AbstractArmoryItem> getChoosenWeapons() {
 		ArrayList<AbstractArmoryItem> armoryItems = new ArrayList<AbstractArmoryItem>(5);
 		armoryItems.add(new EmptyItem());
 		armoryItems.add(new ReversedGravityEffectArmoryItem(State.UNLOCKED, 1));
@@ -22,7 +30,7 @@ public class WeaponFactory {
 		return armoryItems;
 	}
 
-	public static List<AbstractArmoryItem> getWeapons() {
+	protected List<AbstractArmoryItem> getWeapons() {
 		ArrayList<AbstractArmoryItem> selectedArmoryItems = new ArrayList<AbstractArmoryItem>(5);
 		selectedArmoryItems.add(new StandardArmoryItem(State.UNLOCKED, 1));
 		selectedArmoryItems.add(new StandardArmoryItem(State.UNLOCKED, 1));

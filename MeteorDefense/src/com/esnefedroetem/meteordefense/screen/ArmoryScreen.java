@@ -30,10 +30,6 @@ public class ArmoryScreen implements Screen{
 		return renderer.getUnselectedArmoryItems();
 	}
 
-	public void addChangeListener(PropertyChangeListener listener){
-		renderer.addChangeListener(listener);
-	}
-	
 	@Override
 	public void render(float delta) {
 		renderer.render();

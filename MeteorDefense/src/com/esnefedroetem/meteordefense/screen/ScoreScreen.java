@@ -26,10 +26,6 @@ public class ScoreScreen implements Screen{
 		
 	}
 	
-	public void addChangeListener(PropertyChangeListener listener){
-		renderer.addChangeListener(listener);
-	}
-	
 	@Override
 	public void render(float delta) {
 		renderer.render();

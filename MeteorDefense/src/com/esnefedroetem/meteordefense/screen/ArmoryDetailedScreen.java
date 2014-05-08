@@ -22,11 +22,6 @@ public class ArmoryDetailedScreen implements Screen, PropertyChangeListener{
 		this.renderer = renderer;
 		this.wallet = wallet;
 		pcs = new PropertyChangeSupport(this);
-		renderer.addChangeListener(this);
-	}
-	
-	public void addChangeListener(PropertyChangeListener listener){
-		pcs.addPropertyChangeListener(listener);
 	}
 	
 	@Override
@@ -76,9 +71,7 @@ public class ArmoryDetailedScreen implements Screen, PropertyChangeListener{
 
 	@Override
 	public void propertyChange(PropertyChangeEvent evt) {
-		if (evt.getPropertyName().equals(ArmoryDetaliedEvent.ARMORY_DETAILED_BACK_PRESSED.toString())) {
-			pcs.firePropertyChange(evt);
-		} else if (evt.getPropertyName().equals(ArmoryDetaliedEvent.ARMORY_DETAILED_TRADE_BUTTON_PRESSED.toString())) {
+		if (evt.getPropertyName().equals(ArmoryDetaliedEvent.ARMORY_DETAILED_TRADE_BUTTON_PRESSED.toString())) {
 			if (armoryItem.getState() == AbstractArmoryItem.State.LOCKED) {
 			itemBought();
 			} else {
@@ -138,10 +131,4 @@ public class ArmoryDetailedScreen implements Screen, PropertyChangeListener{
 		}
 	}
 	
-	public void addCoinsToWallet(int amount) {
-		wallet.addCoins(amount);
-	}
-	
-	
-
 }

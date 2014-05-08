@@ -2,18 +2,25 @@ package com.esnefedroetem.meteordefense.util;
 
 public class SoundService {
 	
-	private static boolean soundState;
+	private static final SoundService instance = new SoundService();
+	private boolean soundState;
 	
-	public static void changeSoundState(){
-		SoundService.soundState = !SoundService.soundState;
+	private SoundService(){}
+	
+	public static SoundService getInstance(){
+		return instance;
 	}
 	
-	public static boolean getSoundState(){
-		return SoundService.soundState;
+	public void changeSoundState(){
+		soundState = !soundState;
 	}
 	
-	public static void setSoundState(boolean soundState){
-		SoundService.soundState = soundState;
+	public boolean getSoundState(){
+		return soundState;
+	}
+	
+	public void setSoundState(boolean soundState){
+		this.soundState = soundState;
 	}
 	
 }

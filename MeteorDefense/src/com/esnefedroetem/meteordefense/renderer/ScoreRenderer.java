@@ -32,9 +32,10 @@ public class ScoreRenderer {
 	private Color color;
 	Table starTable;
 
-	public ScoreRenderer() {
+	public ScoreRenderer(PropertyChangeListener listener) {
 		pcs = new PropertyChangeSupport(this);
-
+		pcs.addPropertyChangeListener(listener);
+			
 		spriteBatch = new SpriteBatch();
 		stage = new Stage();
 
@@ -95,10 +96,6 @@ public class ScoreRenderer {
 
 		});
 
-	}
-
-	public void addChangeListener(PropertyChangeListener listener) {
-		pcs.addPropertyChangeListener(listener);
 	}
 
 	public void render() {

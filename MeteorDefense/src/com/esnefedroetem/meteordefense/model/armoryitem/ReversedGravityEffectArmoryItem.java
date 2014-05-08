@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import com.esnefedroetem.meteordefense.model.Meteor;
+import com.esnefedroetem.meteordefense.model.Projectile.ProjectileType;
 import com.esnefedroetem.meteordefense.model.Upgrade;
 import com.esnefedroetem.meteordefense.model.armoryitem.AbstractArmoryItem.State;
 import com.esnefedroetem.meteordefense.util.Constants;
@@ -57,6 +58,7 @@ public class ReversedGravityEffectArmoryItem extends AbstractEffectArmoryItem {
 
 			if (x < 0 || x > Constants.LOGIC_SCREEN_WIDTH
 					|| y > Constants.LOGIC_SCREEN_HEIGHT) {
+				meteor.hit(meteor.getLife(), ProjectileType.NONE);
 				visibleMeteors.remove(meteor);
 				length--;
 				i--;

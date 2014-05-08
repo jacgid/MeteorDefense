@@ -53,15 +53,12 @@ public class ArmoryRenderer {
 	}
 
 	public ArmoryRenderer(List<AbstractArmoryItem> items,
-			List<AbstractArmoryItem> choosenItems) {
+			List<AbstractArmoryItem> choosenItems, PropertyChangeListener listener) {
 		loadTextures(items, choosenItems);
 		create(items, choosenItems);
 		pcs = new PropertyChangeSupport(this);
-		dragFinished = true;
-	}
-
-	public void addChangeListener(PropertyChangeListener listener) {
 		pcs.addPropertyChangeListener(listener);
+		dragFinished = true;
 	}
 
 	private void loadTextures(List<AbstractArmoryItem> items,

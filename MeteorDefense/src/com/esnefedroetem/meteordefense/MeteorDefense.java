@@ -7,9 +7,11 @@ import java.util.List;
 import com.badlogic.gdx.Application.ApplicationType;
 import com.badlogic.gdx.Game;
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.utils.IntIntMap;
 import com.esnefedroetem.meteordefense.factory.GameFactory;
+import com.esnefedroetem.meteordefense.factory.IGameFactory;
 import com.esnefedroetem.meteordefense.model.City;
 import com.esnefedroetem.meteordefense.model.Continent;
 import com.esnefedroetem.meteordefense.model.ScoreHandler;
@@ -39,10 +41,9 @@ public class MeteorDefense extends Game implements PropertyChangeListener {
 	@Override
 	public void create() {
 		Texture.setEnforcePotImages(false);
-		splashScreen = GameFactory.createSplashScreen();
-		splashScreen.addChangeListener(this);
-		setScreen(splashScreen);
 		Gdx.input.setCatchBackKey(true);
+		splashScreen = new SplashScreen(this);
+		setScreen(splashScreen);
 	}
 	
 	@Override
@@ -68,7 +69,7 @@ public class MeteorDefense extends Game implements PropertyChangeListener {
 	}
 	
 	private void save(){
-		SaveService.saveSoundState(SoundService.getSoundState());
+		SaveService.saveSoundState(SoundService.getInstance().getSoundState());
 		SaveService.saveWallet(armoryDetaliedScreen.getWallet());
 		List<Continent> continents = carouselScreen.getContinents();
 		SaveService.saveContinents(continents);
@@ -78,22 +79,23 @@ public class MeteorDefense extends Game implements PropertyChangeListener {
 	 * Initiate screens
 	 */
 	private void init(){
-		mainMenuScreen = GameFactory.createMainMenuScreen();
-		mainMenuScreen.addChangeListener(this);
-		armoryScreen = GameFactory.createArmoryScreen();
-		armoryScreen.addChangeListener(this);
-		armoryDetaliedScreen = GameFactory.cretateArmoryDetailedScreen();
-		armoryDetaliedScreen.addChangeListener(this);
-		carouselScreen = GameFactory.createCarouselScreen();
-		carouselScreen.addChangeListener(this);
-		scoreScreen = GameFactory.createScoreScreen();
-		scoreScreen.addChangeListener(this);
-		gameScreen = GameFactory.createGameScreen(this);
+		GameFactory.getInstance().createScreens(this);
+	}
+	
+	public void setScreens(MainMenuScreen mainMenuScreen, ArmoryScreen armoryScreen,
+			ArmoryDetailedScreen armoryDetaliedScreen, GameScreen gameScreen,
+			CarouselScreen carouselScreen, ScoreScreen scoreScreen){
+		this.mainMenuScreen = mainMenuScreen;
+		this.armoryScreen = armoryScreen;
+		this.armoryDetaliedScreen = armoryDetaliedScreen;
+		this.gameScreen = gameScreen;
+		this.carouselScreen = carouselScreen;
+		this.scoreScreen = scoreScreen;
 		
 	}
 	
 	private void changeSound(){
-		SoundService.changeSoundState();
+		SoundService.getInstance().changeSoundState();
 	}
 	
 	private void newGame(City city){
