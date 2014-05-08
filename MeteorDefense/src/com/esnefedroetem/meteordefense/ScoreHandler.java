@@ -57,7 +57,7 @@ public class ScoreHandler {
 
 	}
 
-	public int calculateMaxScore() {
+	public final int calculateMaxScore() {
 
 		return maxMeteorScore + ACCURACY_CONSTANT + REMANING_LIFE_CONSTANT;
 

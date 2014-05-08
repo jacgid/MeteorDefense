@@ -15,7 +15,7 @@ public class LoadService {
 	
 	
 	public static Wallet getWallet(){
-		FileHandle file = new FileHandle(new File(Gdx.files.getLocalStoragePath() + Constants.walletPath));
+		FileHandle file = new FileHandle(new File(Gdx.files.getLocalStoragePath() + Constants.WALLET_PATH));
 		if(file.exists()){
 			String str = file.readString();
 			Json json = new Json();
@@ -26,7 +26,7 @@ public class LoadService {
 	}
 	
 	public static boolean getSoundState(){
-		FileHandle file = new FileHandle(new File(Gdx.files.getLocalStoragePath() + Constants.soundStatePath));
+		FileHandle file = new FileHandle(new File(Gdx.files.getLocalStoragePath() + Constants.SOUND_STATE_PATH));
 		if(file.exists()){
 			String str = file.readString();
 			return Boolean.parseBoolean(str);
@@ -36,7 +36,7 @@ public class LoadService {
 	}
 	
 	public static List<Continent> getContinents(){
-		FileHandle file = new FileHandle(new File(Gdx.files.getLocalStoragePath() + Constants.continentPath));
+		FileHandle file = new FileHandle(new File(Gdx.files.getLocalStoragePath() + Constants.CONTINENT_PATH));
 		if(file.exists()){
 			String str = file.readString();
 			Json json = new Json();
@@ -47,7 +47,7 @@ public class LoadService {
 	}
 	
 	public static List<AbstractArmoryItem> getWeapons(){
-		FileHandle file = new FileHandle(new File(Gdx.files.getLocalStoragePath() + Constants.weaponPath));
+		FileHandle file = new FileHandle(new File(Gdx.files.getLocalStoragePath() + Constants.WEAPON_PATH));
 		if(file.exists()){
 			String str = file.readString();
 			Json json = new Json();
@@ -57,7 +57,7 @@ public class LoadService {
 	}
 
 	public static List<AbstractArmoryItem> getChoosenWeapons(){
-		FileHandle file = new FileHandle(new File(Gdx.files.getLocalStoragePath() + Constants.choosenWeaponPath));
+		FileHandle file = new FileHandle(new File(Gdx.files.getLocalStoragePath() + Constants.CHOOSEN_WEAPONS_PATH));
 		if(file.exists()){
 			String str = file.readString();
 			Json json = new Json();

@@ -79,8 +79,8 @@ public class GameModel implements PropertyChangeListener {
 		}
 	}
 
-	public void shoot(float X, float Y) {
-		cannonBarrel.calculateAngle(X, Y);
+	public void shoot(float posX, float posY) {
+		cannonBarrel.calculateAngle(posX, posY);
 		selectedArmoryItem.act();
 	}
 
@@ -174,7 +174,7 @@ public class GameModel implements PropertyChangeListener {
 		float x = object.getX() + object.getBounds().radius;
 		float y = object.getY() + object.getBounds().radius;
 
-		return (x < 0 || x > WIDTH || y > HEIGHT);
+		return x < 0 || x > WIDTH || y > HEIGHT;
 	}
 
 	private void addToScore(Meteor meteor) {

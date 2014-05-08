@@ -26,11 +26,11 @@ public class Constants {
 	
 	public static final Rectangle CITY_BOUNDS = new Rectangle(0, LOGIC_SCREEN_HEIGHT/8, LOGIC_SCREEN_WIDTH, LOGIC_SCREEN_WIDTH/4);
 	
-	public static final String walletPath = "wallet.txt";
-	public static final String soundStatePath = "sound.txt";
-	public static final String continentPath = "continents.txt";
-	public static final String weaponPath = "weapons.txt";
-	public static final String choosenWeaponPath = "choosenWeapons.txt";
+	public static final String WALLET_PATH = "wallet.txt";
+	public static final String SOUND_STATE_PATH = "sound.txt";
+	public static final String CONTINENT_PATH = "continents.txt";
+	public static final String WEAPON_PATH = "weapons.txt";
+	public static final String CHOOSEN_WEAPONS_PATH = "choosenWeapons.txt";
 	
 	
 	
