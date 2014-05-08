@@ -140,7 +140,11 @@ public class ScoreRenderer {
 			}
 		} else {
 			color.set(255, 0, 0, 0);
-			totalScoreLabel.setText("City destroyed!");
+			starTable.clear();
+			meteorScoreLable.setText("");
+			remainingLifeLable.setText("");
+			accuracyLabel.setText("");
+			totalScoreLabel.setText("City destroyed");
 		}
 
 	}
