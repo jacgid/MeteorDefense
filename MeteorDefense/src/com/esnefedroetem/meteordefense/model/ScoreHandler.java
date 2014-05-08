@@ -105,4 +105,7 @@ public class ScoreHandler {
 		return meteorScore;
 	}
 
+	public boolean isGameLost() {
+		return remaningLife <= 0;
+	}
 }

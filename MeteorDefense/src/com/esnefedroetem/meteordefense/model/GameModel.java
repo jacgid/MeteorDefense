@@ -89,7 +89,7 @@ public class GameModel implements PropertyChangeListener {
 		getCity().setScore(scoreHandler.getTotalScore());
 		getCity().setStars(scoreHandler.getStars());
 
-		pcs.firePropertyChange("Gameover", true, scoreHandler);
+		pcs.firePropertyChange("Gameover", city, scoreHandler);
 		reset();
 
 	}
