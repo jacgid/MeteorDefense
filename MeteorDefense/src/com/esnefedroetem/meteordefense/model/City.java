@@ -21,7 +21,7 @@ public class City {
 	private Rectangle bounds = Constants.CITY_BOUNDS;
 	private MeteorShower meteorShower;
 	private List<Meteor> dashedMeteors = new ArrayList<Meteor>();
-	private float lastTime, lastDelta, totalTimePassed;
+	private float totalTimePassed;
 
 	public City(String name, int life, MeteorShower meteorShower, State state) {
 		this.name = name;
@@ -59,8 +59,6 @@ public class City {
 		meteorShower.unLoadMeteors();
 		dashedMeteors.clear();
 		currentLife = maxLife;
-		lastTime = 0;
-		lastDelta = 0;
 		totalTimePassed = 0;
 	}
 

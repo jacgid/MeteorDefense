@@ -6,14 +6,10 @@ import com.esnefedroetem.meteordefense.model.Continent;
 import com.esnefedroetem.meteordefense.model.Wallet;
 import com.esnefedroetem.meteordefense.model.armoryitem.AbstractArmoryItem;
 
-public interface ILoadService {
-	public Wallet getWallet();
-	
-	public boolean getSoundState();
-	
-	public List<Continent> getContinents();
-	
-	public List<WeaponData> getArmoryItems();
-	
-	
+public interface ISaveService {
+
+	public void save(boolean soundState, Wallet wallet,
+			List<Continent> continents, List<AbstractArmoryItem> items,
+			List<AbstractArmoryItem> choosenItems);
+
 }

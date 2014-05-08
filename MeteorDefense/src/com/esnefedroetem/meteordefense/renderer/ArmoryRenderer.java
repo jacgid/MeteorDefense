@@ -38,12 +38,13 @@ public class ArmoryRenderer {
 	private DragAndDrop dragAndDrop;
 	private Table topTable, bottomTable;
 	private boolean dragFinished;
-	
+
 	private ClickListener clickListener = new ClickListener() {
 		public void clicked(InputEvent event, float x, float y) {
-			if(dragFinished){
-			pcs.firePropertyChange(ArmoryEvent.ARMORY_ITEM_PRESSED.toString(),
-					null, event.getListenerActor().getUserObject());
+			if (dragFinished) {
+				pcs.firePropertyChange(ArmoryEvent.ARMORY_ITEM_PRESSED
+						.toString(), null, event.getListenerActor()
+						.getUserObject());
 			}
 		};
 	};
@@ -53,7 +54,8 @@ public class ArmoryRenderer {
 	}
 
 	public ArmoryRenderer(List<AbstractArmoryItem> items,
-			List<AbstractArmoryItem> choosenItems, PropertyChangeListener listener) {
+			List<AbstractArmoryItem> choosenItems,
+			PropertyChangeListener listener) {
 		loadTextures(items, choosenItems);
 		create(items, choosenItems);
 		pcs = new PropertyChangeSupport(this);
@@ -101,11 +103,13 @@ public class ArmoryRenderer {
 		foreground.add(topTable).expand().top();
 		foreground.row();
 		foreground.add(bottomTable);
-		
+
 		Table background = new Table();
 		background.setFillParent(true);
-		background.add(new Image(AssetsLoader.getTexture("MenuBG.png"))).width(Gdx.graphics.getWidth()).height(Gdx.graphics.getHeight());
-		
+		background.add(new Image(AssetsLoader.getTexture("MenuBG.png")))
+				.width(Gdx.graphics.getWidth())
+				.height(Gdx.graphics.getHeight());
+
 		stage.addActor(background);
 		stage.addActor(foreground);
 
@@ -154,26 +158,24 @@ public class ArmoryRenderer {
 
 	private void createItemGrid(Table table, DragAndDrop dragAndDrop,
 			List<AbstractArmoryItem> items) {
-		TextButtonStyle style = new TextButtonStyle();
-		style.font = new BitmapFont();
 
 		table.pad(10);
 
 		for (int i = 1; i <= items.size(); i++) {
-			Actor actor = null;
-			if (items.get(i - 1) == null) {
-				actor = new Image(AssetsLoader.getTexture("weaponslot.png"));
-			} else {
-				style.up = new TextureRegionDrawable(
-						new TextureRegion(AssetsLoader.getTexture((items.get(
-								i - 1).getName() + ".png"))));
-				actor = new TextButton("", style);
-				actor.addListener(clickListener);
-			}
-			actor.setUserObject(items.get(i - 1));
+			AbstractArmoryItem item = items.get(i - 1);
+			TextButtonStyle style = new TextButtonStyle();
+			style.font = new BitmapFont();
+			style.up = new TextureRegionDrawable(new TextureRegion(
+					AssetsLoader.getTexture(item.getName() + ".png")));
+			Actor actor = new TextButton("", style);
+			actor.setUserObject(item);
 			actor.setName(i - 1 + "");
 			table.add(actor).pad(10).width(Gdx.graphics.getWidth() / 6.5F)
 					.height(Gdx.graphics.getWidth() / 6.5F);
+
+			if (!item.equals(AbstractArmoryItem.EMPTY_ITEM)) {
+				actor.addListener(clickListener);
+			}
 
 			dragAndDrop.addSource(getSource(actor));
 			dragAndDrop.addTarget(getTarget(actor));

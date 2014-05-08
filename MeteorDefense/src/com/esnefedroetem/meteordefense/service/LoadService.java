@@ -56,15 +56,9 @@ public class LoadService implements ILoadService{
 	}
 
 	@Override
-	public List<AbstractArmoryItem> getArmoryItems() {
-		List<AbstractArmoryItem> items = load(List.class, Constants.WEAPON_PATH);
+	public List<WeaponData> getArmoryItems() {
+		List<WeaponData> items = load(List.class, Constants.WEAPON_PATH);
 		return items;
 	}
 
-	@Override
-	public List<AbstractArmoryItem> getChoosenArmoryItems() {
-		List<AbstractArmoryItem> items = load(List.class, Constants.CHOOSEN_WEAPONS_PATH);
-		return items;		
-	}
-	
 }

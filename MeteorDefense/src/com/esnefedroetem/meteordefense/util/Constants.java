@@ -29,8 +29,7 @@ public class Constants {
 	public static final String WALLET_PATH = "wallet.txt";
 	public static final String SOUND_STATE_PATH = "sound.txt";
 	public static final String CONTINENT_PATH = "continents.txt";
-	public static final String WEAPON_PATH = "weapons.txt";
-	public static final String CHOOSEN_WEAPONS_PATH = "choosenWeapons.txt";
+	public static final String WEAPON_PATH = "weapon.txt";
 	
 	
 	

@@ -65,5 +65,12 @@ public class ReversedGravityEffectArmoryItem extends AbstractEffectArmoryItem {
 			}
 		}
 	}
+	
+	@Override
+	public void clear(){
+		super.clear();
+		list.clear();
+		visibleMeteors = null;
+	}
 
 }

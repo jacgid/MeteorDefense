@@ -1,6 +1,7 @@
 package com.esnefedroetem.meteordefense.service;
 
 import java.io.File;
+import java.util.ArrayList;
 import java.util.List;
 
 import com.badlogic.gdx.Gdx;
@@ -11,39 +12,42 @@ import com.esnefedroetem.meteordefense.model.Wallet;
 import com.esnefedroetem.meteordefense.model.armoryitem.AbstractArmoryItem;
 import com.esnefedroetem.meteordefense.util.Constants;
 
-public class SaveService {
+public class SaveService implements ISaveService{
 	
-	public static void saveWallet(Wallet wallet){
-		Json json = new Json();
-		String str = json.toJson(wallet);
-		FileHandle file = new FileHandle(new File(Gdx.files.getLocalStoragePath() + Constants.WALLET_PATH));
-		file.writeString(str, false);
+	private static final SaveService instance = new SaveService();
+	
+	private SaveService(){}
+	
+	public static SaveService getInstance(){
+		return instance;
 	}
 	
-	public static void saveSoundState(boolean sound){
-		FileHandle file = new FileHandle(new File(Gdx.files.getLocalStoragePath() + Constants.SOUND_STATE_PATH));
-		file.writeString(Boolean.toString(sound), false);		
+	@Override
+	public void save(boolean soundState, Wallet wallet,
+			List<Continent> continents, List<AbstractArmoryItem> items,
+			List<AbstractArmoryItem> choosenItems) {
+		save(Constants.SOUND_STATE_PATH, soundState);
+		save(Constants.WALLET_PATH, wallet);
+		save(Constants.CONTINENT_PATH, continents);
+		
+		List<WeaponData> data = new ArrayList<WeaponData>(items.size() + 5);
+		
+		for(AbstractArmoryItem item : items){
+			data.add(new WeaponData(item.getState(), item.getUpgradeIndex(), false, item.getName()));
+		}
+		for(AbstractArmoryItem item : choosenItems){
+			data.add(new WeaponData(item.getState(), item.getUpgradeIndex(), true, item.getName()));
+		}
+		
+		save(Constants.WEAPON_PATH, data);
+		
 	}
 	
-	public static void saveContinents(List<Continent> continents){
+	private void save(String path, Object object){
 		Json json = new Json();
-		String str = json.toJson(continents);
-		FileHandle file = new FileHandle(new File(Gdx.files.getLocalStoragePath() + Constants.CONTINENT_PATH));
-		file.writeString(str, false);
-	}
-	
-	public static void saveWeapons(List<AbstractArmoryItem> weapons){
-		Json json = new Json();
-		String str = json.toJson(weapons);
-		FileHandle file = new FileHandle(new File(Gdx.files.getLocalStoragePath() + Constants.WEAPON_PATH));
-		file.writeString(str, false);
-	}
-
-	public static void saveChoosenWeapons(List<AbstractArmoryItem> weapons){
-		Json json = new Json();
-		String str = json.toJson(weapons);
-		FileHandle file = new FileHandle(new File(Gdx.files.getLocalStoragePath() + Constants.CHOOSEN_WEAPONS_PATH));
-		file.writeString(str, false);
+		String str = json.toJson(object);
+		FileHandle file = new FileHandle(new File(Gdx.files.getLocalStoragePath() + path));
+		file.writeString(str, false);		
 	}
 
 }

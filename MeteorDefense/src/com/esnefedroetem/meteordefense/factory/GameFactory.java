@@ -1,6 +1,7 @@
 package com.esnefedroetem.meteordefense.factory;
 
 import java.beans.PropertyChangeListener;
+import java.util.ArrayList;
 import java.util.List;
 
 import com.badlogic.gdx.Game;
@@ -62,8 +63,15 @@ public class GameFactory implements IGameFactory {
 	}
 
 	private ArmoryScreen createArmoryScreen(PropertyChangeListener listener) {
-		return new ArmoryScreen(new ArmoryRenderer(WeaponFactory.getInstance()
-				.getWeapons(), WeaponFactory.getInstance().getChoosenWeapons(),
+		List<AbstractArmoryItem> items = WeaponFactory.getInstance().getWeapons();
+		List<AbstractArmoryItem> choosenItems = new ArrayList<AbstractArmoryItem>(5);
+		for(int i = 5; i > 0; i--){
+			choosenItems.add(items.get(items.size() - i));
+		}
+		for(int i = 0; i < 5; i++){
+			items.remove(items.size() - 1);
+		}
+		return new ArmoryScreen(new ArmoryRenderer(items, choosenItems,
 				listener));
 	}
 

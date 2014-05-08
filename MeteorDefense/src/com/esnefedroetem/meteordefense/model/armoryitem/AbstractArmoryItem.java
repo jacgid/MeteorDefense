@@ -171,5 +171,9 @@ public abstract class AbstractArmoryItem {
 		}
 		return "No more upgrades available";
 	}
+	
+	public void clear(){
+		lastUsed = 0;
+	}
 
 }
