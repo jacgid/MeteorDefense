@@ -210,7 +210,16 @@ public class ArmoryRenderer {
 			@Override
 			public void dragStop(InputEvent event, float x, float y,
 					int pointer, Target target) {
-				dragFinished = true;
+				new Thread(new Runnable(){
+					@Override
+					public void run() {
+						try {
+							Thread.sleep(200);
+						} catch (InterruptedException e) {
+						}
+						dragFinished = true;						
+					}
+				}).start();
 				if (target == null) {
 					getActor().setVisible(true);
 				}
