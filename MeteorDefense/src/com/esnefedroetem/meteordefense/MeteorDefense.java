@@ -120,7 +120,7 @@ public class MeteorDefense extends Game implements PropertyChangeListener {
 		}else if(evt.getPropertyName().equals("Gameover")){
 			inGame= false;
 			scoreScreen.setScore((ScoreHandler)evt.getNewValue());
-			armoryDetaliedScreen.addCoinsToWallet(((ScoreHandler)evt.getNewValue()).getTotalScore());
+			armoryDetaliedScreen.getWallet().addCoins((((ScoreHandler)evt.getNewValue()).getTotalScore()));
 			setScreen(scoreScreen);
 		}else if(evt.getPropertyName().equals("Scorescreen_finished")){
 			carouselScreen.update();
