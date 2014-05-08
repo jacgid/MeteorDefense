@@ -2,6 +2,7 @@ package com.esnefedroetem.meteordefense.util;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Preferences;
+import com.badlogic.gdx.Application.ApplicationType;
 import com.badlogic.gdx.files.FileHandle;
 import com.badlogic.gdx.graphics.Pixmap;
 import com.badlogic.gdx.graphics.Texture;
@@ -12,6 +13,10 @@ import com.badlogic.gdx.graphics.g2d.freetype.FreeTypeFontGenerator;
 import com.badlogic.gdx.graphics.glutils.PixmapTextureData;
 import com.badlogic.gdx.utils.Array;
 import com.badlogic.gdx.utils.GdxRuntimeException;
+
+/**
+ * @author Jon Renner
+ */
 
 public class SmartFontGenerator {
 	private static final String TAG = "SmartFontGenerator";
@@ -62,10 +67,9 @@ public class SmartFontGenerator {
 
 			// store screen width for detecting screen size change
 			// on later startups, which will require font regeneration
-			fontPrefs.putInteger("display-width", (int)Constants.LOGIC_SCREEN_WIDTH);
-			fontPrefs.putInteger("display-height", (int)Constants.LOGIC_SCREEN_HEIGHT);
+			fontPrefs.putInteger("display-width", Gdx.graphics.getWidth());
+			fontPrefs.putInteger("display-height", Gdx.graphics.getHeight());
 			fontPrefs.flush();
-
 			font = generateFontWriteFiles(fontName, fontFile, Math.round(fontSize * ratio), pageSize, pageSize);
 		}
 		return font;
