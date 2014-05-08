@@ -62,7 +62,7 @@ public class GameRenderer {
 	private ShapeRenderer debugRenderer = new ShapeRenderer();
 	private boolean spritesLoaded = false;
 	
-	private String[] textures = {"meteor1.png", "projectile1.png", "cannonbarrel.png", "city1.png", "toolbar1.png", "MDBG.png"};
+	private String[] textures = {"meteor1.png", "projectile1.png", "cannonbarrel.png", "city1.png", "toolbar1.png", "MDBG1.png"};
 	private Texture meteorTexture, gunbarrel, projectileTexture, cannonTexture, cityTexture, toolbarTexture, bgTexture;
 	private Sprite projectileSprite, meteorSprite, cannonSprite, citySprite, toolbarSprite, bgSprite;
 	private Rectangle viewport;
