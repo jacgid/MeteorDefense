@@ -131,10 +131,4 @@ public class ArmoryDetailedScreen implements Screen, PropertyChangeListener{
 		}
 	}
 	
-	public void addCoinsToWallet(int amount) {
-		wallet.addCoins(amount);
-	}
-	
-	
-
 }
