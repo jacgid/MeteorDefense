@@ -124,8 +124,8 @@ public class ScoreRenderer {
 			color.set(0, 255, 0, 0);
 			
 			meteorScoreLable.setText("Meteor score: " + score.getMeteorScore());
-			remainingLifeLable.setText("Remaining life: " + (int)score.getRemaningLifeInProcent()*100 + "%");
-			accuracyLabel.setText("Accuracy : " + (int)score.getAccuracy()*100 + "%");
+			remainingLifeLable.setText("Remaining life: " + (int)(score.getRemaningLifeInProcent()*100) + "%");
+			accuracyLabel.setText("Accuracy : " + (int)(score.getAccuracy()*100) + "%");
 			totalScoreLabel.setText("Total: " + score.getTotalScore());
 			
 			starTable.clear();
