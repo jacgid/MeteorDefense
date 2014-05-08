@@ -178,7 +178,7 @@ public class GameModel implements PropertyChangeListener {
 	}
 
 	private void addToScore(Meteor meteor) {
-		score += meteor.getDifficulty() * 10;
+		score += meteor.getDifficulty();
 	}
 
 	public int getMeteorScore() {

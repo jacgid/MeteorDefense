@@ -82,7 +82,6 @@ public class ScoreHandler {
 			difference = currentScore - oldScore;
 			
 		}
-		System.out.println(difference);
 		return difference;
 	}
 
