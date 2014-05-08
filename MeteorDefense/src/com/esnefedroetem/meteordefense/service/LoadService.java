@@ -34,7 +34,10 @@ public class LoadService implements ILoadService{
 	@Override
 	public Wallet getWallet() {
 		Wallet wallet = load(Wallet.class, Constants.WALLET_PATH);
-		return wallet;
+		if(wallet != null){
+			return wallet;
+		}
+		return new Wallet();
 	}
 
 	@Override
