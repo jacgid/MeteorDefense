@@ -85,10 +85,11 @@ public class GameModel implements PropertyChangeListener {
 
 	private void gameover() {
 		handleScore();
-		pcs.firePropertyChange("Gameover", true, handleScore());
 
 		getCity().setScore(scoreHandler.getTotalScore());
 		getCity().setStars(scoreHandler.getStars());
+
+		pcs.firePropertyChange("Gameover", true, scoreHandler);
 		reset();
 
 	}
@@ -177,10 +178,11 @@ public class GameModel implements PropertyChangeListener {
 	}
 
 	private void addToScore(Meteor meteor) {
-		score += meteor.getDifficulty()*10;
+		score += meteor.getDifficulty() * 10;
 	}
-	public int getMeteorScore(){
-		
+
+	public int getMeteorScore() {
+
 		return score;
 	}
 

@@ -125,4 +125,9 @@ public class City {
 		if(score > this.score)
 			this.score = score;
 	}
+
+	public int getHighScore() {
+		return score;
+		
+	}
 }
