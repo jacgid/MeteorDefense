@@ -39,9 +39,10 @@ public class MainMenuRenderer {
 		MAINMENU_SOUND_CLICKED
 	}
 	
-	public MainMenuRenderer(boolean sound){
+	public MainMenuRenderer(boolean sound, PropertyChangeListener listener){
 		pcs = new PropertyChangeSupport(this);
-
+		pcs.addPropertyChangeListener(listener);
+		
 		spriteBatch = new SpriteBatch();
 		stage = new Stage();
 		AssetsLoader.loadTexture("StartScreenBG.png");
@@ -113,10 +114,6 @@ public class MainMenuRenderer {
 	
 	public void init(){
 		Gdx.input.setInputProcessor(stage);		
-	}
-	
-	public void addChangeListener(PropertyChangeListener listener){
-		pcs.addPropertyChangeListener(listener);
 	}
 	
 	public void render(){

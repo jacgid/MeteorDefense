@@ -48,8 +48,9 @@ public class CarouselRenderer {
 	 	}		
 	};
 	
-	public CarouselRenderer(){
+	public CarouselRenderer(PropertyChangeListener listener){
 		pcs = new PropertyChangeSupport(this);
+		pcs.addPropertyChangeListener(listener);
 		spriteBatch = new SpriteBatch();
 		stage = new Stage();
 		
@@ -108,10 +109,6 @@ public class CarouselRenderer {
 	
 	public void init(){
 		Gdx.input.setInputProcessor(stage);
-	}
-	
-	public void addChangeListener(PropertyChangeListener listener){
-		pcs.addPropertyChangeListener(listener);
 	}
 	
 	public void displayContinents(List<Continent> list){

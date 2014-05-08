@@ -29,9 +29,10 @@ public class ScoreRenderer {
 	private Label scoreLabel;
 	private Color color;
 
-	public ScoreRenderer() {
+	public ScoreRenderer(PropertyChangeListener listener) {
 		pcs = new PropertyChangeSupport(this);
-
+		pcs.addPropertyChangeListener(listener);
+			
 		spriteBatch = new SpriteBatch();
 		stage = new Stage();
 
@@ -72,10 +73,6 @@ public class ScoreRenderer {
 
 		});
 
-	}
-
-	public void addChangeListener(PropertyChangeListener listener) {
-		pcs.addPropertyChangeListener(listener);
 	}
 
 	public void render() {

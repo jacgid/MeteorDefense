@@ -11,16 +11,10 @@ import com.esnefedroetem.meteordefense.renderer.MainMenuRenderer;
 
 public class MainMenuScreen implements Screen {
 	
-	private PropertyChangeSupport pcs;
 	private MainMenuRenderer renderer;
 	
 	public MainMenuScreen(MainMenuRenderer renderer){
-		pcs = new PropertyChangeSupport(this);
 		this.renderer = renderer;
-	}
-	
-	public void addChangeListener(PropertyChangeListener listener){
-		renderer.addChangeListener(listener);
 	}
 	
 	@Override

@@ -9,13 +9,18 @@ import com.esnefedroetem.meteordefense.model.Continent;
 import com.esnefedroetem.meteordefense.model.MeteorShower;
 import com.esnefedroetem.meteordefense.service.LoadService;
 
-public class ContinentFactory {
-	private static final boolean load = false;
-	public static List<Continent> createContinents(){
+class ContinentFactory {
+	private static final ContinentFactory instance = new ContinentFactory();
+	
+	private ContinentFactory(){}
+	
+	protected static ContinentFactory getInstance(){
+		return instance;
+	}
+	
+	protected List<Continent> createContinents(){
 		List<Continent> continents = null;
-		if(load){
-			continents = LoadService.getContinents();
-		}
+		continents = LoadService.getInstance().getContinents();
 		if(continents == null){
 			continents = new ArrayList<Continent>(4);
 			continents.add(createEurope());
@@ -26,7 +31,7 @@ public class ContinentFactory {
 		return continents;
 	}
 	
-	private static Continent createEurope(){
+	private Continent createEurope(){
 		List<City> cities = new ArrayList<City>();
 		cities.add(new City("Paris", 20, new MeteorShower(5,5,5,5,5), State.UNLOCKED));
 		cities.add(new City("London", 10, new MeteorShower(0,0,20,0,0), State.UNLOCKED));
@@ -34,7 +39,7 @@ public class ContinentFactory {
 		return new Continent("Europe", cities);
 	}
 	
-	private static Continent createAsia(){
+	private Continent createAsia(){
 		
 		List<City> cities = new ArrayList<City>();
 		cities.add(new City("Shanghai", 100, new MeteorShower(), State.LOCKED));
@@ -43,7 +48,7 @@ public class ContinentFactory {
 		return new Continent("Asia", cities);
 	}
 	
-	private static Continent createAmerica(){
+	private Continent createAmerica(){
 		List<City> cities = new ArrayList<City>();
 		cities.add(new City("New York", 100, new MeteorShower(), State.LOCKED));
 		cities.add(new City("Washington", 75, new MeteorShower(), State.LOCKED));
@@ -51,7 +56,7 @@ public class ContinentFactory {
 		return new Continent("America", cities);
 	}
 	
-	private static Continent createAntarctica(){
+	private Continent createAntarctica(){
 		List<City> cities = new ArrayList<City>();
 		cities.add(new City("SouthPole", 100, new MeteorShower(), State.LOCKED));
 		cities.add(new City("Ice", 75, new MeteorShower(), State.LOCKED));

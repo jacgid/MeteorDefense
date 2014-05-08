@@ -32,17 +32,14 @@ public class SplashScreen implements Screen {
 		SPLASHSCREEN_ENDED, GAMESPLASHSCREEN_ENDED
 	}
 	
-	public SplashScreen(){
+	public SplashScreen(PropertyChangeListener listener){
 		pcs = new PropertyChangeSupport(this);
+		pcs.addPropertyChangeListener(listener);
 		stage = new Stage();
 		Table table = new Table();
 		table.setFillParent(true);
 		table.add(new Image(new Texture("data/textures/Splash.png"))).expand().width(Gdx.graphics.getWidth()).height(Gdx.graphics.getHeight());
 		stage.addActor(table);
-	}
-	
-	public void addChangeListener(PropertyChangeListener listener){
-		pcs.addPropertyChangeListener(listener);
 	}
 	
 	public void gameSplash(GameRenderer renderer){
@@ -59,9 +56,7 @@ public class SplashScreen implements Screen {
 		stage.draw();
 		if(TimeUtils.millis() - startTime > splashTime && gameSplash == false){
 			if(!isFontCreated){
-				System.out.println("Före: " + TimeUtils.millis());
 				AssetsLoader.createFonts();
-				System.out.println("Efter: " + TimeUtils.millis());			
 				isFontCreated = true;
 				pcs.firePropertyChange(SplashScreenEvent.SPLASHSCREEN_ENDED.toString(), false, true);
 			}
@@ -85,7 +80,6 @@ public class SplashScreen implements Screen {
 
 	@Override
 	public void hide() {
-		dispose();
 	}
 
 	@Override

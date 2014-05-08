@@ -21,10 +21,10 @@ public class CarouselScreen implements Screen, PropertyChangeListener {
 	private Continent currentContinent;
 
 	
-	public CarouselScreen(CarouselRenderer renderer, List<Continent> continents){
+	public CarouselScreen(CarouselRenderer renderer, List<Continent> continents, PropertyChangeListener listener){
 		pcs = new PropertyChangeSupport(this);
+		pcs.addPropertyChangeListener(listener);
 		this.renderer = renderer;
-		renderer.addChangeListener(this);
 		this.continents = continents;
 		isCitiesDisplayed = false;
 		currentContinent = null;
@@ -83,11 +83,6 @@ public class CarouselScreen implements Screen, PropertyChangeListener {
 		renderer.dispose();
 	}
 	
-	public void addChangeListener(PropertyChangeListener listener){
-		pcs.addPropertyChangeListener(listener);
-		renderer.addChangeListener(listener);
-	}
-
 	@Override
 	public void propertyChange(PropertyChangeEvent evt) {
 		if(evt.getPropertyName().equals(CarouselRenderer.CarouselEvent.CAROUSEL_CLICKED.toString())){
