@@ -1,4 +1,4 @@
-package com.esnefedroetem.meteordefense;
+package com.esnefedroetem.meteordefense.model;
 
 /**
  * 

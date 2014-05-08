@@ -6,7 +6,6 @@ import java.beans.PropertyChangeSupport;
 import java.util.ArrayList;
 import java.util.List;
 
-import com.esnefedroetem.meteordefense.ScoreHandler;
 import com.esnefedroetem.meteordefense.model.armoryitem.AbstractArmoryItem;
 import com.esnefedroetem.meteordefense.model.armoryitem.AbstractDefenseArmoryItem;
 import com.esnefedroetem.meteordefense.model.armoryitem.AbstractEffectArmoryItem;
@@ -178,9 +177,9 @@ public class GameModel implements PropertyChangeListener {
 	}
 
 	private void addToScore(Meteor meteor) {
-		score += meteor.getDifficulty();
+		score += meteor.getDifficulty()*10;
 	}
-	public int getScore(){
+	public int getMeteorScore(){
 		
 		return score;
 	}

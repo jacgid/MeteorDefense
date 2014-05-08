@@ -17,7 +17,7 @@ import com.badlogic.gdx.scenes.scene2d.ui.Image;
 import com.badlogic.gdx.scenes.scene2d.ui.Table;
 import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
 import com.badlogic.gdx.scenes.scene2d.ui.TextButton.TextButtonStyle;
-import com.esnefedroetem.meteordefense.ScoreHandler;
+import com.esnefedroetem.meteordefense.model.ScoreHandler;
 import com.esnefedroetem.meteordefense.util.AssetsLoader;
 
 public class ScoreRenderer {

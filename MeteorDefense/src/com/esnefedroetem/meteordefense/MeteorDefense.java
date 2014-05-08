@@ -12,6 +12,7 @@ import com.badlogic.gdx.utils.IntIntMap;
 import com.esnefedroetem.meteordefense.factory.GameFactory;
 import com.esnefedroetem.meteordefense.model.City;
 import com.esnefedroetem.meteordefense.model.Continent;
+import com.esnefedroetem.meteordefense.model.ScoreHandler;
 import com.esnefedroetem.meteordefense.model.armoryitem.AbstractArmoryItem;
 import com.esnefedroetem.meteordefense.renderer.ArmoryDetailedRenderer.ArmoryDetaliedEvent;
 import com.esnefedroetem.meteordefense.renderer.ArmoryRenderer.ArmoryEvent;

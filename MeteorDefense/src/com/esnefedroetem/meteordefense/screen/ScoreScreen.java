@@ -3,7 +3,7 @@ package com.esnefedroetem.meteordefense.screen;
 import java.beans.PropertyChangeListener;
 
 import com.badlogic.gdx.Screen;
-import com.esnefedroetem.meteordefense.ScoreHandler;
+import com.esnefedroetem.meteordefense.model.ScoreHandler;
 import com.esnefedroetem.meteordefense.renderer.ScoreRenderer;
 
 
