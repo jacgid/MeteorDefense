@@ -6,10 +6,13 @@ import java.beans.PropertyChangeSupport;
 import java.util.ArrayList;
 import java.util.List;
 
+import com.badlogic.gdx.math.Circle;
+import com.esnefedroetem.meteordefense.model.Projectile.ProjectileType;
 import com.esnefedroetem.meteordefense.model.armoryitem.AbstractArmoryItem;
 import com.esnefedroetem.meteordefense.model.armoryitem.AbstractDefenseArmoryItem;
 import com.esnefedroetem.meteordefense.model.armoryitem.AbstractEffectArmoryItem;
 import com.esnefedroetem.meteordefense.model.armoryitem.AbstractProjectileArmoryItem;
+import com.esnefedroetem.meteordefense.model.meteor.BasicMeteor;
 import com.esnefedroetem.meteordefense.util.Constants;
 
 /**
@@ -70,6 +73,7 @@ public class GameModel implements PropertyChangeListener {
 
 		collisionControll();
 		removeProjectilesBeyondGameField();
+		removeMeteorsBeyondGameField();
 
 		city.update(delta);
 
@@ -144,7 +148,9 @@ public class GameModel implements PropertyChangeListener {
 		meteorShower.meteorHit(meteor, projectile.getDamage(), projectile.getProjectileType());
 		projectiles.remove(projectile);
 		meteorHits += 1;
-		if (meteorShower.getVisibleMeteors().size() < meteorcount) {
+		
+		// if list of meteors has decreased in size, a meteor has been killed
+		if (meteorShower.getVisibleMeteors().size() != meteorcount) {
 			addToScore(meteor);
 			killedMeteors.add(meteor);
 		}
@@ -169,10 +175,32 @@ public class GameModel implements PropertyChangeListener {
 			}
 		}
 	}
+	
+	private void removeMeteorsBeyondGameField() {
+		int length = meteorShower.getVisibleMeteors().size();
+		
+		for(int i = 0; i < length; i++) {
+			// temporary meteor with same size as element but placed 150 pixels further down
+			// created to check if meteor element is far out of screen bounds
+			System.out.println("meteors: " + meteorShower.getVisibleMeteors().size());
+			Meteor meteor = meteorShower.getVisibleMeteors().get(i);
+			Meteor temp = new BasicMeteor();
+			temp.setBounds(new Circle(meteor.getX(), meteor.getY() - 150, meteor.getBounds().radius));
+			
+			if(outOfBounds(temp)) {
+				meteorShower.meteorHit(meteor, meteor.getLife(), ProjectileType.NONE);
+				System.out.println("meteor out of bounds");
+				meteorHits += 1;
+				addToScore(meteor);
+				length--;
+				i--;
+			}
+		}
+	}
 
 	private boolean outOfBounds(MoveableGameObject object) {
-		float x = object.getX() + object.getBounds().radius;
-		float y = object.getY() + object.getBounds().radius;
+		float x = object.getBounds().x + object.getBounds().radius;
+		float y = object.getBounds().y + object.getBounds().radius;
 
 		return x < 0 || x > WIDTH || y > HEIGHT;
 	}

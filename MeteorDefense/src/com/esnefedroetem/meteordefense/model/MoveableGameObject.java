@@ -79,4 +79,8 @@ public abstract class MoveableGameObject {
 	public float getSpeed() {
 		return speed;
 	}
+	
+	public void setBounds(Circle bounds) {
+		this.bounds = bounds;
+	}
 }
