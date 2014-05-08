@@ -13,6 +13,7 @@ import com.badlogic.gdx.scenes.scene2d.InputListener;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.scenes.scene2d.ui.Label;
 import com.badlogic.gdx.scenes.scene2d.ui.Label.LabelStyle;
+import com.badlogic.gdx.scenes.scene2d.ui.Image;
 import com.badlogic.gdx.scenes.scene2d.ui.Table;
 import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
 import com.badlogic.gdx.scenes.scene2d.ui.TextButton.TextButtonStyle;
@@ -26,8 +27,10 @@ public class ScoreRenderer {
 	private SpriteBatch spriteBatch;
 	private Stage stage;
 	private int score;
-	private Label scoreLabel;
+	private Label totalScoreLabel,accuracyLabel, remainingLifeLable, meteorScoreLable;
+	
 	private Color color;
+	Table starTable;
 
 	public ScoreRenderer() {
 		pcs = new PropertyChangeSupport(this);
@@ -46,19 +49,39 @@ public class ScoreRenderer {
 
 		stage.addActor(table);
 
-		LabelStyle scoreLabelStyle = new LabelStyle();
-		scoreLabelStyle.font = AssetsLoader.getMediumFont();
+		LabelStyle mediumLabelStyle = new LabelStyle();
+		mediumLabelStyle.font = AssetsLoader.getMediumFont();
+		mediumLabelStyle.fontColor = new Color(Color.DARK_GRAY);
 		
-		scoreLabel = new Label("Score: " + score, scoreLabelStyle);
+		LabelStyle largeLabelStyle = new LabelStyle();
+		largeLabelStyle.font = AssetsLoader.getLargeFont();
+		largeLabelStyle.fontColor = new Color(Color.WHITE);
+
+		meteorScoreLable = new Label("Meteor score: " , mediumLabelStyle);
+		remainingLifeLable = new Label("Remaining life: ", mediumLabelStyle);
+		accuracyLabel = new Label("Accuracy: ", mediumLabelStyle);
+		totalScoreLabel = new Label("Total score: ", largeLabelStyle);
 
 		TextButtonStyle homeButtonstyle = new TextButtonStyle();
 		homeButtonstyle.font = AssetsLoader.getLargeFont();
-		
 
 		TextButton homeButton = new TextButton("Home", homeButtonstyle);
 
-		table.add(scoreLabel).expand().bottom();
+		
+		starTable = new Table();
+
+		
+		table.add(meteorScoreLable).bottom().expand();
 		table.row();
+		table.add(remainingLifeLable).bottom();
+		table.row();
+		table.add(accuracyLabel).bottom();
+		table.row();
+		table.add(totalScoreLabel).expand().bottom();
+		table.row();
+		table.add(starTable).expand();
+		table.row();
+
 		table.add(homeButton).expand().bottom();
 
 		homeButton.addListener(new InputListener() {
@@ -93,17 +116,34 @@ public class ScoreRenderer {
 		if (win) {
 			color.set(0, 255, 0, 0);
 		}
-		scoreLabel.setText("Score: " + score);
 
 	}
 
 	public void setScore(ScoreHandler score) {
 		if (score.getRemaningLifeInProcent() > 0) {
 			color.set(0, 255, 0, 0);
-			scoreLabel.setText("Score: " + score.getTotalScore());
-		}else {
+			
+			meteorScoreLable.setText("Meteor score: " + score.getMeteorScore());
+			remainingLifeLable.setText("Remaining life: " + (int)score.getRemaningLifeInProcent()*100 + "%");
+			accuracyLabel.setText("Accuracy : " + (int)score.getAccuracy()*100 + "%");
+			totalScoreLabel.setText("Total: " + score.getTotalScore());
+			
+			starTable.clear();
+			// Fills the starTable with golden stars.
+			for (int i = 0; i < score.getStars(); i++) {
+
+				starTable.add(new Image(AssetsLoader.getTexture("star.png"))).pad(10)
+						.width(Gdx.graphics.getWidth() / 9).height(Gdx.graphics.getWidth() / 9);
+			}
+			// Fills the starTable with the remaining grey stars if needed.
+			for (int i = 2; i > score.getStars() - 1; i--) {
+
+				starTable.add(new Image(AssetsLoader.getTexture("starGrey.png"))).pad(10)
+						.width(Gdx.graphics.getWidth() / 9).height(Gdx.graphics.getWidth() / 9);
+			}
+		} else {
 			color.set(255, 0, 0, 0);
-			scoreLabel.setText("City destroyed!");
+			totalScoreLabel.setText("City destroyed!");
 		}
 
 	}
