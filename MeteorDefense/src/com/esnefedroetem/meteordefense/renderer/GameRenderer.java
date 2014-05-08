@@ -98,8 +98,8 @@ public class GameRenderer {
 		stage.addActor(debugTable);
 		
 		LabelStyle lifeLabelStyle = new LabelStyle();
-		lifeLabelStyle.font = new BitmapFont();
-		lifeLabelStyle.font.scale(5);
+		lifeLabelStyle.font = AssetsLoader.getMediumFont();
+//		lifeLabelStyle.font.scale(5);
 		lifeLabel = new Label("", lifeLabelStyle);
 		debugTable.add(lifeLabel).left();
 		
@@ -116,8 +116,8 @@ public class GameRenderer {
 		stage.addActor(UITable);
 		
 		LabelStyle scoreLabelStyle = new LabelStyle();
-		scoreLabelStyle.font = new BitmapFont();
-		scoreLabelStyle.font.scale(7);
+		scoreLabelStyle.font = AssetsLoader.getMediumFont();
+//		scoreLabelStyle.font.scale(7);
 //		score = model.calculateScore().getMeteorScore();
 		scoreLable = new Label(score + "", scoreLabelStyle);
 		scoreLable.setPosition(0, cameraHeight-scoreLable.getHeight());
@@ -129,8 +129,7 @@ public class GameRenderer {
 		hitScore.scale(2);
 		
 		hitLabelStyle = new LabelStyle();
-		hitLabelStyle.font = new BitmapFont();
-		hitLabelStyle.font.scale(2);
+		hitLabelStyle.font = AssetsLoader.getSmallFont();
 	}
 	
 	private void loadUI(){
@@ -285,7 +284,7 @@ public class GameRenderer {
 		lastKilledMeteors = model.getKilledMeteors();
 		
 		for(Meteor meteor : lastKilledMeteors){
-			Label hitLabel = new Label("10",hitLabelStyle);
+			Label hitLabel = new Label(""+meteor.getDifficulty(),hitLabelStyle);
 			hitLabel.addAction(Actions.sequence(Actions.fadeOut(0.5f), Actions.removeActor()));
 			stage.addActor(hitLabel);
 			hitLabel.setPosition(meteor.getBounds().x, meteor.getBounds().y);
