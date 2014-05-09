@@ -2,7 +2,9 @@ package com.esnefedroetem.meteordefense.model.armoryitem;
 
 import java.util.ArrayList;
 
+import com.esnefedroetem.meteordefense.model.Projectile;
 import com.esnefedroetem.meteordefense.model.Upgrade;
+import com.esnefedroetem.meteordefense.model.IArmoryItemVisitor;
 
 public class EmptyItem extends AbstractArmoryItem {
 
@@ -29,6 +31,11 @@ public class EmptyItem extends AbstractArmoryItem {
 	@Override
 	public void update(float delta) {
 		
+	}
+
+	@Override
+	public Projectile accept(IArmoryItemVisitor visitor) {
+		return visitor.visit(this);
 	}
 
 }

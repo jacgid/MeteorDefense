@@ -9,6 +9,7 @@ public class CannonBarrel {
 	private float angle = (float) (Math.PI / 2);
 	private Vector2 startPosition;
 	private Rectangle bounds;
+	private Projectile projectile;
 
 	public CannonBarrel() {
 		bounds = new Rectangle(Constants.LOGIC_SCREEN_WIDTH/2-(Constants.CANNONBARREL_LENGTH/4), Constants.LOGIC_SCREEN_HEIGHT/20, Constants.CANNONBARREL_LENGTH/2, Constants.CANNONBARREL_LENGTH);
@@ -28,8 +29,10 @@ public class CannonBarrel {
 		startPosition.y = (float) (startPosition.y + (Constants.CANNONBARREL_LENGTH * Math.sin(angle)));
 	}
 
-	public Projectile shoot() {
-		return new Projectile(angle, startPosition);
+	public Projectile deploy() {
+		projectile.setAngle(angle);
+		projectile.setPosition(startPosition);
+		return projectile;
 	}
 
 	public Vector2 getStartPosition() {
@@ -47,6 +50,10 @@ public class CannonBarrel {
 	
 	public Rectangle getBounds(){
 		return bounds;
+	}
+
+	public void load(Projectile projectile) {
+		this.projectile = projectile;
 	}
 
 }

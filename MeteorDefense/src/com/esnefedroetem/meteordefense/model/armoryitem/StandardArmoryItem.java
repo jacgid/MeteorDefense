@@ -5,7 +5,9 @@ package com.esnefedroetem.meteordefense.model.armoryitem;
 
 import java.util.ArrayList;
 
+import com.esnefedroetem.meteordefense.model.Projectile;
 import com.esnefedroetem.meteordefense.model.Upgrade;
+import com.esnefedroetem.meteordefense.model.IArmoryItemVisitor;
 
 /**
  * @author Emma Lindholm
@@ -47,6 +49,16 @@ public class StandardArmoryItem extends AbstractProjectileArmoryItem {
 	@Override
 	public int getValue() {
 		return 0;
+	}
+
+	@Override
+	public Projectile accept(IArmoryItemVisitor visitor) {
+		return visitor.visit(this);
+	}
+
+	@Override
+	public Projectile execute() {
+		return new Projectile(getPower(), getProjectileSize(), getProjectileType());
 	}
 	
 

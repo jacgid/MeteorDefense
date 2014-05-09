@@ -169,7 +169,7 @@ public class GameScreen implements Screen, InputProcessor, PropertyChangeListene
 	@Override
 	public void propertyChange(PropertyChangeEvent evt) {
 		if(evt.getPropertyName().equals("buttonClicked")){
-			model.toolbarAct((Integer)evt.getOldValue());
+			model.specialWeaponSelected((Integer)evt.getOldValue());
 		}
 		if(evt.getPropertyName().equals("addInputProcessor")){
 			inputmultiplexer.removeProcessor(this);

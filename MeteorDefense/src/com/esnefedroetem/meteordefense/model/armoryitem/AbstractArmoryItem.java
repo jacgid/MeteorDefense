@@ -6,6 +6,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import com.badlogic.gdx.utils.TimeUtils;
+import com.esnefedroetem.meteordefense.model.IArmoryItemElement;
 import com.esnefedroetem.meteordefense.model.Upgrade;
 
 /**
@@ -14,7 +15,7 @@ import com.esnefedroetem.meteordefense.model.Upgrade;
  * 
  */
 
-public abstract class AbstractArmoryItem {
+public abstract class AbstractArmoryItem implements IArmoryItemElement {
 
 	public enum State {
 		LOCKED, UNLOCKED;
@@ -122,11 +123,12 @@ public abstract class AbstractArmoryItem {
 		return upgrades.get(upgradeIndex).getValue();
 	}
 
-	public void act() {
+	public boolean readyToUse() {
 		if (TimeUtils.timeSinceMillis(lastUsed) > cooldown * 1000) {
 			lastUsed = TimeUtils.millis();
-			performAct();
+			return true;
 		}
+		return false;
 	}
 
 	public String getName() {

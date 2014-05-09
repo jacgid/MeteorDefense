@@ -32,4 +32,5 @@ public abstract class AbstractProjectileArmoryItem extends AbstractArmoryItem {
 		return projectileType;
 	}
 
+	public abstract Projectile execute();
 }

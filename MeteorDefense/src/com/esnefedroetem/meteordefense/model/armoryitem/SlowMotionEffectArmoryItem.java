@@ -4,7 +4,9 @@ import java.util.ArrayList;
 import java.util.List;
 
 import com.esnefedroetem.meteordefense.model.Meteor;
+import com.esnefedroetem.meteordefense.model.Projectile;
 import com.esnefedroetem.meteordefense.model.Upgrade;
+import com.esnefedroetem.meteordefense.model.IArmoryItemVisitor;
 import com.esnefedroetem.meteordefense.model.armoryitem.AbstractArmoryItem.State;
 
 public class SlowMotionEffectArmoryItem extends AbstractEffectArmoryItem {
@@ -46,6 +48,12 @@ public class SlowMotionEffectArmoryItem extends AbstractEffectArmoryItem {
 	@Override
 	public void update(float delta) {
 		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public Projectile accept(IArmoryItemVisitor visitor) {
+		return visitor.visit(this);
 		
 	}
 

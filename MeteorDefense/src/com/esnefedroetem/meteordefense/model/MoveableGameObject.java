@@ -83,4 +83,8 @@ public abstract class MoveableGameObject {
 	public void setBounds(Circle bounds) {
 		this.bounds = bounds;
 	}
+	
+	public void setPosition(Vector2 position) {
+		this.position = position;
+	}
 }
