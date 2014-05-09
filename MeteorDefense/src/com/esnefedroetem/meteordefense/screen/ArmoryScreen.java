@@ -1,7 +1,5 @@
 package com.esnefedroetem.meteordefense.screen;
 
-import java.beans.PropertyChangeListener;
-import java.util.ArrayList;
 import java.util.List;
 
 import com.badlogic.gdx.Screen;
