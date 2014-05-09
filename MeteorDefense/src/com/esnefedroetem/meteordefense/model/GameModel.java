@@ -6,6 +6,13 @@ import java.beans.PropertyChangeSupport;
 import java.util.ArrayList;
 import java.util.List;
 
+import com.badlogic.gdx.math.Circle;
+import com.esnefedroetem.meteordefense.model.Projectile.ProjectileType;
+import com.esnefedroetem.meteordefense.model.armoryitem.AbstractArmoryItem;
+import com.esnefedroetem.meteordefense.model.armoryitem.AbstractDefenseArmoryItem;
+import com.esnefedroetem.meteordefense.model.armoryitem.AbstractEffectArmoryItem;
+import com.esnefedroetem.meteordefense.model.armoryitem.AbstractProjectileArmoryItem;
+import com.esnefedroetem.meteordefense.model.meteor.BasicMeteor;
 import com.esnefedroetem.meteordefense.util.Constants;
 
 /**
@@ -18,35 +25,38 @@ public class GameModel implements PropertyChangeListener {
 
 	private List<Projectile> projectiles = new ArrayList<Projectile>();
 	private List<AbstractArmoryItem> selectedArmoryItems;
-	private AbstractArmoryItem selectedArmoryItem;
+	private AbstractArmoryItem selectedArmoryItem, standardWeapon;
 	private CannonBarrel cannonBarrel;
 	private City city;
-	private Wallet wallet;
 	private MeteorShower meteorShower;
 	public static final float WIDTH = Constants.LOGIC_SCREEN_WIDTH;
 	public static final float HEIGHT = Constants.LOGIC_SCREEN_HEIGHT;
-	private int score = 0;
-	
-	
+	private int numberOfProjectiles, meteorHits, score = 0;
+	private ScoreHandler scoreHandler;
+
+	private ArrayList<Meteor> killedMeteors = new ArrayList<Meteor>();
+
 	private PropertyChangeSupport pcs;
 
 	/**
 	 * Initializes the GameModel.
 	 */
-	public GameModel(Wallet wallet, CannonBarrel cannonBarrel) {
+	public GameModel(CannonBarrel cannonBarrel) {
 		pcs = new PropertyChangeSupport(this);
 		this.cannonBarrel = cannonBarrel;
-		this.wallet = wallet;
-	}	
-	
-	public void newGame(City city, List<AbstractArmoryItem> selectedArmoryItems){
+	}
+
+	public void newGame(City city, List<AbstractArmoryItem> selectedArmoryItems) {
 		meteorShower = city.getMeteorShower();
 		meteorShower.loadMeteors();
 		meteorShower.start();
 		this.city = city;
 		this.selectedArmoryItems = selectedArmoryItems;
-		selectedArmoryItem = selectedArmoryItems.get(0);
-		selectedArmoryItem.addChangeListener(this); // TODO temporary solution, fix
+		standardWeapon = selectedArmoryItems.get(2);
+		selectedArmoryItem = standardWeapon;
+		selectedArmoryItem.removeChangeListener(this);
+		selectedArmoryItem.addChangeListener(this); // TODO temporary solution,
+													// fix
 	}
 
 	/**
@@ -60,31 +70,52 @@ public class GameModel implements PropertyChangeListener {
 		for (int i = 0; i < projectiles.size(); i++) {
 			projectiles.get(i).move(delta);
 		}
-		for(AbstractArmoryItem armoryItem : selectedArmoryItems) {
-			armoryItem.update(delta);
-		}
+
 		collisionControll();
 		removeProjectilesBeyondGameField();
-		if(meteorShower.gameover() || city.getLife() <= 0){
+		removeMeteorsBeyondGameField();
+
+		city.update(delta);
+
+		if (meteorShower.gameover() || city.getLife() <= 0) {
 			gameover();
 		}
-		city.update(delta);
-		
 	}
-	
-	public void shoot(float X, float Y) {
-		cannonBarrel.calculateAngle(X, Y);
+
+	public void shoot(float posX, float posY) {
+		cannonBarrel.calculateAngle(posX, posY);
 		selectedArmoryItem.act();
 	}
-	
-	private void gameover(){
-		System.out.println("GAMEOVER!");
-		if(city.getLife()>0){
-			pcs.firePropertyChange("Gameover", true, score);
-		}else{
-			pcs.firePropertyChange("Gameover", false, score);
-		}
+
+	private void gameover() {
+		handleScore();
+
+		getCity().setScore(scoreHandler.getTotalScore());
+		getCity().setStars(scoreHandler.getStars());
+
+		pcs.firePropertyChange("Gameover", city, scoreHandler);
+		reset();
+
+	}
+
+	private void reset() {
 		city.reset();
+		projectiles.clear();
+		numberOfProjectiles = 0;
+		meteorHits = 0;
+		cannonBarrel.reset();
+		score = 0;
+	}
+
+	public void toolbarAct(int buttonNr) {
+		selectedArmoryItem.removeChangeListener(this);
+		selectedArmoryItem = selectedArmoryItems.get(buttonNr - 1);
+		selectedArmoryItem.addChangeListener(this);
+		selectedArmoryItem.act();
+	}
+
+	public void endGame() {
+		gameover();
 	}
 
 	public void addChangeListener(PropertyChangeListener listener) {
@@ -93,16 +124,16 @@ public class GameModel implements PropertyChangeListener {
 
 	public void collisionControll() {
 		int count1 = 0;
-		while(count1 < meteorShower.getVisibleMeteors().size()) {
+		while (count1 < meteorShower.getVisibleMeteors().size()) {
 			Meteor meteor = meteorShower.getVisibleMeteors().get(count1);
 			if (collisionWithCityOccurs(meteor)) {
 				city.hit(meteor);
 				meteorShower.getVisibleMeteors().remove(meteor);
 			} else {
 				int count2 = 0;
-				while(count2 < projectiles.size()) {
+				while (count2 < projectiles.size()) {
 					Projectile projectile = projectiles.get(count2);
-					if(collisionOccurs(projectile, meteor)) {
+					if (collisionOccurs(projectile, meteor)) {
 						handleMeteorCollision(projectile, meteor);
 					}
 					count2++;
@@ -113,14 +144,22 @@ public class GameModel implements PropertyChangeListener {
 	}
 
 	private void handleMeteorCollision(Projectile projectile, Meteor meteor) {
+		int meteorcount = meteorShower.getVisibleMeteors().size();
 		meteorShower.meteorHit(meteor, projectile.getDamage(), projectile.getProjectileType());
-		projectiles.remove(projectile);	
+		projectiles.remove(projectile);
+		meteorHits += 1;
+		
+		// if list of meteors has decreased in size, a meteor has been killed
+		if (meteorShower.getVisibleMeteors().size() != meteorcount) {
+			addToScore(meteor);
+			killedMeteors.add(meteor);
+		}
 	}
 
 	private boolean collisionOccurs(Projectile projectile, Meteor meteor) {
 		return projectile.getBounds().overlaps(meteor.getBounds());
 	}
-	
+
 	private boolean collisionWithCityOccurs(Meteor meteor) {
 		return city.getBounds().contains(meteor.getBounds().x, meteor.getBounds().y);
 	}
@@ -136,48 +175,102 @@ public class GameModel implements PropertyChangeListener {
 			}
 		}
 	}
+	
+	private void removeMeteorsBeyondGameField() {
+		int length = meteorShower.getVisibleMeteors().size();
+		
+		for(int i = 0; i < length; i++) {
+			// temporary meteor with same size as element but placed 150 pixels further down
+			// created to check if meteor element is far out of screen bounds
+			Meteor meteor = meteorShower.getVisibleMeteors().get(i);
+			Meteor temp = new BasicMeteor();
+			temp.setBounds(new Circle(meteor.getX(), meteor.getY() - 250, meteor.getBounds().radius));
+			
+			if(outOfBounds(temp)) {
+				meteorShower.meteorHit(meteor, meteor.getLife(), ProjectileType.NONE);
+				meteorHits += 1;
+				addToScore(meteor);
+				length--;
+				i--;
+			}
+		}
+	}
 
 	private boolean outOfBounds(MoveableGameObject object) {
-		float x = object.getX() + object.getBounds().radius;
-		float y = object.getY() + object.getBounds().radius;
+		float x = object.getBounds().x + object.getBounds().radius;
+		float y = object.getBounds().y + object.getBounds().radius;
 
-		return (x < 0 || x > WIDTH || y > HEIGHT);
+		return x < 0 || x > WIDTH || y > HEIGHT;
+	}
+
+	private void addToScore(Meteor meteor) {
+		score += meteor.getDifficulty();
+	}
+
+	public int getMeteorScore() {
+
+		return score;
+	}
+
+	public ArrayList<Meteor> getKilledMeteors() {
+		ArrayList<Meteor> temp = new ArrayList<Meteor>();
+		for (Meteor met : killedMeteors) {
+			temp.add(met);
+		}
+		killedMeteors.clear();
+		return temp;
 	}
 
 	public List<Projectile> getVisibleProjectiles() {
 		return projectiles;
 	}
 
-	public ArrayList<Meteor> getVisibleMeteors() {
+	public List<Meteor> getVisibleMeteors() {
 		return meteorShower.getVisibleMeteors();
 	}
 
 	public float getCannonAngle() {
 		return cannonBarrel.getAngle();
 	}
-	
-	public Wallet getWallet(){
-		return wallet;
-	}
-	
-	public City getCity(){
+
+	public City getCity() {
 		return city;
+	}
+
+	public CannonBarrel getCannonBarrel() {
+		return cannonBarrel;
 	}
 
 	@Override
 	public void propertyChange(PropertyChangeEvent evt) {
 		if (evt.getPropertyName().equals("loadCannonBarrel")) {
 			AbstractProjectileArmoryItem projectileArmoryItem = (AbstractProjectileArmoryItem) evt.getNewValue();
-			projectiles.add(new Projectile(cannonBarrel.getAngle() , projectileArmoryItem.getPower(), projectileArmoryItem.getProjectileSize(), cannonBarrel.getStartPosition(), projectileArmoryItem.getProjectileType()));
-		
-		} else if(evt.getPropertyName().equals("addCity")) {
+			projectiles.add(new Projectile(cannonBarrel.getAngle(), projectileArmoryItem.getPower(),
+					projectileArmoryItem.getProjectileSize(), cannonBarrel.getStartPosition(), projectileArmoryItem
+							.getProjectileType()));
+			numberOfProjectiles += 1;
+
+		} else if (evt.getPropertyName().equals("addCity")) {
 			AbstractDefenseArmoryItem defenseArmoryItem = (AbstractDefenseArmoryItem) evt.getNewValue();
 			defenseArmoryItem.execute(city);
-			
-		} else if(evt.getPropertyName().equals("addVisibleMeteors")) {
+
+		} else if (evt.getPropertyName().equals("addVisibleMeteors")) {
 			AbstractEffectArmoryItem effectArmoryItem = (AbstractEffectArmoryItem) evt.getNewValue();
 			effectArmoryItem.execute(meteorShower.getVisibleMeteors());
 		}
-		
+
+		selectedArmoryItem.removeChangeListener(this);
+		selectedArmoryItem = standardWeapon;
+		selectedArmoryItem.addChangeListener(this);
 	}
+
+	private ScoreHandler handleScore() {
+
+		scoreHandler = new ScoreHandler(meteorHits, numberOfProjectiles, getCity().getLife(), getCity().getMaxLife(),
+				score, getCity().getMeteorShower().getMaxScore(), getCity().getHighScore());
+
+		return scoreHandler;
+
+	}
+
 }

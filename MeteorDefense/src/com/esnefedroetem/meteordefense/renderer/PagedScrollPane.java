@@ -49,7 +49,11 @@ public class PagedScrollPane extends ScrollPane {
 	}
 
 	public void addPage(Actor page) {
-		content.add(page).expandY().fillY();
+		content.add(page).expandY();
+	}
+
+	public void addPage(Actor page, float width, float height) {
+		content.add(page).expandY().width(width).height(height);
 	}
 
 	@Override
@@ -116,7 +120,7 @@ public class PagedScrollPane extends ScrollPane {
 	public void removeAllPages(){
 		if(content != null){
 			content.clearChildren();
-		}
 		content.invalidate();
+		}
 	}
 }

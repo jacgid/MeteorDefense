@@ -4,20 +4,20 @@ import java.beans.PropertyChangeListener;
 import java.beans.PropertyChangeSupport;
 
 import com.badlogic.gdx.Gdx;
-import com.badlogic.gdx.graphics.Color;
+import com.badlogic.gdx.Input.Keys;
 import com.badlogic.gdx.graphics.GL20;
-import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
-import com.badlogic.gdx.scenes.scene2d.Actor;
+import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.InputListener;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.scenes.scene2d.ui.Button;
+import com.badlogic.gdx.scenes.scene2d.ui.Button.ButtonStyle;
+import com.badlogic.gdx.scenes.scene2d.ui.Image;
 import com.badlogic.gdx.scenes.scene2d.ui.Table;
-import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
-import com.badlogic.gdx.scenes.scene2d.ui.TextButton.TextButtonStyle;
-import com.badlogic.gdx.scenes.scene2d.utils.ChangeListener;
-import com.badlogic.gdx.scenes.scene2d.utils.ChangeListener.ChangeEvent;
+import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
+import com.badlogic.gdx.scenes.scene2d.utils.TextureRegionDrawable;
+import com.esnefedroetem.meteordefense.util.AssetsLoader;
 
 public class MainMenuRenderer {
 	
@@ -30,69 +30,81 @@ public class MainMenuRenderer {
 		MAINMENU_SOUND_CLICKED
 	}
 	
-	public MainMenuRenderer(boolean sound){
+	public MainMenuRenderer(boolean sound, PropertyChangeListener listener){
 		pcs = new PropertyChangeSupport(this);
-
+		pcs.addPropertyChangeListener(listener);
+		
 		spriteBatch = new SpriteBatch();
 		stage = new Stage();
-		
+		AssetsLoader.loadTexture("StartScreenBG.png");
+		AssetsLoader.loadTexture("MusicFalse.png");
+		AssetsLoader.loadTexture("MusicTrue.png");
+		AssetsLoader.loadTexture("PlayButton.png");
+		AssetsLoader.finishLoading();
 		create(sound);
 	}
 	
 	private void create(boolean sound){
 		Table table = new Table();
 		table.setFillParent(true);
+		Table tablebottom = new Table();
+		tablebottom.setFillParent(true);
+		Table background = new Table();
+		background.setFillParent(true);
+		background.add(new Image(AssetsLoader.getTexture("StartScreenBG.png"))).width(Gdx.graphics.getWidth()).height(Gdx.graphics.getHeight());
+		stage.addActor(background);
 		stage.addActor(table);
+		stage.addActor(tablebottom);
 		
-		TextButtonStyle playButtonstyle = new TextButtonStyle();
-		playButtonstyle.font = new BitmapFont();
-		playButtonstyle.font.scale(5);
+		ButtonStyle playButtonstyle = new ButtonStyle();
+		playButtonstyle.up = new TextureRegionDrawable(new TextureRegion(AssetsLoader.getTexture("PlayButton.png")));
 		
-		TextButtonStyle soundButtonstyle = new TextButtonStyle();
-		soundButtonstyle.font = new BitmapFont();
-		soundButtonstyle.font.scale(2);
+		ButtonStyle soundButtonstyle = new ButtonStyle();
+		soundButtonstyle.up = new TextureRegionDrawable(new TextureRegion(AssetsLoader.getTexture("MusicTrue.png")));
+		soundButtonstyle.checked = new TextureRegionDrawable(new TextureRegion(AssetsLoader.getTexture("MusicFalse.png")));
 
-		TextButton playButton = new TextButton("Play", playButtonstyle);
-		final TextButton soundButton = new TextButton("Sound", soundButtonstyle);
+		Button playButton = new Button(playButtonstyle);
+		final Button soundButton = new Button(soundButtonstyle);
 		
-		table.add(playButton).expand().bottom();
-		table.row().bottom().left().expand();
-		table.add(soundButton).left().bottom();
+		Table wrapper = new Table();
+		float aspect = playButton.getHeight() / playButton.getWidth();
+		wrapper.add(playButton).width(Gdx.graphics.getWidth() * 0.8F).height(Gdx.graphics.getWidth() * 0.8F * aspect);
+		
+		table.add(wrapper).expand().center();
+		tablebottom.add(soundButton).left().bottom().expand().pad(10).width(Gdx.graphics.getWidth() / 5).height(Gdx.graphics.getWidth() / 5);
 		
 		soundButton.setChecked(!sound);
-		soundButton.setText(!soundButton.isChecked() + "");
-		
-		soundButton.addListener(new InputListener() {
-			public boolean touchDown (InputEvent event, float x, float y, int pointer, int button) {
-				return true;
-		 	}
-		 
-		 	public void touchUp (InputEvent event, float x, float y, int pointer, int button) {
+				
+		soundButton.addListener(new ClickListener(){
+			@Override
+			public void clicked(InputEvent event, float x, float y) {
 		 		pcs.firePropertyChange(MainMenuEvent.MAINMENU_SOUND_CLICKED.toString(), false, true);
-				soundButton.setText(!soundButton.isChecked() + "");
-		 	}
-
+			}
 		});
 		
-		playButton.addListener(new InputListener() {
-			public boolean touchDown (InputEvent event, float x, float y, int pointer, int button) {
+		playButton.addListener(new ClickListener(){
+			@Override
+			public void clicked(InputEvent event, float x, float y) {
+		 		pcs.firePropertyChange(MainMenuEvent.MAINMENU_PLAY_CLICKED.toString(), false, true);				
+			}
+		});
+		
+		stage.addListener(new InputListener(){
+			
+			@Override
+			public boolean keyDown(InputEvent event,
+		              int keycode){
+				if(keycode == Keys.BACK){
+			 		pcs.firePropertyChange("Exit application", false, true);					
+				}
 				return true;
-		 	}
-		 
-		 	public void touchUp (InputEvent event, float x, float y, int pointer, int button) {
-		 		pcs.firePropertyChange(MainMenuEvent.MAINMENU_PLAY_CLICKED.toString(), false, true);
-		 	}
-
+			}
 		});
 		
 	}
 	
 	public void init(){
 		Gdx.input.setInputProcessor(stage);		
-	}
-	
-	public void addChangeListener(PropertyChangeListener listener){
-		pcs.addPropertyChangeListener(listener);
 	}
 	
 	public void render(){

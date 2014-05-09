@@ -11,6 +11,7 @@ import com.esnefedroetem.meteordefense.model.Continent;
 import com.esnefedroetem.meteordefense.renderer.CarouselRenderer;
 import com.esnefedroetem.meteordefense.renderer.CarouselRenderer.CarouselEvent;
 import com.esnefedroetem.meteordefense.screen.SplashScreen.SplashScreenEvent;
+import com.esnefedroetem.meteordefense.util.AssetsLoader;
 
 public class CarouselScreen implements Screen, PropertyChangeListener {
 	private PropertyChangeSupport pcs;
@@ -20,13 +21,27 @@ public class CarouselScreen implements Screen, PropertyChangeListener {
 	private Continent currentContinent;
 
 	
-	public CarouselScreen(CarouselRenderer renderer, List<Continent> continents){
+	public CarouselScreen(CarouselRenderer renderer, List<Continent> continents, PropertyChangeListener listener){
 		pcs = new PropertyChangeSupport(this);
-		this.renderer = renderer;
+		pcs.addPropertyChangeListener(listener);
 		renderer.addChangeListener(this);
+		this.renderer = renderer;
 		this.continents = continents;
 		isCitiesDisplayed = false;
 		currentContinent = null;
+		for(Continent continent : continents){
+			AssetsLoader.loadTexture(continent.getName() + ".png");
+			for(City city : continent.getCities()){
+				AssetsLoader.loadTexture(city.getName() + ".png");
+			}
+		}
+		AssetsLoader.loadTexture("star.png");
+		AssetsLoader.loadTexture("starGrey.png");
+		AssetsLoader.loadTexture("CarouselBackground.png");
+		AssetsLoader.loadTexture("CarouselBackgroundLocked.png");
+		AssetsLoader.loadTexture("lock.png");
+		AssetsLoader.loadTexture("MenuBG.png");
+		AssetsLoader.finishLoading();
 		renderer.displayContinents(continents);
 	}
 
@@ -69,11 +84,6 @@ public class CarouselScreen implements Screen, PropertyChangeListener {
 		renderer.dispose();
 	}
 	
-	public void addChangeListener(PropertyChangeListener listener){
-		pcs.addPropertyChangeListener(listener);
-		renderer.addChangeListener(listener);
-	}
-
 	@Override
 	public void propertyChange(PropertyChangeEvent evt) {
 		if(evt.getPropertyName().equals(CarouselRenderer.CarouselEvent.CAROUSEL_CLICKED.toString())){
@@ -85,6 +95,14 @@ public class CarouselScreen implements Screen, PropertyChangeListener {
 	
 	public List<Continent> getContinents(){
 		return continents;
+	}
+	
+	public void update(){
+		if(isCitiesDisplayed){
+			renderer.displayCities(currentContinent.getCities());
+		}else{
+			renderer.displayContinents(continents);
+		}
 	}
 	
 	private void onBackPressed(){

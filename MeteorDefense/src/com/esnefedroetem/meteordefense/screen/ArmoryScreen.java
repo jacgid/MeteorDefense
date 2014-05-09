@@ -1,10 +1,9 @@
 package com.esnefedroetem.meteordefense.screen;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import com.badlogic.gdx.Screen;
-import com.esnefedroetem.meteordefense.model.AbstractArmoryItem;
+import com.esnefedroetem.meteordefense.model.armoryitem.AbstractArmoryItem;
 import com.esnefedroetem.meteordefense.renderer.ArmoryRenderer;
 
 /** 
@@ -15,22 +14,23 @@ import com.esnefedroetem.meteordefense.renderer.ArmoryRenderer;
 
 public class ArmoryScreen implements Screen{
 	
-	private List<AbstractArmoryItem> armoryItems, selectedArmoryItems;
 	private ArmoryRenderer renderer;
 	
-	public ArmoryScreen(ArmoryRenderer renderer, List<AbstractArmoryItem> armoryItems, List<AbstractArmoryItem> selectedArmoryItems){
+	public ArmoryScreen(ArmoryRenderer renderer){
 		this.renderer = renderer;
-		this.armoryItems = armoryItems;
-		this.selectedArmoryItems = selectedArmoryItems;
 	}
 	
 	public List<AbstractArmoryItem> getSelectedArmoryItems() {
-		return selectedArmoryItems;
+		return renderer.getSelectedArmoryItems();
 	}
+	
+	public List<AbstractArmoryItem> getUnselectedArmoryItems() {
+		return renderer.getUnselectedArmoryItems();
+	}
+
 	@Override
 	public void render(float delta) {
-		// TODO Auto-generated method stub
-		
+		renderer.render();
 	}
 
 	@Override
@@ -41,7 +41,7 @@ public class ArmoryScreen implements Screen{
 
 	@Override
 	public void show() {
-		// TODO Auto-generated method stub
+		renderer.init();
 		
 	}
 
@@ -65,8 +65,7 @@ public class ArmoryScreen implements Screen{
 
 	@Override
 	public void dispose() {
-		// TODO Auto-generated method stub
-		
+		renderer.dispose();
 	}
 
 }

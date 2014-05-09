@@ -1,26 +1,14 @@
 package com.esnefedroetem.meteordefense.screen;
 
-import java.beans.PropertyChangeEvent;
-import java.beans.PropertyChangeListener;
-import java.beans.PropertyChangeSupport;
-
 import com.badlogic.gdx.Screen;
-import com.badlogic.gdx.graphics.g2d.SpriteBatch;
-import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.esnefedroetem.meteordefense.renderer.MainMenuRenderer;
 
 public class MainMenuScreen implements Screen {
 	
-	private PropertyChangeSupport pcs;
 	private MainMenuRenderer renderer;
 	
 	public MainMenuScreen(MainMenuRenderer renderer){
-		pcs = new PropertyChangeSupport(this);
 		this.renderer = renderer;
-	}
-	
-	public void addChangeListener(PropertyChangeListener listener){
-		renderer.addChangeListener(listener);
 	}
 	
 	@Override

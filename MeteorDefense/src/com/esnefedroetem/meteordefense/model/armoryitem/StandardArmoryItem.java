@@ -1,9 +1,11 @@
 /**
  * 
  */
-package com.esnefedroetem.meteordefense.model;
+package com.esnefedroetem.meteordefense.model.armoryitem;
 
 import java.util.ArrayList;
+
+import com.esnefedroetem.meteordefense.model.Upgrade;
 
 /**
  * @author Emma Lindholm
@@ -12,10 +14,14 @@ import java.util.ArrayList;
 
 public class StandardArmoryItem extends AbstractProjectileArmoryItem {
 	
+	public StandardArmoryItem() {
+		name = "StandardWeapon";
+		description = "This weapon is your standard weapon, and isn't tradeable. You may however upgrade its power and cooldown.";
+	}
+	
 	public StandardArmoryItem(State state, int upgradeIndex) {
-		initUpgrades();
-		setState(state);
-		setUpgradeIndex(upgradeIndex);
+		this();
+		init(state, upgradeIndex);
 	}
 
 	@Override
@@ -30,6 +36,17 @@ public class StandardArmoryItem extends AbstractProjectileArmoryItem {
 		}
 		setUpgradeList(upgrades);
 		
+	}
+
+	@Override
+	public void update(float delta) {
+		// TODO Auto-generated method stub
+		
+	}
+	
+	@Override
+	public int getValue() {
+		return 0;
 	}
 	
 

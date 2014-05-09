@@ -1,56 +1,134 @@
 package com.esnefedroetem.meteordefense.screen;
 
-import com.badlogic.gdx.Screen;
-import com.esnefedroetem.meteordefense.renderer.ArmoryDetailedRenderer;
+import java.beans.PropertyChangeEvent;
+import java.beans.PropertyChangeListener;
+import java.beans.PropertyChangeSupport;
 
-public class ArmoryDetailedScreen implements Screen{
+import com.badlogic.gdx.Screen;
+import com.esnefedroetem.meteordefense.model.Wallet;
+import com.esnefedroetem.meteordefense.model.armoryitem.AbstractArmoryItem;
+import com.esnefedroetem.meteordefense.model.armoryitem.StandardArmoryItem;
+import com.esnefedroetem.meteordefense.renderer.ArmoryDetailedRenderer;
+import com.esnefedroetem.meteordefense.renderer.ArmoryDetailedRenderer.ArmoryDetaliedEvent;
+
+public class ArmoryDetailedScreen implements Screen, PropertyChangeListener{
 	
 	private ArmoryDetailedRenderer renderer;
+	private Wallet wallet;
+	private AbstractArmoryItem armoryItem;
+	private PropertyChangeSupport pcs;
 	
-	public ArmoryDetailedScreen(ArmoryDetailedRenderer renderer){
+	public ArmoryDetailedScreen(ArmoryDetailedRenderer renderer, Wallet wallet){
 		this.renderer = renderer;
+		this.wallet = wallet;
+		pcs = new PropertyChangeSupport(this);
 	}
 	
 	@Override
 	public void render(float delta) {
-		// TODO Auto-generated method stub
-		
+		renderer.render();
 	}
 
 	@Override
 	public void resize(int width, int height) {
-		// TODO Auto-generated method stub
 		
 	}
 
 	@Override
 	public void show() {
-		// TODO Auto-generated method stub
-		
+		initializeInfo();
+		renderer.init();
 	}
 
 	@Override
 	public void hide() {
-		// TODO Auto-generated method stub
 		
 	}
 
 	@Override
 	public void pause() {
-		// TODO Auto-generated method stub
 		
 	}
 
 	@Override
 	public void resume() {
-		// TODO Auto-generated method stub
 		
 	}
 
 	@Override
 	public void dispose() {
-		// TODO Auto-generated method stub
-		
+		renderer.dispose();
 	}
 
+	public void setArmoryItem(AbstractArmoryItem armoryItem) {
+		this.armoryItem = armoryItem;
+				
+	}
+	
+	public Wallet getWallet() {
+		return wallet;
+	}
+
+	@Override
+	public void propertyChange(PropertyChangeEvent evt) {
+		if (evt.getPropertyName().equals(ArmoryDetaliedEvent.ARMORY_DETAILED_TRADE_BUTTON_PRESSED.toString())) {
+			if (armoryItem.getState() == AbstractArmoryItem.State.LOCKED) {
+			itemBought();
+			} else {
+			itemSold();
+		}
+		} else if (evt.getPropertyName().equals(ArmoryDetaliedEvent.ARMORY_DETAILED_ITEM_UPGRADED.toString())) {
+			itemUpgraded();
+		}
+		
+		initializeInfo();
+	}
+
+	private void itemUpgraded() {
+		wallet.removeCoins(armoryItem.getNextUpgradeValue());
+		armoryItem.upgrade();
+	}
+
+	private void itemSold() {
+		wallet.addCoins(armoryItem.getValue());
+		armoryItem.setState(AbstractArmoryItem.State.LOCKED);		
+	}
+
+	private void itemBought() {
+		wallet.removeCoins(armoryItem.getValue());
+		armoryItem.setState(AbstractArmoryItem.State.UNLOCKED);	
+	}
+	
+	private void initializeInfo() {
+		renderer.setAssetsLabelText(wallet.getAssets() + "");
+		renderer.setNameLabelText(armoryItem.getName());
+		renderer.setDescriptionLabelText(armoryItem.getDescription() + "\n\nPower: " + armoryItem.getPower() + "\nCooldown: " + armoryItem.getCooldown() + " sec");
+		renderer.setUpgradeLabelText("Next upgrade\n" + armoryItem.getNextUpgradeInfo());
+		
+		if(armoryItem.getState() == AbstractArmoryItem.State.LOCKED) {
+			renderer.setUpgradeButtonText("Upgrade for " + armoryItem.getNextUpgradeValue());
+			renderer.setUpgradeButtonDisabled(true);
+			
+			renderer.setTradeButtonText("Buy for " + armoryItem.getValue());
+			renderer.setTradeButtonDisabled(!wallet.canAfford(armoryItem.getValue()));
+		} else {
+			if(armoryItem.hasUpgrade()) {
+				renderer.setUpgradeButtonText("Upgrade for " + armoryItem.getNextUpgradeValue());
+				renderer.setUpgradeButtonDisabled(!wallet.canAfford(armoryItem.getNextUpgradeValue()));
+			} else {
+				renderer.setUpgradeButtonText("No Upgrades");
+				renderer.setUpgradeButtonDisabled(true);
+			}
+			
+			renderer.setTradeButtonText("Sell for " + armoryItem.getValue());
+			renderer.setTradeButtonDisabled(false);
+		}
+		
+		// standard weapon is not tradeable 
+		if(armoryItem instanceof StandardArmoryItem) {
+		renderer.setTradeButtonText("Not tradeable");
+		renderer.setTradeButtonDisabled(true);
+		}
+	}
+	
 }

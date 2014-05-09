@@ -2,10 +2,8 @@ package com.esnefedroetem.meteordefense.model.meteor;
 
 import com.badlogic.gdx.math.Vector2;
 import com.esnefedroetem.meteordefense.model.Meteor;
+import com.esnefedroetem.meteordefense.model.Projectile.ProjectileType;
 import com.esnefedroetem.meteordefense.util.Constants;
-import com.esnefedroetem.meteordefense.util.Constants.MeteorType;
-import com.esnefedroetem.meteordefense.util.Constants.ProjectileType;
-import com.sun.jndi.url.iiopname.iiopnameURLContextFactory;
 /** 
  * @author Andreas Pegelow
  *
@@ -21,12 +19,13 @@ public class IceMeteor extends Meteor {
 	}
 	public IceMeteor(Vector2 startPosition) {
 		super(startPosition, Constants.BASE_METEOR_ANGLE, LIFE, DAMAGE, SIZE, SPEED);
+	
 
 	}
 
 
 	@Override
-	public void hit(int damage, ProjectileType projectiletype) {
+	public void hit(int damage, ProjectileType projectileType) {
 		decreaseHealth(damage);
 	}
 

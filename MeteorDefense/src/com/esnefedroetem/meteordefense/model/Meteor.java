@@ -1,8 +1,6 @@
 package com.esnefedroetem.meteordefense.model;
 
 import com.badlogic.gdx.math.Vector2;
-import com.esnefedroetem.meteordefense.util.Constants.MeteorType;
-import com.esnefedroetem.meteordefense.util.Constants.ProjectileType;
 
 /**
  * 
@@ -11,13 +9,22 @@ import com.esnefedroetem.meteordefense.util.Constants.ProjectileType;
  */
 public abstract class Meteor extends MoveableGameObject {
 
-	private int life;
-	public  Meteor(){
-		
+	private int life, startLife;
+	private int difficulty = 1;
+
+	public enum MeteorType {
+		BASIC, RADIOACTIVE, FIRE, FAST, ICE
 	}
-	public Meteor(Vector2 startPosition,float angle, int life, int damage, float size, float speed) {
+
+	public Meteor() {
+
+	}
+
+	public Meteor(Vector2 startPosition, float angle, int life, int damage, float size, float speed) {
 		super(angle, damage, size, speed, startPosition);
 		this.life = life;
+		startLife = life;
+		calculateDifficulty();
 	}
 
 	public void setLife(int life) {
@@ -28,13 +35,17 @@ public abstract class Meteor extends MoveableGameObject {
 		return life;
 	}
 
+	public int getStartLife() {
+		return startLife;
+	}
+
 	/**
 	 * Called when the meteor is hit, when creating new types of meteors this
 	 * should be implemented to get different behavior
 	 * 
 	 * @param damage
 	 */
-	public abstract void hit(int damage, ProjectileType projectiletype);
+	public abstract void hit(int damage, Projectile.ProjectileType projectileType);
 
 	public void decreaseSize(int value) {
 		setSize(getSize() - value);
@@ -53,6 +64,15 @@ public abstract class Meteor extends MoveableGameObject {
 	public boolean willSurvive(int damage) {
 		return life - damage > 0;
 	}
+
 	public abstract MeteorType getType();
 
+	public final void calculateDifficulty() {
+		difficulty = (int) (getDamage() * 0.7 + startLife * 0.01 + startLife * 0.7)*10;
+
+	}
+
+	public int getDifficulty() {
+		return difficulty;
+	}
 }

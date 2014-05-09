@@ -1,8 +1,10 @@
 package com.esnefedroetem.meteordefense.util;
 
+import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.assets.AssetManager;
 import com.badlogic.gdx.audio.Music;
 import com.badlogic.gdx.audio.Sound;
+import com.badlogic.gdx.files.FileHandle;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.ParticleEffect;
@@ -10,14 +12,15 @@ import com.badlogic.gdx.graphics.g2d.ParticleEffect;
 public abstract class AssetsLoader {
 	
 	private static AssetManager manager = new AssetManager();
-	private static final String textureDir = "data/textures/";
-	private static final String musicDir = "data/music/";
-	private static final String soundDir = "data/sounds/";
-	private static final String fontDir = "data/fonts/";
-	private static final String particlesDir = "data/particleeffects/";
+	private static final String TEXTURE_DIR = "data/textures/";
+	private static final String MUSIC_DIR = "data/music/";
+	private static final String SOUND_DIR = "data/sounds/";
+	private static final String FONT_DIR = "data/fonts/";
+	private static final String PARTICLES_DIR = "data/particleeffects/";
+	private static BitmapFont fontSmall, fontMedium, fontLarge;
 	
 	public static void loadTexture(String filename){
-		manager.load(textureDir+filename, Texture.class);
+		manager.load(TEXTURE_DIR+filename, Texture.class);
 	}
 	
 	public static void loadTextures(String[] filenames){
@@ -27,7 +30,7 @@ public abstract class AssetsLoader {
 	}
 	
 	public static void loadMusic(String filename){
-		manager.load(musicDir+filename, Music.class);
+		manager.load(MUSIC_DIR+filename, Music.class);
 	}
 	
 	public static void loadMusics(String[] filenames){
@@ -37,7 +40,7 @@ public abstract class AssetsLoader {
 	}
 	
 	public static void loadSound(String filename){
-		manager.load(soundDir+filename, Sound.class);
+		manager.load(SOUND_DIR+filename, Sound.class);
 	}
 	
 	public static void loadSounds(String[] filenames){
@@ -47,17 +50,17 @@ public abstract class AssetsLoader {
 	}
 	
 	public static void loadBitmapFont(String filename){
-		manager.load(fontDir+filename, BitmapFont.class);
+		manager.load(FONT_DIR+filename, BitmapFont.class);
 	}
 	
-	public static void loadBitmapFonts(String[] filenames){
+	public static void loadBitmapFonts(final String[] filenames){
 		for(String files: filenames){
 			loadBitmapFont(files);
 		}
 	}
 	
 	public static void loadParticleEffect(String filename){
-		manager.load(particlesDir+filename, ParticleEffect.class);
+		manager.load(PARTICLES_DIR+filename, ParticleEffect.class);
 	}
 	
 	public static void loadParticleEffects(String[] filenames){
@@ -67,7 +70,7 @@ public abstract class AssetsLoader {
 	}
 	
 	public static Texture getTexture(String filename){
-		return manager.get(textureDir+filename, Texture.class);
+		return manager.get(TEXTURE_DIR+filename, Texture.class);
 	}
 	
 	public static Texture[] getTextures(String[] filenames){
@@ -79,7 +82,7 @@ public abstract class AssetsLoader {
 	}
 	
 	public static Music getMusic(String filename){
-		return manager.get(musicDir+filename, Music.class);
+		return manager.get(MUSIC_DIR+filename, Music.class);
 	}
 	
 	public static Music[] getMusics(String[] filenames){
@@ -91,7 +94,7 @@ public abstract class AssetsLoader {
 	}
 	
 	public static Sound getSound(String filename){
-		return manager.get(soundDir+filename, Sound.class);
+		return manager.get(SOUND_DIR+filename, Sound.class);
 	}
 	
 	public static Sound[] getSounds(String[] filenames){
@@ -103,7 +106,7 @@ public abstract class AssetsLoader {
 	}
 	
 	public static BitmapFont getBitmapFont(String filename){
-		return manager.get(fontDir+filename, BitmapFont.class);
+		return manager.get(FONT_DIR+filename, BitmapFont.class);
 	}
 	
 	public static BitmapFont[] getBitmapFonts(String[] filenames){
@@ -115,7 +118,7 @@ public abstract class AssetsLoader {
 	}
 	
 	public static ParticleEffect getParticleEffect(String filename){
-		return manager.get(particlesDir+filename, ParticleEffect.class);
+		return manager.get(PARTICLES_DIR+filename, ParticleEffect.class);
 	}
 	
 	public static ParticleEffect[] getParticleEffects(String[] filenames){
@@ -127,7 +130,7 @@ public abstract class AssetsLoader {
 	}
 	
 	public static void unloadTexture(String filename){
-		manager.unload(textureDir+filename);
+		manager.unload(TEXTURE_DIR+filename);
 	}
 	
 	public static void unloadTextures(String[] filenames){
@@ -137,7 +140,7 @@ public abstract class AssetsLoader {
 	}
 	
 	public static void unloadMusic(String filename){
-		manager.unload(musicDir+filename);
+		manager.unload(MUSIC_DIR+filename);
 	}
 	
 	public static void unloadMusics(String[] filenames){
@@ -147,7 +150,7 @@ public abstract class AssetsLoader {
 	}
 	
 	public static void unloadSound(String filename){
-		manager.unload(soundDir+filename);
+		manager.unload(SOUND_DIR+filename);
 	}
 	
 	public static void unloadSounds(String[] filenames){
@@ -157,17 +160,17 @@ public abstract class AssetsLoader {
 	}
 	
 	public static void unloadBitmapFont(String filename){
-		manager.unload(fontDir+filename);
+		manager.unload(FONT_DIR+filename);
 	}
 	
-	public static void unloadBitmapFonts(String[] filenames){
+	public static void unloadBitmapFonts(final String[] filenames){
 		for(String files: filenames){
 			unloadBitmapFont(files);
 		}
 	}
 	
 	public static void unloadParticleEffect(String filename){
-		manager.unload(particlesDir+filename);
+		manager.unload(PARTICLES_DIR+filename);
 	}
 	
 	public static void unloadParticleEffects(String[] filenames){
@@ -190,5 +193,29 @@ public abstract class AssetsLoader {
 	
 	public static float getProgress(){
 		return manager.getProgress();
+	}
+	
+	public static void finishLoading(){
+		manager.finishLoading();
+	}
+	
+	public static void createFonts(){
+		SmartFontGenerator fontGen = new SmartFontGenerator();
+		FileHandle exoFile = Gdx.files.internal("data/fonts/SourceSansPro-Regular.ttf");
+		fontSmall = fontGen.createFont(exoFile, "source-small", 96);
+		fontMedium = fontGen.createFont(exoFile, "source-medium", 128);
+		fontLarge = fontGen.createFont(exoFile, "source-large", 212);
+	}
+	
+	public static BitmapFont getSmallFont(){
+		return fontSmall;
+	}
+	
+	public static BitmapFont getMediumFont(){
+		return fontMedium;
+	}
+	
+	public static BitmapFont getLargeFont(){
+		return fontLarge;
 	}
 }
