@@ -47,40 +47,31 @@ public class MeteorDefense extends Game implements PropertyChangeListener {
 
 	@Override
 	public void pause() {
-		super.pause();
-		//if (Gdx.app.getType() == ApplicationType.Android) {
+		if (Gdx.app.getType() == ApplicationType.Android) {
 			save();
-		//}
+		}
+		super.pause();
 	}
 
 	@Override
 	public void dispose() {
+		if(Gdx.app.getType() != ApplicationType.Android){
+			save();
+		}
 		super.dispose();
-//		if (inGame) {
-//			for (Continent c : carouselScreen.getContinents()) {
-//				for (City city : c.getCities()) {
-//					city.reset();
-//				}
-//			}
-//		}
-//		save();
 	}
 
 	private void save() {
 		List<Continent> continents = carouselScreen.getContinents();
 		List<AbstractArmoryItem> items = armoryScreen.getUnselectedArmoryItems();
 		List<AbstractArmoryItem> choosenItems = armoryScreen.getSelectedArmoryItems();
-			for (Continent c : continents) {
+		for (Continent c : continents) {
+			if (inGame) {
 				for (City city : c.getCities()) {
 					city.reset();
 				}
 			}
-			for(AbstractArmoryItem item : items){
-				item.clear();
-			}
-			for(AbstractArmoryItem item : choosenItems){
-				item.clear();
-			}
+		}
 		SaveService.getInstance().save(
 				SoundService.getInstance().getSoundState(),
 				armoryDetaliedScreen.getWallet(),
@@ -88,6 +79,7 @@ public class MeteorDefense extends Game implements PropertyChangeListener {
 				items,
 				choosenItems);
 	}
+
 
 	/**
 	 * Initiate screens
@@ -138,9 +130,37 @@ public class MeteorDefense extends Game implements PropertyChangeListener {
 			newGame((City) evt.getNewValue());
 		} else if (evt.getPropertyName().equals("Gameover")) {
 			inGame = false;
-			scoreScreen.setScore((ScoreHandler) evt.getNewValue());
+			ScoreHandler scoreHandler = (ScoreHandler) evt.getNewValue();
+
+			// if game is won, next city in the continent should be unlocked
+			// (unless already unlocked)
+			if (!scoreHandler.isGameLost()) {
+				City city = (City) evt.getOldValue();
+				// find which continent the city belongs to
+				for (Continent continent : carouselScreen.getContinents()) {
+					List<City> cities = continent.getCities();
+					if (cities.contains(city)) {
+						// get next city and unlock it
+						if (cities.indexOf(city) + 1 < cities.size()) {
+							City nextCity = cities
+									.get(cities.indexOf(city) + 1);
+							if (nextCity.getState() == City.State.LOCKED) {
+								nextCity.setState(City.State.UNLOCKED);
+							}
+						}
+					}
+				}
+			}
+
+			scoreScreen.setScore(scoreHandler);
 			armoryDetaliedScreen.getWallet().addCoins(
-					(((ScoreHandler) evt.getNewValue()).getTotalScore()));
+					scoreHandler.getNewMoney());
+
+			for (Continent continent : carouselScreen.getContinents()) {
+				if (continent.getCities().contains(evt.getOldValue())) {
+
+				}
+			}
 			setScreen(scoreScreen);
 		} else if (evt.getPropertyName().equals("Scorescreen_finished")) {
 			carouselScreen.update();

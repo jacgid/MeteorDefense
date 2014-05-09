@@ -50,7 +50,7 @@ public class ReversedGravityEffectArmoryItem extends AbstractEffectArmoryItem {
 
 	@Override
 	public void update(float delta) {
-		int length = list.size();
+		/*int length = list.size();
 		for (int i = 0; i < length; i++) {
 			Meteor meteor = list.get(i);
 			float x = meteor.getX() + meteor.getBounds().radius;
@@ -63,14 +63,7 @@ public class ReversedGravityEffectArmoryItem extends AbstractEffectArmoryItem {
 				length--;
 				i--;
 			}
-		}
+		}*/
 	}
 	
-	@Override
-	public void clear(){
-		super.clear();
-		list.clear();
-		visibleMeteors = null;
-	}
-
 }
