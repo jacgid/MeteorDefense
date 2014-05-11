@@ -13,8 +13,7 @@ public class SlowMotionEffectArmoryItem extends AbstractEffectArmoryItem {
 
 	public SlowMotionEffectArmoryItem() {
 		name = "SlowMotionEffect";
-		description = "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Phasellus pulvinar, felis hendrerit venenatis imperdiet, nisi ante mattis diam, ut suscipit augue massa vel enim. Fusce.";
-
+		description = "Lorem ipsum dolor sit amet, consectetur adipiscing elit.";
 	}
 	
 	public SlowMotionEffectArmoryItem(State state, int upgradeIndex) {

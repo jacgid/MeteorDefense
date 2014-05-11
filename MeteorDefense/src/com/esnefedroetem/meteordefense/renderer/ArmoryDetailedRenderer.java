@@ -19,6 +19,7 @@ import com.badlogic.gdx.scenes.scene2d.ui.Label.LabelStyle;
 import com.badlogic.gdx.scenes.scene2d.ui.TextButton.TextButtonStyle;
 import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
+import com.esnefedroetem.meteordefense.util.AssetsLoader;
 
 public class ArmoryDetailedRenderer {
 
@@ -52,18 +53,18 @@ public class ArmoryDetailedRenderer {
 		
 		// assetsLabel
 		LabelStyle textLabelStyle = new LabelStyle();
-		textLabelStyle.font = new BitmapFont();
+		textLabelStyle.font = AssetsLoader.getSmallFont();
 		assetsLabel = new Label("", textLabelStyle);
-		table.add(assetsLabel).top().right().expandX();
+		table.add(assetsLabel).top().right();
 		
 		table.row();
 		
 		// nameLabel
 		LabelStyle nameLabelStyle = new LabelStyle();
-		nameLabelStyle.font = new BitmapFont();
+		nameLabelStyle.font = AssetsLoader.getMediumFont();
 		nameLabel = new Label("", nameLabelStyle);
 		
-		table.add(nameLabel).right().expandX();
+		table.add(nameLabel).left();
 		
 		table.row();
 		
@@ -73,7 +74,7 @@ public class ArmoryDetailedRenderer {
 		
 		table.add(descriptionLabel).maxWidth(550).fill();
 
-		table.row().row();
+		table.row();
 		
 		// upgradeLabel
 		upgradeLabel = new Label("", textLabelStyle);
@@ -84,7 +85,7 @@ public class ArmoryDetailedRenderer {
 
 		// textButtonStyle
 		TextButtonStyle textButtonStyle = new TextButtonStyle();
-		textButtonStyle.font = new BitmapFont();
+		textButtonStyle.font = AssetsLoader.getSmallFont();
 		textButtonStyle.fontColor = Color.CYAN;
 		
 		// upgradeButton

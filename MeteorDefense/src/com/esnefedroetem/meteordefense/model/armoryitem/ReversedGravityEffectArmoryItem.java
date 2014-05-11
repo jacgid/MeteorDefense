@@ -17,7 +17,7 @@ public class ReversedGravityEffectArmoryItem extends AbstractEffectArmoryItem {
 	
 	public ReversedGravityEffectArmoryItem() {
 		name = "ReversedGravityEffect";
-		description = "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Phasellus pulvinar, felis hendrerit venenatis imperdiet, nisi ante mattis diam, ut suscipit augue massa vel enim. Fusce.";
+		description = "Lorem ipsum dolor sit amet, consectetur adipiscing elit.";
 	}
 	
 	public ReversedGravityEffectArmoryItem(State state, int upgradeIndex) {
