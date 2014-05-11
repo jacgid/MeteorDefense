@@ -13,10 +13,6 @@ import com.esnefedroetem.meteordefense.model.Meteor;
 
 public abstract class AbstractEffectArmoryItem extends AbstractArmoryItem {
 	
-	public void performAct() {
-		getPropertyChangeSupport().firePropertyChange("addVisibleMeteors", null, this);
-	}
-	
 	public abstract void execute(List<Meteor> list);
 
 }

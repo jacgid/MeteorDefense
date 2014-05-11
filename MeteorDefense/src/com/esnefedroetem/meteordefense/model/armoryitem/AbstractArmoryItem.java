@@ -21,8 +21,6 @@ public abstract class AbstractArmoryItem implements IArmoryItemElement {
 		LOCKED, UNLOCKED;
 	}
 
-	private PropertyChangeSupport pcs = new PropertyChangeSupport(this);
-
 	private State state;
 	private int power, value, upgradeIndex;
 	private float cooldown;
@@ -59,18 +57,6 @@ public abstract class AbstractArmoryItem implements IArmoryItemElement {
 		power = 0;
 		cooldown = 0;
 		upgrade();
-	}
-
-	public void addChangeListener(PropertyChangeListener pcl) {
-		pcs.addPropertyChangeListener(pcl);
-	}
-
-	public void removeChangeListener(PropertyChangeListener pcl) {
-		pcs.removePropertyChangeListener(pcl);
-	}
-
-	public PropertyChangeSupport getPropertyChangeSupport() {
-		return pcs;
 	}
 
 	public State getState() {
@@ -154,8 +140,6 @@ public abstract class AbstractArmoryItem implements IArmoryItemElement {
 		}
 		return false;
 	}
-
-	public abstract void performAct();
 
 	public abstract void initUpgrades();
 

@@ -20,10 +20,6 @@ public abstract class AbstractProjectileArmoryItem extends AbstractArmoryItem {
 		projectileSize = 1;
 	}
 	
-	public void performAct() {
-		getPropertyChangeSupport().firePropertyChange("loadCannonBarrel", null, this);
-	}
-	
 	public int getProjectileSize() {
 		return projectileSize;
 	}

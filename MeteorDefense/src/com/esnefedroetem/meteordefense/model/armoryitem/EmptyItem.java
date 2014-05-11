@@ -14,11 +14,6 @@ public class EmptyItem extends AbstractArmoryItem {
 	}
 	
 	@Override
-	public void performAct() {
-		
-	}
-
-	@Override
 	public void initUpgrades() {
 		ArrayList<Upgrade> upgrades = new ArrayList<Upgrade>();
 		for(int i = 0; i < 1; i++) {
