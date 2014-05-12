@@ -102,7 +102,9 @@ public class ArmoryDetailedScreen implements Screen, PropertyChangeListener{
 	private void initializeInfo() {
 		renderer.setAssetsLabelText(wallet.getAssets() + "");
 		renderer.setNameLabelText(armoryItem.getName());
-		renderer.setDescriptionLabelText(armoryItem.getDescription() + "\n\nPower: " + armoryItem.getPower() + "\nCooldown: " + armoryItem.getCooldown() + " sec\n");
+		renderer.setDescriptionLabelText(armoryItem.getDescription() + "\n");
+		renderer.setPowerLabelText("Power: " + armoryItem.getPower());
+		renderer.setCooldownLabelText("Cooldown: " + armoryItem.getCooldown() + " sec\n");
 		renderer.setUpgradeLabelText("Next upgrade\n" + armoryItem.getNextUpgradeInfo() + "\n");
 		
 		if(armoryItem.getState() == AbstractArmoryItem.State.LOCKED) {
