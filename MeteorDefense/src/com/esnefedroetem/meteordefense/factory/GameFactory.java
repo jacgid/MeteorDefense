@@ -84,9 +84,9 @@ public class GameFactory implements IGameFactory {
 	}
 
 	private GameScreen createGameScreen(PropertyChangeListener meteorDefense) {
-		GameModel model = new GameModel(new CannonBarrel());
+		GameModel model = new GameModel(meteorDefense, new CannonBarrel());
 		GameRenderer renderer = new GameRenderer(model);
-		return new GameScreen(model, renderer, meteorDefense);
+		return new GameScreen(model, renderer);
 	}
 
 	private ScoreScreen createScoreScreen(PropertyChangeListener listener) {

@@ -14,17 +14,33 @@ public class ScoreHandler {
 	private int meteorScore, maxMeteorScore;
 	private int oldScore;
 	
-	public ScoreHandler(int meteorHits, int numberOfProjectilesUsed, int remaningLife, int maxLife, int meteorScore,
-			int maxMeteorScore, int oldScore) {
-		this.numberOfMeteorHits = meteorHits;
-		this.numberOfProjectilesUsed = numberOfProjectilesUsed;
-		this.remaningLife = remaningLife;
+	public void reset(){
+		this.numberOfMeteorHits = 0;
+		this.numberOfProjectilesUsed = 0;
+		this.remaningLife = 0;
+		this.maxLife = 0;
+		this.meteorScore = 0;
+		this.maxMeteorScore = 0;
+		this.oldScore = 0;
+	}
+	
+	public void weaponFired(){
+		numberOfProjectilesUsed++;
+	}
+	
+	public void meteorHit(){
+		numberOfMeteorHits++;
+	}
+	
+	public void meteorDestroyed(Meteor meteor){
+		meteorScore += meteor.getDifficulty();
+	}
+	
+	public void gameOver(int remainingLife, int maxLife, int oldScore, int maxMeteorScore){
+		this.remaningLife = remainingLife;
 		this.maxLife = maxLife;
-		this.meteorScore = meteorScore;
-		this.maxMeteorScore = maxMeteorScore;
 		this.oldScore = oldScore;
-		calculateMaxScore();
-
+		this.maxMeteorScore = maxMeteorScore;
 	}
 
 	public float getRemaningLifeInProcent() {

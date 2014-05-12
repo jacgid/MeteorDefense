@@ -20,6 +20,7 @@ import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.math.Vector3;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
+import com.badlogic.gdx.scenes.scene2d.InputListener;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.scenes.scene2d.actions.Actions;
 import com.badlogic.gdx.scenes.scene2d.ui.ImageButton;
@@ -29,6 +30,7 @@ import com.badlogic.gdx.scenes.scene2d.ui.Table;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 import com.badlogic.gdx.scenes.scene2d.utils.SpriteDrawable;
 import com.esnefedroetem.meteordefense.model.GameModel;
+import com.esnefedroetem.meteordefense.model.IGameModel;
 import com.esnefedroetem.meteordefense.model.Meteor;
 import com.esnefedroetem.meteordefense.model.Projectile;
 import com.esnefedroetem.meteordefense.util.AssetsLoader;
@@ -40,18 +42,12 @@ import com.esnefedroetem.meteordefense.util.Constants;
  */
 public class GameRenderer {
 
-	private float cameraWidth = Constants.LOGIC_SCREEN_WIDTH;
-	private float cameraHeight = Constants.LOGIC_SCREEN_HEIGHT;
-	
 	private OrthographicCamera gameCam, bgCam;
 	private SpriteBatch spriteBatch;
 	
 	private int width, height;
-	private float ppuX, ppuY;
 	
-	private GameModel model;
-	
-	private PropertyChangeSupport pcs;
+	private IGameModel model;
 	
 	private Stage stage;
 	private Table debugTable;
@@ -69,22 +65,18 @@ public class GameRenderer {
 	private float scale;
 
 	private int score;
-	private ArrayList<Meteor> lastKilledMeteors = new ArrayList<Meteor>();
 	private BitmapFont hitScore;
 	
 	/**
 	 * Initializes GameRenderer.
 	 */
-	public GameRenderer(GameModel model){
+	public GameRenderer(IGameModel model){
 		this.model = model;
-		cameraWidth = GameModel.WIDTH;
-		cameraHeight = GameModel.HEIGHT;
-		gameCam = new OrthographicCamera(cameraWidth, cameraHeight);
-		gameCam.position.set(cameraWidth/2, cameraHeight/2, 0);
+		gameCam = new OrthographicCamera(model.getWidth(), model.getHeight());
+		gameCam.position.set(model.getWidth() / 2, model.getHeight() / 2, 0);
 		gameCam.update();
 		bgCam = new OrthographicCamera();
 		spriteBatch = new SpriteBatch();
-		pcs = new PropertyChangeSupport(this);
 		stage = new Stage();
 		stage.setCamera(gameCam);
 		loadTextures();
@@ -121,7 +113,7 @@ public class GameRenderer {
 //		scoreLabelStyle.font.scale(7);
 //		score = model.calculateScore().getMeteorScore();
 		scoreLable = new Label(score + "", scoreLabelStyle);
-		scoreLable.setPosition(0, cameraHeight-scoreLable.getHeight());
+		scoreLable.setPosition(0, model.getHeight()-scoreLable.getHeight());
 //		UITable.add(scoreLable).fill();
 		
 		stage.addActor(scoreLable);
@@ -138,26 +130,6 @@ public class GameRenderer {
 		final ImageButton button2 = new ImageButton(new SpriteDrawable(meteorSprite));
 		final ImageButton button3 = new ImageButton(new SpriteDrawable(meteorSprite));
 		final ImageButton button4 = new ImageButton(new SpriteDrawable(meteorSprite));
-		ClickListener click = new ClickListener(){
-			public void clicked(InputEvent event, float x, float y){
-				if(event.getTarget().getParent() == button1){
-					pcs.firePropertyChange("buttonClicked", 1, false);
-				}
-				if(event.getTarget().getParent() == button2){
-					pcs.firePropertyChange("buttonClicked", 2, false);
-				}
-				if(event.getTarget().getParent() == button3){
-					pcs.firePropertyChange("buttonClicked", 4, false);
-				}
-				if(event.getTarget().getParent() == button4){
-					pcs.firePropertyChange("buttonClicked", 5, false);
-				}
-			}
-		};
-		button1.addListener(click);
-		button2.addListener(click);
-		button3.addListener(click);
-		button4.addListener(click);
 		toolbarTable.add(button1).width(Constants.LOGIC_SCREEN_WIDTH/8).padLeft(Constants.LOGIC_SCREEN_WIDTH/32).padRight(Constants.LOGIC_SCREEN_WIDTH/32);
 		toolbarTable.add(button2).width(Constants.LOGIC_SCREEN_WIDTH/8).padLeft(Constants.LOGIC_SCREEN_WIDTH/32).padRight(Constants.LOGIC_SCREEN_WIDTH/6);
 		toolbarTable.add(button3).width(Constants.LOGIC_SCREEN_WIDTH/8).padLeft(Constants.LOGIC_SCREEN_WIDTH/6).padRight(Constants.LOGIC_SCREEN_WIDTH/32);
@@ -246,7 +218,7 @@ public class GameRenderer {
 //		drawDebug();
 		
 		lifeLabel.setText(model.getCity().getLife() + "");
-		score = model.getMeteorScore();
+		score = model.getScore();
 		scoreLable.setText(score + "");
 
 	}
@@ -256,7 +228,6 @@ public class GameRenderer {
 			loadSprites();
 			loadUI();
 			spritesLoaded = true;
-			pcs.firePropertyChange("addInputProcessor", stage, false);
 		}
 	}
 	
@@ -286,14 +257,15 @@ public class GameRenderer {
 	
 	private void drawHits(){
 		
-		lastKilledMeteors = model.getKilledMeteors();
-		
-		for(Meteor meteor : lastKilledMeteors){
+		for(Meteor meteor : model.getMeteorsToBlow()){
 			Label hitLabel = new Label(""+meteor.getDifficulty(),hitLabelStyle);
 			hitLabel.addAction(Actions.sequence(Actions.fadeOut(0.5f), Actions.removeActor()));
 			stage.addActor(hitLabel);
 			hitLabel.setPosition(meteor.getBounds().x, meteor.getBounds().y);
 		}
+		
+		model.getMeteorsToBlow().clear();
+		
 	}
 	
 	/**
@@ -310,9 +282,6 @@ public class GameRenderer {
 		bgCam.viewportHeight = height;
 		bgCam.position.set(width/2, height/2, 0);
 		bgCam.update();
-		
-		ppuX = (float) width / Constants.LOGIC_SCREEN_WIDTH;
-		ppuY = (float) height / Constants.LOGIC_SCREEN_HEIGHT;
 		
 		float aspectRatio = (float)width/(float)height;
         scale = 1f;
@@ -338,8 +307,12 @@ public class GameRenderer {
         viewport = new Rectangle(crop.x, crop.y, w, h);
 	}
 	
-	public void addChangeListener(PropertyChangeListener listener){
-		pcs.addPropertyChangeListener(listener);
+	public void addListeners(InputListener inputListener, ClickListener clickListener){
+		stage.addListener(inputListener);
+	}
+	
+	public void setInputProcessor(){
+		Gdx.input.setInputProcessor(stage);
 	}
 	
 	private void drawDebug(){
@@ -397,7 +370,7 @@ public class GameRenderer {
 		Table.drawDebug(stage);
 	}
 	
-	public Vector2 unproject(int x, int y){
+	public Vector2 unproject(float x, float y){
 		Vector3 temp = new Vector3(x,y,0);
 		gameCam.unproject(temp, viewport.x, viewport.y,
                 viewport.width, viewport.height);

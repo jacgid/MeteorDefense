@@ -163,12 +163,13 @@ public class MeteorShower {
 	 * @param projectileType
 	 * 
 	 */
-	public void meteorHit(Meteor meteor, int damage,
+	public boolean meteorHit(Meteor meteor, int damage,
 			Projectile.ProjectileType projectileType) {
 		if (meteor.willSurvive(damage)) {
 			meteor.hit(damage, projectileType);
+			return false;
 		} else {
-			visibleMeteors.remove(meteor);
+			return true;
 		}
 
 	}
