@@ -24,6 +24,7 @@ public class MainMenuRenderer {
 	private PropertyChangeSupport pcs;
 	private SpriteBatch spriteBatch;
 	private Stage stage;
+	private AssetsLoader assetsLoader = AssetsLoader.getInstance();
 	
 	public enum MainMenuEvent{
 		MAINMENU_PLAY_CLICKED,
@@ -46,17 +47,17 @@ public class MainMenuRenderer {
 		tablebottom.setFillParent(true);
 		Table background = new Table();
 		background.setFillParent(true);
-		background.add(new Image(AssetsLoader.getTexture("StartScreenBG.png"))).width(Gdx.graphics.getWidth()).height(Gdx.graphics.getHeight());
+		background.add(new Image(assetsLoader.getTexture("StartScreenBG.png"))).width(Gdx.graphics.getWidth()).height(Gdx.graphics.getHeight());
 		stage.addActor(background);
 		stage.addActor(table);
 		stage.addActor(tablebottom);
 		
 		ButtonStyle playButtonstyle = new ButtonStyle();
-		playButtonstyle.up = new TextureRegionDrawable(new TextureRegion(AssetsLoader.getTexture("PlayButton.png")));
+		playButtonstyle.up = new TextureRegionDrawable(new TextureRegion(assetsLoader.getTexture("PlayButton.png")));
 		
 		ButtonStyle soundButtonstyle = new ButtonStyle();
-		soundButtonstyle.up = new TextureRegionDrawable(new TextureRegion(AssetsLoader.getTexture("MusicTrue.png")));
-		soundButtonstyle.checked = new TextureRegionDrawable(new TextureRegion(AssetsLoader.getTexture("MusicFalse.png")));
+		soundButtonstyle.up = new TextureRegionDrawable(new TextureRegion(assetsLoader.getTexture("MusicTrue.png")));
+		soundButtonstyle.checked = new TextureRegionDrawable(new TextureRegion(assetsLoader.getTexture("MusicFalse.png")));
 
 		Button playButton = new Button(playButtonstyle);
 		final Button soundButton = new Button(soundButtonstyle);

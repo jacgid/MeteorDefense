@@ -26,6 +26,7 @@ public class SplashScreen implements Screen {
 	private long startTime;
 	private boolean isLoaded;
 	private Stage stage;
+	private AssetsLoader assetsLoader = AssetsLoader.getInstance();
 	
 	public enum SplashScreenEvent{
 		SPLASHSCREEN_ENDED, GAMESPLASHSCREEN_ENDED
@@ -51,8 +52,8 @@ public class SplashScreen implements Screen {
 		stage.draw();
 		if(TimeUtils.millis() - startTime > splashTime){
 			if(!isLoaded){
-				AssetsLoader.createFonts();
-				AssetsLoader.loadAllTextures();
+				assetsLoader.createFonts();
+				assetsLoader.loadAllTextures();
 				isLoaded = true;
 				pcs.firePropertyChange(SplashScreenEvent.SPLASHSCREEN_ENDED.toString(), false, true);
 			}
