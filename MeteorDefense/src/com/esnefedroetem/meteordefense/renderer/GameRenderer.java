@@ -105,10 +105,10 @@ public class GameRenderer {
 		btnItem2 = new Button(btnstyle2);
 		btnItem2.setUserObject(2);
 		btnItem3 = new Button(btnstyle3);
-		btnItem3.setUserObject(3);
+		btnItem3.setUserObject(4);
 		btnItem4 = new Button(btnstyle4);
-		btnItem4.setUserObject(4);
-		imgCannon = new Image(assetsLoader.getTexture("Gun.png"));
+		btnItem4.setUserObject(5);
+		imgCannon = new Image();
 		Table toolBarTable = new Table();
 		toolBarTable.setFillParent(true);
 		toolBarTable.add(btnItem1).bottom().expand();
@@ -283,7 +283,8 @@ public class GameRenderer {
 		btnstyle3.up = new TextureRegionDrawable(new TextureRegion(assetsLoader.getTexture(items.get(3).getName() + ".png")));
 		btnstyle4.up = new TextureRegionDrawable(new TextureRegion(assetsLoader.getTexture(items.get(4).getName() + ".png")));
 		imgCityMonument.setDrawable(new TextureRegionDrawable(new TextureRegion(assetsLoader.getTexture("ParisMonument.png"))));
-		imgCity.setDrawable(new TextureRegionDrawable(new TextureRegion(assetsLoader.getTexture("EuropeCity.png"))));
+		imgCity.setDrawable(new TextureRegionDrawable(new TextureRegion(assetsLoader.getTexture("Europe1.png"))));
+		imgCannon.setDrawable(new TextureRegionDrawable(new TextureRegion(assetsLoader.getTexture(items.get(2).getName() + ".png"))));
 		//TODO change to specific city monument
 	}
 	

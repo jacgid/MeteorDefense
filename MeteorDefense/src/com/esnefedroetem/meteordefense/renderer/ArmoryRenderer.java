@@ -9,6 +9,7 @@ import java.util.List;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input.Keys;
 import com.badlogic.gdx.graphics.GL20;
+import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
@@ -16,6 +17,8 @@ import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.InputListener;
 import com.badlogic.gdx.scenes.scene2d.Stage;
+import com.badlogic.gdx.scenes.scene2d.ui.Button;
+import com.badlogic.gdx.scenes.scene2d.ui.Button.ButtonStyle;
 import com.badlogic.gdx.scenes.scene2d.ui.Image;
 import com.badlogic.gdx.scenes.scene2d.ui.Table;
 import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
@@ -25,9 +28,11 @@ import com.badlogic.gdx.scenes.scene2d.utils.DragAndDrop;
 import com.badlogic.gdx.scenes.scene2d.utils.DragAndDrop.Payload;
 import com.badlogic.gdx.scenes.scene2d.utils.DragAndDrop.Source;
 import com.badlogic.gdx.scenes.scene2d.utils.DragAndDrop.Target;
+import com.badlogic.gdx.scenes.scene2d.utils.Drawable;
 import com.badlogic.gdx.scenes.scene2d.utils.TextureRegionDrawable;
 import com.esnefedroetem.meteordefense.model.armoryitem.AbstractArmoryItem;
 import com.esnefedroetem.meteordefense.util.AssetsLoader;
+import com.esnefedroetem.meteordefense.util.Constants;
 
 public class ArmoryRenderer {
 
@@ -38,6 +43,8 @@ public class ArmoryRenderer {
 	private Table topTable, bottomTable;
 	private boolean dragFinished;
 	private AssetsLoader assetsLoader = AssetsLoader.getInstance();
+	private AbstractArmoryItem standardItem;
+	private float aspect;
 
 	private ClickListener clickListener = new ClickListener() {
 		public void clicked(InputEvent event, float x, float y) {
@@ -75,9 +82,11 @@ public class ArmoryRenderer {
 		bottomTable = new Table();
 
 		dragAndDrop = new DragAndDrop();
-
+		
 		createActionBar(bottomTable, dragAndDrop, choosenItems);
 		createItemGrid(topTable, dragAndDrop, items);
+
+		standardItem = choosenItems.get(2);
 
 		topTable.top();
 		bottomTable.bottom();
@@ -88,7 +97,7 @@ public class ArmoryRenderer {
 
 		Table background = new Table();
 		background.setFillParent(true);
-		background.add(new Image(assetsLoader.getTexture("MenuBG.png")))
+		background.add(new Image(assetsLoader.getTexture("MDBG.png")))
 				.width(Gdx.graphics.getWidth())
 				.height(Gdx.graphics.getHeight());
 
@@ -117,15 +126,18 @@ public class ArmoryRenderer {
 			List<AbstractArmoryItem> items) {
 
 		for (int i = 0; i < items.size(); i++) {
-			TextButtonStyle style = new TextButtonStyle();
-			style.font = new BitmapFont();
+			ButtonStyle style = new ButtonStyle();
 			style.up = new TextureRegionDrawable(new TextureRegion(
 					assetsLoader.getTexture((items.get(i).getName() + ".png"))));
-			Actor actor = new TextButton("", style);
+			Actor actor = new Button(style);
 			actor.setUserObject(items.get(i));
 			actor.setName(i + "");
-			table.add(actor).pad(10).width(Gdx.graphics.getWidth() / 6.5F)
-					.height(Gdx.graphics.getWidth() / 6.5F);
+			float aspect = style.up.getMinHeight() / style.up.getMinWidth();
+			if(i == 2){
+				this.aspect = aspect;
+			}
+			table.add(actor).width(Gdx.graphics.getWidth() / 5.5F)
+			.height(Gdx.graphics.getWidth() / 5.5F * aspect);
 			if (!items.get(i).equals(AbstractArmoryItem.EMPTY_ITEM)) {
 				actor.addListener(clickListener);
 			}
@@ -145,15 +157,14 @@ public class ArmoryRenderer {
 
 		for (int i = 1; i <= items.size(); i++) {
 			AbstractArmoryItem item = items.get(i - 1);
-			TextButtonStyle style = new TextButtonStyle();
-			style.font = new BitmapFont();
+			ButtonStyle style = new ButtonStyle();
 			style.up = new TextureRegionDrawable(new TextureRegion(
 					assetsLoader.getTexture(item.getName() + ".png")));
-			Actor actor = new TextButton("", style);
+			Actor actor = new Button(style);
 			actor.setUserObject(item);
 			actor.setName(i - 1 + "");
-			table.add(actor).pad(10).width(Gdx.graphics.getWidth() / 6.5F)
-					.height(Gdx.graphics.getWidth() / 6.5F);
+			table.add(actor).width(Gdx.graphics.getWidth() / 5.5F)
+					.height(Gdx.graphics.getWidth() / 5.5F);
 
 			if (!item.equals(AbstractArmoryItem.EMPTY_ITEM)) {
 				actor.addListener(clickListener);
@@ -182,8 +193,8 @@ public class ArmoryRenderer {
 						new Image(assetsLoader
 								.getTexture(((AbstractArmoryItem) getActor()
 										.getUserObject()).getName() + ".png")))
-						.width(Gdx.graphics.getWidth() / 6.5F)
-						.height(Gdx.graphics.getWidth() / 6.5F);
+						.width(Gdx.graphics.getWidth() / 5.5F)
+						.height(Gdx.graphics.getWidth() / 5.5F);
 				payload.setDragActor(table);
 				getActor().setVisible(false);
 				return payload;
@@ -276,9 +287,17 @@ public class ArmoryRenderer {
 		// childs.remove(actor);
 		childs.add(pos, actor);
 		for (int i = 1; i <= childs.size(); i++) {
-			table.add(childs.get(i - 1)).pad(10)
-					.width(Gdx.graphics.getWidth() / 6.5F)
-					.height(Gdx.graphics.getWidth() / 6.5F);
+			Actor child = childs.get(i - 1); 
+			if(child.getUserObject().equals(standardItem)){
+				table.add(child)
+				.width(Gdx.graphics.getWidth() / 5.5F)
+				.height(Gdx.graphics.getWidth() / 5.5F * aspect);
+				
+			}else{
+				table.add(child)
+					.width(Gdx.graphics.getWidth() / 5.5F)
+					.height(Gdx.graphics.getWidth() / 5.5F);
+			}
 			if (i % columns == 0) {
 				table.row();
 			}

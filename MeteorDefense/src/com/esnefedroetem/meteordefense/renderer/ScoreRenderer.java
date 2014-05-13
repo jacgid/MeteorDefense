@@ -152,6 +152,7 @@ public class ScoreRenderer {
 
 	public void show() {
 		Gdx.input.setInputProcessor(stage);
+		Gdx.gl.glViewport(0, 0, Gdx.graphics.getWidth(), Gdx.graphics.getHeight());
 	}
 	
 	public void dispose(){

@@ -13,6 +13,7 @@ import com.esnefedroetem.meteordefense.model.City;
 import com.esnefedroetem.meteordefense.model.GameModel;
 import com.esnefedroetem.meteordefense.model.armoryitem.AbstractArmoryItem;
 import com.esnefedroetem.meteordefense.renderer.GameRenderer;
+import com.esnefedroetem.meteordefense.util.Constants;
 
 /**
  * The GameScreen is the screen where the game is running.
@@ -44,14 +45,13 @@ public class GameScreen implements Screen{
 		@Override
 		public boolean touchDown(InputEvent event, float x, float y,
 				int pointer, int button) {
-			return true;
+			if(y > Constants.CITY_BOUNDS.y + Constants.CITY_BOUNDS.height){
+				model.shoot(x, y);
+				return true;
+			}
+			return false;
 		}
 		
-		@Override
-		public void touchUp(InputEvent event, float x, float y,
-				int pointer, int button) {
-			model.shoot(x, y);
-		}
 	};
 	
 	public GameScreen(GameModel model, GameRenderer renderer){
