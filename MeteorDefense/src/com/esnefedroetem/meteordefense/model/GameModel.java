@@ -52,14 +52,14 @@ public class GameModel implements IGameModel {
 	public void newGame(City city, List<AbstractArmoryItem> selectedArmoryItems) {
 		this.city = city;
 		this.armoryItems = selectedArmoryItems;
-		this.visitor = new ArmoryItemVisitor(this.city, this.meteorShower);
 		standardWeapon = selectedArmoryItems.get(2);
 		selectedArmoryItem = standardWeapon;
-		cannonBarrel.load(standardWeapon.accept(visitor));
 		scoreHandler.reset();
 		meteorShower = city.getMeteorShower();
 		meteorShower.loadMeteors();
 		meteorShower.start();
+		this.visitor = new ArmoryItemVisitor(this.city, this.meteorShower);
+		cannonBarrel.load(standardWeapon.accept(visitor));
 		isPaused = false;
 	}
 

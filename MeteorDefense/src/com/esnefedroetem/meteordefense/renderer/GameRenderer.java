@@ -100,9 +100,13 @@ public class GameRenderer {
 		btnstyle3 = new ButtonStyle();
 		btnstyle4 = new ButtonStyle();
 		btnItem1 = new Button(btnstyle1);
+		btnItem1.setUserObject(1);
 		btnItem2 = new Button(btnstyle2);
+		btnItem2.setUserObject(2);
 		btnItem3 = new Button(btnstyle3);
+		btnItem3.setUserObject(3);
 		btnItem4 = new Button(btnstyle4);
+		btnItem4.setUserObject(4);
 		imgCannon = new Image(AssetsLoader.getTexture("Gun.png"));
 		Table toolBarTable = new Table();
 		toolBarTable.setFillParent(true);
@@ -166,26 +170,22 @@ public class GameRenderer {
 		Gdx.gl.glClearColor(94f, 97f, 225f, 1);
 		Gdx.gl.glClear(GL11.GL_COLOR_BUFFER_BIT|GL11.GL_STENCIL_BUFFER_BIT);
 		
-		spriteBatch.setProjectionMatrix(gameCam.combined);
-		
-		gameCam.update();
-		gameCam.apply(Gdx.gl10);
-		Gdx.gl.glViewport((int) viewport.x, (int) viewport.y,
-                (int) viewport.width, (int) viewport.height);
-		
-		drawHits();
+		Gdx.gl.glViewport(0, 0, width, height);
 		lifeLabel.setText(model.getCity().getLife() + "");
 		scoreLable.setText(model.getScore() + "");
 		bgStage.act();
 		bgStage.draw();
-		spriteBatch.begin();
-		//Drawing is done here
-		
-			drawSprites();
-		
-		spriteBatch.end();
+		drawHits();
+		Gdx.gl.glViewport((int) viewport.x, (int) viewport.y,
+                (int) viewport.width, (int) viewport.height);
+		gameCam.update();
+		gameCam.apply(Gdx.gl10);
+		spriteBatch.setProjectionMatrix(gameCam.combined);
 		gameStage.act();
 		gameStage.draw();
+		spriteBatch.begin();
+		drawSprites();
+		spriteBatch.end();
 //		drawDebug();
 		
 
@@ -206,6 +206,8 @@ public class GameRenderer {
 //		cannonSprite.setOrigin(cannonSprite.getWidth()/2, cannonSprite.getHeight()/3);
 //		cannonSprite.setRotation((float) Math.toDegrees(model.getCannonAngle())-90);
 //		cannonSprite.draw(spriteBatch);
+		imgCannon.setOrigin(imgCannon.getWidth() / 2 + 2, imgCannon.getHeight() - 111);
+		imgCannon.setRotation(((float) Math.toDegrees(model.getCannonAngle())-90));
 		for(Projectile projectile : model.getVisibleProjectiles()){
 			float x = projectile.getX() - projectile.getBounds().radius;
 			float y = projectile.getY() - projectile.getBounds().radius;
@@ -275,12 +277,13 @@ public class GameRenderer {
 	}
 	
 	public void newGame(City city, List<AbstractArmoryItem> items){
-//		btnstyle1.up = new TextureRegionDrawable(new TextureRegion(AssetsLoader.getTexture(items.get(0).getName() + ".png")));
-//		btnstyle2.up = new TextureRegionDrawable(new TextureRegion(AssetsLoader.getTexture(items.get(1).getName() + ".png")));
-//		btnstyle3.up = new TextureRegionDrawable(new TextureRegion(AssetsLoader.getTexture(items.get(3).getName() + ".png")));
-//		btnstyle4.up = new TextureRegionDrawable(new TextureRegion(AssetsLoader.getTexture(items.get(4).getName() + ".png")));
+		btnstyle1.up = new TextureRegionDrawable(new TextureRegion(AssetsLoader.getTexture(items.get(0).getName() + ".png")));
+		btnstyle2.up = new TextureRegionDrawable(new TextureRegion(AssetsLoader.getTexture(items.get(1).getName() + ".png")));
+		btnstyle3.up = new TextureRegionDrawable(new TextureRegion(AssetsLoader.getTexture(items.get(3).getName() + ".png")));
+		btnstyle4.up = new TextureRegionDrawable(new TextureRegion(AssetsLoader.getTexture(items.get(4).getName() + ".png")));
 		imgCityMonument.setDrawable(new TextureRegionDrawable(new TextureRegion(AssetsLoader.getTexture("ParisMonument.png"))));
 		imgCity.setDrawable(new TextureRegionDrawable(new TextureRegion(AssetsLoader.getTexture("EuropeCity.png"))));
+		//TODO change to specific city monument
 	}
 	
 	public void dispose(){
