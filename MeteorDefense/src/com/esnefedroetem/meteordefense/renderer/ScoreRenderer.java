@@ -28,6 +28,7 @@ public class ScoreRenderer {
 	private Stage stage;
 	private int score;
 	private Label totalScoreLabel,accuracyLabel, remainingLifeLable, meteorScoreLable;
+	private AssetsLoader assetsLoader = AssetsLoader.getInstance();
 	
 	private Color color;
 	Table starTable;
@@ -51,11 +52,11 @@ public class ScoreRenderer {
 		stage.addActor(table);
 
 		LabelStyle mediumLabelStyle = new LabelStyle();
-		mediumLabelStyle.font = AssetsLoader.getMediumFont();
+		mediumLabelStyle.font = assetsLoader.getMediumFont();
 		mediumLabelStyle.fontColor = new Color(Color.DARK_GRAY);
 		
 		LabelStyle largeLabelStyle = new LabelStyle();
-		largeLabelStyle.font = AssetsLoader.getLargeFont();
+		largeLabelStyle.font = assetsLoader.getLargeFont();
 		largeLabelStyle.fontColor = new Color(Color.WHITE);
 
 		meteorScoreLable = new Label("Meteor score: " , mediumLabelStyle);
@@ -64,7 +65,7 @@ public class ScoreRenderer {
 		totalScoreLabel = new Label("Total score: ", largeLabelStyle);
 
 		TextButtonStyle homeButtonstyle = new TextButtonStyle();
-		homeButtonstyle.font = AssetsLoader.getLargeFont();
+		homeButtonstyle.font = assetsLoader.getLargeFont();
 
 		TextButton homeButton = new TextButton("Home", homeButtonstyle);
 
@@ -129,13 +130,13 @@ public class ScoreRenderer {
 			// Fills the starTable with golden stars.
 			for (int i = 0; i < score.getStars(); i++) {
 
-				starTable.add(new Image(AssetsLoader.getTexture("star.png"))).pad(10)
+				starTable.add(new Image(assetsLoader.getTexture("star.png"))).pad(10)
 						.width(Gdx.graphics.getWidth() / 9).height(Gdx.graphics.getWidth() / 9);
 			}
 			// Fills the starTable with the remaining grey stars if needed.
 			for (int i = 2; i > score.getStars() - 1; i--) {
 
-				starTable.add(new Image(AssetsLoader.getTexture("starGrey.png"))).pad(10)
+				starTable.add(new Image(assetsLoader.getTexture("starGrey.png"))).pad(10)
 						.width(Gdx.graphics.getWidth() / 9).height(Gdx.graphics.getWidth() / 9);
 			}
 		} else {

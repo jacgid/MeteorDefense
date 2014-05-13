@@ -37,6 +37,7 @@ public class ArmoryRenderer {
 	private DragAndDrop dragAndDrop;
 	private Table topTable, bottomTable;
 	private boolean dragFinished;
+	private AssetsLoader assetsLoader = AssetsLoader.getInstance();
 
 	private ClickListener clickListener = new ClickListener() {
 		public void clicked(InputEvent event, float x, float y) {
@@ -87,7 +88,7 @@ public class ArmoryRenderer {
 
 		Table background = new Table();
 		background.setFillParent(true);
-		background.add(new Image(AssetsLoader.getTexture("MenuBG.png")))
+		background.add(new Image(assetsLoader.getTexture("MenuBG.png")))
 				.width(Gdx.graphics.getWidth())
 				.height(Gdx.graphics.getHeight());
 
@@ -119,7 +120,7 @@ public class ArmoryRenderer {
 			TextButtonStyle style = new TextButtonStyle();
 			style.font = new BitmapFont();
 			style.up = new TextureRegionDrawable(new TextureRegion(
-					AssetsLoader.getTexture((items.get(i).getName() + ".png"))));
+					assetsLoader.getTexture((items.get(i).getName() + ".png"))));
 			Actor actor = new TextButton("", style);
 			actor.setUserObject(items.get(i));
 			actor.setName(i + "");
@@ -147,7 +148,7 @@ public class ArmoryRenderer {
 			TextButtonStyle style = new TextButtonStyle();
 			style.font = new BitmapFont();
 			style.up = new TextureRegionDrawable(new TextureRegion(
-					AssetsLoader.getTexture(item.getName() + ".png")));
+					assetsLoader.getTexture(item.getName() + ".png")));
 			Actor actor = new TextButton("", style);
 			actor.setUserObject(item);
 			actor.setName(i - 1 + "");
@@ -178,7 +179,7 @@ public class ArmoryRenderer {
 				Payload payload = new Payload();
 				Table table = new Table();
 				table.add(
-						new Image(AssetsLoader
+						new Image(assetsLoader
 								.getTexture(((AbstractArmoryItem) getActor()
 										.getUserObject()).getName() + ".png")))
 						.width(Gdx.graphics.getWidth() / 6.5F)

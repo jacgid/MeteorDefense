@@ -36,7 +36,8 @@ public class MeteorDefense extends Game implements PropertyChangeListener {
 	private CarouselScreen carouselScreen;
 	private ScoreScreen scoreScreen;
 	private boolean inGame = false;
-
+	private AssetsLoader assetsLoader = AssetsLoader.getInstance();
+	
 	@Override
 	public void create() {
 		Texture.setEnforcePotImages(false);
@@ -65,7 +66,7 @@ public class MeteorDefense extends Game implements PropertyChangeListener {
 		gameScreen.dispose();
 		carouselScreen.dispose();
 		scoreScreen.dispose();
-		AssetsLoader.clear();;
+		assetsLoader.clear();;
 		super.dispose();
 	}
 

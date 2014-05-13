@@ -60,6 +60,7 @@ public class GameRenderer {
 	private Rectangle viewport;
 	private float scale;
 	private HashMap<String, Sprite> spriteMap;
+	private AssetsLoader assetsLoader = AssetsLoader.getInstance();
 
 	
 	/**
@@ -82,11 +83,11 @@ public class GameRenderer {
 		
 		Table bgImgTable = new Table();
 		bgImgTable.setFillParent(true);
-		bgImgTable.add(new Image(AssetsLoader.getTexture("MDBG.png"))).expand().fill();
+		bgImgTable.add(new Image(assetsLoader.getTexture("MDBG.png"))).expand().fill();
 		bgStage.addActor(bgImgTable);
 		
 		lblStyleMedium = new LabelStyle();
-		lblStyleMedium.font = AssetsLoader.getMediumFont();
+		lblStyleMedium.font = assetsLoader.getMediumFont();
 		lifeLabel = new Label("", lblStyleMedium);
 		scoreLable = new Label("0", lblStyleMedium);
 		Table lblTable = new Table();
@@ -103,7 +104,7 @@ public class GameRenderer {
 		btnItem2 = new Button(btnstyle2);
 		btnItem3 = new Button(btnstyle3);
 		btnItem4 = new Button(btnstyle4);
-		imgCannon = new Image(AssetsLoader.getTexture("Gun.png"));
+		imgCannon = new Image(assetsLoader.getTexture("Gun.png"));
 		Table toolBarTable = new Table();
 		toolBarTable.setFillParent(true);
 		toolBarTable.add(btnItem1).bottom().expand();
@@ -113,7 +114,7 @@ public class GameRenderer {
 		toolBarTable.add(btnItem4).bottom().expand();
 		Table toolBarBG = new Table();
 		toolBarBG.setFillParent(true);
-		toolBarBG.add(new Image(AssetsLoader.getTexture("Toolbar.png"))).bottom().expand();
+		toolBarBG.add(new Image(assetsLoader.getTexture("Toolbar.png"))).bottom().expand();
 		
 		imgCityMonument = new Image();
 		imgCity = new Image();
@@ -144,8 +145,8 @@ public class GameRenderer {
 //		toolbarTexture.setFilter(TextureFilter.Linear, TextureFilter.Linear);
 //		bgTexture.setFilter(TextureFilter.Linear, TextureFilter.Linear);
 		
-		meteorSprite = new Sprite(AssetsLoader.getTexture("meteor1.png"));
-		projectileSprite = new Sprite(AssetsLoader.getTexture("projectile1.png"));
+		meteorSprite = new Sprite(assetsLoader.getTexture("meteor1.png"));
+		projectileSprite = new Sprite(assetsLoader.getTexture("projectile1.png"));
 //		cannonSprite = new Sprite(cannonTexture);
 //		citySprite = new Sprite(cityTexture);
 //		toolbarSprite = new Sprite(toolbarTexture);
@@ -279,8 +280,8 @@ public class GameRenderer {
 //		btnstyle2.up = new TextureRegionDrawable(new TextureRegion(AssetsLoader.getTexture(items.get(1).getName() + ".png")));
 //		btnstyle3.up = new TextureRegionDrawable(new TextureRegion(AssetsLoader.getTexture(items.get(3).getName() + ".png")));
 //		btnstyle4.up = new TextureRegionDrawable(new TextureRegion(AssetsLoader.getTexture(items.get(4).getName() + ".png")));
-		imgCityMonument.setDrawable(new TextureRegionDrawable(new TextureRegion(AssetsLoader.getTexture("ParisMonument.png"))));
-		imgCity.setDrawable(new TextureRegionDrawable(new TextureRegion(AssetsLoader.getTexture("EuropeCity.png"))));
+		imgCityMonument.setDrawable(new TextureRegionDrawable(new TextureRegion(assetsLoader.getTexture("ParisMonument.png"))));
+		imgCity.setDrawable(new TextureRegionDrawable(new TextureRegion(assetsLoader.getTexture("EuropeCity.png"))));
 	}
 	
 	public void dispose(){

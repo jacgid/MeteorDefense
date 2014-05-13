@@ -34,6 +34,7 @@ public class ArmoryDetailedRenderer {
 	private Label assetsLabel, nameLabel, descriptionLabel, powerLabel, cooldownLabel, upgradeLabel;
 	private TextButton tradeButton, upgradeButton;
 	private Image itemImage, upgradeImage;
+	private AssetsLoader assetsLoader = AssetsLoader.getInstance();
 
 	public enum ArmoryDetaliedEvent {
 		ARMORY_DETAILED_BACK_PRESSED, ARMORY_DETAILED_ITEM_UPGRADED, ARMORY_DETAILED_TRADE_BUTTON_PRESSED
@@ -57,13 +58,13 @@ public class ArmoryDetailedRenderer {
 
 		// assetsLabel
 		LabelStyle textLabelStyle = new LabelStyle();
-		textLabelStyle.font = AssetsLoader.getSmallFont();
+		textLabelStyle.font = assetsLoader.getSmallFont();
 		assetsLabel = new Label("", textLabelStyle);
 		
 		table.add(assetsLabel).right();
 		
 		// coinImage
-		Image coinImage = new Image(AssetsLoader.getTexture("PlayButton.png"));
+		Image coinImage = new Image(assetsLoader.getTexture("PlayButton.png"));
 		
 		table.add(coinImage)
 		.width(Gdx.graphics.getWidth() * 0.05F)
@@ -74,7 +75,7 @@ public class ArmoryDetailedRenderer {
 
 		// nameLabel
 		LabelStyle nameLabelStyle = new LabelStyle();
-		nameLabelStyle.font = AssetsLoader.getMediumFont();
+		nameLabelStyle.font = assetsLoader.getMediumFont();
 		nameLabel = new Label("", nameLabelStyle);
 
 		table.add(nameLabel).left();
@@ -82,7 +83,7 @@ public class ArmoryDetailedRenderer {
 		table.row();
 
 		// itemImage
-		itemImage = new Image(AssetsLoader.getTexture("PlayButton.png"));
+		itemImage = new Image(assetsLoader.getTexture("PlayButton.png"));
 		table.add(itemImage)
 				.width(Gdx.graphics.getWidth() * 0.25F)
 				.height(Gdx.graphics.getWidth() * 0.25F
@@ -107,7 +108,7 @@ public class ArmoryDetailedRenderer {
 		table.add(cooldownLabel).left().row();
 		
 		// upgradeImage
-		upgradeImage = new Image(AssetsLoader.getTexture("PlayButton.png"));
+		upgradeImage = new Image(assetsLoader.getTexture("PlayButton.png"));
 		table.add(upgradeImage)
 				.width(Gdx.graphics.getWidth() * 0.15F)
 				.height(Gdx.graphics.getWidth() * 0.15F
@@ -123,9 +124,9 @@ public class ArmoryDetailedRenderer {
 
 		// textButtonStyle
 		TextButtonStyle textButtonStyle = new TextButtonStyle();
-		textButtonStyle.font = AssetsLoader.getSmallFont();
+		textButtonStyle.font = assetsLoader.getSmallFont();
 		textButtonStyle.up = new TextureRegionDrawable(new TextureRegion(
-				AssetsLoader.getTexture("PlayButton.png")));
+				assetsLoader.getTexture("PlayButton.png")));
 
 		// upgradeButton
 		upgradeButton = new TextButton("", textButtonStyle);
