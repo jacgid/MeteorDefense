@@ -101,7 +101,7 @@ public class GameScreen implements Screen{
 	 */
 	@Override
 	public void pause() {
-		// TODO Auto-generated method stub
+		model.pause();
 		
 	}
 
@@ -110,8 +110,7 @@ public class GameScreen implements Screen{
 	 */
 	@Override
 	public void resume() {
-		// TODO Auto-generated method stub
-		
+		model.resume();
 	}
 
 	/**
