@@ -44,10 +44,14 @@ public class GameScreen implements Screen{
 		@Override
 		public boolean touchDown(InputEvent event, float x, float y,
 				int pointer, int button) {
-			model.shoot(x, y);
 			return true;
 		}
 		
+		@Override
+		public void touchUp(InputEvent event, float x, float y,
+				int pointer, int button) {
+			model.shoot(x, y);
+		}
 	};
 	
 	public GameScreen(GameModel model, GameRenderer renderer){
@@ -115,12 +119,13 @@ public class GameScreen implements Screen{
 	 */
 	@Override
 	public void dispose() {
-		renderer.unloadTextures();
+		renderer.dispose();
 		Gdx.input.setInputProcessor(null);
 	}
 	
 	public void newGame(City city, List<AbstractArmoryItem> selectedArmoryItems){
 		model.newGame(city, selectedArmoryItems);
+		renderer.newGame(city, selectedArmoryItems);
 	}
 	
 	public GameRenderer getRenderer(){

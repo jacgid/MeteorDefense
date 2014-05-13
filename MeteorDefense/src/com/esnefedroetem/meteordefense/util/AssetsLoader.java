@@ -218,4 +218,14 @@ public abstract class AssetsLoader {
 	public static BitmapFont getLargeFont(){
 		return fontLarge;
 	}
+	
+	public static void loadAllTextures(){
+		FileHandle file = Gdx.files.internal(TEXTURE_DIR);
+		FileHandle[] files = file.list();
+		for(int i = 0; i < files.length; i++){
+			loadTexture(files[i].name());
+		}
+		AssetsLoader.finishLoading();
+	}
+	
 }

@@ -55,30 +55,12 @@ public class ArmoryRenderer {
 	public ArmoryRenderer(List<AbstractArmoryItem> items,
 			List<AbstractArmoryItem> choosenItems,
 			PropertyChangeListener listener) {
-		loadTextures(items, choosenItems);
 		create(items, choosenItems);
 		pcs = new PropertyChangeSupport(this);
 		pcs.addPropertyChangeListener(listener);
 		dragFinished = true;
 	}
 
-	private void loadTextures(List<AbstractArmoryItem> items,
-			List<AbstractArmoryItem> choosenItems) {
-		for (AbstractArmoryItem item : items) {
-			if (item != null) {
-				AssetsLoader.loadTexture(item.getName() + ".png");
-			}
-		}
-		for (AbstractArmoryItem item : choosenItems) {
-			if (item != null) {
-				AssetsLoader.loadTexture(item.getName() + ".png");
-			}
-		}
-		AssetsLoader.loadTexture("weaponslot.png");
-		AssetsLoader.loadTexture("MenuBG.png");
-		AssetsLoader.finishLoading();
-
-	}
 
 	private void create(List<AbstractArmoryItem> items,
 			List<AbstractArmoryItem> choosenItems) {

@@ -58,6 +58,14 @@ public class MeteorDefense extends Game implements PropertyChangeListener {
 		if(Gdx.app.getType() != ApplicationType.Android){
 			save();
 		}
+		splashScreen.dispose();
+		mainMenuScreen.dispose();
+		armoryScreen.dispose();
+		armoryDetaliedScreen.dispose();
+		gameScreen.dispose();
+		carouselScreen.dispose();
+		scoreScreen.dispose();
+		AssetsLoader.clear();;
 		super.dispose();
 	}
 
@@ -65,8 +73,8 @@ public class MeteorDefense extends Game implements PropertyChangeListener {
 		List<Continent> continents = carouselScreen.getContinents();
 		List<AbstractArmoryItem> items = armoryScreen.getUnselectedArmoryItems();
 		List<AbstractArmoryItem> choosenItems = armoryScreen.getSelectedArmoryItems();
-		for (Continent c : continents) {
-			if (inGame) {
+		if (inGame) {
+			for (Continent c : continents) {
 				for (City city : c.getCities()) {
 					city.reset();
 				}
@@ -107,8 +115,7 @@ public class MeteorDefense extends Game implements PropertyChangeListener {
 
 	private void newGame(City city) {
 		gameScreen.newGame(city, armoryScreen.getSelectedArmoryItems());
-		splashScreen.gameSplash(gameScreen.getRenderer());
-		setScreen(splashScreen);
+		setScreen(gameScreen);
 		inGame = true;
 	}
 

@@ -29,19 +29,6 @@ public class CarouselScreen implements Screen, PropertyChangeListener {
 		this.continents = continents;
 		isCitiesDisplayed = false;
 		currentContinent = null;
-		for(Continent continent : continents){
-			AssetsLoader.loadTexture(continent.getName() + ".png");
-			for(City city : continent.getCities()){
-				AssetsLoader.loadTexture(city.getName() + ".png");
-			}
-		}
-		AssetsLoader.loadTexture("star.png");
-		AssetsLoader.loadTexture("starGrey.png");
-		AssetsLoader.loadTexture("CarouselBackground.png");
-		AssetsLoader.loadTexture("CarouselBackgroundLocked.png");
-		AssetsLoader.loadTexture("lock.png");
-		AssetsLoader.loadTexture("MenuBG.png");
-		AssetsLoader.finishLoading();
 		renderer.displayContinents(continents);
 	}
 

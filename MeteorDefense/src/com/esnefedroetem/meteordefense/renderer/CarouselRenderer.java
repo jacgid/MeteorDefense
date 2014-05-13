@@ -70,8 +70,6 @@ public class CarouselRenderer {
 		stage.addActor(background);
 		stage.addActor(table);
 		table.setFillParent(true);
-		AssetsLoader.loadTexture("armoryIcon.png");
-		AssetsLoader.finishLoading();
 		
 		ButtonStyle armoryButtonstyle = new ButtonStyle();
 		armoryButtonstyle.up = new TextureRegionDrawable(new TextureRegion(AssetsLoader.getTexture("armoryIcon.png")));

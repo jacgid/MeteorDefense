@@ -22,10 +22,9 @@ import com.esnefedroetem.meteordefense.util.Constants;
 public class SplashScreen implements Screen {
 	
 	private PropertyChangeSupport pcs;
-	private final int splashTime = 1000;
+	private final int splashTime = 300;
 	private long startTime;
-	private boolean gameSplash = false, isFontCreated = false;
-	private GameRenderer gamerenderer;
+	private boolean isLoaded;
 	private Stage stage;
 	
 	public enum SplashScreenEvent{
@@ -40,11 +39,7 @@ public class SplashScreen implements Screen {
 		table.setFillParent(true);
 		table.add(new Image(new Texture("data/textures/Splash.png"))).expand().width(Gdx.graphics.getWidth()).height(Gdx.graphics.getHeight());
 		stage.addActor(table);
-	}
-	
-	public void gameSplash(GameRenderer renderer){
-		gamerenderer = renderer;
-		gameSplash = true;
+		isLoaded = false;
 	}
 	
 	
@@ -54,16 +49,12 @@ public class SplashScreen implements Screen {
 		Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
 		
 		stage.draw();
-		if(TimeUtils.millis() - startTime > splashTime && gameSplash == false){
-			if(!isFontCreated){
+		if(TimeUtils.millis() - startTime > splashTime){
+			if(!isLoaded){
 				AssetsLoader.createFonts();
-				isFontCreated = true;
+				AssetsLoader.loadAllTextures();
+				isLoaded = true;
 				pcs.firePropertyChange(SplashScreenEvent.SPLASHSCREEN_ENDED.toString(), false, true);
-			}
-		}else if(gameSplash){
-			if(AssetsLoader.update()){
-				gamerenderer.loadScene();
-				pcs.firePropertyChange(SplashScreenEvent.GAMESPLASHSCREEN_ENDED.toString(), false, true);
 			}
 		}
 	}
@@ -94,6 +85,7 @@ public class SplashScreen implements Screen {
 
 	@Override
 	public void dispose() {
+		stage.dispose();
 	}
 
 }

@@ -151,7 +151,11 @@ public class ScoreRenderer {
 
 	public void show() {
 		Gdx.input.setInputProcessor(stage);
-
+	}
+	
+	public void dispose(){
+		stage.dispose();
+		spriteBatch.dispose();
 	}
 
 }

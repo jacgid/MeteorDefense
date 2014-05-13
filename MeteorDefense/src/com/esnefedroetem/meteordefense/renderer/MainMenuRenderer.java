@@ -36,11 +36,6 @@ public class MainMenuRenderer {
 		
 		spriteBatch = new SpriteBatch();
 		stage = new Stage();
-		AssetsLoader.loadTexture("StartScreenBG.png");
-		AssetsLoader.loadTexture("MusicFalse.png");
-		AssetsLoader.loadTexture("MusicTrue.png");
-		AssetsLoader.loadTexture("PlayButton.png");
-		AssetsLoader.finishLoading();
 		create(sound);
 	}
 	

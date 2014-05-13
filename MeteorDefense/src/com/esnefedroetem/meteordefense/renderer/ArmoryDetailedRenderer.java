@@ -42,8 +42,6 @@ public class ArmoryDetailedRenderer {
 	public ArmoryDetailedRenderer(PropertyChangeListener listener) {
 		pcs = new PropertyChangeSupport(this);
 		pcs.addPropertyChangeListener(listener);
-		AssetsLoader.loadTexture("PlayButton.png");
-		AssetsLoader.finishLoading();
 		create();
 	}
 
