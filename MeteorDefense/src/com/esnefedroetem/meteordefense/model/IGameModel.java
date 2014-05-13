@@ -35,4 +35,8 @@ public interface IGameModel  {
 	
 	public int getScore();
 	
+	public void pause();
+	
+	public void resume();
+	
 }

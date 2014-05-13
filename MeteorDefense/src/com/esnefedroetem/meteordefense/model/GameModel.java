@@ -29,6 +29,7 @@ public class GameModel implements IGameModel {
 	private ScoreHandler scoreHandler;
 	private PropertyChangeSupport pcs;
 	private ArmoryItemVisitor visitor;
+	private boolean isPaused;
 	
 	private final float width, height;
 	
@@ -59,10 +60,12 @@ public class GameModel implements IGameModel {
 		meteorShower = city.getMeteorShower();
 		meteorShower.loadMeteors();
 		meteorShower.start();
+		isPaused = false;
 	}
 
 	@Override
 	public void update(float delta) {
+		if(!isPaused) {
 		meteorShower.update(delta);
 		for (Projectile p : projectiles) {
 			p.move(delta);
@@ -76,6 +79,7 @@ public class GameModel implements IGameModel {
 
 		if (meteorShower.gameover() || city.getLife() <= 0) {
 			gameover();
+		}
 		}
 
 	}
@@ -255,6 +259,22 @@ public class GameModel implements IGameModel {
 		city.reset();
 		projectiles.clear();
 		cannonBarrel.reset();
+	}
+
+
+
+
+	@Override
+	public void pause() {
+		isPaused = true;
+	}
+
+
+
+
+	@Override
+	public void resume() {
+		isPaused = false;
 	}
 
 }
