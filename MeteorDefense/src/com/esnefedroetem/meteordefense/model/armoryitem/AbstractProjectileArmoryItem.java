@@ -12,7 +12,7 @@ import com.esnefedroetem.meteordefense.model.Projectile.ProjectileType;
 
 public abstract class AbstractProjectileArmoryItem extends AbstractArmoryItem {
 	
-	private int projectileSize;
+	private float projectileSize;
 	private ProjectileType projectileType;
 	
 	public AbstractProjectileArmoryItem() {
@@ -20,12 +20,20 @@ public abstract class AbstractProjectileArmoryItem extends AbstractArmoryItem {
 		projectileSize = 1;
 	}
 	
-	public int getProjectileSize() {
+	public float getProjectileSize() {
 		return projectileSize;
 	}
 	
 	public ProjectileType getProjectileType() {
 		return projectileType;
+	}
+	
+	public void setProjectileSize(float projectileSize) {
+		this.projectileSize = projectileSize;
+	}
+	
+	public void setProjectileType(ProjectileType projectileType) {
+		this.projectileType = projectileType;
 	}
 
 	public abstract Projectile execute();
