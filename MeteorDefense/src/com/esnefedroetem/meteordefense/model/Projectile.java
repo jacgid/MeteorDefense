@@ -7,7 +7,7 @@ import com.esnefedroetem.meteordefense.util.Constants;
 public class Projectile extends MoveableGameObject {
 	private ProjectileType projectile;
 	
-	public enum ProjectileType{STANDARD_PROJECTILE, WATER_PROJECTILE, FIRE_PROJECTILE;
+	public enum ProjectileType{STANDARD_PROJECTILE, MISSILE_PROJECTILE, WATER_PROJECTILE, FIRE_PROJECTILE;
 	
 		public static String[] getTypes(){
 			return new String[]{STANDARD_PROJECTILE.toString(), WATER_PROJECTILE.toString(), FIRE_PROJECTILE.toString()};

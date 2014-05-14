@@ -22,7 +22,7 @@ public class MissileProjectileArmoryItem extends AbstractProjectileArmoryItem{
 		name = "MissileLauncher";
 		description = "Lorem ipsum dolor sit amet, consectetur adipiscing elit.";
 		setProjectileSize(Constants.DEFAULT_PROJECTILE_SIZE * 3);
-		setProjectileType(Projectile.ProjectileType.NONE);
+		setProjectileType(Projectile.ProjectileType.MISSILE_PROJECTILE);
 	}
 	@Override
 	public Projectile accept(IArmoryItemVisitor visitor) {
