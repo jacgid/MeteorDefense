@@ -6,6 +6,7 @@ import java.util.List;
 
 import com.esnefedroetem.meteordefense.model.armoryitem.AbstractArmoryItem;
 import com.esnefedroetem.meteordefense.model.armoryitem.EmptyItem;
+import com.esnefedroetem.meteordefense.model.armoryitem.MissileProjectileArmoryItem;
 import com.esnefedroetem.meteordefense.model.armoryitem.ReversedGravityEffectArmoryItem;
 import com.esnefedroetem.meteordefense.model.armoryitem.SlowMotionEffectArmoryItem;
 import com.esnefedroetem.meteordefense.model.armoryitem.StandardArmoryItem;
@@ -20,10 +21,12 @@ class WeaponFactory {
 	private WeaponFactory(){
 		items = new HashMap<String, AbstractArmoryItem>(10);
 		AbstractArmoryItem item1 = new EmptyItem();
+		AbstractArmoryItem item2 = new MissileProjectileArmoryItem(State.UNLOCKED, 1);
 		AbstractArmoryItem item7 = new ReversedGravityEffectArmoryItem(State.UNLOCKED, 1);
 		AbstractArmoryItem item8 = new StandardArmoryItem(State.UNLOCKED, 1);
 		AbstractArmoryItem item9 = new SlowMotionEffectArmoryItem(State.UNLOCKED, 1);
 		items.put(item1.getName(), item1);
+		items.put(item2.getName(), item2);
 		items.put(item7.getName(), item7);
 		items.put(item8.getName(), item8);
 		items.put(item9.getName(), item9);
@@ -60,7 +63,7 @@ class WeaponFactory {
 			armoryItems.add(new ReversedGravityEffectArmoryItem(State.UNLOCKED, 1));
 			armoryItems.add(new StandardArmoryItem(State.UNLOCKED, 1));
 			armoryItems.add(new SlowMotionEffectArmoryItem(State.UNLOCKED, 1));
-			armoryItems.add(new EmptyItem());
+			armoryItems.add(new MissileProjectileArmoryItem(State.UNLOCKED, 1));
 		}
 		return armoryItems;
 	}

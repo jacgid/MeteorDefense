@@ -10,7 +10,7 @@ public class Projectile extends MoveableGameObject {
 	public enum ProjectileType{STANDARD_PROJECTILE, MISSILE_PROJECTILE, WATER_PROJECTILE, FIRE_PROJECTILE;
 	
 		public static String[] getTypes(){
-			return new String[]{STANDARD_PROJECTILE.toString(), WATER_PROJECTILE.toString(), FIRE_PROJECTILE.toString()};
+			return new String[]{STANDARD_PROJECTILE.toString(), WATER_PROJECTILE.toString(), FIRE_PROJECTILE.toString(), MISSILE_PROJECTILE.toString()};
 		}
 	
 	}
@@ -40,7 +40,7 @@ public class Projectile extends MoveableGameObject {
 	}
 	
 	public Projectile(int damage, float size, ProjectileType projectileType) {
-		super(0, damage, Constants.DEFAULT_PROJECTILE_SIZE, Constants.DEFAULT_PROJECTILE_SPEED,
+		super(0, damage, size, Constants.DEFAULT_PROJECTILE_SPEED,
 				Constants.DEFAULT_PROJECTILE_SPAWN);
 		this.projectile = projectileType;
 	}

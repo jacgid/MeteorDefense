@@ -10,6 +10,7 @@ import org.w3c.dom.views.AbstractView;
 import com.esnefedroetem.meteordefense.model.IArmoryItemVisitor;
 import com.esnefedroetem.meteordefense.model.Projectile;
 import com.esnefedroetem.meteordefense.model.Upgrade;
+import com.esnefedroetem.meteordefense.model.armoryitem.AbstractArmoryItem.State;
 import com.esnefedroetem.meteordefense.util.Constants;
 
 /**
@@ -18,7 +19,8 @@ import com.esnefedroetem.meteordefense.util.Constants;
  */
 public class MissileProjectileArmoryItem extends AbstractProjectileArmoryItem{
 
-	public MissileProjectileArmoryItem() {
+	public MissileProjectileArmoryItem(State state, int upgradeIndex) {
+		init(state, upgradeIndex);
 		name = "MissileLauncher";
 		description = "Lorem ipsum dolor sit amet, consectetur adipiscing elit.";
 		setProjectileSize(Constants.DEFAULT_PROJECTILE_SIZE * 3);
