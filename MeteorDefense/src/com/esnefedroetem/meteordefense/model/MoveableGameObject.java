@@ -1,6 +1,7 @@
 package com.esnefedroetem.meteordefense.model;
 
 import com.badlogic.gdx.math.Circle;
+import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.math.Vector2;
 import com.esnefedroetem.meteordefense.util.Constants;
 
@@ -9,7 +10,7 @@ public abstract class MoveableGameObject {
 	private float speed; // Units per second
 	private Vector2 position = new Vector2();
 	private float angle;
-	private Circle bounds = new Circle();
+	private Rectangle bounds;
 	private int damage;
 	
 	public MoveableGameObject(){
@@ -23,6 +24,7 @@ public abstract class MoveableGameObject {
 		this.speed = speed;
 		this.position.x = startPosition.x;
 		this.position.y = startPosition.y;
+		bounds = new Rectangle();
 		calculateBounds();
 
 	}
@@ -30,7 +32,8 @@ public abstract class MoveableGameObject {
 	public final void calculateBounds() {
 		bounds.x = position.x;
 		bounds.y = position.y;
-		bounds.radius = size / 2;
+		bounds.width = size;
+		bounds.height = size;
 	}
 
 	public void move(float delta) {
@@ -47,7 +50,7 @@ public abstract class MoveableGameObject {
 		return position.y;
 	}
 
-	public Circle getBounds() {
+	public Rectangle getBounds() {
 		return bounds;
 	}
 
@@ -80,7 +83,7 @@ public abstract class MoveableGameObject {
 		return speed;
 	}
 	
-	public void setBounds(Circle bounds) {
+	public void setBounds(Rectangle bounds) {
 		this.bounds = bounds;
 	}
 	

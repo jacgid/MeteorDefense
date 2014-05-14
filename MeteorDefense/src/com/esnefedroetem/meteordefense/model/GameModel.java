@@ -8,6 +8,7 @@ import java.util.List;
 
 import com.badlogic.gdx.math.Circle;
 import com.badlogic.gdx.math.Intersector;
+import com.badlogic.gdx.math.Rectangle;
 import com.esnefedroetem.meteordefense.model.armoryitem.AbstractArmoryItem;
 import com.esnefedroetem.meteordefense.model.meteor.BasicMeteor;
 import com.esnefedroetem.meteordefense.util.Constants;
@@ -129,9 +130,12 @@ public class GameModel implements IGameModel {
 	
 	@Override
 	public void onBackPressed(){
-		scoreHandler.gameOver(0, city.getMaxLife(), city.getHighScore(), meteorShower.getMaxScore());
-		pcs.firePropertyChange("Gameover", city, scoreHandler);
-		reset();
+		if(isPaused){
+			pcs.firePropertyChange("Quit Game", false, true);
+			reset();
+		}else{
+			isPaused = true;
+		}
 	}
 	
 	@Override
@@ -229,7 +233,7 @@ public class GameModel implements IGameModel {
 		Collection<Meteor> meteorsToRemove = new ArrayList<Meteor>();
 		for(Meteor meteor : meteorShower.getVisibleMeteors()){
 			Meteor temp = new BasicMeteor();
-			temp.setBounds(new Circle(meteor.getX(), meteor.getY() - 250, meteor.getBounds().radius));
+			temp.setBounds(new Rectangle(meteor.getX(), meteor.getY() - 250, meteor.getBounds().width, meteor.getBounds().height));
 			if(outOfBounds(temp)) {
 				meteorsToRemove.add(meteor);
 				scoreHandler.meteorHit();
@@ -241,8 +245,8 @@ public class GameModel implements IGameModel {
 	}
 
 	private boolean outOfBounds(MoveableGameObject object) {
-		float x = object.getBounds().x + object.getBounds().radius;
-		float y = object.getBounds().y + object.getBounds().radius;
+		float x = object.getBounds().x + object.getBounds().width;
+		float y = object.getBounds().y + object.getBounds().height;
 
 		return x < 0 || x > Constants.LOGIC_SCREEN_WIDTH || y > Constants.LOGIC_SCREEN_HEIGHT;
 	}
@@ -261,22 +265,24 @@ public class GameModel implements IGameModel {
 		city.reset();
 		projectiles.clear();
 		cannonBarrel.reset();
+		
+		for(AbstractArmoryItem item : armoryItems) {
+			item.resetLastUsed();
+		}
 	}
-
-
-
 
 	@Override
 	public void pause() {
 		isPaused = true;
 	}
 
-
-
-
 	@Override
 	public void resume() {
 		isPaused = false;
+	}
+	
+	public boolean isPaused(){
+		return isPaused;
 	}
 
 }

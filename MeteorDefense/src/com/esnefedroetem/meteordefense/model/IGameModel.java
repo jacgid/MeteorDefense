@@ -39,4 +39,6 @@ public interface IGameModel  {
 	
 	public void resume();
 	
+	public boolean isPaused();
+	
 }

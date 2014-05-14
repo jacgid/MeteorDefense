@@ -174,23 +174,20 @@ public class GameRenderer {
 	
 	private void drawSprites(){
 		for(Meteor meteor : model.getVisibleMeteors()){
-			float x = meteor.getX() - meteor.getBounds().radius;
-			float y = meteor.getY() - meteor.getBounds().radius;
+			float x = meteor.getX() - meteor.getBounds().width / 2;
+			float y = meteor.getY() - meteor.getBounds().height / 2;
 			Sprite meteorSprite = spriteMap.get(meteor.getType().toString());
-			//meteor.getBounds()
-			meteorSprite.setSize(Constants.BASE_METEOR_SIZE, Constants.BASE_METEOR_SIZE);
-			meteorSprite.setPosition(x, y);
+			meteorSprite.setBounds(x, y, meteor.getBounds().width, meteor.getBounds().height);
 			meteorSprite.draw(spriteBatch);
 		}
 		imgCannon.setOrigin(imgCannon.getWidth() / 2 + 2, imgCannon.getHeight() - 111);
 		imgCannon.setRotation(((float) Math.toDegrees(model.getCannonAngle())-90));
 		for(Projectile projectile : model.getVisibleProjectiles()){
-			float x = projectile.getX() - projectile.getBounds().radius;
-			float y = projectile.getY() - projectile.getBounds().radius;
+			float x = projectile.getX() - projectile.getBounds().width / 2;
+			float y = projectile.getY() - projectile.getBounds().height / 2;
 			Sprite projectileSprite = spriteMap.get(projectile.getProjectileType().toString());
-			//projectileSprite.setSize(projectile.getBounds()., y);
-			projectileSprite.setPosition(x, y);
 			projectileSprite.setRotation((float) (projectile.getAngle()*(180/Math.PI))-90);
+			projectileSprite.setBounds(x, y, projectile.getBounds().width, projectile.getBounds().height);
 			projectileSprite.draw(spriteBatch);
 		}
 	}

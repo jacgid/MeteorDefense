@@ -8,6 +8,7 @@ import java.util.ArrayList;
 import com.esnefedroetem.meteordefense.model.Projectile;
 import com.esnefedroetem.meteordefense.model.Upgrade;
 import com.esnefedroetem.meteordefense.model.IArmoryItemVisitor;
+import com.esnefedroetem.meteordefense.util.Constants;
 
 /**
  * @author Emma Lindholm
@@ -24,6 +25,7 @@ public class StandardArmoryItem extends AbstractProjectileArmoryItem {
 	public StandardArmoryItem(State state, int upgradeIndex) {
 		this();
 		init(state, upgradeIndex);
+		setProjectileSize(Constants.DEFAULT_PROJECTILE_SIZE);
 	}
 
 	@Override

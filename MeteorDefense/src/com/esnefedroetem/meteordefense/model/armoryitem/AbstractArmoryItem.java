@@ -158,4 +158,8 @@ public abstract class AbstractArmoryItem implements IArmoryItemElement {
 		return "No more upgrades available";
 	}
 	
+	public void resetLastUsed() {
+		lastUsed = 0;
+	}
+	
 }
