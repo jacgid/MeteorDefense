@@ -31,7 +31,7 @@ public class IceMeteor extends Meteor {
 
 	@Override
 	public MeteorType getType() {
-		return MeteorType.ICE;
+		return MeteorType.ICE_METEOR;
 	}
 
 }

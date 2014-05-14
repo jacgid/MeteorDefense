@@ -13,7 +13,12 @@ public abstract class Meteor extends MoveableGameObject {
 	private int difficulty = 1;
 
 	public enum MeteorType {
-		BASIC, RADIOACTIVE, FIRE, FAST, ICE
+		BASIC_METEOR, RADIOACTIVE_METEOR, FIRE_METEOR, FAST_METEOR, ICE_METEOR;
+		
+		public static String[] getTypes(){
+			return new String[]{BASIC_METEOR.toString(), RADIOACTIVE_METEOR.toString(), FIRE_METEOR.toString(), FAST_METEOR.toString(), ICE_METEOR.toString()};
+		}
+		
 	}
 
 	public Meteor() {

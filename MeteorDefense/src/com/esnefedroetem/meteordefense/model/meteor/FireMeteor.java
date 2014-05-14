@@ -29,7 +29,7 @@ public class FireMeteor extends Meteor {
 
 	@Override
 	public MeteorType getType() {
-		return MeteorType.FIRE;
+		return MeteorType.FIRE_METEOR;
 	}
 
 }

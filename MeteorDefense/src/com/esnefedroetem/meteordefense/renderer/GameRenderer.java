@@ -35,6 +35,7 @@ import com.badlogic.gdx.scenes.scene2d.utils.TextureRegionDrawable;
 import com.esnefedroetem.meteordefense.model.City;
 import com.esnefedroetem.meteordefense.model.IGameModel;
 import com.esnefedroetem.meteordefense.model.Meteor;
+import com.esnefedroetem.meteordefense.model.Meteor.MeteorType;
 import com.esnefedroetem.meteordefense.model.Projectile;
 import com.esnefedroetem.meteordefense.model.armoryitem.AbstractArmoryItem;
 import com.esnefedroetem.meteordefense.util.AssetsLoader;
@@ -56,7 +57,7 @@ public class GameRenderer {
 	private Button btnItem1, btnItem2, btnItem3, btnItem4;
 	private ButtonStyle btnstyle1, btnstyle2, btnstyle3, btnstyle4;
 	private Image imgCityMonument, imgCity, imgCannon;
-	private Sprite projectileSprite, meteorSprite, cannonSprite, citySprite, toolbarSprite, bgSprite;
+	private Sprite projectileSprite;
 	private Rectangle viewport;
 	private float scale;
 	private HashMap<String, Sprite> spriteMap;
@@ -135,33 +136,14 @@ public class GameRenderer {
 	}
 	
 	private void loadSprites(){
-//		meteorTexture = AssetsLoader.getTexture(textures[0]);
-//		projectileTexture = AssetsLoader.getTexture(textures[1]);
-//		cannonTexture = AssetsLoader.getTexture(textures[2]);
-//		cityTexture = AssetsLoader.getTexture(textures[3]);
-//		toolbarTexture = AssetsLoader.getTexture(textures[4]);
-//		bgTexture = AssetsLoader.getTexture(textures[5]);
-//		
-//		meteorTexture.setFilter(TextureFilter.Linear, TextureFilter.Linear);
-//		projectileTexture.setFilter(TextureFilter.Linear, TextureFilter.Linear);
-//		cannonTexture.setFilter(TextureFilter.Linear, TextureFilter.Linear);
-//		cityTexture.setFilter(TextureFilter.Linear, TextureFilter.Linear);
-//		toolbarTexture.setFilter(TextureFilter.Linear, TextureFilter.Linear);
-//		bgTexture.setFilter(TextureFilter.Linear, TextureFilter.Linear);
+		spriteMap = new HashMap<String, Sprite>();
+		String[] meteors = MeteorType.getTypes();
+		for(int i = 0; i < meteors.length; i++){
+			spriteMap.put(meteors[i], new Sprite(assetsLoader.getTexture(meteors[i] + ".png")));
+		}
 		
-		meteorSprite = new Sprite(assetsLoader.getTexture("meteor1.png"));
 		projectileSprite = new Sprite(assetsLoader.getTexture("projectile1.png"));
-//		cannonSprite = new Sprite(cannonTexture);
-//		citySprite = new Sprite(cityTexture);
-//		toolbarSprite = new Sprite(toolbarTexture);
-//		bgSprite = new Sprite(bgTexture);
-		
-		meteorSprite.setSize(Constants.BASE_METEOR_SIZE, Constants.BASE_METEOR_SIZE);
 		projectileSprite.setSize(Constants.DEFAULT_PROJECTILE_SIZE, Constants.DEFAULT_PROJECTILE_SIZE);
-//		cannonSprite.setSize(model.getCannonBarrel().getBounds().width, model.getCannonBarrel().getBounds().height);
-//		citySprite.setSize(Constants.CITY_BOUNDS.width, Constants.CITY_BOUNDS.height);
-//		toolbarSprite.setSize(Constants.CITY_BOUNDS.width, Constants.CITY_BOUNDS.height);
-//		bgSprite.setSize(Gdx.graphics.getWidth(), Gdx.graphics.getHeight());
 	}
 
 	/**
@@ -196,17 +178,12 @@ public class GameRenderer {
 		for(Meteor meteor : model.getVisibleMeteors()){
 			float x = meteor.getX() - meteor.getBounds().radius;
 			float y = meteor.getY() - meteor.getBounds().radius;
+			Sprite meteorSprite = spriteMap.get(meteor.getType().toString());
+			//meteor.getBounds()
+			meteorSprite.setSize(Constants.BASE_METEOR_SIZE, Constants.BASE_METEOR_SIZE);
 			meteorSprite.setPosition(x, y);
 			meteorSprite.draw(spriteBatch);
 		}
-//		citySprite.setPosition(Constants.CITY_BOUNDS.x, Constants.CITY_BOUNDS.y);
-//		citySprite.draw(spriteBatch);
-//		toolbarSprite.setPosition(Constants.CITY_BOUNDS.x, Constants.CITY_BOUNDS.y - Constants.CITY_BOUNDS.height/((float)7/6));
-//		toolbarSprite.draw(spriteBatch);
-//		cannonSprite.setPosition(model.getCannonBarrel().getBounds().x, model.getCannonBarrel().getBounds().y);
-//		cannonSprite.setOrigin(cannonSprite.getWidth()/2, cannonSprite.getHeight()/3);
-//		cannonSprite.setRotation((float) Math.toDegrees(model.getCannonAngle())-90);
-//		cannonSprite.draw(spriteBatch);
 		imgCannon.setOrigin(imgCannon.getWidth() / 2 + 2, imgCannon.getHeight() - 111);
 		imgCannon.setRotation(((float) Math.toDegrees(model.getCannonAngle())-90));
 		for(Projectile projectile : model.getVisibleProjectiles()){

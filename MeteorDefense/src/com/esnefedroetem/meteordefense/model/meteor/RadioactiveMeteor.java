@@ -34,7 +34,7 @@ public class RadioactiveMeteor extends Meteor {
 
 	@Override
 	public MeteorType getType() {
-		return MeteorType.RADIOACTIVE;
+		return MeteorType.RADIOACTIVE_METEOR;
 	}
 	
 	public int getDot(){

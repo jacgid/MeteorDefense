@@ -51,7 +51,7 @@ public class BasicMeteor extends Meteor {
 
 	@Override
 	public MeteorType getType() {
-		return MeteorType.BASIC;
+		return MeteorType.BASIC_METEOR;
 	}
 
 }

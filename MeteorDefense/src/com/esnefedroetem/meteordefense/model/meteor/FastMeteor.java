@@ -31,7 +31,7 @@ public class FastMeteor extends Meteor {
 
 	@Override
 	public MeteorType getType() {
-		return MeteorType.FAST;
+		return MeteorType.FAST_METEOR;
 	}
 
 }
