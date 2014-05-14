@@ -265,6 +265,10 @@ public class GameModel implements IGameModel {
 		city.reset();
 		projectiles.clear();
 		cannonBarrel.reset();
+		
+		for(AbstractArmoryItem item : armoryItems) {
+			item.resetLastUsed();
+		}
 	}
 
 	@Override
