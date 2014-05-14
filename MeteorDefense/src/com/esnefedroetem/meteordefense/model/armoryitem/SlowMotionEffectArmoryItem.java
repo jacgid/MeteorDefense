@@ -31,17 +31,14 @@ public class SlowMotionEffectArmoryItem extends AbstractEffectArmoryItem {
 
 	@Override
 	public void initUpgrades() {
-		// TODO change upgrades
-				ArrayList<Upgrade> upgrades = new ArrayList<Upgrade>();
-				for(int i = 0; i < 4; i++) {
-					float cooldownDecrement = 0f;
-					if(i == 0) {
-						cooldownDecrement = 0.2f;
-					}
-					upgrades.add(new Upgrade(1, cooldownDecrement, i * 1000));
-				}
-				setUpgradeList(upgrades);
+		ArrayList<Upgrade> upgrades = new ArrayList<Upgrade>();
 		
+		upgrades.add(new Upgrade(1, 25f, 3000));
+		upgrades.add(new Upgrade(0, -5f, 3000));
+		upgrades.add(new Upgrade(0, -7f, 6000));
+		upgrades.add(new Upgrade(0, -10f, 8900));
+		
+		setUpgradeList(upgrades);
 	}
 
 	@Override
