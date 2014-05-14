@@ -74,7 +74,7 @@ public class MeteorDefense extends Game implements PropertyChangeListener {
 		List<Continent> continents = carouselScreen.getContinents();
 		List<AbstractArmoryItem> items = armoryScreen.getUnselectedArmoryItems();
 		List<AbstractArmoryItem> choosenItems = armoryScreen.getSelectedArmoryItems();
-		if (inGame) {
+		if (!inGame) {
 			for (Continent c : continents) {
 				for (City city : c.getCities()) {
 					city.reset();
@@ -163,12 +163,6 @@ public class MeteorDefense extends Game implements PropertyChangeListener {
 			scoreScreen.setScore(scoreHandler);
 			armoryDetaliedScreen.getWallet().addCoins(
 					scoreHandler.getNewMoney());
-
-			for (Continent continent : carouselScreen.getContinents()) {
-				if (continent.getCities().contains(evt.getOldValue())) {
-
-				}
-			}
 			setScreen(scoreScreen);
 		} else if (evt.getPropertyName().equals("Scorescreen_finished")) {
 			carouselScreen.update();
@@ -192,6 +186,8 @@ public class MeteorDefense extends Game implements PropertyChangeListener {
 		} else if (evt.getPropertyName().equals(
 				SplashScreenEvent.GAMESPLASHSCREEN_ENDED.toString())) {
 			setScreen(gameScreen);
+		} else if (evt.getPropertyName().equals("Quit Game")){
+			setScreen(carouselScreen);
 		}
 
 	}

@@ -45,9 +45,13 @@ public class GameScreen implements Screen{
 		@Override
 		public boolean touchDown(InputEvent event, float x, float y,
 				int pointer, int button) {
-			if(y > Constants.CITY_BOUNDS.y + Constants.CITY_BOUNDS.height){
-				model.shoot(x, y);
-				return true;
+			if(!model.isPaused()){
+				if(y > Constants.CITY_BOUNDS.y + Constants.CITY_BOUNDS.height){
+					model.shoot(x, y);
+					return true;
+				}
+			}else{
+				model.resume();
 			}
 			return false;
 		}
@@ -110,7 +114,7 @@ public class GameScreen implements Screen{
 	 */
 	@Override
 	public void resume() {
-		model.resume();
+		
 	}
 
 	/**

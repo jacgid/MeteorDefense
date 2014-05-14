@@ -129,9 +129,12 @@ public class GameModel implements IGameModel {
 	
 	@Override
 	public void onBackPressed(){
-		scoreHandler.gameOver(0, city.getMaxLife(), city.getHighScore(), meteorShower.getMaxScore());
-		pcs.firePropertyChange("Gameover", city, scoreHandler);
-		reset();
+		if(isPaused){
+			pcs.firePropertyChange("Quit Game", false, true);
+			reset();
+		}else{
+			isPaused = true;
+		}
 	}
 	
 	@Override
@@ -263,20 +266,18 @@ public class GameModel implements IGameModel {
 		cannonBarrel.reset();
 	}
 
-
-
-
 	@Override
 	public void pause() {
 		isPaused = true;
 	}
 
-
-
-
 	@Override
 	public void resume() {
 		isPaused = false;
+	}
+	
+	public boolean isPaused(){
+		return isPaused;
 	}
 
 }

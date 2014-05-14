@@ -67,7 +67,7 @@ public class MeteorShower {
 		return maxScore;
 	}
 
-	private boolean allMeteorsDepolyed() {
+	private boolean allMeteorsDeployed() {
 		for (List<Meteor> list : allStoredMeteors) {
 
 			if (list.size() > 0) {
@@ -79,7 +79,7 @@ public class MeteorShower {
 
 	public boolean gameover() {
 
-		if (allMeteorsDepolyed() && visibleMeteors.size() <= 0)
+		if (allMeteorsDeployed() && visibleMeteors.size() <= 0)
 			return true;
 
 		return false;
@@ -88,15 +88,14 @@ public class MeteorShower {
 	public void update(float delta) {
 		// Spawns a new meteor if necessary
 		if (TimeUtils.timeSinceMillis(lastMeteorSpawn) > meteorSpawnRate) {
-			if (!allMeteorsDepolyed()) {
+			if (!allMeteorsDeployed()) {
 				deployMeteor();
 				lastMeteorSpawn = TimeUtils.millis();
 			}
 		}
 		// update position of meteors
-		// TODO: change loop to foreach
-		for (int i = 0; i < visibleMeteors.size(); i++) {
-			visibleMeteors.get(i).move(delta);
+		for(Meteor meteor : visibleMeteors){
+			meteor.move(delta);
 		}
 
 	}
@@ -105,7 +104,7 @@ public class MeteorShower {
 	private Meteor getRandomElement() {
 		List<Meteor> templist = null;
 		Meteor randomMeteor = new BasicMeteor();
-		if (!allMeteorsDepolyed()) {
+		if (!allMeteorsDeployed()) {
 
 			do {
 				templist = allStoredMeteors
