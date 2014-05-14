@@ -80,4 +80,8 @@ public abstract class Meteor extends MoveableGameObject {
 	public int getDifficulty() {
 		return difficulty;
 	}
+
+	public void update(float delta){
+		
+	}
 }

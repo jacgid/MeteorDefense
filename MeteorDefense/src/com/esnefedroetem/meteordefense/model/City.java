@@ -1,6 +1,7 @@
 package com.esnefedroetem.meteordefense.model;
 
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.List;
 
 import com.badlogic.gdx.math.Rectangle;
@@ -20,8 +21,7 @@ public class City {
 	private int score = 0;
 	private Rectangle bounds = Constants.CITY_BOUNDS;
 	private MeteorShower meteorShower;
-	private List<Meteor> dashedMeteors = new ArrayList<Meteor>();
-	private float totalTimePassed;
+	private List<RadioactiveMeteor> radioactiveMeteors = new ArrayList<RadioactiveMeteor>();
 
 	public City(String name, int life, MeteorShower meteorShower, State state) {
 		this.name = name;
@@ -57,9 +57,8 @@ public class City {
 
 	public void reset() {
 		meteorShower.unLoadMeteors();
-		dashedMeteors.clear();
+		radioactiveMeteors.clear();
 		currentLife = maxLife;
-		totalTimePassed = 0;
 	}
 
 	public Rectangle getBounds() {
@@ -72,31 +71,25 @@ public class City {
 			currentLife = 0;
 		}
 		if (meteor.getType() == Meteor.MeteorType.RADIOACTIVE_METEOR) {
-			dashedMeteors.add(meteor);
+			radioactiveMeteors.add((RadioactiveMeteor) meteor);
 		}
 	}
 
 	public void update(float delta) {
-		// TODO implement dashedMeteors continuously damaging city
-		totalTimePassed = totalTimePassed + delta;
-		if (totalTimePassed > 1) {
-			int size = dashedMeteors.size();
-			for (int i = 0; i < size; i++) {
-				RadioactiveMeteor radio = (RadioactiveMeteor) dashedMeteors.get(i);
-				if (radio.getDot() >= 0) {
-					currentLife -= radio.getDot();
-				} else {
-					dashedMeteors.remove(i);
-					size = dashedMeteors.size();
-				}
+		for (int i = 0; i < radioactiveMeteors.size(); i++) {
+			radioactiveMeteors.get(i).update(delta);
+			currentLife -= radioactiveMeteors.get(i).getDot();
+
+			if (radioactiveMeteors.get(i).isDecade()) {
+				radioactiveMeteors.remove(i);
 			}
-			totalTimePassed = 0;
 		}
+
 	}
 
 	/**
 	 * 
-	 * @returns the remaning life in procent
+	 * @returns the remaining life in percent
 	 */
 	public float getRemainingLife() {
 		return ((float) getLife()) / maxLife;
@@ -119,13 +112,18 @@ public class City {
 			this.stars = stars;
 
 	}
-	public void setScore(int score){
-		if(score > this.score)
+
+	public void setScore(int score) {
+		if (score > this.score)
 			this.score = score;
 	}
 
 	public int getHighScore() {
 		return score;
-		
+
+	}
+
+	public List<RadioactiveMeteor> getRadioactiveMeteors() {
+		return radioactiveMeteors;
 	}
 }
