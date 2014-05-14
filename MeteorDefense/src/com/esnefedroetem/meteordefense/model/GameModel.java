@@ -7,6 +7,7 @@ import java.util.Collection;
 import java.util.List;
 
 import com.badlogic.gdx.math.Circle;
+import com.badlogic.gdx.math.Intersector;
 import com.esnefedroetem.meteordefense.model.armoryitem.AbstractArmoryItem;
 import com.esnefedroetem.meteordefense.model.meteor.BasicMeteor;
 import com.esnefedroetem.meteordefense.util.Constants;
@@ -206,7 +207,8 @@ public class GameModel implements IGameModel {
 	}
 
 	private boolean collisionOccurs(Projectile projectile, Meteor meteor) {
-		return projectile.getBounds().overlaps(meteor.getBounds());
+		return Intersector.overlaps(meteor.getBounds(), projectile.getBounds());
+		//return projectile.getBounds().overlaps(meteor.getBounds());
 	}
 
 	private boolean collisionWithCityOccurs(Meteor meteor) {

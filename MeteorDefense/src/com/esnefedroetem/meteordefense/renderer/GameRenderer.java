@@ -37,6 +37,7 @@ import com.esnefedroetem.meteordefense.model.IGameModel;
 import com.esnefedroetem.meteordefense.model.Meteor;
 import com.esnefedroetem.meteordefense.model.Meteor.MeteorType;
 import com.esnefedroetem.meteordefense.model.Projectile;
+import com.esnefedroetem.meteordefense.model.Projectile.ProjectileType;
 import com.esnefedroetem.meteordefense.model.armoryitem.AbstractArmoryItem;
 import com.esnefedroetem.meteordefense.util.AssetsLoader;
 import com.esnefedroetem.meteordefense.util.Constants;
@@ -57,7 +58,6 @@ public class GameRenderer {
 	private Button btnItem1, btnItem2, btnItem3, btnItem4;
 	private ButtonStyle btnstyle1, btnstyle2, btnstyle3, btnstyle4;
 	private Image imgCityMonument, imgCity, imgCannon;
-	private Sprite projectileSprite;
 	private Rectangle viewport;
 	private float scale;
 	private HashMap<String, Sprite> spriteMap;
@@ -117,9 +117,6 @@ public class GameRenderer {
 		toolBarTable.add(imgCannon).bottom().expand();
 		toolBarTable.add(btnItem3).bottom().expand();
 		toolBarTable.add(btnItem4).bottom().expand();
-		Table toolBarBG = new Table();
-		toolBarBG.setFillParent(true);
-		toolBarBG.add(new Image(assetsLoader.getTexture("Toolbar.png"))).bottom().expand();
 		
 		imgCityMonument = new Image();
 		imgCity = new Image();
@@ -130,7 +127,6 @@ public class GameRenderer {
 		cityTable.padBottom(Constants.CITY_BOUNDS.y);
 		
 		gameStage.addActor(cityTable);
-		gameStage.addActor(toolBarBG);
 		gameStage.addActor(toolBarTable);
 		
 	}
@@ -141,9 +137,11 @@ public class GameRenderer {
 		for(int i = 0; i < meteors.length; i++){
 			spriteMap.put(meteors[i], new Sprite(assetsLoader.getTexture(meteors[i] + ".png")));
 		}
+		String[] projectiles = ProjectileType.getTypes();
+		for(int i = 0; i < projectiles.length; i++){
+			spriteMap.put(projectiles[i], new Sprite(assetsLoader.getTexture(projectiles[i] + ".png")));
+		}
 		
-		projectileSprite = new Sprite(assetsLoader.getTexture("projectile1.png"));
-		projectileSprite.setSize(Constants.DEFAULT_PROJECTILE_SIZE, Constants.DEFAULT_PROJECTILE_SIZE);
 	}
 
 	/**
@@ -189,6 +187,8 @@ public class GameRenderer {
 		for(Projectile projectile : model.getVisibleProjectiles()){
 			float x = projectile.getX() - projectile.getBounds().radius;
 			float y = projectile.getY() - projectile.getBounds().radius;
+			Sprite projectileSprite = spriteMap.get(projectile.getProjectileType().toString());
+			//projectileSprite.setSize(projectile.getBounds()., y);
 			projectileSprite.setPosition(x, y);
 			projectileSprite.setRotation((float) (projectile.getAngle()*(180/Math.PI))-90);
 			projectileSprite.draw(spriteBatch);

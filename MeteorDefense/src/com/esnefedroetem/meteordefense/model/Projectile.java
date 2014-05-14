@@ -7,18 +7,24 @@ import com.esnefedroetem.meteordefense.util.Constants;
 public class Projectile extends MoveableGameObject {
 	private ProjectileType projectile;
 	
-	public enum ProjectileType{NONE, WATER, FIRE}
+	public enum ProjectileType{STANDARD_PROJECTILE, WATER_PROJECTILE, FIRE_PROJECTILE;
+	
+		public static String[] getTypes(){
+			return new String[]{STANDARD_PROJECTILE.toString(), WATER_PROJECTILE.toString(), FIRE_PROJECTILE.toString()};
+		}
+	
+	}
 
 	public Projectile(float angle) {
 		super(angle, Constants.DEFAULT_PROJECTILE_DAMAGE, Constants.DEFAULT_PROJECTILE_SIZE,
 				Constants.DEFAULT_PROJECTILE_SPEED, Constants.DEFAULT_PROJECTILE_SPAWN);
-		projectile = ProjectileType.NONE;
+		projectile = ProjectileType.STANDARD_PROJECTILE;
 	}
 
 	public Projectile(float angle, Vector2 startPosition) {
 		super(angle, Constants.DEFAULT_PROJECTILE_DAMAGE, Constants.DEFAULT_PROJECTILE_SIZE,
 				Constants.DEFAULT_PROJECTILE_SPEED, startPosition);
-		projectile = ProjectileType.NONE;
+		projectile = ProjectileType.STANDARD_PROJECTILE;
 	}
 
 	public Projectile(float angle, Vector2 startPosition, ProjectileType projectileType) {

@@ -16,7 +16,7 @@ public abstract class AbstractProjectileArmoryItem extends AbstractArmoryItem {
 	private ProjectileType projectileType;
 	
 	public AbstractProjectileArmoryItem() {
-		projectileType = Projectile.ProjectileType.NONE;
+		projectileType = Projectile.ProjectileType.STANDARD_PROJECTILE;
 		projectileSize = 1;
 	}
 	
