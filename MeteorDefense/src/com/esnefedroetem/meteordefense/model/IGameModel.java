@@ -41,4 +41,6 @@ public interface IGameModel  {
 	
 	public boolean isPaused();
 	
+	public List<AbstractArmoryItem> getSelectedArmoryItems();
+	
 }

@@ -22,7 +22,7 @@ import com.esnefedroetem.meteordefense.util.Constants;
  */
 public class GameModel implements IGameModel {
 	
-	private Collection<Projectile> projectiles;
+	private Collection<Projectile> projectiles, projectilesToAdd;
 	private Collection<Meteor> meteorsToBlow;
 	private List<AbstractArmoryItem> armoryItems;
 	private AbstractArmoryItem selectedArmoryItem, standardWeapon;
@@ -43,6 +43,7 @@ public class GameModel implements IGameModel {
 		pcs.addPropertyChangeListener(listener);
 		this.cannonBarrel = cannonBarrel;
 		projectiles = new ArrayList<Projectile>();
+		projectilesToAdd = new ArrayList<Projectile>();
 		meteorsToBlow = new ArrayList<Meteor>();
 		scoreHandler = new ScoreHandler();
 		width = 720;
@@ -74,6 +75,8 @@ public class GameModel implements IGameModel {
 		for (Projectile p : projectiles) {
 			p.move(delta);
 		}
+		projectiles.addAll(projectilesToAdd);
+		projectilesToAdd.clear();
 
 		collisionControll();
 		removeProjectilesBeyondGameField();
@@ -91,7 +94,7 @@ public class GameModel implements IGameModel {
 	@Override
 	public void shoot(float posX, float posY) {
 		cannonBarrel.calculateAngle(posX, posY);
-		projectiles.add(cannonBarrel.deploy());
+		projectilesToAdd.add(cannonBarrel.deploy());
 		scoreHandler.weaponFired();
 
 		Projectile projectile = standardWeapon.accept(visitor);
@@ -293,6 +296,12 @@ public class GameModel implements IGameModel {
 	
 	public boolean isPaused(){
 		return isPaused;
+	}
+
+
+	@Override
+	public List<AbstractArmoryItem> getSelectedArmoryItems() {
+		return armoryItems;
 	}
 
 }

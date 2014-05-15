@@ -51,6 +51,7 @@ public class GameRenderer {
 
 	private OrthographicCamera gameCam;
 	private SpriteBatch spriteBatch;
+	private ShapeRenderer shapeRenderer;
 	private int width, height;
 	private IGameModel model;
 	private Stage gameStage, bgStage;
@@ -75,6 +76,7 @@ public class GameRenderer {
 		gameCam.position.set(model.getWidth() / 2, model.getHeight() / 2, 0);
 		gameCam.update();
 		spriteBatch = new SpriteBatch();
+		shapeRenderer = new ShapeRenderer();
 		loadSprites();
 		
 		createUI();
@@ -163,7 +165,6 @@ public class GameRenderer {
 		bgStage.act();
 		bgStage.draw();
 		
-		
 		drawHits();
 		effect.update(delta);
 		Gdx.gl.glViewport((int) viewport.x, (int) viewport.y,
@@ -179,7 +180,7 @@ public class GameRenderer {
 		effect.start();
 		spriteBatch.end();
 //		drawDebug();
-		
+		drawWeaponCooldown();
 
 	}
 	
@@ -214,6 +215,20 @@ public class GameRenderer {
 		
 		model.getMeteorsToBlow().clear();
 		
+	}
+	
+	private void drawWeaponCooldown(){
+		Gdx.gl.glEnable(GL11.GL_BLEND);
+		List<AbstractArmoryItem> items = model.getSelectedArmoryItems();
+		shapeRenderer.setProjectionMatrix(gameCam.combined);
+		shapeRenderer.begin(ShapeType.Filled);
+		shapeRenderer.setColor(0.5f, 0.5f, 0.5f, 0.5f);
+		shapeRenderer.rect(btnItem1.getX(), btnItem1.getY(), btnItem1.getWidth(), btnItem1.getHeight() * items.get(0).getRemainingCooldown());
+		shapeRenderer.rect(btnItem2.getX(), btnItem2.getY(), btnItem2.getWidth(), btnItem2.getHeight() * items.get(1).getRemainingCooldown());
+		shapeRenderer.rect(btnItem3.getX(), btnItem3.getY(), btnItem3.getWidth(), btnItem3.getHeight() * items.get(3).getRemainingCooldown());
+		shapeRenderer.rect(btnItem4.getX(), btnItem4.getY(), btnItem4.getWidth(), btnItem4.getHeight() * items.get(4).getRemainingCooldown());
+		shapeRenderer.end();
+		Gdx.gl.glDisable(GL11.GL_BLEND);
 	}
 	
 	/**
