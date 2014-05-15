@@ -252,7 +252,6 @@ public class AssetsLoader {
 					"starGrey.png", 
 					"StartScreenBG.png", 
 					"Tokyo.png", 
-					"Toolbar.png", 
 					"Washington.png", 
 					"WATER_PROJECTILE.png", 
 					"weaponslot.png"};
