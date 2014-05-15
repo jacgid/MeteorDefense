@@ -211,7 +211,8 @@ public class AssetsLoader {
 		} else {
 			String[] files = {"America.png", 
 					"Antarctica.png", 
-					"armoryIcon.png", 
+					"armoryIcon.png",
+					"ArmoryDetailedButton.png",
 					"Asia.png", 
 					"BASIC_METEOR.png", 
 					"Berlin.png", 

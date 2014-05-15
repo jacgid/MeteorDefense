@@ -143,7 +143,7 @@ public class ArmoryDetailedRenderer {
 		TextButtonStyle textButtonStyle = new TextButtonStyle();
 		textButtonStyle.font = assetsLoader.getSmallFont();
 		textButtonStyle.up = new TextureRegionDrawable(new TextureRegion(
-				assetsLoader.getTexture("PlayButton.png")));
+				assetsLoader.getTexture("ArmoryDetailedButton.png")));
 
 		// upgradeButton
 		upgradeButton = new TextButton("", textButtonStyle);
