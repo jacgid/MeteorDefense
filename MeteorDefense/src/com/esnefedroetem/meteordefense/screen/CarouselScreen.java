@@ -104,6 +104,7 @@ public class CarouselScreen implements Screen, PropertyChangeListener {
 	private void processCarouselClick(int position){
 		if(isCitiesDisplayed){
 			City city = currentContinent.getCities().get(position);
+			//City set leveldata
 			if(city.getState() == City.State.UNLOCKED){
 				pcs.firePropertyChange(CarouselEvent.CAROUSEL_NEWGAME.toString(), null, city);
 			}
