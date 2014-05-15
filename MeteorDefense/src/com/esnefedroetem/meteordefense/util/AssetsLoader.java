@@ -15,6 +15,7 @@ import com.badlogic.gdx.files.FileHandle;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.ParticleEffect;
+import com.esnefedroetem.meteordefense.model.City;
 
 public class AssetsLoader {
 
@@ -263,5 +264,17 @@ public class AssetsLoader {
 			
 		}
 	}
+	
+	public void loadStartupAssets(){
+		
+	}
 
+	public void loadBasegameAssets(){
+		
+	}
+	
+	public void loadLevelAssets(City city){
+		
+	}
+	
 }

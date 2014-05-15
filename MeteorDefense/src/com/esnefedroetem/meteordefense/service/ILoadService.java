@@ -15,5 +15,5 @@ public interface ILoadService {
 	
 	public List<WeaponData> getArmoryItems();
 	
-	
+	public LevelData getLevelData(String city);
 }
