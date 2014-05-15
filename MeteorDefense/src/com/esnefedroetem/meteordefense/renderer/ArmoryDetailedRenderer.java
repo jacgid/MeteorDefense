@@ -25,6 +25,7 @@ import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 import com.badlogic.gdx.scenes.scene2d.utils.TextureRegionDrawable;
 import com.esnefedroetem.meteordefense.util.AssetsLoader;
+import com.esnefedroetem.meteordefense.util.Constants;
 
 public class ArmoryDetailedRenderer {
 
@@ -56,20 +57,25 @@ public class ArmoryDetailedRenderer {
 		Table table = new Table();
 		table.setFillParent(true);
 
+		// assetsTable
+		Table assetsTable = new Table();
+		
 		// assetsLabel
 		LabelStyle textLabelStyle = new LabelStyle();
 		textLabelStyle.font = assetsLoader.getSmallFont();
 		assetsLabel = new Label("", textLabelStyle);
 		
-		table.add(assetsLabel).right();
+		assetsTable.add(assetsLabel);
 		
 		// coinImage
 		Image coinImage = new Image(assetsLoader.getTexture("PlayButton.png"));
 		
-		table.add(coinImage)
+		assetsTable.add(coinImage)
 		.width(Gdx.graphics.getWidth() * 0.05F)
 		.height(Gdx.graphics.getWidth() * 0.05F
 				* coinImage.getHeight() / coinImage.getWidth());
+
+		table.add(assetsTable).left();
 
 		table.row();
 
@@ -82,20 +88,24 @@ public class ArmoryDetailedRenderer {
 
 		table.row();
 
+		// descriptionTable
+		Table descriptionTable = new Table();
+		
 		// itemImage
 		itemImage = new Image(assetsLoader.getTexture("PlayButton.png"));
-		table.add(itemImage)
+		descriptionTable.add(itemImage)
 				.width(Gdx.graphics.getWidth() * 0.25F)
 				.height(Gdx.graphics.getWidth() * 0.25F
-						* itemImage.getHeight() / itemImage.getWidth());
+						* itemImage.getHeight() / itemImage.getWidth()).top().left().pad(Constants.LOGIC_SCREEN_WIDTH/70f);
 
 		// descriptionLabel
 		descriptionLabel = new Label("", textLabelStyle);
 		descriptionLabel.setWrap(true);
 
-		table.add(descriptionLabel).right().fill();
+		descriptionTable.add(descriptionLabel).width(Constants.LOGIC_SCREEN_WIDTH/3.6f).right();
 
-		table.row();
+		table.add(descriptionTable).left();
+		table.row().row();
 		
 		// powerLabel
 		powerLabel = new Label("", textLabelStyle);
@@ -107,21 +117,28 @@ public class ArmoryDetailedRenderer {
 
 		table.add(cooldownLabel).left().row();
 		
+		// upgradeTable
+		Table upgradeTable = new Table();
+		
 		// upgradeImage
 		upgradeImage = new Image(assetsLoader.getTexture("PlayButton.png"));
-		table.add(upgradeImage)
+		upgradeTable.add(upgradeImage)
 				.width(Gdx.graphics.getWidth() * 0.15F)
 				.height(Gdx.graphics.getWidth() * 0.15F
-						* upgradeImage.getHeight() / upgradeImage.getWidth());
+						* upgradeImage.getHeight() / upgradeImage.getWidth()).top().left().pad(Constants.LOGIC_SCREEN_WIDTH/70f);
 
 		
 		// upgradeLabel
 		upgradeLabel = new Label("", textLabelStyle);
 
-		table.add(upgradeLabel).left().expand();
-
+		upgradeTable.add(upgradeLabel).right();
+		
+		table.add(upgradeTable).expandY().left();
 		table.row();
 
+		// buttonTable
+		Table buttonTable = new Table();
+				
 		// textButtonStyle
 		TextButtonStyle textButtonStyle = new TextButtonStyle();
 		textButtonStyle.font = assetsLoader.getSmallFont();
@@ -143,7 +160,7 @@ public class ArmoryDetailedRenderer {
 		});
 
 		float aspect = upgradeButton.getHeight() / upgradeButton.getWidth();
-		table.add(upgradeButton).left().width(Gdx.graphics.getWidth() * 0.5F)
+		buttonTable.add(upgradeButton).left().width(Gdx.graphics.getWidth() * 0.5F)
 				.height(Gdx.graphics.getWidth() * 0.5F * aspect);
 
 		// tradeButton
@@ -161,9 +178,11 @@ public class ArmoryDetailedRenderer {
 			}
 		});
 
-		table.add(tradeButton).right().width(Gdx.graphics.getWidth() * 0.5F)
+		buttonTable.add(tradeButton).right().width(Gdx.graphics.getWidth() * 0.5F)
 				.height(Gdx.graphics.getWidth() * 0.5F * aspect);
 
+		table.add(buttonTable);
+		
 		stage.addActor(table);
 
 		stage.addListener(new InputListener() {

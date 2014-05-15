@@ -10,6 +10,7 @@ import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.Texture.TextureFilter;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
+import com.badlogic.gdx.graphics.g2d.ParticleEffect;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
@@ -62,6 +63,7 @@ public class GameRenderer {
 	private float scale;
 	private HashMap<String, Sprite> spriteMap;
 	private AssetsLoader assetsLoader = AssetsLoader.getInstance();
+	private ParticleEffect effect;
 
 	
 	/**
@@ -74,6 +76,7 @@ public class GameRenderer {
 		gameCam.update();
 		spriteBatch = new SpriteBatch();
 		loadSprites();
+		
 		createUI();
 	}
 
@@ -89,6 +92,7 @@ public class GameRenderer {
 		
 		lblStyleMedium = new LabelStyle();
 		lblStyleMedium.font = assetsLoader.getMediumFont();
+
 		lifeLabel = new Label("", lblStyleMedium);
 		scoreLable = new Label("0", lblStyleMedium);
 		Table lblTable = new Table();
@@ -147,16 +151,21 @@ public class GameRenderer {
 	/**
 	 * Renders the view. Draws all the textures to the screen.
 	 */
-	public void render(){
+	public void render(float delta){
 		Gdx.gl.glClearColor(94f, 97f, 225f, 1);
 		Gdx.gl.glClear(GL11.GL_COLOR_BUFFER_BIT|GL11.GL_STENCIL_BUFFER_BIT);
 		
 		Gdx.gl.glViewport(0, 0, width, height);
 		lifeLabel.setText(model.getCity().getLife() + "");
 		scoreLable.setText(model.getScore() + "");
+		model.getCity().getRemainingLife();
+		
 		bgStage.act();
 		bgStage.draw();
+		
+		
 		drawHits();
+		effect.update(delta);
 		Gdx.gl.glViewport((int) viewport.x, (int) viewport.y,
                 (int) viewport.width, (int) viewport.height);
 		gameCam.update();
@@ -166,6 +175,8 @@ public class GameRenderer {
 		gameStage.draw();
 		spriteBatch.begin();
 		drawSprites();
+		effect.draw(spriteBatch);
+		effect.start();
 		spriteBatch.end();
 //		drawDebug();
 		
@@ -259,12 +270,22 @@ public class GameRenderer {
 		imgCityMonument.setDrawable(new TextureRegionDrawable(new TextureRegion(assetsLoader.getTexture("ParisMonument.png"))));
 		imgCity.setDrawable(new TextureRegionDrawable(new TextureRegion(assetsLoader.getTexture("Europe1.png"))));
 		imgCannon.setDrawable(new TextureRegionDrawable(new TextureRegion(assetsLoader.getTexture(items.get(2).getName() + ".png"))));
+		initCityFire();
+		
+		
+		
 		//TODO change to specific city monument
 	}
 	
 	public void dispose(){
 		gameStage.dispose();
 		spriteBatch.dispose();
+	}
+	private void initCityFire(){
+		effect = assetsLoader.getParticleEffect("test.p");
+		effect.setPosition(100, model.getCity().getBounds().getY());
+
+		
 	}
 	
 }
