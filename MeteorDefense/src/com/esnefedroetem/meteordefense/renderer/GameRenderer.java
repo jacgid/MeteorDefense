@@ -11,6 +11,7 @@ import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.Texture.TextureFilter;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.ParticleEffect;
+import com.badlogic.gdx.graphics.g2d.ParticleEmitter;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
@@ -45,6 +46,7 @@ import com.esnefedroetem.meteordefense.util.Constants;
 
 /**
  * GameRenderer is responsible for rendering everything in the GameModel.
+ * 
  * @author Simon Nielsen
  */
 public class GameRenderer {
@@ -65,12 +67,13 @@ public class GameRenderer {
 	private HashMap<String, Sprite> spriteMap;
 	private AssetsLoader assetsLoader = AssetsLoader.getInstance();
 	private ParticleEffect effect;
+	private ParticleEmitter fireEmitters[] = new ParticleEmitter[10];
+	private int startedFires = 0;
 
-	
 	/**
 	 * Initializes GameRenderer.
 	 */
-	public GameRenderer(IGameModel model){
+	public GameRenderer(IGameModel model) {
 		this.model = model;
 		gameCam = new OrthographicCamera(model.getWidth(), model.getHeight());
 		gameCam.position.set(model.getWidth() / 2, model.getHeight() / 2, 0);
@@ -78,7 +81,7 @@ public class GameRenderer {
 		spriteBatch = new SpriteBatch();
 		shapeRenderer = new ShapeRenderer();
 		loadSprites();
-		
+
 		createUI();
 	}
 
@@ -86,12 +89,12 @@ public class GameRenderer {
 		gameStage = new Stage();
 		gameStage.setCamera(gameCam);
 		bgStage = new Stage();
-		
+
 		Table bgImgTable = new Table();
 		bgImgTable.setFillParent(true);
 		bgImgTable.add(new Image(assetsLoader.getTexture("MDBG.png"))).expand().fill();
 		bgStage.addActor(bgImgTable);
-		
+
 		lblStyleMedium = new LabelStyle();
 		lblStyleMedium.font = assetsLoader.getMediumFont();
 
@@ -102,7 +105,7 @@ public class GameRenderer {
 		lblTable.add(lifeLabel).top().left().expand();
 		lblTable.add(scoreLable).top().right();
 		bgStage.addActor(lblTable);
-		
+
 		btnstyle1 = new ButtonStyle();
 		btnstyle2 = new ButtonStyle();
 		btnstyle3 = new ButtonStyle();
@@ -123,7 +126,7 @@ public class GameRenderer {
 		toolBarTable.add(imgCannon).bottom().expand();
 		toolBarTable.add(btnItem3).bottom().expand();
 		toolBarTable.add(btnItem4).bottom().expand();
-		
+
 		imgCityMonument = new Image();
 		imgCity = new Image();
 		Table cityTable = new Table();
@@ -131,44 +134,43 @@ public class GameRenderer {
 		cityTable.add(imgCity).expand().bottom();
 		cityTable.add(imgCityMonument).bottom();
 		cityTable.padBottom(Constants.CITY_BOUNDS.y);
-		
+
 		gameStage.addActor(cityTable);
 		gameStage.addActor(toolBarTable);
-		
+
 	}
-	
-	private void loadSprites(){
+
+	private void loadSprites() {
 		spriteMap = new HashMap<String, Sprite>();
 		String[] meteors = MeteorType.getTypes();
-		for(int i = 0; i < meteors.length; i++){
+		for (int i = 0; i < meteors.length; i++) {
 			spriteMap.put(meteors[i], new Sprite(assetsLoader.getTexture(meteors[i] + ".png")));
 		}
 		String[] projectiles = ProjectileType.getTypes();
-		for(int i = 0; i < projectiles.length; i++){
+		for (int i = 0; i < projectiles.length; i++) {
 			spriteMap.put(projectiles[i], new Sprite(assetsLoader.getTexture(projectiles[i] + ".png")));
 		}
-		
+
 	}
 
 	/**
 	 * Renders the view. Draws all the textures to the screen.
 	 */
-	public void render(float delta){
+	public void render(float delta) {
 		Gdx.gl.glClearColor(94f, 97f, 225f, 1);
-		Gdx.gl.glClear(GL11.GL_COLOR_BUFFER_BIT|GL11.GL_STENCIL_BUFFER_BIT);
-		
+		Gdx.gl.glClear(GL11.GL_COLOR_BUFFER_BIT | GL11.GL_STENCIL_BUFFER_BIT);
+
 		Gdx.gl.glViewport(0, 0, width, height);
 		lifeLabel.setText(model.getCity().getLife() + "");
+		updateLifeVisuals(model.getCity().getRemainingLife());
 		scoreLable.setText(model.getScore() + "");
 		model.getCity().getRemainingLife();
-		
+
 		bgStage.act();
 		bgStage.draw();
-		
 		drawHits();
 		effect.update(delta);
-		Gdx.gl.glViewport((int) viewport.x, (int) viewport.y,
-                (int) viewport.width, (int) viewport.height);
+		Gdx.gl.glViewport((int) viewport.x, (int) viewport.y, (int) viewport.width, (int) viewport.height);
 		gameCam.update();
 		gameCam.apply(Gdx.gl10);
 		spriteBatch.setProjectionMatrix(gameCam.combined);
@@ -176,16 +178,16 @@ public class GameRenderer {
 		gameStage.draw();
 		spriteBatch.begin();
 		drawSprites();
+
 		effect.draw(spriteBatch);
-		effect.start();
+
 		spriteBatch.end();
-//		drawDebug();
 		drawWeaponCooldown();
 
 	}
-	
-	private void drawSprites(){
-		for(Meteor meteor : model.getVisibleMeteors()){
+
+	private void drawSprites() {
+		for (Meteor meteor : model.getVisibleMeteors()) {
 			float x = meteor.getX();
 			float y = meteor.getY();
 			Sprite meteorSprite = spriteMap.get(meteor.getType().toString());
@@ -193,28 +195,28 @@ public class GameRenderer {
 			meteorSprite.draw(spriteBatch);
 		}
 		imgCannon.setOrigin(Constants.CANNON_ORIGIN_X, Constants.CANNON_ORIGIN_Y);
-		imgCannon.setRotation(((float) Math.toDegrees(model.getCannonAngle())-90));
-		for(Projectile projectile : model.getVisibleProjectiles()){
+		imgCannon.setRotation(((float) Math.toDegrees(model.getCannonAngle()) - 90));
+		for (Projectile projectile : model.getVisibleProjectiles()) {
 			float x = projectile.getX() - projectile.getBounds().width / 2;
 			float y = projectile.getY() - projectile.getBounds().height / 2;
 			Sprite projectileSprite = spriteMap.get(projectile.getProjectileType().toString());
-			projectileSprite.setRotation((float) (projectile.getAngle()*(180/Math.PI))-90);
+			projectileSprite.setRotation((float) (projectile.getAngle() * (180 / Math.PI)) - 90);
 			projectileSprite.setBounds(x, y, projectile.getBounds().width, projectile.getBounds().height);
 			projectileSprite.draw(spriteBatch);
 		}
 	}
-	
-	private void drawHits(){
-		
-		for(Meteor meteor : model.getMeteorsToBlow()){
-			Label hitLabel = new Label(""+meteor.getDifficulty(), lblStyleMedium);
+
+	private void drawHits() {
+
+		for (Meteor meteor : model.getMeteorsToBlow()) {
+			Label hitLabel = new Label("" + meteor.getDifficulty(), lblStyleMedium);
 			hitLabel.addAction(Actions.sequence(Actions.fadeOut(0.5f), Actions.removeActor()));
 			gameStage.addActor(hitLabel);
 			hitLabel.setPosition(meteor.getBounds().x, meteor.getBounds().y);
 		}
-		
+
 		model.getMeteorsToBlow().clear();
-		
+
 	}
 	
 	private void drawWeaponCooldown(){
@@ -233,74 +235,106 @@ public class GameRenderer {
 	
 	/**
 	 * Sets the size of the view.
-	 * @param width The width of the screen.
-	 * @param height The height of the screen.
+	 * 
+	 * @param width
+	 *            The width of the screen.
+	 * @param height
+	 *            The height of the screen.
 	 */
-	public void setSize(int width, int height){
+	public void setSize(int width, int height) {
 		this.width = width;
 		this.height = height;
-		
-		float aspectRatio = (float)width/(float)height;
-        scale = 1f;
-        Vector2 crop = new Vector2(0f, 0f);
-        
-        if(aspectRatio > Constants.LOGIC_ASPECTRATIO)
-        {
-            scale = (float)height/Constants.LOGIC_SCREEN_HEIGHT;
-            crop.x = (width - Constants.LOGIC_SCREEN_WIDTH*scale)/2f;
-        }
-        else if(aspectRatio < Constants.LOGIC_ASPECTRATIO)
-        {
-            scale = (float)width/(float)Constants.LOGIC_SCREEN_WIDTH;
-            crop.y = (height - Constants.LOGIC_SCREEN_HEIGHT*scale)/2f;
-        }
-        else
-        {
-            scale = (float)width/(float)Constants.LOGIC_SCREEN_WIDTH;
-        }
 
-        float w = (float)Constants.LOGIC_SCREEN_WIDTH*scale;
-        float h = (float)Constants.LOGIC_SCREEN_HEIGHT*scale;
-        viewport = new Rectangle(crop.x, crop.y, w, h);
-        gameStage.setViewport(gameCam.viewportWidth, gameCam.viewportHeight, true, viewport.x, viewport.y, viewport.width, viewport.height);
+		float aspectRatio = (float) width / (float) height;
+		scale = 1f;
+		Vector2 crop = new Vector2(0f, 0f);
+
+		if (aspectRatio > Constants.LOGIC_ASPECTRATIO) {
+			scale = (float) height / Constants.LOGIC_SCREEN_HEIGHT;
+			crop.x = (width - Constants.LOGIC_SCREEN_WIDTH * scale) / 2f;
+		} else if (aspectRatio < Constants.LOGIC_ASPECTRATIO) {
+			scale = (float) width / (float) Constants.LOGIC_SCREEN_WIDTH;
+			crop.y = (height - Constants.LOGIC_SCREEN_HEIGHT * scale) / 2f;
+		} else {
+			scale = (float) width / (float) Constants.LOGIC_SCREEN_WIDTH;
+		}
+
+		float w = (float) Constants.LOGIC_SCREEN_WIDTH * scale;
+		float h = (float) Constants.LOGIC_SCREEN_HEIGHT * scale;
+		viewport = new Rectangle(crop.x, crop.y, w, h);
+		gameStage.setViewport(gameCam.viewportWidth, gameCam.viewportHeight, true, viewport.x, viewport.y,
+				viewport.width, viewport.height);
 	}
-	
-	public void addListeners(InputListener inputListener, ClickListener clickListener){
+
+	public void addListeners(InputListener inputListener, ClickListener clickListener) {
 		gameStage.addListener(inputListener);
 		btnItem1.addListener(clickListener);
 		btnItem2.addListener(clickListener);
 		btnItem3.addListener(clickListener);
 		btnItem4.addListener(clickListener);
 	}
-	
-	public void setInputProcessor(){
+
+	public void setInputProcessor() {
 		Gdx.input.setInputProcessor(gameStage);
 	}
-	
-	public void newGame(City city, List<AbstractArmoryItem> items){
-		btnstyle1.up = new TextureRegionDrawable(new TextureRegion(assetsLoader.getTexture(items.get(0).getName() + ".png")));
-		btnstyle2.up = new TextureRegionDrawable(new TextureRegion(assetsLoader.getTexture(items.get(1).getName() + ".png")));
-		btnstyle3.up = new TextureRegionDrawable(new TextureRegion(assetsLoader.getTexture(items.get(3).getName() + ".png")));
-		btnstyle4.up = new TextureRegionDrawable(new TextureRegion(assetsLoader.getTexture(items.get(4).getName() + ".png")));
-		imgCityMonument.setDrawable(new TextureRegionDrawable(new TextureRegion(assetsLoader.getTexture("ParisMonument.png"))));
+
+	public void newGame(City city, List<AbstractArmoryItem> items) {
+		btnstyle1.up = new TextureRegionDrawable(new TextureRegion(assetsLoader.getTexture(items.get(0).getName()
+				+ ".png")));
+		btnstyle2.up = new TextureRegionDrawable(new TextureRegion(assetsLoader.getTexture(items.get(1).getName()
+				+ ".png")));
+		btnstyle3.up = new TextureRegionDrawable(new TextureRegion(assetsLoader.getTexture(items.get(3).getName()
+				+ ".png")));
+		btnstyle4.up = new TextureRegionDrawable(new TextureRegion(assetsLoader.getTexture(items.get(4).getName()
+				+ ".png")));
+		imgCityMonument.setDrawable(new TextureRegionDrawable(new TextureRegion(assetsLoader
+				.getTexture("ParisMonument.png"))));
 		imgCity.setDrawable(new TextureRegionDrawable(new TextureRegion(assetsLoader.getTexture("Europe1.png"))));
-		imgCannon.setDrawable(new TextureRegionDrawable(new TextureRegion(assetsLoader.getTexture(items.get(2).getName() + ".png"))));
+		imgCannon.setDrawable(new TextureRegionDrawable(new TextureRegion(assetsLoader.getTexture(items.get(2)
+				.getName() + ".png"))));
 		initCityFire();
-		
-		
-		
-		//TODO change to specific city monument
+
+		// TODO change to specific city monument
 	}
-	
-	public void dispose(){
+
+	public void dispose() {
 		gameStage.dispose();
 		spriteBatch.dispose();
 	}
-	private void initCityFire(){
-		effect = assetsLoader.getParticleEffect("test.p");
-		effect.setPosition(100, model.getCity().getBounds().getY());
 
-		
+	private void initCityFire() {
+		float fireInterval = model.getCity().getBounds().getWidth() / 10;
+		float yPos = model.getCity().getBounds().getY();
+		startedFires = 0;
+
+		effect = assetsLoader.getParticleEffect("test.p");
+		effect.setPosition(0, yPos);
+		// effect.findEmitter("Fire0").setMaxParticleCount(5000);
+		// effect.findEmitter("Fire0").setPosition(0, yPos);
+
+		// fills the array with emitters from the particleeffect.
+
+		for (int i = 0; i < 10; i++) {
+			fireEmitters[i] = effect.findEmitter("Fire" + i);
+			fireEmitters[i].setMaxParticleCount(0);
+			fireEmitters[i].setPosition(fireInterval * (i + 1), yPos);
+		}
+
+		effect.start();
+
 	}
-	
+
+	private void updateLifeVisuals(float remainingLife) {
+		// calculate how many fires to start.
+		int damage = Math.round((1 - remainingLife) * 10);
+		System.out.println(damage);
+
+		while (startedFires < damage) {
+			fireEmitters[startedFires].setMaxParticleCount(5000);
+
+			startedFires++;
+		}
+
+	}
+
 }

@@ -126,4 +126,9 @@ public class City {
 	public List<RadioactiveMeteor> getRadioactiveMeteors() {
 		return radioactiveMeteors;
 	}
+	
+	public void setLevelData(int cityLife, MeteorShower meteorShower){
+		maxLife = currentLife = cityLife;
+		this.meteorShower = meteorShower;
+	}
 }
