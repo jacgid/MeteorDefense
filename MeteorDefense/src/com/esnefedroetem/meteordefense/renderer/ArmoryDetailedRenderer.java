@@ -59,7 +59,6 @@ public class ArmoryDetailedRenderer {
 
 		// assetsTable
 		Table assetsTable = new Table();
-		assetsTable.add();
 		
 		// assetsLabel
 		LabelStyle textLabelStyle = new LabelStyle();
@@ -105,7 +104,7 @@ public class ArmoryDetailedRenderer {
 
 		descriptionTable.add(descriptionLabel).width(Constants.LOGIC_SCREEN_WIDTH/3.6f).right();
 
-		table.add(descriptionTable);
+		table.add(descriptionTable).left();
 		table.row().row();
 		
 		// powerLabel
@@ -134,7 +133,7 @@ public class ArmoryDetailedRenderer {
 
 		upgradeTable.add(upgradeLabel).right();
 		
-		table.add(upgradeTable).expandY();
+		table.add(upgradeTable).expandY().left();
 		table.row();
 
 		// buttonTable
