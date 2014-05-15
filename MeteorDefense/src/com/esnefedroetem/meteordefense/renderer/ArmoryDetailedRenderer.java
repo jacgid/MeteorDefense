@@ -73,7 +73,7 @@ public class ArmoryDetailedRenderer {
 		assetsTable.add(coinImage)
 		.width(Gdx.graphics.getWidth() * 0.05F)
 		.height(Gdx.graphics.getWidth() * 0.05F
-				* coinImage.getHeight() / coinImage.getWidth());
+				* coinImage.getHeight() / coinImage.getWidth()).pad(Gdx.graphics.getWidth()/100f);
 
 		table.add(assetsTable).left();
 
@@ -96,13 +96,13 @@ public class ArmoryDetailedRenderer {
 		descriptionTable.add(itemImage)
 				.width(Gdx.graphics.getWidth() * 0.25F)
 				.height(Gdx.graphics.getWidth() * 0.25F
-						* itemImage.getHeight() / itemImage.getWidth()).top().left().pad(Constants.LOGIC_SCREEN_WIDTH/70f);
+						* itemImage.getHeight() / itemImage.getWidth()).top().left().pad(Gdx.graphics.getWidth()/30f);
 
 		// descriptionLabel
 		descriptionLabel = new Label("", textLabelStyle);
 		descriptionLabel.setWrap(true);
 
-		descriptionTable.add(descriptionLabel).width(Constants.LOGIC_SCREEN_WIDTH/3.6f).right();
+		descriptionTable.add(descriptionLabel).width(Gdx.graphics.getWidth()/1.5f).right();
 
 		table.add(descriptionTable).left();
 		table.row().row();
@@ -125,7 +125,7 @@ public class ArmoryDetailedRenderer {
 		upgradeTable.add(upgradeImage)
 				.width(Gdx.graphics.getWidth() * 0.15F)
 				.height(Gdx.graphics.getWidth() * 0.15F
-						* upgradeImage.getHeight() / upgradeImage.getWidth()).top().left().pad(Constants.LOGIC_SCREEN_WIDTH/70f);
+						* upgradeImage.getHeight() / upgradeImage.getWidth()).top().left().pad(Gdx.graphics.getWidth()/50f);
 
 		
 		// upgradeLabel
