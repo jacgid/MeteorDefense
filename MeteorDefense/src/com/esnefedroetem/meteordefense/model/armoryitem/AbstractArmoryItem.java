@@ -155,7 +155,7 @@ public abstract class AbstractArmoryItem implements IArmoryItemElement {
 			return "Power: " + (power
 					+ upgrades.get(upgradeIndex).getPowerIncrement());
 		}
-		return "No more upgrades available";
+		return "No upgrades available";
 	}
 	
 	public void resetLastUsed() {
