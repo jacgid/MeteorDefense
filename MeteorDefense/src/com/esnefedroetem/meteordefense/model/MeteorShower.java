@@ -181,10 +181,9 @@ public class MeteorShower {
 	 * @return Position in Vector2
 	 */
 	private Vector2 randomStartPos(float sizeOfMeteor) {
-		int randomX = (int) ((sizeOfMeteor / 2) + (Math.random() * (Constants.LOGIC_SCREEN_WIDTH
-				- sizeOfMeteor + 1)));
-		return new Vector2(randomX, Constants.LOGIC_SCREEN_HEIGHT
-				+ sizeOfMeteor / 2);
+		int randomX = (int) (Math.random() * (Constants.LOGIC_SCREEN_WIDTH
+				- sizeOfMeteor + 1));
+		return new Vector2(randomX, Constants.LOGIC_SCREEN_HEIGHT + 1);
 
 	}
 
