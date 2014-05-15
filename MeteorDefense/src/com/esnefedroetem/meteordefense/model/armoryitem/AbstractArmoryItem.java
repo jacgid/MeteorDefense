@@ -163,7 +163,7 @@ public abstract class AbstractArmoryItem implements IArmoryItemElement {
 	}
 	
 	public float getRemainingCooldown() {
-		return 1 - ((float)TimeUtils.timeSinceMillis(lastUsed))/lastUsed;
+		return 1 - TimeUtils.timeSinceMillis(lastUsed)/(cooldown * 1000);
 	}
 	
 }
