@@ -1,7 +1,7 @@
 /**
  * 
  */
-package com.esnefedroetem.meteordefense.tests;
+package com.esnefedroetem.meteordefense.model.armoryitem;
 
 import static org.junit.Assert.*;
 

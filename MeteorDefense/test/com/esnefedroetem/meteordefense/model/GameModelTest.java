@@ -1,4 +1,4 @@
-package com.esnefedroetem.meteordefense.tests;
+package com.esnefedroetem.meteordefense.model;
 
 import static org.junit.Assert.*;
 
