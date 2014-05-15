@@ -7,9 +7,7 @@ import java.util.List;
 import com.badlogic.gdx.Application.ApplicationType;
 import com.badlogic.gdx.Game;
 import com.badlogic.gdx.Gdx;
-import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.graphics.Texture;
-import com.badlogic.gdx.utils.IntIntMap;
 import com.esnefedroetem.meteordefense.factory.GameFactory;
 import com.esnefedroetem.meteordefense.factory.IGameFactory;
 import com.esnefedroetem.meteordefense.model.City;
@@ -42,7 +40,7 @@ public class MeteorDefense extends Game implements PropertyChangeListener {
 	public void create() {
 		Texture.setEnforcePotImages(false);
 		Gdx.input.setCatchBackKey(true);
-		splashScreen = new SplashScreen(this);
+		splashScreen = GameFactory.getInstance().createSplashScreen(this);
 		setScreen(splashScreen);
 	}
 
@@ -94,20 +92,13 @@ public class MeteorDefense extends Game implements PropertyChangeListener {
 	 * Initiate screens
 	 */
 	private void init() {
-		GameFactory.getInstance().createScreens(this);
-	}
-
-	public void setScreens(MainMenuScreen mainMenuScreen,
-			ArmoryScreen armoryScreen,
-			ArmoryDetailedScreen armoryDetaliedScreen, GameScreen gameScreen,
-			CarouselScreen carouselScreen, ScoreScreen scoreScreen) {
-		this.mainMenuScreen = mainMenuScreen;
-		this.armoryScreen = armoryScreen;
-		this.armoryDetaliedScreen = armoryDetaliedScreen;
-		this.gameScreen = gameScreen;
-		this.carouselScreen = carouselScreen;
-		this.scoreScreen = scoreScreen;
-
+		IGameFactory factory = GameFactory.getInstance();
+		this.mainMenuScreen = factory.createMainMenuScreen(this);
+		this.armoryScreen = factory.createArmoryScreen(this);
+		this.armoryDetaliedScreen = factory.createArmoryDetailedScreen(this);
+		this.gameScreen = factory.createGameScreen(this);
+		this.carouselScreen = factory.createCarouselScreen(this);
+		this.scoreScreen = factory.createScoreScreen(this);
 	}
 
 	private void changeSound() {
