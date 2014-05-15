@@ -15,11 +15,14 @@ public class Constants {
 	public static final int BASE_METEOR_DAMAGE = 1;
 	public static final int BASE_METEOR_LIFE = 1;
 	
-	public static final float CANNONBARREL_LENGTH = LOGIC_SCREEN_HEIGHT/8f;
+	public static final float CANNON_HEIGHT = 191;
+	public static final float CANNON_WIDTH = 160;
+	public static final float CANNON_ORIGIN_X = CANNON_WIDTH / 2 + 2;
+	public static final float CANNON_ORIGIN_Y = CANNON_HEIGHT - 111;
 	
 	public static final float DEFAULT_PROJECTILE_SPEED = LOGIC_SCREEN_HEIGHT*1.5f;
 	public static final float DEFAULT_PROJECTILE_SIZE = LOGIC_SCREEN_WIDTH/50f;
-	public static final Vector2 DEFAULT_PROJECTILE_SPAWN = new Vector2(LOGIC_SCREEN_WIDTH/2f+DEFAULT_PROJECTILE_SIZE/2f, CANNONBARREL_LENGTH);
+	public static final Vector2 DEFAULT_PROJECTILE_SPAWN = new Vector2(LOGIC_SCREEN_WIDTH / 2, 0);
 	public static final int DEFAULT_PROJECTILE_DAMAGE = 1;
 	
 	public static final float TOOLBAR_HEIGHT = 172;

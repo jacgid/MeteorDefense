@@ -12,7 +12,7 @@ public class CannonBarrel {
 	private Projectile projectile;
 
 	public CannonBarrel() {
-		bounds = new Rectangle(Constants.LOGIC_SCREEN_WIDTH/2-(Constants.CANNONBARREL_LENGTH/4), Constants.LOGIC_SCREEN_HEIGHT/20, Constants.CANNONBARREL_LENGTH/2, Constants.CANNONBARREL_LENGTH);
+		bounds = new Rectangle(Constants.LOGIC_SCREEN_WIDTH / 2 - Constants.CANNON_WIDTH / 2, 0 , Constants.CANNON_WIDTH, Constants.CANNON_HEIGHT);
 	}
 
 	public void calculateAngle(final float posX, final float posY) {
@@ -24,9 +24,9 @@ public class CannonBarrel {
 			angle = (float) Math.atan(a / b);
 		}
 		// Calculate the spawn point for the projectile.
-		startPosition = new Vector2(bounds.x, bounds.y);
-		startPosition.x = (float) (startPosition.x + (Constants.CANNONBARREL_LENGTH * Math.cos(angle)));
-		startPosition.y = (float) (startPosition.y + (Constants.CANNONBARREL_LENGTH * Math.sin(angle)));
+		startPosition = new Vector2(bounds.x + Constants.CANNON_ORIGIN_X, bounds.y);
+		startPosition.x = (float) (startPosition.x + ((Constants.CANNON_HEIGHT - Constants.CANNON_ORIGIN_Y)) * Math.cos(angle));
+		startPosition.y = (float) ((Constants.CANNON_HEIGHT - Constants.CANNON_ORIGIN_Y) * Math.sin(angle) + Constants.CANNON_ORIGIN_Y);
 	}
 
 	public Projectile deploy() {

@@ -162,4 +162,12 @@ public abstract class AbstractArmoryItem implements IArmoryItemElement {
 		lastUsed = 0;
 	}
 	
+	public float getRemainingCooldown() {
+		return 1 - TimeUtils.timeSinceMillis(lastUsed)/(cooldown * 1000);
+	}
+
+	public void increaseRemainingCooldown(long milliseconds) {
+		lastUsed += milliseconds;
+	}
+	
 }

@@ -185,13 +185,13 @@ public class GameRenderer {
 	
 	private void drawSprites(){
 		for(Meteor meteor : model.getVisibleMeteors()){
-			float x = meteor.getX() - meteor.getBounds().width / 2;
-			float y = meteor.getY() - meteor.getBounds().height / 2;
+			float x = meteor.getX();
+			float y = meteor.getY();
 			Sprite meteorSprite = spriteMap.get(meteor.getType().toString());
 			meteorSprite.setBounds(x, y, meteor.getBounds().width, meteor.getBounds().height);
 			meteorSprite.draw(spriteBatch);
 		}
-		imgCannon.setOrigin(imgCannon.getWidth() / 2 + 2, imgCannon.getHeight() - 111);
+		imgCannon.setOrigin(Constants.CANNON_ORIGIN_X, Constants.CANNON_ORIGIN_Y);
 		imgCannon.setRotation(((float) Math.toDegrees(model.getCannonAngle())-90));
 		for(Projectile projectile : model.getVisibleProjectiles()){
 			float x = projectile.getX() - projectile.getBounds().width / 2;

@@ -4,9 +4,6 @@ import java.beans.PropertyChangeListener;
 import java.util.ArrayList;
 import java.util.List;
 
-import com.badlogic.gdx.Game;
-import com.badlogic.gdx.Screen;
-import com.esnefedroetem.meteordefense.MeteorDefense;
 import com.esnefedroetem.meteordefense.model.CannonBarrel;
 import com.esnefedroetem.meteordefense.model.GameModel;
 import com.esnefedroetem.meteordefense.model.armoryitem.AbstractArmoryItem;
@@ -36,33 +33,18 @@ public class GameFactory implements IGameFactory {
 		return instance;
 	}
 
-	@Override
-	public void createScreens(MeteorDefense mainController) {
-
-		MainMenuScreen mainMenuScreen = createMainMenuScreen(mainController);
-		ArmoryScreen armoryScreen = createArmoryScreen(mainController);
-		ArmoryDetailedScreen armoryDetaliedScreen = createArmoryDetailedScreen(mainController);
-		GameScreen gameScreen = createGameScreen(mainController);
-		CarouselScreen carouselScreen = createCarouselScreen(mainController);
-		ScoreScreen scoreScreen = createScoreScreen(mainController);
-
-		mainController.setScreens(mainMenuScreen, armoryScreen,
-				armoryDetaliedScreen, gameScreen, carouselScreen, scoreScreen);
-
-	}
-
-	private MainMenuScreen createMainMenuScreen(PropertyChangeListener listener) {
+	public MainMenuScreen createMainMenuScreen(PropertyChangeListener listener) {
 		boolean soundState = LoadService.getInstance().getSoundState();
 		SoundService.getInstance().setSoundState(soundState);
 		return new MainMenuScreen(new MainMenuRenderer(soundState, listener));
 	}
 
-	private CarouselScreen createCarouselScreen(PropertyChangeListener listener) {
+	public CarouselScreen createCarouselScreen(PropertyChangeListener listener) {
 		return new CarouselScreen(new CarouselRenderer(listener),
 				ContinentFactory.getInstance().createContinents(), listener);
 	}
 
-	private ArmoryScreen createArmoryScreen(PropertyChangeListener listener) {
+	public ArmoryScreen createArmoryScreen(PropertyChangeListener listener) {
 		List<AbstractArmoryItem> items = WeaponFactory.getInstance().getWeapons();
 		List<AbstractArmoryItem> choosenItems = new ArrayList<AbstractArmoryItem>(5);
 		for(int i = 5; i > 0; i--){
@@ -75,7 +57,7 @@ public class GameFactory implements IGameFactory {
 				listener));
 	}
 
-	private ArmoryDetailedScreen createArmoryDetailedScreen(PropertyChangeListener listener) {
+	public ArmoryDetailedScreen createArmoryDetailedScreen(PropertyChangeListener listener) {
 		ArmoryDetailedRenderer renderer = new ArmoryDetailedRenderer(listener);
 		ArmoryDetailedScreen screen = new ArmoryDetailedScreen(renderer,
 				LoadService.getInstance().getWallet());
@@ -83,14 +65,19 @@ public class GameFactory implements IGameFactory {
 		return screen;
 	}
 
-	private GameScreen createGameScreen(PropertyChangeListener meteorDefense) {
+	public GameScreen createGameScreen(PropertyChangeListener meteorDefense) {
 		GameModel model = new GameModel(meteorDefense, new CannonBarrel());
 		GameRenderer renderer = new GameRenderer(model);
 		return new GameScreen(model, renderer);
 	}
 
-	private ScoreScreen createScoreScreen(PropertyChangeListener listener) {
+	public ScoreScreen createScoreScreen(PropertyChangeListener listener) {
 		return new ScoreScreen(new ScoreRenderer(listener));
+	}
+
+	@Override
+	public SplashScreen createSplashScreen(PropertyChangeListener listener) {
+		return new SplashScreen(listener);
 	}
 
 }
