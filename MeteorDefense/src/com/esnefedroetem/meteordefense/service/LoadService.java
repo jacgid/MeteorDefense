@@ -61,4 +61,9 @@ public class LoadService implements ILoadService{
 		return items;
 	}
 
+	@Override
+	public LevelData getLevelData(String city) {
+		return DataReader.getInstance().readLevel(city);
+	}
+
 }
