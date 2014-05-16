@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<City Life = 20>
+    <MeteorShower>
+        <BASIC_METEOR
+            amount = 10;
+            ></BASIC_METEOR>
+        <FIRE_METEOR
+            amount = 5;
+            ></BASIC_METEOR>
+        <FAST_METEOR
+            amount = 10;
+            ></BASIC_METEOR>
+        <ICE_METEOR
+            amount = 5;
+            ></BASIC_METEOR>
+        <RADIOACTIVE_METEOR
+            amount = 5;
+            ></BASIC_METEOR>
+    </MeteorShower>
+    
+</City>
