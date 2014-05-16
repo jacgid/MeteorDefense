@@ -1,19 +1,20 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <Game version="0.5"></Game>
-<Meteor>
+<Filenames>
+<Meteors>
     <BASIC_METEOR>"BASIC_METEOR.png"</BASIC_METEOR>
     <FIRE_METEOR>"FIRE_METEOR.png"</FIRE_METEOR>
     <FAST_METEOR>"FAST_METEOR.png"</FAST_METEOR>
     <ICE_METEOR>"ICE_METEOR.png"</ICE_METEOR>
     <RADIOACTIVE_METEOR>"RADIOACTIVE_METEOR.png"</RADIOACTIVE_METEOR>
-</Meteor>
-<Continent>
-    <Europe>"Europe.png"</Europe>
+</Meteors>
+<Continents>
+    <Europe>Europe.png</Europe>
     <Asia>"Asia.png"</Asia>
     <America>"America.png"</America>
     <Antarctica>"Antarctica.png"</Antarctica>
-</Continent>
-<City>
+</Continents>
+<Cities>
     <Paris>"Paris.png</Paris>
     <London>"London.png"</London>
     <Berlin>"Berlin.png"</Berlin>
@@ -26,4 +27,5 @@
     <Southpole>"Southpole.png"</Southpole>
     <Ice>"Ice.png"</Ice>
     <Mountain>"Mountain.png"</Mountain>
-</City>
+</Cities>
+</Filenames>

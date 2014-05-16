@@ -61,6 +61,11 @@ public class LoadService implements ILoadService{
 		List<WeaponData> items = load(List.class, Constants.WEAPON_PATH);
 		return items;
 	}
+	
+	@Override
+	public void loadFilenames(){
+		DataReader.getInstance().loadFilenames();
+	}
 
 	@Override
 	public LevelData getLevelData(String city) {

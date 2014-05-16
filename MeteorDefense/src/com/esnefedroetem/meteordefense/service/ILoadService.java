@@ -18,6 +18,8 @@ public interface ILoadService {
 	
 	public LevelData getLevelData(String city);
 	
+	public void loadFilenames();
+	
 	public String[] getLevelFilenames(String city);
 	
 	public String[] getBaseGameNames();
