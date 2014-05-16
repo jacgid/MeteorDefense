@@ -61,7 +61,8 @@ public class GameRenderer {
 	private LabelStyle lblStyleMedium;
 	private Button btnItem1, btnItem2, btnItem3, btnItem4;
 	private ButtonStyle btnstyle1, btnstyle2, btnstyle3, btnstyle4;
-	private Image imgCityMonument, imgCity, imgCannon;
+	private Image imgCannon;
+	private Sprite cityMonumentSprite, citySprite;
 	private Rectangle viewport;
 	private float scale;
 	private HashMap<String, Sprite> spriteMap;
@@ -127,15 +128,6 @@ public class GameRenderer {
 		toolBarTable.add(btnItem3).bottom().expand();
 		toolBarTable.add(btnItem4).bottom().expand();
 
-		imgCityMonument = new Image();
-		imgCity = new Image();
-		Table cityTable = new Table();
-		cityTable.setFillParent(true);
-		cityTable.add(imgCity).expand().bottom();
-		cityTable.add(imgCityMonument).bottom();
-		cityTable.padBottom(Constants.CITY_BOUNDS.y);
-
-		gameStage.addActor(cityTable);
 		gameStage.addActor(toolBarTable);
 
 	}
@@ -174,19 +166,19 @@ public class GameRenderer {
 		gameCam.update();
 		gameCam.apply(Gdx.gl10);
 		spriteBatch.setProjectionMatrix(gameCam.combined);
-		gameStage.act();
-		gameStage.draw();
 		spriteBatch.begin();
 		drawSprites();
-
 		effect.draw(spriteBatch);
-
 		spriteBatch.end();
+		gameStage.act();
+		gameStage.draw();
 		drawWeaponCooldown();
 
 	}
 
 	private void drawSprites() {
+		citySprite.draw(spriteBatch);
+		cityMonumentSprite.draw(spriteBatch);
 		for (Meteor meteor : model.getVisibleMeteors()) {
 			float x = meteor.getX();
 			float y = meteor.getY();
@@ -291,11 +283,14 @@ public class GameRenderer {
 				+ ".png")));
 		btnstyle4.up = new TextureRegionDrawable(new TextureRegion(assetsLoader.getTexture(items.get(4).getName()
 				+ ".png")));
-		imgCityMonument.setDrawable(new TextureRegionDrawable(new TextureRegion(assetsLoader
-				.getTexture("ParisMonument.png"))));
-		imgCity.setDrawable(new TextureRegionDrawable(new TextureRegion(assetsLoader.getTexture("Europe1.png"))));
+//		imgCityMonument.setDrawable(new TextureRegionDrawable(new TextureRegion()));
+//		imgCity.setDrawable(new TextureRegionDrawable(new TextureRegion()));
 		imgCannon.setDrawable(new TextureRegionDrawable(new TextureRegion(assetsLoader.getTexture(items.get(2)
 				.getName() + ".png"))));
+		cityMonumentSprite = new Sprite(assetsLoader.getTexture("ParisMonument.png"));
+		citySprite = new Sprite(assetsLoader.getTexture("Europe1.png"));
+		citySprite.setPosition(0, Constants.CITY_BOUNDS.y);
+		cityMonumentSprite.setPosition(citySprite.getWidth(), Constants.CITY_BOUNDS.y);
 		initCityFire();
 
 		// TODO change to specific city monument
