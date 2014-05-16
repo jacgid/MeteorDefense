@@ -32,7 +32,6 @@ public class GameModel implements IGameModel {
 	private PropertyChangeSupport pcs;
 	private ArmoryItemVisitor visitor;
 	private boolean isPaused;
-	private long pauseTime;
 
 	private final float width, height;
 
@@ -79,6 +78,13 @@ public class GameModel implements IGameModel {
 			if (meteorShower.gameover() || city.getLife() <= 0) {
 				gameover();
 			}
+		} else {
+			// the milliseconds that the game is paused is added to the weapons
+			// cooldowns to prevent them from cooling down during pause
+			for (AbstractArmoryItem item : armoryItems) {
+				item.increaseRemainingCooldown((long)(delta * 1000));
+			}
+
 		}
 
 	}
@@ -267,20 +273,11 @@ public class GameModel implements IGameModel {
 	@Override
 	public void pause() {
 		isPaused = true;
-		pauseTime = TimeUtils.millis();
 	}
 
 	@Override
 	public void resume() {
 		isPaused = false;
-
-		// the milliseconds that the game was paused is added to the weapons
-		// cooldowns
-		// to prevent them from cooling down during pause
-		for (AbstractArmoryItem item : armoryItems) {
-			item.increaseRemainingCooldown(TimeUtils.timeSinceMillis(pauseTime));
-		}
-
 	}
 
 	public boolean isPaused() {

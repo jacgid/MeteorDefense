@@ -148,26 +148,28 @@ public abstract class AbstractArmoryItem implements IArmoryItemElement {
 	public String getNextUpgradeInfo() {
 		if (hasUpgrade()) {
 			if (upgrades.get(upgradeIndex).getPowerIncrement() == 0) {
-				return "Cooldown: " + (cooldown
-						+ upgrades.get(upgradeIndex).getCooldownDecrement())
-						+ " sec";
+				return "Cooldown: "
+						+ (cooldown + upgrades.get(upgradeIndex)
+								.getCooldownDecrement()) + " sec";
 			}
-			return "Power: " + (power
-					+ upgrades.get(upgradeIndex).getPowerIncrement());
+			return "Power: "
+					+ (power + upgrades.get(upgradeIndex).getPowerIncrement());
 		}
 		return "No upgrades available";
 	}
-	
+
 	public void resetLastUsed() {
 		lastUsed = 0;
 	}
-	
+
 	public float getRemainingCooldown() {
-		return 1 - TimeUtils.timeSinceMillis(lastUsed)/(cooldown * 1000);
+		return 1 - TimeUtils.timeSinceMillis(lastUsed) / (cooldown * 1000);
 	}
 
 	public void increaseRemainingCooldown(long milliseconds) {
-		lastUsed += milliseconds;
+		if (getRemainingCooldown() > 0) {
+			lastUsed += milliseconds;
+		}
 	}
-	
+
 }
