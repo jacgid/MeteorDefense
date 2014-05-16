@@ -25,6 +25,12 @@ public class DataReader {
 	public DataReader(){
 	 
 		xmlreader = new XmlReader();
+		continentFilenames = new HashMap<String, String>();
+		cityFilenames = new HashMap<String, String>();
+		armoryItemFilenames = new HashMap<String, String>();
+		meteorFilenames = new HashMap<String, String>();
+		menuFilenames = new HashMap<String, String>();
+		basegameFilenames = new HashMap<String, String>();
 		
 	}
 	
@@ -38,17 +44,17 @@ public class DataReader {
 		
 			Element element = root.getChildByName("Continents");
 			for(int i = 0 ; i < element.getChildCount() ; i++){
-				continentFilenames.put(element.getChild(i).toString(), element.getChild(i).getText());
+				continentFilenames.put(element.getChild(i).getName(), element.getChild(i).getText());
 			}
 			
 			element = root.getChildByName("Cities");
 			for(int i = 0 ; i < element.getChildCount() ; i++){
-				cityFilenames.put(element.getChild(i).toString(), element.getChild(i).getText());
+				cityFilenames.put(element.getChild(i).getName(), element.getChild(i).getText());
 			}
 			
 			element = root.getChildByName("Meteors");
 			for(int i = 0 ; i < element.getChildCount() ; i++){
-				meteorFilenames.put(element.getChild(i).toString(), element.getChild(i).getText());
+				meteorFilenames.put(element.getChild(i).getName(), element.getChild(i).getText());
 			}
 		}
 		
@@ -56,7 +62,7 @@ public class DataReader {
 	
 	private boolean parseFile(String file){
 		try {
-			root = new XmlReader().parse(Gdx.files.internal(file));
+			root = xmlreader.parse(Gdx.files.internal("xml/"+file));
 			return true;
 		} catch (IOException e) {
 			e.printStackTrace();

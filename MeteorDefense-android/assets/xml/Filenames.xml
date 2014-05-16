@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <Game version="0.5"></Game>
+<Filenames>
 <Meteors>
     <BASIC_METEOR>"BASIC_METEOR.png"</BASIC_METEOR>
     <FIRE_METEOR>"FIRE_METEOR.png"</FIRE_METEOR>
@@ -8,7 +9,7 @@
     <RADIOACTIVE_METEOR>"RADIOACTIVE_METEOR.png"</RADIOACTIVE_METEOR>
 </Meteors>
 <Continents>
-    <Europe>"Europe.png"</Europe>
+    <Europe>Europe.png</Europe>
     <Asia>"Asia.png"</Asia>
     <America>"America.png"</America>
     <Antarctica>"Antarctica.png"</Antarctica>
@@ -27,3 +28,4 @@
     <Ice>"Ice.png"</Ice>
     <Mountain>"Mountain.png"</Mountain>
 </Cities>
+</Filenames>
