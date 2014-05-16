@@ -218,21 +218,25 @@ public class GameRenderer {
 		model.getMeteorsToBlow().clear();
 
 	}
-	
-	private void drawWeaponCooldown(){
+
+	private void drawWeaponCooldown() {
 		Gdx.gl.glEnable(GL11.GL_BLEND);
 		List<AbstractArmoryItem> items = model.getSelectedArmoryItems();
 		shapeRenderer.setProjectionMatrix(gameCam.combined);
 		shapeRenderer.begin(ShapeType.Filled);
 		shapeRenderer.setColor(0.5f, 0.5f, 0.5f, 0.5f);
-		shapeRenderer.rect(btnItem1.getX(), btnItem1.getY(), btnItem1.getWidth(), btnItem1.getHeight() * items.get(0).getRemainingCooldown());
-		shapeRenderer.rect(btnItem2.getX(), btnItem2.getY(), btnItem2.getWidth(), btnItem2.getHeight() * items.get(1).getRemainingCooldown());
-		shapeRenderer.rect(btnItem3.getX(), btnItem3.getY(), btnItem3.getWidth(), btnItem3.getHeight() * items.get(3).getRemainingCooldown());
-		shapeRenderer.rect(btnItem4.getX(), btnItem4.getY(), btnItem4.getWidth(), btnItem4.getHeight() * items.get(4).getRemainingCooldown());
+		shapeRenderer.rect(btnItem1.getX(), btnItem1.getY(), btnItem1.getWidth(), btnItem1.getHeight()
+				* items.get(0).getRemainingCooldown());
+		shapeRenderer.rect(btnItem2.getX(), btnItem2.getY(), btnItem2.getWidth(), btnItem2.getHeight()
+				* items.get(1).getRemainingCooldown());
+		shapeRenderer.rect(btnItem3.getX(), btnItem3.getY(), btnItem3.getWidth(), btnItem3.getHeight()
+				* items.get(3).getRemainingCooldown());
+		shapeRenderer.rect(btnItem4.getX(), btnItem4.getY(), btnItem4.getWidth(), btnItem4.getHeight()
+				* items.get(4).getRemainingCooldown());
 		shapeRenderer.end();
 		Gdx.gl.glDisable(GL11.GL_BLEND);
 	}
-	
+
 	/**
 	 * Sets the size of the view.
 	 * 
@@ -310,23 +314,24 @@ public class GameRenderer {
 		effect = assetsLoader.getParticleEffect("Fire.p");
 		effect.setPosition(0, yPos);
 
-
-		for (int i = 0; i < 9; i++) {
+		for (int i = 0; i < 10; i++) {
 			fireEmitters[i] = effect.findEmitter("Fire" + i);
+			fireEmitters[i].setMinParticleCount(0);
 			fireEmitters[i].setMaxParticleCount(0);
 			fireEmitters[i].setPosition(fireInterval * (i + 1), yPos);
 		}
 
-		effect.start();
+		 effect.start();
 
 	}
 
 	private void updateLifeVisuals(float remainingLife) {
-		
+
 		// calculate how many fires to start.
-		int damage = (int)((1 - remainingLife) * 10);
+		int damage = (int) ((1 - remainingLife) * 10);
 
 		while (startedFires < damage) {
+			fireEmitters[startedFires].setMinParticleCount(20);
 			fireEmitters[startedFires].setMaxParticleCount(50);
 
 			startedFires++;
