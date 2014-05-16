@@ -309,10 +309,7 @@ public class GameRenderer {
 
 		effect = assetsLoader.getParticleEffect("test.p");
 		effect.setPosition(0, yPos);
-		// effect.findEmitter("Fire0").setMaxParticleCount(5000);
-		// effect.findEmitter("Fire0").setPosition(0, yPos);
 
-		// fills the array with emitters from the particleeffect.
 
 		for (int i = 0; i < 10; i++) {
 			fireEmitters[i] = effect.findEmitter("Fire" + i);
@@ -325,6 +322,7 @@ public class GameRenderer {
 	}
 
 	private void updateLifeVisuals(float remainingLife) {
+		
 		// calculate how many fires to start.
 		int damage = Math.round((1 - remainingLife) * 10);
 		System.out.println(damage);
