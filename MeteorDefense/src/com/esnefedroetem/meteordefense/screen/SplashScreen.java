@@ -54,6 +54,7 @@ public class SplashScreen implements Screen {
 			if(!isLoaded){
 				assetsLoader.createFonts();
 				assetsLoader.loadParticleEffect("Fire.p");
+				assetsLoader.loadParticleEffect("Explosion.p");
 				assetsLoader.loadAllTextures();
 				
 				isLoaded = true;

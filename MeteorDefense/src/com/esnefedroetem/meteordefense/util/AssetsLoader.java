@@ -14,6 +14,7 @@ import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.ParticleEffect;
 import com.esnefedroetem.meteordefense.model.City;
 import com.esnefedroetem.meteordefense.model.Continent;
+import com.esnefedroetem.meteordefense.model.Meteor;
 import com.esnefedroetem.meteordefense.model.armoryitem.AbstractArmoryItem;
 import com.esnefedroetem.meteordefense.service.LevelData;
 import com.esnefedroetem.meteordefense.service.LoadService;
@@ -258,13 +259,18 @@ public class AssetsLoader {
 		for(int i = 0; i < baseGameList.length; i++){
 			loadAsset(temp.get(baseGameList[i]));
 		}
+		textures.putAll(LoadService.getInstance().getFilenameMap(Meteor.class));
 	}
 	
 	public void loadLevelAssets(City city){
-		String[] textures = LoadService.getInstance().getLevelFilenames(city.getName());
-		for(int i = 0; i < textures.length; i++){
-			loadAsset(textures[i]);
+		List<Meteor.MeteorType> types = city.getMeteorShower().getMeteorTypes();
+		for(int i = 0; i < types.size(); i++){
+			loadTexture(textures.get(types.get(i).toString()));
 		}
+	}
+	
+	public Texture getTextureByName(String name){
+		return getTexture(textures.get(name));
 	}
 	
 	private void loadAsset(String asset){

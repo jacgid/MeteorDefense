@@ -5,6 +5,7 @@ import java.util.List;
 
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.utils.TimeUtils;
+import com.esnefedroetem.meteordefense.model.Meteor.MeteorType;
 import com.esnefedroetem.meteordefense.model.meteor.BasicMeteor;
 import com.esnefedroetem.meteordefense.model.meteor.FastMeteor;
 import com.esnefedroetem.meteordefense.model.meteor.FireMeteor;
@@ -28,6 +29,7 @@ public class MeteorShower {
 	private int meteorSpawnRate = 2000;
 	private int basicMeteor, fireMeteor, fastMeteor, iceMeteor,
 			radioactiveMeteor, maxScore;
+	private List<MeteorType> meteortypes = new ArrayList<MeteorType>();
 
 	public MeteorShower() {
 		// Used by loadService
@@ -126,6 +128,21 @@ public class MeteorShower {
 	private void addMeteor(int basicMeteorAmount, int fireMeteorAmount,
 			int fastMeteorAmount, int iceMeteorAmount,
 			int radioactiveMeteorAmount) {
+		if(basicMeteorAmount>0){
+			meteortypes.add(MeteorType.BASIC_METEOR);
+		}
+		if(fireMeteorAmount>0){
+			meteortypes.add(MeteorType.FIRE_METEOR);
+		}
+		if(fastMeteorAmount>0){
+			meteortypes.add(MeteorType.FAST_METEOR);
+		}
+		if(iceMeteorAmount>0){
+			meteortypes.add(MeteorType.ICE_METEOR);
+		}
+		if(radioactiveMeteorAmount>0){
+			meteortypes.add(MeteorType.RADIOACTIVE_METEOR);
+		}
 		for (int i = 0; i < basicMeteorAmount; i++) {
 			basicMeteors.add(new BasicMeteor(
 					randomStartPos(Constants.BASE_METEOR_SIZE)));
@@ -204,5 +221,9 @@ public class MeteorShower {
 		addMeteor(basicMeteor, fireMeteor, fastMeteor, iceMeteor,
 				radioactiveMeteor);
 		calculateMaxScore();
+	}
+	
+	public List<MeteorType> getMeteorTypes(){
+		return meteortypes;
 	}
 }

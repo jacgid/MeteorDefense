@@ -1,9 +1,11 @@
 package com.esnefedroetem.meteordefense.renderer;
 
+import java.rmi.server.ExportException;
 import java.util.HashMap;
 import java.util.List;
 
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.assets.AssetDescriptor;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.GL11;
 import com.badlogic.gdx.graphics.OrthographicCamera;
@@ -67,7 +69,7 @@ public class GameRenderer {
 	private float scale;
 	private HashMap<String, Sprite> spriteMap;
 	private AssetsLoader assetsLoader = AssetsLoader.getInstance();
-	private ParticleEffect effect;
+	private ParticleEffect fireEffect, explosionEffect;
 	private ParticleEmitter fireEmitters[] = new ParticleEmitter[10];
 	private int startedFires = 0;
 
@@ -82,6 +84,9 @@ public class GameRenderer {
 		spriteBatch = new SpriteBatch();
 		shapeRenderer = new ShapeRenderer();
 		loadSprites();
+		explosionEffect = assetsLoader.getParticleEffect("Explosion.p");
+		fireEffect = assetsLoader.getParticleEffect("Fire.p");
+
 
 		createUI();
 	}
@@ -130,6 +135,7 @@ public class GameRenderer {
 
 		gameStage.addActor(toolBarTable);
 
+		
 	}
 
 	private void loadSprites() {
@@ -161,14 +167,16 @@ public class GameRenderer {
 		bgStage.act();
 		bgStage.draw();
 		drawHits();
-		effect.update(delta);
 		Gdx.gl.glViewport((int) viewport.x, (int) viewport.y, (int) viewport.width, (int) viewport.height);
 		gameCam.update();
 		gameCam.apply(Gdx.gl10);
 		spriteBatch.setProjectionMatrix(gameCam.combined);
 		spriteBatch.begin();
 		drawSprites();
-		effect.draw(spriteBatch);
+
+		fireEffect.draw(spriteBatch, delta);
+		explosionEffect.draw(spriteBatch, delta);
+
 		spriteBatch.end();
 		gameStage.act();
 		gameStage.draw();
@@ -204,7 +212,12 @@ public class GameRenderer {
 			Label hitLabel = new Label("" + meteor.getDifficulty(), lblStyleMedium);
 			hitLabel.addAction(Actions.sequence(Actions.fadeOut(0.5f), Actions.removeActor()));
 			gameStage.addActor(hitLabel);
-			hitLabel.setPosition(meteor.getBounds().x, meteor.getBounds().y);
+			hitLabel.setPosition(meteor.getBounds().x, meteor.getBounds().y
+					+ meteor.getBounds().getHeight());
+			explosionEffect.start();
+			explosionEffect.setPosition(meteor.getBounds().x + meteor.getBounds().getWidth() / 2, meteor.getBounds().y
+					+ meteor.getBounds().getHeight() / 2);
+			explosionEffect.reset();
 		}
 
 		model.getMeteorsToBlow().clear();
@@ -283,8 +296,6 @@ public class GameRenderer {
 				+ ".png")));
 		btnstyle4.up = new TextureRegionDrawable(new TextureRegion(assetsLoader.getTexture(items.get(4).getName()
 				+ ".png")));
-//		imgCityMonument.setDrawable(new TextureRegionDrawable(new TextureRegion()));
-//		imgCity.setDrawable(new TextureRegionDrawable(new TextureRegion()));
 		imgCannon.setDrawable(new TextureRegionDrawable(new TextureRegion(assetsLoader.getTexture(items.get(2)
 				.getName() + ".png"))));
 		cityMonumentSprite = new Sprite(assetsLoader.getTexture("ParisMonument.png"));
@@ -306,17 +317,16 @@ public class GameRenderer {
 		float yPos = model.getCity().getBounds().getY();
 		startedFires = 0;
 
-		effect = assetsLoader.getParticleEffect("Fire.p");
-		effect.setPosition(0, yPos);
+		fireEffect.setPosition(0, yPos);
 
 		for (int i = 0; i < 10; i++) {
-			fireEmitters[i] = effect.findEmitter("Fire" + i);
+			fireEmitters[i] = fireEffect.findEmitter("Fire" + i);
 			fireEmitters[i].setMinParticleCount(0);
 			fireEmitters[i].setMaxParticleCount(0);
 			fireEmitters[i].setPosition(fireInterval * (i + 1), yPos);
 		}
 
-		 effect.start();
+		fireEffect.start();
 
 	}
 
