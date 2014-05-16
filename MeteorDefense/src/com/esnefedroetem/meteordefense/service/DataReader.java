@@ -1,5 +1,6 @@
 package com.esnefedroetem.meteordefense.service;
 
+import java.io.IOException;
 import java.util.HashMap;
 import java.util.List;
 
@@ -8,15 +9,22 @@ import com.esnefedroetem.meteordefense.model.Continent;
 import com.esnefedroetem.meteordefense.model.Meteor;
 import com.esnefedroetem.meteordefense.model.MeteorShower;
 import com.esnefedroetem.meteordefense.model.armoryitem.AbstractArmoryItem;
+import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.utils.XmlReader;
+import com.badlogic.gdx.utils.XmlReader.Element;
 
 public class DataReader {
 	
 	private static DataReader dataReader = new DataReader();
 	private LevelData levelData;
+	private XmlReader xmlreader;
+	private Element root;
 	private HashMap<String, String> continentFilenames, cityFilenames, armoryItemFilenames, 
 	meteorFilenames, menuFilenames, basegameFilenames;
 	
 	public DataReader(){
+	 
+		xmlreader = new XmlReader();
 		
 	}
 	
@@ -25,7 +33,35 @@ public class DataReader {
 	}
 	
 	public void loadFilenames(){
-//		xml.parse(filenames)
+		
+		if(parseFile("Filenames.xml")){
+		
+			Element element = root.getChildByName("Continents");
+			for(int i = 0 ; i < element.getChildCount() ; i++){
+				continentFilenames.put(element.getChild(i).toString(), element.getChild(i).getText());
+			}
+			
+			element = root.getChildByName("Cities");
+			for(int i = 0 ; i < element.getChildCount() ; i++){
+				cityFilenames.put(element.getChild(i).toString(), element.getChild(i).getText());
+			}
+			
+			element = root.getChildByName("Meteors");
+			for(int i = 0 ; i < element.getChildCount() ; i++){
+				meteorFilenames.put(element.getChild(i).toString(), element.getChild(i).getText());
+			}
+		}
+		
+	}
+	
+	private boolean parseFile(String file){
+		try {
+			root = new XmlReader().parse(Gdx.files.internal(file));
+			return true;
+		} catch (IOException e) {
+			e.printStackTrace();
+			return false;
+		}
 	}
 	
 	public String[] getBaseGameNames(){
