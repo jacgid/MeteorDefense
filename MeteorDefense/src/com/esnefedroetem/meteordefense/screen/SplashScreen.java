@@ -53,7 +53,7 @@ public class SplashScreen implements Screen {
 		if(TimeUtils.millis() - startTime > splashTime){
 			if(!isLoaded){
 				assetsLoader.createFonts();
-				assetsLoader.loadParticleEffect("test.p");
+				assetsLoader.loadParticleEffect("Fire.p");
 				assetsLoader.loadAllTextures();
 				
 				isLoaded = true;

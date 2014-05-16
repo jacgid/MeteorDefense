@@ -307,11 +307,11 @@ public class GameRenderer {
 		float yPos = model.getCity().getBounds().getY();
 		startedFires = 0;
 
-		effect = assetsLoader.getParticleEffect("test.p");
+		effect = assetsLoader.getParticleEffect("Fire.p");
 		effect.setPosition(0, yPos);
 
 
-		for (int i = 0; i < 10; i++) {
+		for (int i = 0; i < 9; i++) {
 			fireEmitters[i] = effect.findEmitter("Fire" + i);
 			fireEmitters[i].setMaxParticleCount(0);
 			fireEmitters[i].setPosition(fireInterval * (i + 1), yPos);
@@ -324,11 +324,10 @@ public class GameRenderer {
 	private void updateLifeVisuals(float remainingLife) {
 		
 		// calculate how many fires to start.
-		int damage = Math.round((1 - remainingLife) * 10);
-		System.out.println(damage);
+		int damage = (int)((1 - remainingLife) * 10);
 
 		while (startedFires < damage) {
-			fireEmitters[startedFires].setMaxParticleCount(5000);
+			fireEmitters[startedFires].setMaxParticleCount(50);
 
 			startedFires++;
 		}
