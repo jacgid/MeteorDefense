@@ -25,7 +25,7 @@ public class AssetsLoader {
 	private static final String SOUND_DIR = "data/sounds/";
 	private static final String FONT_DIR = "data/fonts/";
 	private static final String PARTICLES_DIR = "data/particleeffects/";
-	private static BitmapFont fontSmall, fontMedium, fontLarge;
+	private static BitmapFont fontXSmall, fontSmall, fontMedium, fontLarge;
 	private static AssetsLoader assetsLoader = new AssetsLoader();
 
 	public static AssetsLoader getInstance() {
@@ -184,11 +184,16 @@ public class AssetsLoader {
 		SmartFontGenerator fontGen = new SmartFontGenerator();
 		FileHandle exoFile = Gdx.files
 				.internal("data/fonts/SourceSansPro-Regular.ttf");
+		fontXSmall = fontGen.createFont(exoFile, "source-small", 48);
 		fontSmall = fontGen.createFont(exoFile, "source-small", 96);
 		fontMedium = fontGen.createFont(exoFile, "source-medium", 128);
 		fontLarge = fontGen.createFont(exoFile, "source-large", 212);
 	}
 
+	public BitmapFont getExtraSmallFont(){
+		return fontXSmall;
+	}
+	
 	public BitmapFont getSmallFont() {
 		return fontSmall;
 	}
