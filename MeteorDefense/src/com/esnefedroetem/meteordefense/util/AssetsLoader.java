@@ -215,7 +215,9 @@ public class AssetsLoader {
 		}
 			FileHandle[] files = file.list();
 			for (int i = 0; i < files.length; i++) {
+				if(!files[i].name().equals("images") && !files[i].name().equals("Thumbs.db")) {
 				loadTexture(files[i].name());
+				}
 			}
 			finishLoading();
 	}
