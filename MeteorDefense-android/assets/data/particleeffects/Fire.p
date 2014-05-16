@@ -2,16 +2,16 @@ Fire0
 - Delay -
 active: false
 - Duration - 
-lowMin: 3000.0
-lowMax: 3000.0
+lowMin: 20.0
+lowMax: 20.0
 - Count - 
 min: 20
-max: 0
+max: 50
 - Emission - 
 lowMin: 0.0
 lowMax: 0.0
-highMin: 2000.0
-highMax: 2000.0
+highMin: 100.0
+highMax: 100.0
 relative: false
 scalingCount: 1
 scaling0: 1.0
@@ -21,16 +21,12 @@ timeline0: 0.0
 lowMin: 0.0
 lowMax: 0.0
 highMin: 500.0
-highMax: 2000.0
+highMax: 1500.0
 relative: false
-scalingCount: 3
+scalingCount: 1
 scaling0: 1.0
-scaling1: 1.0
-scaling2: 1.0
-timelineCount: 3
+timelineCount: 1
 timeline0: 0.0
-timeline1: 0.66
-timeline2: 1.0
 - Life Offset - 
 active: false
 - X Offset - 
@@ -42,8 +38,8 @@ shape: square
 - Spawn Width - 
 lowMin: 0.0
 lowMax: 0.0
-highMin: 100.0
-highMax: 100.0
+highMin: 60.0
+highMax: 60.0
 relative: false
 scalingCount: 1
 scaling0: 1.0
@@ -62,11 +58,11 @@ timeline0: 0.0
 - Scale - 
 lowMin: 0.0
 lowMax: 0.0
-highMin: 32.0
-highMax: 32.0
+highMin: 53.0
+highMax: 53.0
 relative: false
 scalingCount: 1
-scaling0: 0.4509804
+scaling0: 1.0
 timelineCount: 1
 timeline0: 0.0
 - Velocity - 
@@ -103,8 +99,8 @@ active: false
 active: false
 - Tint - 
 colorsCount: 6
-colors0: 0.93333334
-colors1: 0.0
+colors0: 1.0
+colors1: 0.24705882
 colors2: 0.0
 colors3: 0.93333334
 colors4: 0.11372549
@@ -121,12 +117,12 @@ relative: false
 scalingCount: 4
 scaling0: 1.0
 scaling1: 1.0
-scaling2: 0.3508772
+scaling2: 0.8947368
 scaling3: 0.0
 timelineCount: 4
 timeline0: 0.0
-timeline1: 0.55479455
-timeline2: 0.82191783
+timeline1: 0.5410959
+timeline2: 0.9520548
 timeline3: 1.0
 - Options - 
 attached: false
@@ -140,18 +136,20 @@ flame.png
 
 Fire1
 - Delay -
-active: false
+active: true
+lowMin: 0.0
+lowMax: 0.0
 - Duration - 
-lowMin: 3000.0
-lowMax: 3000.0
+lowMin: 20.0
+lowMax: 20.0
 - Count - 
 min: 20
-max: 0
+max: 50
 - Emission - 
 lowMin: 0.0
 lowMax: 0.0
-highMin: 2000.0
-highMax: 2000.0
+highMin: 100.0
+highMax: 100.0
 relative: false
 scalingCount: 1
 scaling0: 1.0
@@ -161,16 +159,12 @@ timeline0: 0.0
 lowMin: 0.0
 lowMax: 0.0
 highMin: 500.0
-highMax: 2000.0
+highMax: 1500.0
 relative: false
-scalingCount: 3
+scalingCount: 1
 scaling0: 1.0
-scaling1: 1.0
-scaling2: 1.0
-timelineCount: 3
+timelineCount: 1
 timeline0: 0.0
-timeline1: 0.66
-timeline2: 1.0
 - Life Offset - 
 active: false
 - X Offset - 
@@ -182,8 +176,8 @@ shape: square
 - Spawn Width - 
 lowMin: 0.0
 lowMax: 0.0
-highMin: 100.0
-highMax: 100.0
+highMin: 60.0
+highMax: 60.0
 relative: false
 scalingCount: 1
 scaling0: 1.0
@@ -202,11 +196,11 @@ timeline0: 0.0
 - Scale - 
 lowMin: 0.0
 lowMax: 0.0
-highMin: 32.0
-highMax: 32.0
+highMin: 53.0
+highMax: 53.0
 relative: false
 scalingCount: 1
-scaling0: 0.4509804
+scaling0: 1.0
 timelineCount: 1
 timeline0: 0.0
 - Velocity - 
@@ -243,8 +237,8 @@ active: false
 active: false
 - Tint - 
 colorsCount: 6
-colors0: 0.93333334
-colors1: 0.0
+colors0: 1.0
+colors1: 0.24705882
 colors2: 0.0
 colors3: 0.93333334
 colors4: 0.11372549
@@ -261,12 +255,12 @@ relative: false
 scalingCount: 4
 scaling0: 1.0
 scaling1: 1.0
-scaling2: 0.3508772
+scaling2: 0.8947368
 scaling3: 0.0
 timelineCount: 4
 timeline0: 0.0
-timeline1: 0.55479455
-timeline2: 0.82191783
+timeline1: 0.5410959
+timeline2: 0.9520548
 timeline3: 1.0
 - Options - 
 attached: false
@@ -280,18 +274,20 @@ flame.png
 
 Fire2
 - Delay -
-active: false
+active: true
+lowMin: 0.0
+lowMax: 0.0
 - Duration - 
-lowMin: 3000.0
-lowMax: 3000.0
+lowMin: 20.0
+lowMax: 20.0
 - Count - 
 min: 20
-max: 0
+max: 50
 - Emission - 
 lowMin: 0.0
 lowMax: 0.0
-highMin: 2000.0
-highMax: 2000.0
+highMin: 100.0
+highMax: 100.0
 relative: false
 scalingCount: 1
 scaling0: 1.0
@@ -301,16 +297,12 @@ timeline0: 0.0
 lowMin: 0.0
 lowMax: 0.0
 highMin: 500.0
-highMax: 2000.0
+highMax: 1500.0
 relative: false
-scalingCount: 3
+scalingCount: 1
 scaling0: 1.0
-scaling1: 1.0
-scaling2: 1.0
-timelineCount: 3
+timelineCount: 1
 timeline0: 0.0
-timeline1: 0.66
-timeline2: 1.0
 - Life Offset - 
 active: false
 - X Offset - 
@@ -322,8 +314,8 @@ shape: square
 - Spawn Width - 
 lowMin: 0.0
 lowMax: 0.0
-highMin: 100.0
-highMax: 100.0
+highMin: 60.0
+highMax: 60.0
 relative: false
 scalingCount: 1
 scaling0: 1.0
@@ -342,11 +334,11 @@ timeline0: 0.0
 - Scale - 
 lowMin: 0.0
 lowMax: 0.0
-highMin: 32.0
-highMax: 32.0
+highMin: 53.0
+highMax: 53.0
 relative: false
 scalingCount: 1
-scaling0: 0.4509804
+scaling0: 1.0
 timelineCount: 1
 timeline0: 0.0
 - Velocity - 
@@ -383,8 +375,8 @@ active: false
 active: false
 - Tint - 
 colorsCount: 6
-colors0: 0.93333334
-colors1: 0.0
+colors0: 1.0
+colors1: 0.24705882
 colors2: 0.0
 colors3: 0.93333334
 colors4: 0.11372549
@@ -401,12 +393,12 @@ relative: false
 scalingCount: 4
 scaling0: 1.0
 scaling1: 1.0
-scaling2: 0.3508772
+scaling2: 0.8947368
 scaling3: 0.0
 timelineCount: 4
 timeline0: 0.0
-timeline1: 0.55479455
-timeline2: 0.82191783
+timeline1: 0.5410959
+timeline2: 0.9520548
 timeline3: 1.0
 - Options - 
 attached: false
@@ -420,18 +412,20 @@ flame.png
 
 Fire3
 - Delay -
-active: false
+active: true
+lowMin: 0.0
+lowMax: 0.0
 - Duration - 
-lowMin: 3000.0
-lowMax: 3000.0
+lowMin: 20.0
+lowMax: 20.0
 - Count - 
 min: 20
-max: 0
+max: 50
 - Emission - 
 lowMin: 0.0
 lowMax: 0.0
-highMin: 2000.0
-highMax: 2000.0
+highMin: 100.0
+highMax: 100.0
 relative: false
 scalingCount: 1
 scaling0: 1.0
@@ -441,16 +435,12 @@ timeline0: 0.0
 lowMin: 0.0
 lowMax: 0.0
 highMin: 500.0
-highMax: 2000.0
+highMax: 1500.0
 relative: false
-scalingCount: 3
+scalingCount: 1
 scaling0: 1.0
-scaling1: 1.0
-scaling2: 1.0
-timelineCount: 3
+timelineCount: 1
 timeline0: 0.0
-timeline1: 0.66
-timeline2: 1.0
 - Life Offset - 
 active: false
 - X Offset - 
@@ -462,8 +452,8 @@ shape: square
 - Spawn Width - 
 lowMin: 0.0
 lowMax: 0.0
-highMin: 100.0
-highMax: 100.0
+highMin: 60.0
+highMax: 60.0
 relative: false
 scalingCount: 1
 scaling0: 1.0
@@ -482,11 +472,11 @@ timeline0: 0.0
 - Scale - 
 lowMin: 0.0
 lowMax: 0.0
-highMin: 32.0
-highMax: 32.0
+highMin: 53.0
+highMax: 53.0
 relative: false
 scalingCount: 1
-scaling0: 0.4509804
+scaling0: 1.0
 timelineCount: 1
 timeline0: 0.0
 - Velocity - 
@@ -523,8 +513,8 @@ active: false
 active: false
 - Tint - 
 colorsCount: 6
-colors0: 0.93333334
-colors1: 0.0
+colors0: 1.0
+colors1: 0.24705882
 colors2: 0.0
 colors3: 0.93333334
 colors4: 0.11372549
@@ -541,12 +531,12 @@ relative: false
 scalingCount: 4
 scaling0: 1.0
 scaling1: 1.0
-scaling2: 0.3508772
+scaling2: 0.8947368
 scaling3: 0.0
 timelineCount: 4
 timeline0: 0.0
-timeline1: 0.55479455
-timeline2: 0.82191783
+timeline1: 0.5410959
+timeline2: 0.9520548
 timeline3: 1.0
 - Options - 
 attached: false
@@ -560,18 +550,20 @@ flame.png
 
 Fire4
 - Delay -
-active: false
+active: true
+lowMin: 0.0
+lowMax: 0.0
 - Duration - 
-lowMin: 3000.0
-lowMax: 3000.0
+lowMin: 20.0
+lowMax: 20.0
 - Count - 
 min: 20
-max: 0
+max: 50
 - Emission - 
 lowMin: 0.0
 lowMax: 0.0
-highMin: 2000.0
-highMax: 2000.0
+highMin: 100.0
+highMax: 100.0
 relative: false
 scalingCount: 1
 scaling0: 1.0
@@ -581,16 +573,12 @@ timeline0: 0.0
 lowMin: 0.0
 lowMax: 0.0
 highMin: 500.0
-highMax: 2000.0
+highMax: 1500.0
 relative: false
-scalingCount: 3
+scalingCount: 1
 scaling0: 1.0
-scaling1: 1.0
-scaling2: 1.0
-timelineCount: 3
+timelineCount: 1
 timeline0: 0.0
-timeline1: 0.66
-timeline2: 1.0
 - Life Offset - 
 active: false
 - X Offset - 
@@ -602,8 +590,8 @@ shape: square
 - Spawn Width - 
 lowMin: 0.0
 lowMax: 0.0
-highMin: 100.0
-highMax: 100.0
+highMin: 60.0
+highMax: 60.0
 relative: false
 scalingCount: 1
 scaling0: 1.0
@@ -622,11 +610,11 @@ timeline0: 0.0
 - Scale - 
 lowMin: 0.0
 lowMax: 0.0
-highMin: 32.0
-highMax: 32.0
+highMin: 53.0
+highMax: 53.0
 relative: false
 scalingCount: 1
-scaling0: 0.4509804
+scaling0: 1.0
 timelineCount: 1
 timeline0: 0.0
 - Velocity - 
@@ -663,8 +651,8 @@ active: false
 active: false
 - Tint - 
 colorsCount: 6
-colors0: 0.93333334
-colors1: 0.0
+colors0: 1.0
+colors1: 0.24705882
 colors2: 0.0
 colors3: 0.93333334
 colors4: 0.11372549
@@ -681,12 +669,12 @@ relative: false
 scalingCount: 4
 scaling0: 1.0
 scaling1: 1.0
-scaling2: 0.3508772
+scaling2: 0.8947368
 scaling3: 0.0
 timelineCount: 4
 timeline0: 0.0
-timeline1: 0.55479455
-timeline2: 0.82191783
+timeline1: 0.5410959
+timeline2: 0.9520548
 timeline3: 1.0
 - Options - 
 attached: false
@@ -700,18 +688,20 @@ flame.png
 
 Fire5
 - Delay -
-active: false
+active: true
+lowMin: 0.0
+lowMax: 0.0
 - Duration - 
-lowMin: 3000.0
-lowMax: 3000.0
+lowMin: 20.0
+lowMax: 20.0
 - Count - 
 min: 20
-max: 0
+max: 50
 - Emission - 
 lowMin: 0.0
 lowMax: 0.0
-highMin: 2000.0
-highMax: 2000.0
+highMin: 100.0
+highMax: 100.0
 relative: false
 scalingCount: 1
 scaling0: 1.0
@@ -721,16 +711,12 @@ timeline0: 0.0
 lowMin: 0.0
 lowMax: 0.0
 highMin: 500.0
-highMax: 2000.0
+highMax: 1500.0
 relative: false
-scalingCount: 3
+scalingCount: 1
 scaling0: 1.0
-scaling1: 1.0
-scaling2: 1.0
-timelineCount: 3
+timelineCount: 1
 timeline0: 0.0
-timeline1: 0.66
-timeline2: 1.0
 - Life Offset - 
 active: false
 - X Offset - 
@@ -742,8 +728,8 @@ shape: square
 - Spawn Width - 
 lowMin: 0.0
 lowMax: 0.0
-highMin: 100.0
-highMax: 100.0
+highMin: 60.0
+highMax: 60.0
 relative: false
 scalingCount: 1
 scaling0: 1.0
@@ -762,11 +748,11 @@ timeline0: 0.0
 - Scale - 
 lowMin: 0.0
 lowMax: 0.0
-highMin: 32.0
-highMax: 32.0
+highMin: 53.0
+highMax: 53.0
 relative: false
 scalingCount: 1
-scaling0: 0.4509804
+scaling0: 1.0
 timelineCount: 1
 timeline0: 0.0
 - Velocity - 
@@ -803,8 +789,8 @@ active: false
 active: false
 - Tint - 
 colorsCount: 6
-colors0: 0.93333334
-colors1: 0.0
+colors0: 1.0
+colors1: 0.24705882
 colors2: 0.0
 colors3: 0.93333334
 colors4: 0.11372549
@@ -821,12 +807,12 @@ relative: false
 scalingCount: 4
 scaling0: 1.0
 scaling1: 1.0
-scaling2: 0.3508772
+scaling2: 0.8947368
 scaling3: 0.0
 timelineCount: 4
 timeline0: 0.0
-timeline1: 0.55479455
-timeline2: 0.82191783
+timeline1: 0.5410959
+timeline2: 0.9520548
 timeline3: 1.0
 - Options - 
 attached: false
@@ -840,18 +826,20 @@ flame.png
 
 Fire6
 - Delay -
-active: false
+active: true
+lowMin: 0.0
+lowMax: 0.0
 - Duration - 
-lowMin: 3000.0
-lowMax: 3000.0
+lowMin: 20.0
+lowMax: 20.0
 - Count - 
 min: 20
-max: 0
+max: 50
 - Emission - 
 lowMin: 0.0
 lowMax: 0.0
-highMin: 2000.0
-highMax: 2000.0
+highMin: 100.0
+highMax: 100.0
 relative: false
 scalingCount: 1
 scaling0: 1.0
@@ -861,16 +849,12 @@ timeline0: 0.0
 lowMin: 0.0
 lowMax: 0.0
 highMin: 500.0
-highMax: 2000.0
+highMax: 1500.0
 relative: false
-scalingCount: 3
+scalingCount: 1
 scaling0: 1.0
-scaling1: 1.0
-scaling2: 1.0
-timelineCount: 3
+timelineCount: 1
 timeline0: 0.0
-timeline1: 0.66
-timeline2: 1.0
 - Life Offset - 
 active: false
 - X Offset - 
@@ -882,8 +866,8 @@ shape: square
 - Spawn Width - 
 lowMin: 0.0
 lowMax: 0.0
-highMin: 100.0
-highMax: 100.0
+highMin: 60.0
+highMax: 60.0
 relative: false
 scalingCount: 1
 scaling0: 1.0
@@ -902,11 +886,11 @@ timeline0: 0.0
 - Scale - 
 lowMin: 0.0
 lowMax: 0.0
-highMin: 32.0
-highMax: 32.0
+highMin: 53.0
+highMax: 53.0
 relative: false
 scalingCount: 1
-scaling0: 0.4509804
+scaling0: 1.0
 timelineCount: 1
 timeline0: 0.0
 - Velocity - 
@@ -943,8 +927,8 @@ active: false
 active: false
 - Tint - 
 colorsCount: 6
-colors0: 0.93333334
-colors1: 0.0
+colors0: 1.0
+colors1: 0.24705882
 colors2: 0.0
 colors3: 0.93333334
 colors4: 0.11372549
@@ -961,12 +945,12 @@ relative: false
 scalingCount: 4
 scaling0: 1.0
 scaling1: 1.0
-scaling2: 0.3508772
+scaling2: 0.8947368
 scaling3: 0.0
 timelineCount: 4
 timeline0: 0.0
-timeline1: 0.55479455
-timeline2: 0.82191783
+timeline1: 0.5410959
+timeline2: 0.9520548
 timeline3: 1.0
 - Options - 
 attached: false
@@ -980,18 +964,20 @@ flame.png
 
 Fire7
 - Delay -
-active: false
+active: true
+lowMin: 0.0
+lowMax: 0.0
 - Duration - 
-lowMin: 3000.0
-lowMax: 3000.0
+lowMin: 20.0
+lowMax: 20.0
 - Count - 
 min: 20
-max: 0
+max: 50
 - Emission - 
 lowMin: 0.0
 lowMax: 0.0
-highMin: 2000.0
-highMax: 2000.0
+highMin: 100.0
+highMax: 100.0
 relative: false
 scalingCount: 1
 scaling0: 1.0
@@ -1001,16 +987,12 @@ timeline0: 0.0
 lowMin: 0.0
 lowMax: 0.0
 highMin: 500.0
-highMax: 2000.0
+highMax: 1500.0
 relative: false
-scalingCount: 3
+scalingCount: 1
 scaling0: 1.0
-scaling1: 1.0
-scaling2: 1.0
-timelineCount: 3
+timelineCount: 1
 timeline0: 0.0
-timeline1: 0.66
-timeline2: 1.0
 - Life Offset - 
 active: false
 - X Offset - 
@@ -1022,8 +1004,8 @@ shape: square
 - Spawn Width - 
 lowMin: 0.0
 lowMax: 0.0
-highMin: 100.0
-highMax: 100.0
+highMin: 60.0
+highMax: 60.0
 relative: false
 scalingCount: 1
 scaling0: 1.0
@@ -1042,11 +1024,11 @@ timeline0: 0.0
 - Scale - 
 lowMin: 0.0
 lowMax: 0.0
-highMin: 32.0
-highMax: 32.0
+highMin: 53.0
+highMax: 53.0
 relative: false
 scalingCount: 1
-scaling0: 0.4509804
+scaling0: 1.0
 timelineCount: 1
 timeline0: 0.0
 - Velocity - 
@@ -1083,8 +1065,8 @@ active: false
 active: false
 - Tint - 
 colorsCount: 6
-colors0: 0.93333334
-colors1: 0.0
+colors0: 1.0
+colors1: 0.24705882
 colors2: 0.0
 colors3: 0.93333334
 colors4: 0.11372549
@@ -1101,12 +1083,12 @@ relative: false
 scalingCount: 4
 scaling0: 1.0
 scaling1: 1.0
-scaling2: 0.3508772
+scaling2: 0.8947368
 scaling3: 0.0
 timelineCount: 4
 timeline0: 0.0
-timeline1: 0.55479455
-timeline2: 0.82191783
+timeline1: 0.5410959
+timeline2: 0.9520548
 timeline3: 1.0
 - Options - 
 attached: false
@@ -1120,18 +1102,20 @@ flame.png
 
 Fire8
 - Delay -
-active: false
+active: true
+lowMin: 0.0
+lowMax: 0.0
 - Duration - 
-lowMin: 3000.0
-lowMax: 3000.0
+lowMin: 20.0
+lowMax: 20.0
 - Count - 
 min: 20
-max: 0
+max: 50
 - Emission - 
 lowMin: 0.0
 lowMax: 0.0
-highMin: 2000.0
-highMax: 2000.0
+highMin: 100.0
+highMax: 100.0
 relative: false
 scalingCount: 1
 scaling0: 1.0
@@ -1141,16 +1125,12 @@ timeline0: 0.0
 lowMin: 0.0
 lowMax: 0.0
 highMin: 500.0
-highMax: 2000.0
+highMax: 1500.0
 relative: false
-scalingCount: 3
+scalingCount: 1
 scaling0: 1.0
-scaling1: 1.0
-scaling2: 1.0
-timelineCount: 3
+timelineCount: 1
 timeline0: 0.0
-timeline1: 0.66
-timeline2: 1.0
 - Life Offset - 
 active: false
 - X Offset - 
@@ -1162,8 +1142,8 @@ shape: square
 - Spawn Width - 
 lowMin: 0.0
 lowMax: 0.0
-highMin: 100.0
-highMax: 100.0
+highMin: 60.0
+highMax: 60.0
 relative: false
 scalingCount: 1
 scaling0: 1.0
@@ -1182,11 +1162,11 @@ timeline0: 0.0
 - Scale - 
 lowMin: 0.0
 lowMax: 0.0
-highMin: 32.0
-highMax: 32.0
+highMin: 53.0
+highMax: 53.0
 relative: false
 scalingCount: 1
-scaling0: 0.4509804
+scaling0: 1.0
 timelineCount: 1
 timeline0: 0.0
 - Velocity - 
@@ -1223,8 +1203,8 @@ active: false
 active: false
 - Tint - 
 colorsCount: 6
-colors0: 0.93333334
-colors1: 0.0
+colors0: 1.0
+colors1: 0.24705882
 colors2: 0.0
 colors3: 0.93333334
 colors4: 0.11372549
@@ -1241,12 +1221,12 @@ relative: false
 scalingCount: 4
 scaling0: 1.0
 scaling1: 1.0
-scaling2: 0.3508772
+scaling2: 0.8947368
 scaling3: 0.0
 timelineCount: 4
 timeline0: 0.0
-timeline1: 0.55479455
-timeline2: 0.82191783
+timeline1: 0.5410959
+timeline2: 0.9520548
 timeline3: 1.0
 - Options - 
 attached: false
@@ -1260,18 +1240,20 @@ flame.png
 
 Fire9
 - Delay -
-active: false
+active: true
+lowMin: 0.0
+lowMax: 0.0
 - Duration - 
-lowMin: 3000.0
-lowMax: 3000.0
+lowMin: 20.0
+lowMax: 20.0
 - Count - 
 min: 20
-max: 0
+max: 50
 - Emission - 
 lowMin: 0.0
 lowMax: 0.0
-highMin: 2000.0
-highMax: 2000.0
+highMin: 100.0
+highMax: 100.0
 relative: false
 scalingCount: 1
 scaling0: 1.0
@@ -1281,16 +1263,12 @@ timeline0: 0.0
 lowMin: 0.0
 lowMax: 0.0
 highMin: 500.0
-highMax: 2000.0
+highMax: 1500.0
 relative: false
-scalingCount: 3
+scalingCount: 1
 scaling0: 1.0
-scaling1: 1.0
-scaling2: 1.0
-timelineCount: 3
+timelineCount: 1
 timeline0: 0.0
-timeline1: 0.66
-timeline2: 1.0
 - Life Offset - 
 active: false
 - X Offset - 
@@ -1302,8 +1280,8 @@ shape: square
 - Spawn Width - 
 lowMin: 0.0
 lowMax: 0.0
-highMin: 100.0
-highMax: 100.0
+highMin: 60.0
+highMax: 60.0
 relative: false
 scalingCount: 1
 scaling0: 1.0
@@ -1322,11 +1300,11 @@ timeline0: 0.0
 - Scale - 
 lowMin: 0.0
 lowMax: 0.0
-highMin: 32.0
-highMax: 32.0
+highMin: 53.0
+highMax: 53.0
 relative: false
 scalingCount: 1
-scaling0: 0.4509804
+scaling0: 1.0
 timelineCount: 1
 timeline0: 0.0
 - Velocity - 
@@ -1363,8 +1341,8 @@ active: false
 active: false
 - Tint - 
 colorsCount: 6
-colors0: 0.93333334
-colors1: 0.0
+colors0: 1.0
+colors1: 0.24705882
 colors2: 0.0
 colors3: 0.93333334
 colors4: 0.11372549
@@ -1381,12 +1359,12 @@ relative: false
 scalingCount: 4
 scaling0: 1.0
 scaling1: 1.0
-scaling2: 0.3508772
+scaling2: 0.8947368
 scaling3: 0.0
 timelineCount: 4
 timeline0: 0.0
-timeline1: 0.55479455
-timeline2: 0.82191783
+timeline1: 0.5410959
+timeline2: 0.9520548
 timeline3: 1.0
 - Options - 
 attached: false
