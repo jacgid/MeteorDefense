@@ -1,6 +1,7 @@
 package com.esnefedroetem.meteordefense.service;
 
 import java.io.File;
+import java.util.HashMap;
 import java.util.List;
 
 import com.badlogic.gdx.Gdx;
@@ -64,6 +65,30 @@ public class LoadService implements ILoadService{
 	@Override
 	public LevelData getLevelData(String city) {
 		return DataReader.getInstance().readLevel(city);
+	}
+	
+	public String[] getBaseGameNames(){
+		return DataReader.getInstance().getBaseGameNames();
+	}
+
+	@Override
+	public <T> HashMap<String, String> getFilenameMap(Class<T> type) {
+		return DataReader.getInstance().getFilenameMap(type);
+	}
+
+	@Override
+	public HashMap<String, String> getMenuFilenameMap() {
+		return DataReader.getInstance().getMenuFilenameMap();
+	}
+
+	@Override
+	public HashMap<String, String> getBaseGameFilenameMap() {
+		return DataReader.getInstance().getBaseGameFilenameMap();
+	}
+
+	@Override
+	public String[] getLevelFilenames(String city) {
+		return DataReader.getInstance().getLevelFilesnames(city);
 	}
 
 }

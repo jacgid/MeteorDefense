@@ -28,6 +28,10 @@ public class DataReader {
 //		xml.parse(filenames)
 	}
 	
+	public String[] getBaseGameNames(){
+		return null;
+	}
+	
 	public <T> HashMap<String, String> getFilenameMap(Class<T> type){
 		if(type == Continent.class){
 			return continentFilenames;
@@ -61,5 +65,9 @@ public class DataReader {
 	
 	public static DataReader getInstance(){
 		return dataReader;
+	}
+
+	public String[] getLevelFilesnames(String city) {
+		return null;
 	}
 }
