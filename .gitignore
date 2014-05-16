@@ -19,3 +19,4 @@ MeteorDefense-desktop/generated-fonts/
 *.fnt
 MeteorDefense-desktop/weapon.txt
 *.classpath
+MeteorDefense/.classpath
