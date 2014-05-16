@@ -23,11 +23,11 @@ import com.esnefedroetem.meteordefense.service.WeaponData;
 public class AssetsLoader {
 
 	private AssetManager manager = new AssetManager();
-	private static final String TEXTURE_DIR = "data/textures/";
-	private static final String MUSIC_DIR = "data/music/";
-	private static final String SOUND_DIR = "data/sounds/";
-	private static final String FONT_DIR = "data/fonts/";
-	private static final String PARTICLES_DIR = "data/particleeffects/";
+	public static final String TEXTURE_DIR = "data/textures/";
+	public static final String MUSIC_DIR = "data/music/";
+	public static final String SOUND_DIR = "data/sounds/";
+	public static final String FONT_DIR = "data/fonts/";
+	public static final String PARTICLES_DIR = "data/particleeffects/";
 	private static BitmapFont fontXSmall, fontSmall, fontMedium, fontLarge;
 	private static AssetsLoader assetsLoader = new AssetsLoader();
 	private static HashMap<String, String> textures, sounds, music;
