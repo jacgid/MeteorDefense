@@ -173,7 +173,7 @@ public class GameModel implements IGameModel {
 				for (Projectile projectile : projectiles) {
 					if (collisionOccurs(projectile, meteor)) {
 						handleMeteorCollision(projectile, meteor,
-								meteorsToRemove, projectilesToRemove);
+								meteorsToRemove);
 						projectilesToRemove.add(projectile);
 					}
 
@@ -187,11 +187,9 @@ public class GameModel implements IGameModel {
 	}
 
 	private void handleMeteorCollision(Projectile projectile, Meteor meteor,
-			Collection<Meteor> meteorsToRemove,
-			Collection<Projectile> projectilesToRemove) {
+			Collection<Meteor> meteorsToRemove) {
 		boolean isKilled = meteorShower.meteorHit(meteor,
 				projectile.getDamage(), projectile.getProjectileType());
-		projectilesToRemove.add(projectile);
 		scoreHandler.meteorHit();
 
 		if (isKilled) {
