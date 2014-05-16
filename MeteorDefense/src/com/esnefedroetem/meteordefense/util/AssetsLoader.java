@@ -25,7 +25,7 @@ public class AssetsLoader {
 	private static final String SOUND_DIR = "data/sounds/";
 	private static final String FONT_DIR = "data/fonts/";
 	private static final String PARTICLES_DIR = "data/particleeffects/";
-	private static BitmapFont fontSmall, fontMedium, fontLarge;
+	private static BitmapFont fontXSmall, fontSmall, fontMedium, fontLarge;
 	private static AssetsLoader assetsLoader = new AssetsLoader();
 
 	public static AssetsLoader getInstance() {
@@ -184,11 +184,16 @@ public class AssetsLoader {
 		SmartFontGenerator fontGen = new SmartFontGenerator();
 		FileHandle exoFile = Gdx.files
 				.internal("data/fonts/SourceSansPro-Regular.ttf");
+		fontXSmall = fontGen.createFont(exoFile, "source-small", 48);
 		fontSmall = fontGen.createFont(exoFile, "source-small", 96);
 		fontMedium = fontGen.createFont(exoFile, "source-medium", 128);
 		fontLarge = fontGen.createFont(exoFile, "source-large", 212);
 	}
 
+	public BitmapFont getExtraSmallFont(){
+		return fontXSmall;
+	}
+	
 	public BitmapFont getSmallFont() {
 		return fontSmall;
 	}
@@ -202,68 +207,17 @@ public class AssetsLoader {
 	}
 
 	public void loadAllTextures() {
+		FileHandle file;
 		if (Gdx.app.getType().equals(ApplicationType.Android)) {
-			FileHandle file = Gdx.files.internal(TEXTURE_DIR);
+			file = Gdx.files.internal(TEXTURE_DIR);
+		} else {
+			file = Gdx.files.internal("bin/" + TEXTURE_DIR);
+		}
 			FileHandle[] files = file.list();
 			for (int i = 0; i < files.length; i++) {
 				loadTexture(files[i].name());
 			}
 			finishLoading();
-		} else {
-			String[] files = {"America.png", 
-					"Antarctica.png", 
-					"armoryIcon.png",
-					"ArmoryDetailedButton.png",
-					"Asia.png", 
-					"BASIC_METEOR.png", 
-					"Berlin.png", 
-					"CarouselBackground.png", 
-					"CarouselBackgroundLocked.png", 
-					"Dubai.png", 
-					"Europe.png", 
-					"Europe1.png", 
-					"FAST_METEOR.png", 
-					"FIRE_METEOR.png", 
-					"FIRE_PROJECTILE.png", 
-					"Ice.png", 
-					"ICE_METEOR.png", 
-					"lock.png", 
-					"London.png", 
-					"MDBG.png", 
-					"MenuBG.png", 
-					"MissileLauncher.png", 
-					"MISSILE_PROJECTILE.png", 
-					"Mountain.png", 
-					"MusicFalse.png", 
-					"MusicTrue.png", 
-					"New York.png", 
-					"Ottawa.png", 
-					"Paris.png", 
-					"Paris1.png", 
-					"ParisMonument.png", 
-					"PlayButton.png",  
-					"RADIOACTIVE_METEOR.png", 
-					"ReversedGravityEffect.png", 
-					"Shanghai.png", 
-					"SlowMotionEffect.png", 
-					"SouthPole.png", 
-					"Splash.png", 
-					"StandardWeapon.png", 
-					"STANDARD_PROJECTILE.png", 
-					"star.png", 
-					"starGrey.png", 
-					"StartScreenBG.png", 
-					"Tokyo.png", 
-					"Washington.png", 
-					"WATER_PROJECTILE.png", 
-					"weaponslot.png"};
-			for (int i = 0; i < files.length; i++) {
-				loadTexture(files[i]);
-			}
-			finishLoading();
-			
-			
-		}
 	}
 	
 	public void loadStartupAssets(){

@@ -26,7 +26,6 @@ public abstract class MoveableGameObject {
 		this.position.y = startPosition.y;
 		bounds = new Rectangle();
 		calculateBounds();
-
 	}
 
 	public final void calculateBounds() {
@@ -89,5 +88,18 @@ public abstract class MoveableGameObject {
 	
 	public void setPosition(Vector2 position) {
 		this.position = position;
+	}
+	
+	@Override
+	public boolean equals(Object o){
+		if (o instanceof MoveableGameObject) {
+			MoveableGameObject moveable = (MoveableGameObject) o;
+			return size == moveable.size && speed == moveable.speed
+					&& position.equals(moveable.position)
+					&& angle == moveable.angle
+					&& bounds.equals(moveable.bounds)
+					&& damage == moveable.damage;
+		}
+		return false;
 	}
 }
