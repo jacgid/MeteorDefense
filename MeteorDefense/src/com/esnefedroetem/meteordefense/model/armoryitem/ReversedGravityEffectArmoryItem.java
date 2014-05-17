@@ -16,13 +16,12 @@ public class ReversedGravityEffectArmoryItem extends AbstractEffectArmoryItem {
 	private List<Meteor> list = new ArrayList<Meteor>();
 	
 	public ReversedGravityEffectArmoryItem() {
-		name = "ReversedGravityEffect";
-		description = "Lorem ipsum dolor sit amet, consectetur adipiscing elit.";
 	}
 	
 	public ReversedGravityEffectArmoryItem(State state, int upgradeIndex) {
-		this();
-		init(state, upgradeIndex);
+		super(state, upgradeIndex);
+		name = "ReversedGravityEffect";
+		description = "Lorem ipsum dolor sit amet, consectetur adipiscing elit.";
 	}
 
 	@Override

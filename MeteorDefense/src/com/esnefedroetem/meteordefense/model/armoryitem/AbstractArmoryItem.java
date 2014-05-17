@@ -30,15 +30,18 @@ public abstract class AbstractArmoryItem implements IArmoryItemElement {
 	public static final EmptyItem EMPTY_ITEM = new EmptyItem();
 
 	public AbstractArmoryItem() {
-		init(State.LOCKED, 0);
 	}
-
+	
+	public AbstractArmoryItem(State state, int upgradeIndex) {
+		init(state, upgradeIndex);
+	}
+	
 	public void init(State state, int upgradeIndex) {
 		initUpgrades();
 		this.state = state;
 		setUpgradeIndex(upgradeIndex);
 	}
-
+	
 	public void upgrade() {
 		Upgrade upgrade = upgrades.get(upgradeIndex);
 		power = power + upgrade.getPowerIncrement();
