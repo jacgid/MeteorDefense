@@ -1,13 +1,10 @@
 package com.esnefedroetem.meteordefense.util;
 
-import java.io.File;
-import java.io.FileNotFoundException;
-import java.util.ArrayList;
-import java.util.Scanner;
-import java.util.StringTokenizer;
+import java.util.HashMap;
+import java.util.List;
 
-import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Application.ApplicationType;
+import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.assets.AssetManager;
 import com.badlogic.gdx.audio.Music;
 import com.badlogic.gdx.audio.Sound;
@@ -16,17 +13,24 @@ import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.ParticleEffect;
 import com.esnefedroetem.meteordefense.model.City;
+import com.esnefedroetem.meteordefense.model.Continent;
+import com.esnefedroetem.meteordefense.model.Meteor;
+import com.esnefedroetem.meteordefense.model.armoryitem.AbstractArmoryItem;
+import com.esnefedroetem.meteordefense.service.LevelData;
+import com.esnefedroetem.meteordefense.service.LoadService;
+import com.esnefedroetem.meteordefense.service.WeaponData;
 
 public class AssetsLoader {
 
 	private AssetManager manager = new AssetManager();
-	private static final String TEXTURE_DIR = "data/textures/";
-	private static final String MUSIC_DIR = "data/music/";
-	private static final String SOUND_DIR = "data/sounds/";
-	private static final String FONT_DIR = "data/fonts/";
-	private static final String PARTICLES_DIR = "data/particleeffects/";
+	public static final String TEXTURE_DIR = "data/textures/";
+	public static final String MUSIC_DIR = "data/music/";
+	public static final String SOUND_DIR = "data/sounds/";
+	public static final String FONT_DIR = "data/fonts/";
+	public static final String PARTICLES_DIR = "data/particleeffects/";
 	private static BitmapFont fontXSmall, fontSmall, fontMedium, fontLarge;
 	private static AssetsLoader assetsLoader = new AssetsLoader();
+	private static HashMap<String, String> textures, sounds, music;
 
 	public static AssetsLoader getInstance() {
 		return assetsLoader;
@@ -223,15 +227,59 @@ public class AssetsLoader {
 	}
 	
 	public void loadStartupAssets(){
-		
+		//Load all continent textures
+		HashMap<String, String> temp = LoadService.getInstance().getFilenameMap(Continent.class);
+		textures.putAll(temp);
+		List<Continent> contList = LoadService.getInstance().getContinents();
+		for(int i = 0; i < contList.size(); i++){
+			loadTexture(temp.get(contList.get(i).getName()));
+		}
+		//Load all city textures
+		temp = LoadService.getInstance().getFilenameMap(City.class);
+		textures.putAll(temp);
+		for(int i = 0 ; i < contList.size(); i++){
+			List<City> cityList = contList.get(i).getCities();
+			for(int j = 0; j < cityList.size(); j++){
+				loadTexture(temp.get(cityList.get(i).getName()));
+			}
+		}
+		//Load all armoryitem assets
+		temp = LoadService.getInstance().getFilenameMap(AbstractArmoryItem.class);
+		textures.putAll(temp);
+		List<WeaponData> armoryList = LoadService.getInstance().getArmoryItems();
+		for(int i = 0; i < armoryList.size(); i++){
+			textures.put(armoryList.get(i).getName(), temp.get(contList.get(i).getName()));
+			loadTexture(temp.get(armoryList.get(i).getName()));
+		}
 	}
 
 	public void loadBasegameAssets(){
-		
+		HashMap<String, String> temp = LoadService.getInstance().getBaseGameFilenameMap();
+		String[] baseGameList = LoadService.getInstance().getBaseGameNames();
+		for(int i = 0; i < baseGameList.length; i++){
+			loadAsset(temp.get(baseGameList[i]));
+		}
+		textures.putAll(LoadService.getInstance().getFilenameMap(Meteor.class));
 	}
 	
 	public void loadLevelAssets(City city){
-		
+		List<Meteor.MeteorType> types = city.getMeteorShower().getMeteorTypes();
+		for(int i = 0; i < types.size(); i++){
+			loadTexture(textures.get(types.get(i).toString()));
+		}
+	}
+	
+	public Texture getTextureByName(String name){
+		return getTexture(textures.get(name));
+	}
+	
+	private void loadAsset(String asset){
+		String[] t = asset.split(".");
+		if(t[t.length-1].equals("png")){
+			loadTexture(asset);
+		} else if(t[t.length-1].equals("mp3")){
+			loadSound(asset);
+		}
 	}
 	
 }

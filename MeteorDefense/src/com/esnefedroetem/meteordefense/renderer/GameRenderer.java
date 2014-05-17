@@ -1,9 +1,11 @@
 package com.esnefedroetem.meteordefense.renderer;
 
+import java.rmi.server.ExportException;
 import java.util.HashMap;
 import java.util.List;
 
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.assets.AssetDescriptor;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.GL11;
 import com.badlogic.gdx.graphics.OrthographicCamera;
@@ -61,12 +63,13 @@ public class GameRenderer {
 	private LabelStyle lblStyleMedium;
 	private Button btnItem1, btnItem2, btnItem3, btnItem4;
 	private ButtonStyle btnstyle1, btnstyle2, btnstyle3, btnstyle4;
-	private Image imgCityMonument, imgCity, imgCannon;
+	private Image imgCannon;
+	private Sprite cityMonumentSprite, citySprite;
 	private Rectangle viewport;
 	private float scale;
 	private HashMap<String, Sprite> spriteMap;
 	private AssetsLoader assetsLoader = AssetsLoader.getInstance();
-	private ParticleEffect effect;
+	private ParticleEffect fireEffect, explosionEffect;
 	private ParticleEmitter fireEmitters[] = new ParticleEmitter[10];
 	private int startedFires = 0;
 
@@ -81,6 +84,9 @@ public class GameRenderer {
 		spriteBatch = new SpriteBatch();
 		shapeRenderer = new ShapeRenderer();
 		loadSprites();
+		explosionEffect = assetsLoader.getParticleEffect("Explosion.p");
+		fireEffect = assetsLoader.getParticleEffect("Fire.p");
+
 
 		createUI();
 	}
@@ -127,17 +133,9 @@ public class GameRenderer {
 		toolBarTable.add(btnItem3).bottom().expand();
 		toolBarTable.add(btnItem4).bottom().expand();
 
-		imgCityMonument = new Image();
-		imgCity = new Image();
-		Table cityTable = new Table();
-		cityTable.setFillParent(true);
-		cityTable.add(imgCity).expand().bottom();
-		cityTable.add(imgCityMonument).bottom();
-		cityTable.padBottom(Constants.CITY_BOUNDS.y);
-
-		gameStage.addActor(cityTable);
 		gameStage.addActor(toolBarTable);
 
+		
 	}
 
 	private void loadSprites() {
@@ -169,24 +167,26 @@ public class GameRenderer {
 		bgStage.act();
 		bgStage.draw();
 		drawHits();
-		effect.update(delta);
 		Gdx.gl.glViewport((int) viewport.x, (int) viewport.y, (int) viewport.width, (int) viewport.height);
 		gameCam.update();
 		gameCam.apply(Gdx.gl10);
 		spriteBatch.setProjectionMatrix(gameCam.combined);
-		gameStage.act();
-		gameStage.draw();
 		spriteBatch.begin();
 		drawSprites();
 
-		effect.draw(spriteBatch);
+		fireEffect.draw(spriteBatch, delta);
+		explosionEffect.draw(spriteBatch, delta);
 
 		spriteBatch.end();
+		gameStage.act();
+		gameStage.draw();
 		drawWeaponCooldown();
 
 	}
 
 	private void drawSprites() {
+		citySprite.draw(spriteBatch);
+		cityMonumentSprite.draw(spriteBatch);
 		for (Meteor meteor : model.getVisibleMeteors()) {
 			float x = meteor.getX();
 			float y = meteor.getY();
@@ -212,27 +212,36 @@ public class GameRenderer {
 			Label hitLabel = new Label("" + meteor.getDifficulty(), lblStyleMedium);
 			hitLabel.addAction(Actions.sequence(Actions.fadeOut(0.5f), Actions.removeActor()));
 			gameStage.addActor(hitLabel);
-			hitLabel.setPosition(meteor.getBounds().x, meteor.getBounds().y);
+			hitLabel.setPosition(meteor.getBounds().x, meteor.getBounds().y
+					+ meteor.getBounds().getHeight());
+			explosionEffect.start();
+			explosionEffect.setPosition(meteor.getBounds().x + meteor.getBounds().getWidth() / 2, meteor.getBounds().y
+					+ meteor.getBounds().getHeight() / 2);
+			explosionEffect.reset();
 		}
 
 		model.getMeteorsToBlow().clear();
 
 	}
-	
-	private void drawWeaponCooldown(){
+
+	private void drawWeaponCooldown() {
 		Gdx.gl.glEnable(GL11.GL_BLEND);
 		List<AbstractArmoryItem> items = model.getSelectedArmoryItems();
 		shapeRenderer.setProjectionMatrix(gameCam.combined);
 		shapeRenderer.begin(ShapeType.Filled);
 		shapeRenderer.setColor(0.5f, 0.5f, 0.5f, 0.5f);
-		shapeRenderer.rect(btnItem1.getX(), btnItem1.getY(), btnItem1.getWidth(), btnItem1.getHeight() * items.get(0).getRemainingCooldown());
-		shapeRenderer.rect(btnItem2.getX(), btnItem2.getY(), btnItem2.getWidth(), btnItem2.getHeight() * items.get(1).getRemainingCooldown());
-		shapeRenderer.rect(btnItem3.getX(), btnItem3.getY(), btnItem3.getWidth(), btnItem3.getHeight() * items.get(3).getRemainingCooldown());
-		shapeRenderer.rect(btnItem4.getX(), btnItem4.getY(), btnItem4.getWidth(), btnItem4.getHeight() * items.get(4).getRemainingCooldown());
+		shapeRenderer.rect(btnItem1.getX(), btnItem1.getY(), btnItem1.getWidth(), btnItem1.getHeight()
+				* items.get(0).getRemainingCooldown());
+		shapeRenderer.rect(btnItem2.getX(), btnItem2.getY(), btnItem2.getWidth(), btnItem2.getHeight()
+				* items.get(1).getRemainingCooldown());
+		shapeRenderer.rect(btnItem3.getX(), btnItem3.getY(), btnItem3.getWidth(), btnItem3.getHeight()
+				* items.get(3).getRemainingCooldown());
+		shapeRenderer.rect(btnItem4.getX(), btnItem4.getY(), btnItem4.getWidth(), btnItem4.getHeight()
+				* items.get(4).getRemainingCooldown());
 		shapeRenderer.end();
 		Gdx.gl.glDisable(GL11.GL_BLEND);
 	}
-	
+
 	/**
 	 * Sets the size of the view.
 	 * 
@@ -287,11 +296,12 @@ public class GameRenderer {
 				+ ".png")));
 		btnstyle4.up = new TextureRegionDrawable(new TextureRegion(assetsLoader.getTexture(items.get(4).getName()
 				+ ".png")));
-		imgCityMonument.setDrawable(new TextureRegionDrawable(new TextureRegion(assetsLoader
-				.getTexture("ParisMonument.png"))));
-		imgCity.setDrawable(new TextureRegionDrawable(new TextureRegion(assetsLoader.getTexture("Europe1.png"))));
 		imgCannon.setDrawable(new TextureRegionDrawable(new TextureRegion(assetsLoader.getTexture(items.get(2)
 				.getName() + ".png"))));
+		cityMonumentSprite = new Sprite(assetsLoader.getTexture("ParisMonument.png"));
+		citySprite = new Sprite(assetsLoader.getTexture("Europe1.png"));
+		citySprite.setPosition(0, Constants.CITY_BOUNDS.y);
+		cityMonumentSprite.setPosition(citySprite.getWidth(), Constants.CITY_BOUNDS.y);
 		initCityFire();
 
 		// TODO change to specific city monument
@@ -307,26 +317,26 @@ public class GameRenderer {
 		float yPos = model.getCity().getBounds().getY();
 		startedFires = 0;
 
-		effect = assetsLoader.getParticleEffect("Fire.p");
-		effect.setPosition(0, yPos);
+		fireEffect.setPosition(0, yPos);
 
-
-		for (int i = 0; i < 9; i++) {
-			fireEmitters[i] = effect.findEmitter("Fire" + i);
+		for (int i = 0; i < 10; i++) {
+			fireEmitters[i] = fireEffect.findEmitter("Fire" + i);
+			fireEmitters[i].setMinParticleCount(0);
 			fireEmitters[i].setMaxParticleCount(0);
 			fireEmitters[i].setPosition(fireInterval * (i + 1), yPos);
 		}
 
-		effect.start();
+		fireEffect.start();
 
 	}
 
 	private void updateLifeVisuals(float remainingLife) {
-		
+
 		// calculate how many fires to start.
-		int damage = (int)((1 - remainingLife) * 10);
+		int damage = (int) ((1 - remainingLife) * 10);
 
 		while (startedFires < damage) {
+			fireEmitters[startedFires].setMinParticleCount(20);
 			fireEmitters[startedFires].setMaxParticleCount(50);
 
 			startedFires++;
