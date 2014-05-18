@@ -16,10 +16,15 @@ public abstract class AbstractProjectileArmoryItem extends AbstractArmoryItem {
 	private ProjectileType projectileType;
 	
 	public AbstractProjectileArmoryItem() {
-		projectileType = Projectile.ProjectileType.STANDARD_PROJECTILE;
-		projectileSize = 1;
 	}
 	
+	public AbstractProjectileArmoryItem(State state, int upgradeIndex,
+			float projectileSize, Projectile.ProjectileType projectileType) {
+		super(state, upgradeIndex);
+		this.projectileSize = projectileSize;
+		this.projectileType = projectileType;
+	}
+
 	public float getProjectileSize() {
 		return projectileSize;
 	}

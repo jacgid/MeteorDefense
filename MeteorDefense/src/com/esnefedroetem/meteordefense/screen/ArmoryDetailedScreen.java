@@ -2,7 +2,6 @@ package com.esnefedroetem.meteordefense.screen;
 
 import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
-import java.beans.PropertyChangeSupport;
 
 import com.badlogic.gdx.Screen;
 import com.esnefedroetem.meteordefense.model.Wallet;
@@ -16,12 +15,10 @@ public class ArmoryDetailedScreen implements Screen, PropertyChangeListener{
 	private ArmoryDetailedRenderer renderer;
 	private Wallet wallet;
 	private AbstractArmoryItem armoryItem;
-	private PropertyChangeSupport pcs;
 	
 	public ArmoryDetailedScreen(ArmoryDetailedRenderer renderer, Wallet wallet){
 		this.renderer = renderer;
 		this.wallet = wallet;
-		pcs = new PropertyChangeSupport(this);
 	}
 	
 	@Override
@@ -107,6 +104,9 @@ public class ArmoryDetailedScreen implements Screen, PropertyChangeListener{
 		renderer.setCooldownLabelText("Cooldown: " + armoryItem.getCooldown() + " sec\n");
 		renderer.setUpgradeLabelText("Next upgrade\n" + armoryItem.getNextUpgradeInfo() + "\n");
 		
+		//renderer.setItemImage(armoryItem.getName() + (armoryItem.getUpgradeIndex() - 1));
+		renderer.setItemImage(armoryItem.getName() +".png");
+		
 		if(armoryItem.getState() == AbstractArmoryItem.State.LOCKED) {
 			renderer.setUpgradeButtonText("Upgrade for " + armoryItem.getNextUpgradeValue());
 			renderer.setUpgradeButtonDisabled(true);
@@ -117,6 +117,8 @@ public class ArmoryDetailedScreen implements Screen, PropertyChangeListener{
 			if(armoryItem.hasUpgrade()) {
 				renderer.setUpgradeButtonText("Upgrade for " + armoryItem.getNextUpgradeValue());
 				renderer.setUpgradeButtonDisabled(!wallet.canAfford(armoryItem.getNextUpgradeValue()));
+				//renderer.setUpgradeImage(armoryItem.getName() + armoryItem.getUpgradeIndex());
+				renderer.setUpgradeImage(armoryItem.getName() +".png");
 			} else {
 				renderer.setUpgradeButtonText("No Upgrades");
 				renderer.setUpgradeButtonDisabled(true);
@@ -125,7 +127,7 @@ public class ArmoryDetailedScreen implements Screen, PropertyChangeListener{
 			renderer.setTradeButtonText("Sell for " + armoryItem.getValue());
 			renderer.setTradeButtonDisabled(false);
 		}
-		
+		renderer.setUpgradeImage(armoryItem.getName() +".png");
 		// standard weapon is not tradeable 
 		if(armoryItem instanceof StandardArmoryItem) {
 		renderer.setTradeButtonText("Not tradeable");

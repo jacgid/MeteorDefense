@@ -11,7 +11,8 @@ import com.esnefedroetem.meteordefense.model.Continent;
 import com.esnefedroetem.meteordefense.renderer.CarouselRenderer;
 import com.esnefedroetem.meteordefense.renderer.CarouselRenderer.CarouselEvent;
 import com.esnefedroetem.meteordefense.screen.SplashScreen.SplashScreenEvent;
-import com.esnefedroetem.meteordefense.util.AssetsLoader;
+import com.esnefedroetem.meteordefense.service.LevelData;
+import com.esnefedroetem.meteordefense.service.LoadService;
 
 public class CarouselScreen implements Screen, PropertyChangeListener {
 	private PropertyChangeSupport pcs;
@@ -106,6 +107,7 @@ public class CarouselScreen implements Screen, PropertyChangeListener {
 			City city = currentContinent.getCities().get(position);
 			//City set leveldata
 			if(city.getState() == City.State.UNLOCKED){
+				setLevelData(city);
 				pcs.firePropertyChange(CarouselEvent.CAROUSEL_NEWGAME.toString(), null, city);
 			}
 		}else{
@@ -113,6 +115,11 @@ public class CarouselScreen implements Screen, PropertyChangeListener {
 			renderer.displayCities(currentContinent.getCities());
 			isCitiesDisplayed = true;
 		}
+	}
+	
+	private void setLevelData(City city){
+		LevelData lvlData = LoadService.getInstance().getLevelData(city.getName());
+		city.setLevelData(lvlData.getCityLife(), lvlData.getMeteorShower());
 	}
 	
 }

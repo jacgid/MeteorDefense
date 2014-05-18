@@ -10,6 +10,13 @@ import com.esnefedroetem.meteordefense.model.City;
 
 public abstract class AbstractDefenseArmoryItem extends AbstractArmoryItem {
 	
+	public AbstractDefenseArmoryItem() {
+	}
+
+	public AbstractDefenseArmoryItem(State state, int upgradeIndex) {
+	super(state, upgradeIndex);
+	}
+	
 	public abstract void execute(City city);
 
 }

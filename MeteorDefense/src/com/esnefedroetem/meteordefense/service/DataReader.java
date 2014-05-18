@@ -98,9 +98,20 @@ public class DataReader {
 	
 	public LevelData readLevel(String city){
 		
-//		xmlReader.parse(city)
+		parseFile("Levels.xml");
 		
-		levelData = new LevelData(10, new MeteorShower(5,5,5,5,5));
+		Element level = root.getChildByName(city);
+		
+		int life = level.getInt("Life");
+		
+		Element msElement = level.getChildByName("MeteorShower"); 
+				
+		int[] amounts = {0,0,0,0,0};
+		for(int i = 0 ; i < Meteor.MeteorType.getTypes().length ; i++){
+			amounts[i] = msElement.getChildByName(Meteor.MeteorType.getTypes()[i]).getInt("amount");
+		}
+		
+		levelData = new LevelData(life, new MeteorShower(amounts[0], amounts[1], amounts[2], amounts[3], amounts[4]));
 		
 		return levelData;
 	}

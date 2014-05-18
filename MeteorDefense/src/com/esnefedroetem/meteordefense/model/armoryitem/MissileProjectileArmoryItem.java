@@ -20,12 +20,11 @@ import com.esnefedroetem.meteordefense.util.Constants;
 public class MissileProjectileArmoryItem extends AbstractProjectileArmoryItem{
 
 	public MissileProjectileArmoryItem(State state, int upgradeIndex) {
-		init(state, upgradeIndex);
+		super(state, upgradeIndex, Constants.DEFAULT_PROJECTILE_SIZE * 3, Projectile.ProjectileType.MISSILE_PROJECTILE);
 		name = "MissileLauncher";
 		description = "Lorem ipsum dolor sit amet, consectetur adipiscing elit.";
-		setProjectileSize(Constants.DEFAULT_PROJECTILE_SIZE * 3);
-		setProjectileType(Projectile.ProjectileType.MISSILE_PROJECTILE);
 	}
+	
 	@Override
 	public Projectile accept(IArmoryItemVisitor visitor) {
 		return visitor.visit(this);

@@ -18,14 +18,12 @@ import com.esnefedroetem.meteordefense.util.Constants;
 public class StandardArmoryItem extends AbstractProjectileArmoryItem {
 	
 	public StandardArmoryItem() {
-		name = "StandardWeapon";
-		description = "This weapon is your standard weapon, and isn't tradeable. You may however upgrade its power and cooldown.";
 	}
 	
 	public StandardArmoryItem(State state, int upgradeIndex) {
-		this();
-		init(state, upgradeIndex);
-		setProjectileSize(Constants.DEFAULT_PROJECTILE_SIZE);
+		super(state, upgradeIndex, Constants.DEFAULT_PROJECTILE_SIZE, Projectile.ProjectileType.STANDARD_PROJECTILE);
+		name = "StandardWeapon";
+		description = "This weapon is your standard weapon, and isn't tradeable. You may however upgrade its power and cooldown.";
 	}
 
 	@Override
