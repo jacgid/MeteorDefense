@@ -58,16 +58,18 @@ public class ArmoryDetailedRenderer {
 		stage = new Stage();
 		Table table = new Table();
 		table.setFillParent(true);
-
+		table.setBackground(new TextureRegionDrawable(new TextureRegion(assetsLoader.getTexture("ArmoryDetailedBackground.png"))));
+		
 		// assetsTable
 		Table assetsTable = new Table();
+		assetsTable.setBackground(new TextureRegionDrawable(new TextureRegion(assetsLoader.getTexture("blackpixel.png"))));
 		
 		// assetsLabel
 		LabelStyle textLabelStyle = new LabelStyle();
 		textLabelStyle.font = assetsLoader.getExtraSmallFont();
 		assetsLabel = new Label("", textLabelStyle);
 		
-		assetsTable.add(assetsLabel).padRight(STANDARD_PADDING).padLeft(STANDARD_PADDING);
+		assetsTable.add(assetsLabel).padRight(STANDARD_PADDING).padLeft(STANDARD_PADDING).right().expandX();
 		
 		// coinImage
 		Image coinImage = new Image(assetsLoader.getTexture("PlayButton.png"));
@@ -75,18 +77,25 @@ public class ArmoryDetailedRenderer {
 		assetsTable.add(coinImage)
 		.width(Gdx.graphics.getWidth() * 0.05F)
 		.height(Gdx.graphics.getWidth() * 0.05F
-				* coinImage.getHeight() / coinImage.getWidth());
+				* coinImage.getHeight() / coinImage.getWidth()).right();
 
-		table.add(assetsTable).left();
+		table.add(assetsTable).width(Gdx.graphics.getWidth());
 
 		table.row();
 
+		
 		// nameLabel
 		LabelStyle nameLabelStyle = new LabelStyle();
 		nameLabelStyle.font = assetsLoader.getSmallFont();
 		nameLabel = new Label("", nameLabelStyle);
 
 		table.add(nameLabel).left().pad(STANDARD_PADDING);
+		table.row();
+		
+		Image divider1 = new Image(assetsLoader.getTexture("divider.png"));
+		table.add(divider1).width(Gdx.graphics.getWidth())
+				.height(Gdx.graphics.getWidth() * 0.9F
+						* divider1.getHeight() / divider1.getWidth());
 
 		table.row();
 
@@ -104,9 +113,9 @@ public class ArmoryDetailedRenderer {
 		descriptionLabel = new Label("", textLabelStyle);
 		descriptionLabel.setWrap(true);
 
-		descriptionTable.add(descriptionLabel).width(Gdx.graphics.getWidth()/1.5f).right();
+		descriptionTable.add(descriptionLabel).width(Gdx.graphics.getWidth()/1.7f).right();
 
-		table.add(descriptionTable).left().top().expandY();
+		table.add(descriptionTable).left().top().expand();
 		table.row();
 		
 		// powerLabel
@@ -119,8 +128,15 @@ public class ArmoryDetailedRenderer {
 
 		table.add(cooldownLabel).left().padLeft(STANDARD_PADDING).row();
 		
+		table.row();
+		
+		Image divider2 = new Image(assetsLoader.getTexture("divider.png"));
+		table.add(divider2).width(Gdx.graphics.getWidth())
+				.height(Gdx.graphics.getWidth() * 0.9F
+						* divider2.getHeight() / divider2.getWidth()).row();
 		// upgradeTable
 		upgradeTable = new Table();
+		//upgradeTable.setBackground(new TextureRegionDrawable(new TextureRegion(assetsLoader.getTexture("bluetransparentpixel.png"))));
 		
 		// upgradeImage
 		upgradeImage = new Image(assetsLoader.getTexture("PlayButton.png"));
@@ -135,11 +151,12 @@ public class ArmoryDetailedRenderer {
 
 		upgradeTable.add(upgradeLabel).right();
 		
-		table.add(upgradeTable).expandY().left();
+		table.add(upgradeTable).padLeft(STANDARD_PADDING).left().top().expandY();
 		table.row();
 
 		// buttonTable
 		Table buttonTable = new Table();
+		buttonTable.setBackground(new TextureRegionDrawable(new TextureRegion(assetsLoader.getTexture("buttonpanel.png"))));
 				
 		// textButtonStyle
 		TextButtonStyle textButtonStyle = new TextButtonStyle();
@@ -164,7 +181,7 @@ public class ArmoryDetailedRenderer {
 
 		float aspect = upgradeButton.getHeight() / upgradeButton.getWidth();
 		buttonTable.add(upgradeButton).left().width(Gdx.graphics.getWidth() * 0.5F)
-				.height(Gdx.graphics.getWidth() * 0.5F * aspect);
+				.height(Gdx.graphics.getWidth() * 0.5F * aspect).padTop(STANDARD_PADDING * 3);
 
 		// tradeButton
 		TextButtonStyle tradeButtonStyle = new TextButtonStyle(textButtonStyle);
@@ -182,9 +199,9 @@ public class ArmoryDetailedRenderer {
 		});
 
 		buttonTable.add(tradeButton).right().width(Gdx.graphics.getWidth() * 0.5F)
-				.height(Gdx.graphics.getWidth() * 0.5F * aspect);
+				.height(Gdx.graphics.getWidth() * 0.5F * aspect).padTop(STANDARD_PADDING * 3);
 
-		table.add(buttonTable).bottom().expandY();
+		table.add(buttonTable).bottom().height(Gdx.graphics.getHeight() * 0.14f);
 		
 		stage.addActor(table);
 
@@ -207,7 +224,7 @@ public class ArmoryDetailedRenderer {
 
 	public void render() {
 		stage.act();
-		Gdx.gl.glClearColor(0f, 0.4f, 0.5f, 0f);
+		Gdx.gl.glClearColor(0f, 0f, 0f, 0f);
 		Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
 		spriteBatch.begin();
 		stage.draw();
