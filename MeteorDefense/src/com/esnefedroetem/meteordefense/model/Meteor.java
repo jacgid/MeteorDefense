@@ -52,9 +52,6 @@ public abstract class Meteor extends MoveableGameObject {
 	 */
 	public abstract void hit(int damage, Projectile.ProjectileType projectileType);
 
-	public void decreaseSize(int value) {
-		setSize(getSize() - value);
-	}
 
 	public void decreaseHealth(int value) {
 		life -= value;

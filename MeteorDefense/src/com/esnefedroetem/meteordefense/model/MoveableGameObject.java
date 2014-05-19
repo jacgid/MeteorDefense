@@ -1,14 +1,10 @@
 package com.esnefedroetem.meteordefense.model;
 
-import com.badlogic.gdx.math.Circle;
 import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.math.Vector2;
-import com.esnefedroetem.meteordefense.util.Constants;
 
 public abstract class MoveableGameObject {
-	private float size;
 	private float speed; // Units per second
-	private Vector2 position = new Vector2();
 	private float angle;
 	private Rectangle bounds;
 	private int damage;
@@ -17,36 +13,28 @@ public abstract class MoveableGameObject {
 		
 	}
 
-	public MoveableGameObject(float angle, int damage, float size, float speed, Vector2 startPosition) {
+	public MoveableGameObject(float angle, int damage, float width, float height, float speed, Vector2 startPosition) {
 		this.angle = angle;
 		this.damage = damage;
-		this.size = size;
 		this.speed = speed;
-		this.position.x = startPosition.x;
-		this.position.y = startPosition.y;
-		bounds = new Rectangle();
-		calculateBounds();
+		bounds = new Rectangle(startPosition.x, startPosition.y, width, height);
 	}
 
-	public final void calculateBounds() {
-		bounds.x = position.x;
-		bounds.y = position.y;
-		bounds.width = size;
-		bounds.height = size;
+	public MoveableGameObject(float angle, int damage, float size, float speed, Vector2 startPosition) {
+		this(angle, damage, size, size, speed, startPosition);
 	}
 
 	public void move(float delta) {
-		position.x = (float) (position.x + speed * delta * Math.cos(angle));
-		position.y = (float) (position.y + speed * delta * Math.sin(angle));
-		calculateBounds();
+		bounds.x = (float) (bounds.x + speed * delta * Math.cos(angle));
+		bounds.y = (float) (bounds.y + speed * delta * Math.sin(angle));
 	}
 
 	public float getX() {
-		return position.x;
+		return bounds.x;
 	}
 
 	public float getY() {
-		return position.y;
+		return bounds.y;
 	}
 
 	public Rectangle getBounds() {
@@ -61,15 +49,6 @@ public abstract class MoveableGameObject {
 		return damage;
 	}
 
-	public void setSize(float size) {
-		this.size = size;
-
-	}
-
-	public float getSize() {
-		return size;
-	}
-	
 	public float getAngle(){
 		return angle;
 	}
@@ -87,15 +66,14 @@ public abstract class MoveableGameObject {
 	}
 	
 	public void setPosition(Vector2 position) {
-		this.position = position;
+		bounds.setPosition(position);
 	}
 	
 	@Override
 	public boolean equals(Object o){
 		if (o instanceof MoveableGameObject) {
 			MoveableGameObject moveable = (MoveableGameObject) o;
-			return size == moveable.size && speed == moveable.speed
-					&& position.equals(moveable.position)
+			return speed == moveable.speed
 					&& angle == moveable.angle
 					&& bounds.equals(moveable.bounds)
 					&& damage == moveable.damage;

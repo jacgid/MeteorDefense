@@ -45,7 +45,6 @@ public class BasicMeteor extends Meteor {
 	@Override
 	public void hit(int damage, ProjectileType projectileType) {
 		decreaseHealth(damage);
-		decreaseSize(damage * 10);
 
 	}
 

@@ -131,4 +131,36 @@ public class City {
 		maxLife = currentLife = cityLife;
 		this.meteorShower = meteorShower;
 	}
+
+	@Override
+	public int hashCode() {
+		final int prime = 31;
+		int result = 1;
+		result = prime * result + ((bounds == null) ? 0 : bounds.hashCode());
+		result = prime * result + currentLife;
+		result = prime * result + maxLife;
+		result = prime * result
+				+ ((meteorShower == null) ? 0 : meteorShower.hashCode());
+		result = prime * result + ((name == null) ? 0 : name.hashCode());
+		result = prime
+				* result
+				+ ((radioactiveMeteors == null) ? 0 : radioactiveMeteors
+						.hashCode());
+		result = prime * result + score;
+		result = prime * result + stars;
+		result = prime * result + ((state == null) ? 0 : state.hashCode());
+		return result;
+	}
+
+	@Override
+	public boolean equals(Object obj) {
+		if(this == obj){
+			return true;
+		}else if(obj instanceof City){
+			City city = (City)obj;
+			return state.equals(city.state) && name.equals(city.name) && currentLife == city.currentLife && maxLife == city.maxLife && stars == city.stars && score == city.score;
+		}
+		return false;
+		
+	}
 }
