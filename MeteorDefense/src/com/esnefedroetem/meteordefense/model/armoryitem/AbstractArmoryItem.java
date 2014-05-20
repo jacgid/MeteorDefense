@@ -6,7 +6,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 import com.badlogic.gdx.utils.TimeUtils;
-import com.esnefedroetem.meteordefense.model.IArmoryItemElement;
 import com.esnefedroetem.meteordefense.model.Upgrade;
 
 /**
