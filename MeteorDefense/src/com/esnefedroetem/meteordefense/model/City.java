@@ -5,6 +5,7 @@ import java.util.Collection;
 import java.util.List;
 
 import com.badlogic.gdx.math.Rectangle;
+import com.esnefedroetem.meteordefense.model.meteor.Meteor;
 import com.esnefedroetem.meteordefense.model.meteor.RadioactiveMeteor;
 import com.esnefedroetem.meteordefense.util.Constants;
 

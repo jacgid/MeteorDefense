@@ -3,12 +3,12 @@ package com.esnefedroetem.meteordefense.model.armoryitem;
 import java.util.ArrayList;
 import java.util.List;
 
-import com.esnefedroetem.meteordefense.model.Meteor;
 import com.esnefedroetem.meteordefense.model.Projectile;
 import com.esnefedroetem.meteordefense.model.Projectile.ProjectileType;
 import com.esnefedroetem.meteordefense.model.Upgrade;
 import com.esnefedroetem.meteordefense.model.IArmoryItemVisitor;
 import com.esnefedroetem.meteordefense.model.armoryitem.AbstractArmoryItem.State;
+import com.esnefedroetem.meteordefense.model.meteor.Meteor;
 import com.esnefedroetem.meteordefense.util.Constants;
 
 public class ReversedGravityEffectArmoryItem extends AbstractEffectArmoryItem {

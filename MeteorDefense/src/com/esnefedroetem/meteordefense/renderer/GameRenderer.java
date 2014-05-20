@@ -38,11 +38,11 @@ import com.badlogic.gdx.scenes.scene2d.utils.SpriteDrawable;
 import com.badlogic.gdx.scenes.scene2d.utils.TextureRegionDrawable;
 import com.esnefedroetem.meteordefense.model.City;
 import com.esnefedroetem.meteordefense.model.IGameModel;
-import com.esnefedroetem.meteordefense.model.Meteor;
-import com.esnefedroetem.meteordefense.model.Meteor.MeteorType;
 import com.esnefedroetem.meteordefense.model.Projectile;
 import com.esnefedroetem.meteordefense.model.Projectile.ProjectileType;
 import com.esnefedroetem.meteordefense.model.armoryitem.AbstractArmoryItem;
+import com.esnefedroetem.meteordefense.model.meteor.Meteor;
+import com.esnefedroetem.meteordefense.model.meteor.Meteor.MeteorType;
 import com.esnefedroetem.meteordefense.util.AssetsLoader;
 import com.esnefedroetem.meteordefense.util.Constants;
 

@@ -1,5 +1,7 @@
 package com.esnefedroetem.meteordefense.model;
 
+import com.esnefedroetem.meteordefense.model.meteor.Meteor;
+
 /**
  * 
  * @author Andreas Pegelow

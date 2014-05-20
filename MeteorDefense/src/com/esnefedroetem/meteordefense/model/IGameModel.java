@@ -4,6 +4,7 @@ import java.util.Collection;
 import java.util.List;
 
 import com.esnefedroetem.meteordefense.model.armoryitem.AbstractArmoryItem;
+import com.esnefedroetem.meteordefense.model.meteor.Meteor;
 
 public interface IGameModel  {
 

@@ -5,12 +5,13 @@ import java.util.List;
 
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.utils.TimeUtils;
-import com.esnefedroetem.meteordefense.model.Meteor.MeteorType;
 import com.esnefedroetem.meteordefense.model.meteor.BasicMeteor;
 import com.esnefedroetem.meteordefense.model.meteor.FastMeteor;
 import com.esnefedroetem.meteordefense.model.meteor.FireMeteor;
 import com.esnefedroetem.meteordefense.model.meteor.IceMeteor;
+import com.esnefedroetem.meteordefense.model.meteor.Meteor;
 import com.esnefedroetem.meteordefense.model.meteor.RadioactiveMeteor;
+import com.esnefedroetem.meteordefense.model.meteor.Meteor.MeteorType;
 import com.esnefedroetem.meteordefense.util.Constants;
 
 public class MeteorShower {
