@@ -11,11 +11,10 @@ import java.util.List;
 import org.junit.Test;
 
 import com.badlogic.gdx.math.Vector2;
-import com.esnefedroetem.meteordefense.model.Meteor.MeteorType;
-import com.esnefedroetem.meteordefense.model.Projectile.ProjectileType;
 import com.esnefedroetem.meteordefense.model.armoryitem.AbstractArmoryItem;
 import com.esnefedroetem.meteordefense.model.armoryitem.StandardArmoryItem;
 import com.esnefedroetem.meteordefense.model.meteor.BasicMeteor;
+import com.esnefedroetem.meteordefense.model.meteor.Meteor;
 import com.esnefedroetem.meteordefense.util.Constants;
 
 public class GameModelTest {
