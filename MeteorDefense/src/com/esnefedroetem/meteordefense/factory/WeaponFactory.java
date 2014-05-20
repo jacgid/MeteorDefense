@@ -21,10 +21,10 @@ class WeaponFactory {
 	private WeaponFactory(){
 		items = new HashMap<String, AbstractArmoryItem>(10);
 		AbstractArmoryItem item1 = new EmptyItem();
-		AbstractArmoryItem item2 = new MissileProjectileArmoryItem(State.UNLOCKED, 1);
-		AbstractArmoryItem item7 = new ReversedGravityEffectArmoryItem(State.UNLOCKED, 1);
-		AbstractArmoryItem item8 = new StandardArmoryItem(State.UNLOCKED, 1);
-		AbstractArmoryItem item9 = new SlowMotionEffectArmoryItem(State.UNLOCKED, 1);
+		AbstractArmoryItem item2 = new MissileProjectileArmoryItem();
+		AbstractArmoryItem item7 = new ReversedGravityEffectArmoryItem();
+		AbstractArmoryItem item8 = new StandardArmoryItem();
+		AbstractArmoryItem item9 = new SlowMotionEffectArmoryItem();
 		items.put(item1.getName(), item1);
 		items.put(item2.getName(), item2);
 		items.put(item7.getName(), item7);

@@ -18,11 +18,16 @@ import com.esnefedroetem.meteordefense.util.Constants;
  *
  */
 public class MissileProjectileArmoryItem extends AbstractProjectileArmoryItem{
+	
+	private static final String NAME =  "MissileLauncher", DESCRIPTION = "Lorem ipsum dolor sit amet, consectetur adipiscing elit.";
+	
+	public MissileProjectileArmoryItem() {
+		super(NAME, DESCRIPTION);
+	}
 
 	public MissileProjectileArmoryItem(State state, int upgradeIndex) {
-		super(state, upgradeIndex, Constants.DEFAULT_PROJECTILE_SIZE * 3, Projectile.ProjectileType.MISSILE_PROJECTILE);
-		name = "MissileLauncher";
-		description = "Lorem ipsum dolor sit amet, consectetur adipiscing elit.";
+		super(state, upgradeIndex, NAME, DESCRIPTION, Constants.DEFAULT_PROJECTILE_SIZE * 3, Projectile.ProjectileType.MISSILE_PROJECTILE);
+		
 	}
 	
 	@Override

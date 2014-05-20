@@ -13,11 +13,12 @@ import com.esnefedroetem.meteordefense.model.meteor.Meteor;
 
 public abstract class AbstractEffectArmoryItem extends AbstractArmoryItem {
 	
-	public AbstractEffectArmoryItem() {
+	public AbstractEffectArmoryItem(String name, String description) {
+		super(name, description);
 	}
 	
-	public AbstractEffectArmoryItem(State state, int upgradeIndex) {
-		super(state, upgradeIndex);
+	public AbstractEffectArmoryItem(State state, int upgradeIndex, String name, String description) {
+		super(state, upgradeIndex, name, description);
 	}
 
 	public abstract void execute(List<Meteor> list);

@@ -6,7 +6,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 import com.badlogic.gdx.utils.TimeUtils;
-import com.esnefedroetem.meteordefense.model.IArmoryItemElement;
 import com.esnefedroetem.meteordefense.model.Upgrade;
 
 /**
@@ -29,10 +28,13 @@ public abstract class AbstractArmoryItem implements IArmoryItemElement {
 	protected String name, description;
 	public static final EmptyItem EMPTY_ITEM = new EmptyItem();
 
-	public AbstractArmoryItem() {
-	}
 	
-	public AbstractArmoryItem(State state, int upgradeIndex) {
+	public AbstractArmoryItem(String name, String description) {
+		this.name = name;
+		this.description = description;
+	}
+	public AbstractArmoryItem(State state, int upgradeIndex, String name, String description) {
+		this(name, description);
 		init(state, upgradeIndex);
 	}
 	
@@ -174,5 +176,5 @@ public abstract class AbstractArmoryItem implements IArmoryItemElement {
 			lastUsed += milliseconds;
 		}
 	}
-
+	
 }

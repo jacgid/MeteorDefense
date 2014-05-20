@@ -10,7 +10,7 @@ public class EmptyItem extends AbstractArmoryItem {
 
 	
 	public EmptyItem(){
-		setName("weaponslot");
+		super("weaponslot", "");
 	}
 	
 	@Override
