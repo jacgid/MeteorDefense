@@ -15,8 +15,10 @@ public abstract class AbstractProjectileArmoryItem extends AbstractArmoryItem {
 	private float projectileSize;
 	private ProjectileType projectileType;
 	
-	public AbstractProjectileArmoryItem(String name, String description) {
+	public AbstractProjectileArmoryItem(String name, String description, float projectileSize, ProjectileType projectileType) {
 		super(name, description);
+		this.projectileSize = projectileSize;
+		this.projectileType = projectileType;
 	}
 	
 	public AbstractProjectileArmoryItem(State state, int upgradeIndex, String name, String description,

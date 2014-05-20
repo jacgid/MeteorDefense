@@ -22,7 +22,7 @@ public class MissileProjectileArmoryItem extends AbstractProjectileArmoryItem{
 	private static final String NAME =  "MissileLauncher", DESCRIPTION = "Lorem ipsum dolor sit amet, consectetur adipiscing elit.";
 	
 	public MissileProjectileArmoryItem() {
-		super(NAME, DESCRIPTION);
+		super(NAME, DESCRIPTION, Constants.DEFAULT_PROJECTILE_SIZE * 3, Projectile.ProjectileType.MISSILE_PROJECTILE);
 	}
 
 	public MissileProjectileArmoryItem(State state, int upgradeIndex) {
