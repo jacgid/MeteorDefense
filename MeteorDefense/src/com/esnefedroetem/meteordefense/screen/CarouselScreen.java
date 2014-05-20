@@ -12,7 +12,7 @@ import com.esnefedroetem.meteordefense.renderer.CarouselRenderer;
 import com.esnefedroetem.meteordefense.renderer.CarouselRenderer.CarouselEvent;
 import com.esnefedroetem.meteordefense.screen.SplashScreen.SplashScreenEvent;
 import com.esnefedroetem.meteordefense.service.LevelData;
-import com.esnefedroetem.meteordefense.service.LoadService;
+import com.esnefedroetem.meteordefense.service.ServiceFactory;
 
 public class CarouselScreen implements Screen, PropertyChangeListener {
 	private PropertyChangeSupport pcs;
@@ -118,7 +118,7 @@ public class CarouselScreen implements Screen, PropertyChangeListener {
 	}
 	
 	private void setLevelData(City city){
-		LevelData lvlData = LoadService.getInstance().getLevelData(city.getName());
+		LevelData lvlData = ServiceFactory.getInstance().getLoadService().getLevelData(city.getName());
 		city.setLevelData(lvlData.getCityLife(), lvlData.getMeteorShower());
 	}
 	

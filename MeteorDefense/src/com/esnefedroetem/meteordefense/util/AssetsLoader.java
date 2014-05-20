@@ -16,8 +16,9 @@ import com.esnefedroetem.meteordefense.model.City;
 import com.esnefedroetem.meteordefense.model.Continent;
 import com.esnefedroetem.meteordefense.model.Meteor;
 import com.esnefedroetem.meteordefense.model.armoryitem.AbstractArmoryItem;
+import com.esnefedroetem.meteordefense.service.ILoadService;
 import com.esnefedroetem.meteordefense.service.LevelData;
-import com.esnefedroetem.meteordefense.service.LoadService;
+import com.esnefedroetem.meteordefense.service.ServiceFactory;
 import com.esnefedroetem.meteordefense.service.WeaponData;
 
 public class AssetsLoader {
@@ -227,15 +228,16 @@ public class AssetsLoader {
 	}
 	
 	public void loadStartupAssets(){
+		ILoadService loadService = ServiceFactory.getInstance().getLoadService();
 		//Load all continent textures
-		HashMap<String, String> temp = LoadService.getInstance().getFilenameMap(Continent.class);
+		HashMap<String, String> temp = loadService.getFilenameMap(Continent.class);
 		textures.putAll(temp);
-		List<Continent> contList = LoadService.getInstance().getContinents();
+		List<Continent> contList = loadService.getContinents();
 		for(int i = 0; i < contList.size(); i++){
 			loadTexture(temp.get(contList.get(i).getName()));
 		}
 		//Load all city textures
-		temp = LoadService.getInstance().getFilenameMap(City.class);
+		temp = loadService.getFilenameMap(City.class);
 		textures.putAll(temp);
 		for(int i = 0 ; i < contList.size(); i++){
 			List<City> cityList = contList.get(i).getCities();
@@ -244,9 +246,9 @@ public class AssetsLoader {
 			}
 		}
 		//Load all armoryitem assets
-		temp = LoadService.getInstance().getFilenameMap(AbstractArmoryItem.class);
+		temp = loadService.getFilenameMap(AbstractArmoryItem.class);
 		textures.putAll(temp);
-		List<WeaponData> armoryList = LoadService.getInstance().getArmoryItems();
+		List<WeaponData> armoryList = loadService.getArmoryItems();
 		for(int i = 0; i < armoryList.size(); i++){
 			textures.put(armoryList.get(i).getName(), temp.get(contList.get(i).getName()));
 			loadTexture(temp.get(armoryList.get(i).getName()));
@@ -254,12 +256,13 @@ public class AssetsLoader {
 	}
 
 	public void loadBasegameAssets(){
-		HashMap<String, String> temp = LoadService.getInstance().getBaseGameFilenameMap();
-		String[] baseGameList = LoadService.getInstance().getBaseGameNames();
+		ILoadService loadService = ServiceFactory.getInstance().getLoadService();
+		HashMap<String, String> temp = loadService.getBaseGameFilenameMap();
+		String[] baseGameList = loadService.getBaseGameNames();
 		for(int i = 0; i < baseGameList.length; i++){
 			loadAsset(temp.get(baseGameList[i]));
 		}
-		textures.putAll(LoadService.getInstance().getFilenameMap(Meteor.class));
+		textures.putAll(loadService.getFilenameMap(Meteor.class));
 	}
 	
 	public void loadLevelAssets(City city){
