@@ -15,13 +15,14 @@ public class ReversedGravityEffectArmoryItem extends AbstractEffectArmoryItem {
 
 	private List<Meteor> list = new ArrayList<Meteor>();
 	
+	private static final String NAME =  "ReversedGravityEffect", DESCRIPTION = "Lorem ipsum dolor sit amet, consectetur adipiscing elit.";
+		
 	public ReversedGravityEffectArmoryItem() {
+		super(NAME, DESCRIPTION);
 	}
 	
 	public ReversedGravityEffectArmoryItem(State state, int upgradeIndex) {
-		super(state, upgradeIndex);
-		name = "ReversedGravityEffect";
-		description = "Lorem ipsum dolor sit amet, consectetur adipiscing elit.";
+		super(state, upgradeIndex, NAME, DESCRIPTION);
 	}
 
 	@Override
