@@ -35,7 +35,7 @@ public class GameScreen implements Screen{
 	private InputListener inputListener = new InputListener(){
 		@Override
 		public boolean keyDown(InputEvent event, int keycode) {
-			if(keycode == Keys.BACK){
+			if(keycode == Keys.BACK || keycode == Keys.BACKSPACE){
 				model.onBackPressed();
 				return true;
 			}

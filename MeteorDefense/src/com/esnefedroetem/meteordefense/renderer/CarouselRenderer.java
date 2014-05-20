@@ -1,5 +1,7 @@
 package com.esnefedroetem.meteordefense.renderer;
 
+import java.awt.event.KeyEvent;
+import java.awt.event.KeyListener;
 import java.beans.PropertyChangeListener;
 import java.beans.PropertyChangeSupport;
 import java.util.List;
@@ -95,7 +97,7 @@ public class CarouselRenderer {
 			public boolean keyDown(InputEvent event,
 		              int keycode){
 				
-				if(keycode == Keys.BACK){
+				if(keycode == Keys.BACK || keycode == Keys.BACKSPACE){
 			 		pcs.firePropertyChange(CarouselEvent.CAROUSEL_BACKBUTTON.toString(), false, true);					
 				}
 				

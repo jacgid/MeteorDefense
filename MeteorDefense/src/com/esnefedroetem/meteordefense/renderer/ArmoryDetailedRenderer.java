@@ -207,7 +207,7 @@ public class ArmoryDetailedRenderer {
 		stage.addListener(new InputListener() {
 			@Override
 			public boolean keyDown(InputEvent event, int keycode) {
-				if (keycode == Keys.BACK) {
+				if (keycode == Keys.BACK || keycode == Keys.BACKSPACE) {
 					pcs.firePropertyChange(
 							ArmoryDetaliedEvent.ARMORY_DETAILED_BACK_PRESSED
 									.toString(), false, true);
