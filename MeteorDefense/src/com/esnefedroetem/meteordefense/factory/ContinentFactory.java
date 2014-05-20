@@ -7,7 +7,7 @@ import com.esnefedroetem.meteordefense.model.City;
 import com.esnefedroetem.meteordefense.model.City.State;
 import com.esnefedroetem.meteordefense.model.Continent;
 import com.esnefedroetem.meteordefense.model.MeteorShower;
-import com.esnefedroetem.meteordefense.service.LoadService;
+import com.esnefedroetem.meteordefense.service.ServiceFactory;
 
 class ContinentFactory {
 	private static final ContinentFactory instance = new ContinentFactory();
@@ -20,7 +20,7 @@ class ContinentFactory {
 	
 	protected List<Continent> createContinents(){
 		List<Continent> continents = null;
-		continents = LoadService.getInstance().getContinents();
+		continents = ServiceFactory.getInstance().getLoadService().getContinents();
 		if(continents == null){
 			continents = new ArrayList<Continent>(4);
 			continents.add(createEurope());

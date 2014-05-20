@@ -11,7 +11,7 @@ import com.esnefedroetem.meteordefense.model.armoryitem.ReversedGravityEffectArm
 import com.esnefedroetem.meteordefense.model.armoryitem.SlowMotionEffectArmoryItem;
 import com.esnefedroetem.meteordefense.model.armoryitem.StandardArmoryItem;
 import com.esnefedroetem.meteordefense.model.armoryitem.AbstractArmoryItem.State;
-import com.esnefedroetem.meteordefense.service.LoadService;
+import com.esnefedroetem.meteordefense.service.ServiceFactory;
 import com.esnefedroetem.meteordefense.service.WeaponData;
 
 class WeaponFactory {
@@ -38,7 +38,7 @@ class WeaponFactory {
 
 
 	protected List<AbstractArmoryItem> getWeapons() {
-		List<WeaponData> data = LoadService.getInstance().getArmoryItems();
+		List<WeaponData> data = ServiceFactory.getInstance().getLoadService().getArmoryItems();
 		List<AbstractArmoryItem> armoryItems = new ArrayList<AbstractArmoryItem>();
 		List<AbstractArmoryItem> choosenItems = new ArrayList<AbstractArmoryItem>();
 		

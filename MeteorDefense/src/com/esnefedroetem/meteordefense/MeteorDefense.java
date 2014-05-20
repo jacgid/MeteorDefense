@@ -9,7 +9,7 @@ import com.badlogic.gdx.Game;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Texture;
 import com.esnefedroetem.meteordefense.factory.GameFactory;
-import com.esnefedroetem.meteordefense.factory.IGameFactory;
+import com.esnefedroetem.meteordefense.factory.IScreenFactory;
 import com.esnefedroetem.meteordefense.model.City;
 import com.esnefedroetem.meteordefense.model.Continent;
 import com.esnefedroetem.meteordefense.model.ScoreHandler;
@@ -20,7 +20,7 @@ import com.esnefedroetem.meteordefense.renderer.CarouselRenderer.CarouselEvent;
 import com.esnefedroetem.meteordefense.renderer.MainMenuRenderer.MainMenuEvent;
 import com.esnefedroetem.meteordefense.screen.*;
 import com.esnefedroetem.meteordefense.screen.SplashScreen.SplashScreenEvent;
-import com.esnefedroetem.meteordefense.service.SaveService;
+import com.esnefedroetem.meteordefense.service.ServiceFactory;
 import com.esnefedroetem.meteordefense.util.AssetsLoader;
 import com.esnefedroetem.meteordefense.util.SoundService;
 
@@ -40,7 +40,7 @@ public class MeteorDefense extends Game implements PropertyChangeListener {
 	public void create() {
 		Texture.setEnforcePotImages(false);
 		Gdx.input.setCatchBackKey(true);
-		splashScreen = GameFactory.getInstance().createSplashScreen(this);
+		splashScreen = GameFactory.getInstance().getScreenFactory().createSplashScreen(this);
 		setScreen(splashScreen);
 	}
 
@@ -88,7 +88,7 @@ public class MeteorDefense extends Game implements PropertyChangeListener {
 		List<AbstractArmoryItem> items = armoryScreen.getUnselectedArmoryItems();
 		List<AbstractArmoryItem> choosenItems = armoryScreen.getSelectedArmoryItems();
 
-		SaveService.getInstance().save(SoundService.getInstance().getSoundState(), armoryDetaliedScreen.getWallet(),
+		ServiceFactory.getInstance().getSaveService().save(SoundService.getInstance().getSoundState(), armoryDetaliedScreen.getWallet(),
 				continents, items, choosenItems);
 	}
 
@@ -96,7 +96,7 @@ public class MeteorDefense extends Game implements PropertyChangeListener {
 	 * Initiate screens
 	 */
 	private void init() {
-		IGameFactory factory = GameFactory.getInstance();
+		IScreenFactory factory = GameFactory.getInstance().getScreenFactory();
 		this.mainMenuScreen = factory.createMainMenuScreen(this);
 		this.armoryScreen = factory.createArmoryScreen(this);
 		this.armoryDetaliedScreen = factory.createArmoryDetailedScreen(this);

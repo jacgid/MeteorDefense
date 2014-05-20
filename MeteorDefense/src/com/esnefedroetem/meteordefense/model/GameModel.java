@@ -30,7 +30,7 @@ public class GameModel implements IGameModel {
 	private MeteorShower meteorShower;
 	private ScoreHandler scoreHandler;
 	private PropertyChangeSupport pcs;
-	private ArmoryItemVisitor visitor;
+	private IArmoryItemVisitor visitor;
 	private boolean isPaused;
 
 	private final float width, height;

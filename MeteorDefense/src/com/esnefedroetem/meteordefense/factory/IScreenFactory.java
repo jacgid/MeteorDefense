@@ -10,7 +10,7 @@ import com.esnefedroetem.meteordefense.screen.MainMenuScreen;
 import com.esnefedroetem.meteordefense.screen.ScoreScreen;
 import com.esnefedroetem.meteordefense.screen.SplashScreen;
 
-public interface IGameFactory {
+public interface IScreenFactory {
 
 	public MainMenuScreen createMainMenuScreen(PropertyChangeListener listener);
 

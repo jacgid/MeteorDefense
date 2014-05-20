@@ -12,15 +12,7 @@ import com.esnefedroetem.meteordefense.model.Wallet;
 import com.esnefedroetem.meteordefense.model.armoryitem.AbstractArmoryItem;
 import com.esnefedroetem.meteordefense.util.Constants;
 
-public class LoadService implements ILoadService{
-	
-	private static final LoadService instance = new LoadService();
-	
-	private LoadService(){}
-	
-	public static ILoadService getInstance(){
-		return instance;
-	}
+class LoadService implements ILoadService{
 	
 	private <T> T load(Class<T> type, String path){
 		FileHandle file = new FileHandle(new File(Gdx.files.getLocalStoragePath() + path));
