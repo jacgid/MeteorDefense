@@ -90,14 +90,15 @@ public class ArmoryRenderer {
 
 		topTable.top();
 		bottomTable.bottom();
+		bottomTable.setBackground(new TextureRegionDrawable(new TextureRegion(assetsLoader.getTexture("buttonpanel.png"))));
 
 		foreground.add(topTable).expand().top();
 		foreground.row();
-		foreground.add(bottomTable);
+		foreground.add(bottomTable).height(Gdx.graphics.getHeight()/5.5f);
 
 		Table background = new Table();
 		background.setFillParent(true);
-		background.add(new Image(assetsLoader.getTexture("MDBG.png")))
+		background.add(new Image(assetsLoader.getTexture("ArmoryBG.png")))
 				.width(Gdx.graphics.getWidth())
 				.height(Gdx.graphics.getHeight());
 
@@ -173,7 +174,7 @@ public class ArmoryRenderer {
 			dragAndDrop.addSource(getSource(actor));
 			dragAndDrop.addTarget(getTarget(actor));
 
-			if (i % 3 == 0) {
+			if (i % 4 == 0) {
 				table.row();
 			}
 		}

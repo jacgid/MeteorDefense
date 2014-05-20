@@ -58,7 +58,7 @@ public class ArmoryDetailedRenderer {
 		stage = new Stage();
 		Table table = new Table();
 		table.setFillParent(true);
-		table.setBackground(new TextureRegionDrawable(new TextureRegion(assetsLoader.getTexture("ArmoryDetailedBackground.png"))));
+		table.setBackground(new TextureRegionDrawable(new TextureRegion(assetsLoader.getTexture("ArmoryBG.png"))));
 		
 		// assetsTable
 		Table assetsTable = new Table();
