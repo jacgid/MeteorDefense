@@ -110,6 +110,7 @@ public class CarouselRenderer {
 	
 	public void init(){
 		Gdx.input.setInputProcessor(stage);
+		Gdx.gl.glViewport(0, 0, Gdx.graphics.getWidth(), Gdx.graphics.getHeight());
 	}
 	
 	public void displayContinents(List<Continent> list){
