@@ -31,6 +31,7 @@ import com.badlogic.gdx.scenes.scene2d.utils.DragAndDrop.Target;
 import com.badlogic.gdx.scenes.scene2d.utils.Drawable;
 import com.badlogic.gdx.scenes.scene2d.utils.TextureRegionDrawable;
 import com.esnefedroetem.meteordefense.model.armoryitem.AbstractArmoryItem;
+import com.esnefedroetem.meteordefense.model.armoryitem.AbstractArmoryItem.State;
 import com.esnefedroetem.meteordefense.util.AssetsLoader;
 import com.esnefedroetem.meteordefense.util.Constants;
 
@@ -45,6 +46,7 @@ public class ArmoryRenderer {
 	private AssetsLoader assetsLoader = AssetsLoader.getInstance();
 	private AbstractArmoryItem standardItem;
 	private float aspect;
+	private final int columns = 4;
 
 	private ClickListener clickListener = new ClickListener() {
 		public void clicked(InputEvent event, float x, float y) {
@@ -174,7 +176,7 @@ public class ArmoryRenderer {
 			dragAndDrop.addSource(getSource(actor));
 			dragAndDrop.addTarget(getTarget(actor));
 
-			if (i % 4 == 0) {
+			if (i % columns == 0) {
 				table.row();
 			}
 		}
@@ -237,25 +239,29 @@ public class ArmoryRenderer {
 					int pointer) {
 				Actor target = getActor();
 				Actor actor = source.getActor();
+				actor.setVisible(true);
+				if( ((AbstractArmoryItem)target.getUserObject()).getState() == AbstractArmoryItem.State.LOCKED 
+						|| ((AbstractArmoryItem)actor.getUserObject()).getState() == AbstractArmoryItem.State.LOCKED){
+					return;
+				}
 				int targetPos = Integer.parseInt(target.getName());
 				int actorPos = Integer.parseInt(actor.getName());
 				target.setName(actorPos + "");
 				actor.setName(targetPos + "");
-				actor.setVisible(true);
 				if (target.getParent() == topTable) {
 					topTable.removeActor(target);
 					if (topTable.getChildren().contains(actor, true)) {
 						topTable.removeActor(actor);
 						if (targetPos < actorPos) {
-							updateTable(topTable, actor, targetPos, 3);
-							updateTable(topTable, target, actorPos, 3);
+							updateTable(topTable, actor, targetPos, columns);
+							updateTable(topTable, target, actorPos, columns);
 						} else {
-							updateTable(topTable, target, actorPos, 3);
-							updateTable(topTable, actor, targetPos, 3);
+							updateTable(topTable, target, actorPos, columns);
+							updateTable(topTable, actor, targetPos, columns);
 						}
 					} else {
 						bottomTable.removeActor(actor);
-						updateTable(topTable, actor, targetPos, 3);
+						updateTable(topTable, actor, targetPos, columns);
 						updateTable(bottomTable, target, actorPos, 6);
 					}
 				} else {
@@ -263,7 +269,7 @@ public class ArmoryRenderer {
 					if (topTable.getChildren().contains(actor, true)) {
 						topTable.removeActor(actor);
 						updateTable(bottomTable, actor, targetPos, 6);
-						updateTable(topTable, target, actorPos, 3);
+						updateTable(topTable, target, actorPos, columns);
 					} else {
 						bottomTable.removeActor(actor);
 						if (targetPos < actorPos) {
@@ -321,10 +327,49 @@ public class ArmoryRenderer {
 		}
 		return items;
 	}
+	
+	private void removeSoldItems(){
+		Actor actor = getSoldItem();
+		while(actor != null){
+			Actor emptyActor = getEmptyItem();
+			int emptyPos = Integer.parseInt(emptyActor.getName());
+			int actorPos = Integer.parseInt(actor.getName());
+			emptyActor.setName(actorPos + "");
+			actor.setName(emptyPos + "");
+			bottomTable.removeActor(actor);
+			topTable.removeActor(emptyActor);
+			updateTable(bottomTable, emptyActor, actorPos, 6);
+			updateTable(topTable, actor, emptyPos, columns);
+			
+			actor = getSoldItem();
+		}
+		
+	}
+	
+	private Actor getSoldItem(){
+		for(Actor actor : bottomTable.getChildren()){
+			AbstractArmoryItem item = (AbstractArmoryItem)actor.getUserObject();
+			if(item.getState() == AbstractArmoryItem.State.LOCKED){
+				return actor;
+			}
+		}
+		return null;
+	}
+	
+	private Actor getEmptyItem(){
+		for(Actor actor : topTable.getChildren()){
+			AbstractArmoryItem item = (AbstractArmoryItem)actor.getUserObject();
+			if(item.equals(AbstractArmoryItem.EMPTY_ITEM)){
+				return actor;
+			}
+		}
+		return null;		
+	}
 
 	public void init() {
 		Gdx.input.setInputProcessor(stage);
 		dragFinished = true;
+		removeSoldItems();
 	}
 
 	public void render() {
