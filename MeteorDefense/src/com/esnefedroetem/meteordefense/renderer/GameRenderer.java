@@ -59,7 +59,7 @@ public class GameRenderer {
 	private int width, height;
 	private IGameModel model;
 	private Stage gameStage, bgStage;
-	private Label lifeLabel, scoreLable;
+	private Label scoreLabel;
 	private LabelStyle lblStyleMedium;
 	private Button btnItem1, btnItem2, btnItem3, btnItem4;
 	private ButtonStyle btnstyle1, btnstyle2, btnstyle3, btnstyle4;
@@ -104,12 +104,10 @@ public class GameRenderer {
 		lblStyleMedium = new LabelStyle();
 		lblStyleMedium.font = assetsLoader.getMediumFont();
 
-		lifeLabel = new Label("", lblStyleMedium);
-		scoreLable = new Label("0", lblStyleMedium);
+		scoreLabel = new Label("0", lblStyleMedium);
 		Table lblTable = new Table();
 		lblTable.setFillParent(true);
-		lblTable.add(lifeLabel).top().left().expand();
-		lblTable.add(scoreLable).top().right();
+		lblTable.add(scoreLabel).top().right().expand();
 		bgStage.addActor(lblTable);
 
 		btnstyle1 = new ButtonStyle();
@@ -159,9 +157,8 @@ public class GameRenderer {
 		Gdx.gl.glClear(GL11.GL_COLOR_BUFFER_BIT | GL11.GL_STENCIL_BUFFER_BIT);
 
 		Gdx.gl.glViewport(0, 0, width, height);
-		lifeLabel.setText(model.getCity().getLife() + "");
 		updateLifeVisuals(model.getCity().getRemainingLife());
-		scoreLable.setText(model.getScore() + "");
+		scoreLabel.setText(model.getScore() + "");
 		model.getCity().getRemainingLife();
 
 		bgStage.act();
@@ -210,10 +207,10 @@ public class GameRenderer {
 
 		for (Meteor meteor : model.getMeteorsToBlow()) {
 			Label hitLabel = new Label("" + meteor.getDifficulty(), lblStyleMedium);
-			hitLabel.addAction(Actions.sequence(Actions.fadeOut(0.5f), Actions.removeActor()));
+			hitLabel.addAction(Actions.sequence(Actions.fadeOut(1f), Actions.removeActor()));
 			gameStage.addActor(hitLabel);
-			hitLabel.setPosition(meteor.getBounds().x, meteor.getBounds().y
-					+ meteor.getBounds().getHeight());
+			hitLabel.setPosition(meteor.getBounds().x + meteor.getBounds().getWidth() / 2 - hitLabel.getWidth()/2, meteor.getBounds().y
+					+ meteor.getBounds().getHeight() / 2 - hitLabel.getHeight()/2);
 			explosionEffect.start();
 			explosionEffect.setPosition(meteor.getBounds().x + meteor.getBounds().getWidth() / 2, meteor.getBounds().y
 					+ meteor.getBounds().getHeight() / 2);
