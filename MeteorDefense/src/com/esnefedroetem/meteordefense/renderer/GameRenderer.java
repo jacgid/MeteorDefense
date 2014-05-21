@@ -285,6 +285,7 @@ public class GameRenderer {
 	}
 
 	public void newGame(City city, List<AbstractArmoryItem> items) {
+		Gdx.gl.glViewport(0, 0, Gdx.graphics.getWidth(), Gdx.graphics.getWidth());
 		btnstyle1.up = new TextureRegionDrawable(new TextureRegion(assetsLoader.getTexture(items.get(0).getName()
 				+ ".png")));
 		btnstyle2.up = new TextureRegionDrawable(new TextureRegion(assetsLoader.getTexture(items.get(1).getName()
@@ -300,6 +301,7 @@ public class GameRenderer {
 		citySprite.setPosition(0, Constants.CITY_BOUNDS.y);
 		cityMonumentSprite.setPosition(citySprite.getWidth(), Constants.CITY_BOUNDS.y);
 		initCityFire();
+		
 
 		// TODO change to specific city monument
 	}

@@ -219,6 +219,7 @@ public class ArmoryDetailedRenderer {
 
 	public void init() {
 		Gdx.input.setInputProcessor(stage);
+		Gdx.gl.glViewport(0, 0, Gdx.graphics.getWidth(), Gdx.graphics.getHeight());
 	}
 
 	public void render() {
