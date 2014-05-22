@@ -19,7 +19,7 @@ public abstract class Meteor extends MoveableGameObject {
 		BASIC_METEOR, RADIOACTIVE_METEOR, FIRE_METEOR, FAST_METEOR, ICE_METEOR;
 		
 		public static String[] getTypes(){
-			return new String[]{BASIC_METEOR.toString(), RADIOACTIVE_METEOR.toString(), FIRE_METEOR.toString(), FAST_METEOR.toString(), ICE_METEOR.toString()};
+			return new String[]{BASIC_METEOR.toString(), FIRE_METEOR.toString(), FAST_METEOR.toString(), ICE_METEOR.toString(), RADIOACTIVE_METEOR.toString()};
 		}
 		
 	}

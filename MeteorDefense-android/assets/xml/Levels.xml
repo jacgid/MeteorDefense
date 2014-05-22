@@ -1,164 +1,164 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <City>
 
-    <Paris Life="21" >
+    <Paris Life="20" >
         <MeteorShower>
-            <BASIC_METEOR amount="10" >
+            <BASIC_METEOR amount="15" >
             </BASIC_METEOR>
 
-            <FIRE_METEOR amount="5" >
+            <FIRE_METEOR amount="0" >
             </FIRE_METEOR>
 
-            <FAST_METEOR amount="10" >
+            <FAST_METEOR amount="0" >
             </FAST_METEOR>
 
-            <ICE_METEOR amount="5" >
+            <ICE_METEOR amount="0" >
             </ICE_METEOR>
 
-            <RADIOACTIVE_METEOR amount="5" >
+            <RADIOACTIVE_METEOR amount="0" >
             </RADIOACTIVE_METEOR>
         </MeteorShower>
     </Paris>
     
-    <London Life="22" >
+    <London Life="25" >
         <MeteorShower>
             <BASIC_METEOR amount="10" >
             </BASIC_METEOR>
 
-            <FIRE_METEOR amount="5" >
+            <FIRE_METEOR amount="0" >
             </FIRE_METEOR>
 
             <FAST_METEOR amount="10" >
             </FAST_METEOR>
 
-            <ICE_METEOR amount="5" >
+            <ICE_METEOR amount="0" >
             </ICE_METEOR>
 
-            <RADIOACTIVE_METEOR amount="5" >
+            <RADIOACTIVE_METEOR amount="0" >
             </RADIOACTIVE_METEOR>
         </MeteorShower>
     </London>
     
-    <Berlin Life="23" >
+    <Berlin Life="30" >
         <MeteorShower>
-            <BASIC_METEOR amount="10" >
+            <BASIC_METEOR amount="15" >
             </BASIC_METEOR>
 
-            <FIRE_METEOR amount="5" >
+            <FIRE_METEOR amount="10" >
             </FIRE_METEOR>
 
-            <FAST_METEOR amount="10" >
+            <FAST_METEOR amount="0" >
             </FAST_METEOR>
 
-            <ICE_METEOR amount="5" >
+            <ICE_METEOR amount="0" >
             </ICE_METEOR>
 
-            <RADIOACTIVE_METEOR amount="5" >
+            <RADIOACTIVE_METEOR amount="0" >
             </RADIOACTIVE_METEOR>
         </MeteorShower>
     </Berlin>
     
-    <Shanghai Life="22" >
+    <Shanghai Life="30" >
         <MeteorShower>
-            <BASIC_METEOR amount="10" >
+            <BASIC_METEOR amount="5" >
             </BASIC_METEOR>
 
-            <FIRE_METEOR amount="5" >
+            <FIRE_METEOR amount="10" >
             </FIRE_METEOR>
 
             <FAST_METEOR amount="10" >
             </FAST_METEOR>
 
-            <ICE_METEOR amount="5" >
+            <ICE_METEOR amount="0" >
             </ICE_METEOR>
 
-            <RADIOACTIVE_METEOR amount="5" >
+            <RADIOACTIVE_METEOR amount="0" >
             </RADIOACTIVE_METEOR>
         </MeteorShower>
     </Shanghai>
     
-    <Tokyo Life="22" >
+    <Tokyo Life="40" >
         <MeteorShower>
             <BASIC_METEOR amount="10" >
             </BASIC_METEOR>
 
-            <FIRE_METEOR amount="5" >
+            <FIRE_METEOR amount="0" >
             </FIRE_METEOR>
 
-            <FAST_METEOR amount="10" >
+            <FAST_METEOR amount="0" >
             </FAST_METEOR>
 
-            <ICE_METEOR amount="5" >
+            <ICE_METEOR amount="10" >
             </ICE_METEOR>
 
-            <RADIOACTIVE_METEOR amount="5" >
+            <RADIOACTIVE_METEOR amount="0" >
             </RADIOACTIVE_METEOR>
         </MeteorShower>
     </Tokyo>
     
-    <Dubai Life="22" >
+    <Dubai Life="40" >
         <MeteorShower>
-            <BASIC_METEOR amount="10" >
+            <BASIC_METEOR amount="5" >
             </BASIC_METEOR>
 
             <FIRE_METEOR amount="5" >
             </FIRE_METEOR>
 
-            <FAST_METEOR amount="10" >
+            <FAST_METEOR amount="0" >
             </FAST_METEOR>
 
-            <ICE_METEOR amount="5" >
+            <ICE_METEOR amount="10" >
             </ICE_METEOR>
 
-            <RADIOACTIVE_METEOR amount="5" >
+            <RADIOACTIVE_METEOR amount="0" >
             </RADIOACTIVE_METEOR>
         </MeteorShower>
     </Dubai>
     
-    <New_York Life="22" >
+    <New_York Life="40" >
         <MeteorShower>
-            <BASIC_METEOR amount="10" >
+            <BASIC_METEOR amount="0" >
             </BASIC_METEOR>
 
-            <FIRE_METEOR amount="5" >
+            <FIRE_METEOR amount="10" >
             </FIRE_METEOR>
 
-            <FAST_METEOR amount="10" >
+            <FAST_METEOR amount="0" >
             </FAST_METEOR>
 
-            <ICE_METEOR amount="5" >
+            <ICE_METEOR amount="15" >
             </ICE_METEOR>
 
-            <RADIOACTIVE_METEOR amount="5" >
+            <RADIOACTIVE_METEOR amount="0" >
             </RADIOACTIVE_METEOR>
         </MeteorShower>
     </New_York>
     
-    <Washington Life="22" >
+    <Washington Life="45" >
         <MeteorShower>
-            <BASIC_METEOR amount="10" >
+            <BASIC_METEOR amount="0" >
             </BASIC_METEOR>
 
             <FIRE_METEOR amount="5" >
             </FIRE_METEOR>
 
-            <FAST_METEOR amount="10" >
+            <FAST_METEOR amount="5" >
             </FAST_METEOR>
 
-            <ICE_METEOR amount="5" >
+            <ICE_METEOR amount="0" >
             </ICE_METEOR>
 
-            <RADIOACTIVE_METEOR amount="5" >
+            <RADIOACTIVE_METEOR amount="10" >
             </RADIOACTIVE_METEOR>
         </MeteorShower>
     </Washington>
     
-    <Ottawa Life="22" >
+    <Ottawa Life="45" >
         <MeteorShower>
-            <BASIC_METEOR amount="10" >
+            <BASIC_METEOR amount="0" >
             </BASIC_METEOR>
 
-            <FIRE_METEOR amount="5" >
+            <FIRE_METEOR amount="0" >
             </FIRE_METEOR>
 
             <FAST_METEOR amount="10" >
@@ -167,64 +167,64 @@
             <ICE_METEOR amount="5" >
             </ICE_METEOR>
 
-            <RADIOACTIVE_METEOR amount="5" >
+            <RADIOACTIVE_METEOR amount="10" >
             </RADIOACTIVE_METEOR>
         </MeteorShower>
     </Ottawa>
     
-    <SouthPole Life="22" >
+    <SouthPole Life="50" >
         <MeteorShower>
-            <BASIC_METEOR amount="10" >
+            <BASIC_METEOR amount="0" >
             </BASIC_METEOR>
 
-            <FIRE_METEOR amount="5" >
+            <FIRE_METEOR amount="10" >
             </FIRE_METEOR>
 
-            <FAST_METEOR amount="10" >
+            <FAST_METEOR amount="0" >
             </FAST_METEOR>
 
-            <ICE_METEOR amount="5" >
+            <ICE_METEOR amount="10" >
             </ICE_METEOR>
 
-            <RADIOACTIVE_METEOR amount="5" >
+            <RADIOACTIVE_METEOR amount="10" >
             </RADIOACTIVE_METEOR>
         </MeteorShower>
     </SouthPole>
     
-    <Ice Life="22" >
+    <Ice Life="60" >
         <MeteorShower>
-            <BASIC_METEOR amount="10" >
+            <BASIC_METEOR amount="0" >
             </BASIC_METEOR>
 
-            <FIRE_METEOR amount="5" >
+            <FIRE_METEOR amount="0" >
             </FIRE_METEOR>
 
-            <FAST_METEOR amount="10" >
+            <FAST_METEOR amount="0" >
             </FAST_METEOR>
 
-            <ICE_METEOR amount="5" >
+            <ICE_METEOR amount="15" >
             </ICE_METEOR>
 
-            <RADIOACTIVE_METEOR amount="5" >
+            <RADIOACTIVE_METEOR amount="15" >
             </RADIOACTIVE_METEOR>
         </MeteorShower>
     </Ice>
     
-    <Mountain Life="22" >
+    <Mountain Life="42" >
         <MeteorShower>
-            <BASIC_METEOR amount="10" >
+            <BASIC_METEOR amount="20" >
             </BASIC_METEOR>
 
-            <FIRE_METEOR amount="5" >
+            <FIRE_METEOR amount="20" >
             </FIRE_METEOR>
 
-            <FAST_METEOR amount="10" >
+            <FAST_METEOR amount="20" >
             </FAST_METEOR>
 
-            <ICE_METEOR amount="5" >
+            <ICE_METEOR amount="20" >
             </ICE_METEOR>
 
-            <RADIOACTIVE_METEOR amount="5" >
+            <RADIOACTIVE_METEOR amount="20" >
             </RADIOACTIVE_METEOR>
         </MeteorShower>
     </Mountain>
