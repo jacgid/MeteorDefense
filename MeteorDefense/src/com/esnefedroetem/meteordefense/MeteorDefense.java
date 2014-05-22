@@ -130,26 +130,7 @@ public class MeteorDefense extends Game implements PropertyChangeListener {
 		} else if (evt.getPropertyName().equals("Gameover")) {
 			inGame = false;
 			ScoreHandler scoreHandler = (ScoreHandler) evt.getNewValue();
-
-			// if game is won, next city in the continent should be unlocked
-			// (unless already unlocked)
-			if (!scoreHandler.isGameLost()) {
-				City city = (City) evt.getOldValue();
-				// find which continent the city belongs to
-				for (Continent continent : carouselScreen.getContinents()) {
-					List<City> cities = continent.getCities();
-					if (cities.contains(city)) {
-						// get next city and unlock it
-						if (cities.indexOf(city) + 1 < cities.size()) {
-							City nextCity = cities.get(cities.indexOf(city) + 1);
-							if (nextCity.getState() == City.State.LOCKED) {
-								nextCity.setState(City.State.UNLOCKED);
-							}
-						}
-					}
-				}
-			}
-
+			checkUnlockNextCity(scoreHandler, (City) evt.getOldValue());
 			scoreScreen.setScore(scoreHandler);
 			armoryDetaliedScreen.getWallet().addCoins(scoreHandler.getNewMoney());
 			setScreen(scoreScreen);
@@ -173,6 +154,27 @@ public class MeteorDefense extends Game implements PropertyChangeListener {
 			setScreen(carouselScreen);
 		}
 
+	}
+
+	private void checkUnlockNextCity(ScoreHandler scoreHandler, City c) {
+		// if game is won, next city in the continent should be unlocked
+					// (unless already unlocked)
+					if (!scoreHandler.isGameLost()) {
+						City city = c;
+						// find which continent the city belongs to
+						for (Continent continent : carouselScreen.getContinents()) {
+							List<City> cities = continent.getCities();
+							if (cities.contains(city)) {
+								// get next city and unlock it
+								if (cities.indexOf(city) + 1 < cities.size()) {
+									City nextCity = cities.get(cities.indexOf(city) + 1);
+									if (nextCity.getState() == City.State.LOCKED) {
+										nextCity.setState(City.State.UNLOCKED);
+									}
+								}
+							}
+						}
+					}
 	}
 
 }
