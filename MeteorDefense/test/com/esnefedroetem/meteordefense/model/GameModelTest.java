@@ -15,6 +15,7 @@ import com.esnefedroetem.meteordefense.model.armoryitem.AbstractArmoryItem;
 import com.esnefedroetem.meteordefense.model.armoryitem.StandardArmoryItem;
 import com.esnefedroetem.meteordefense.model.meteor.BasicMeteor;
 import com.esnefedroetem.meteordefense.model.meteor.Meteor;
+import com.esnefedroetem.meteordefense.model.meteor.RadioactiveMeteor;
 import com.esnefedroetem.meteordefense.util.Constants;
 
 public class GameModelTest {
@@ -198,5 +199,23 @@ public class GameModelTest {
 		
 		assertTrue(isGameOver[0] && isGameOver[1]);
 	}
-
+	@Test
+	public void testRadioactveMeteor(){
+		
+		City city = new City("",20, new MeteorShower(0,0,0,0,1), City.State.UNLOCKED);
+		city.hit(new RadioactiveMeteor());
+		int life = city.getLife();
+		city.update(4f);
+		 assertTrue(city.getLife() < life);	
+	}
+	
+	@Test
+	public void testMeteorShower(){
+		MeteorShower shower = new MeteorShower(10,1,0,0,0);
+		shower.loadMeteors();
+		shower.update(1f);
+		shower.update(1f);
+		shower.update(1f);
+		assertTrue(shower.getVisibleMeteors().size()>0);
+	}
 }
