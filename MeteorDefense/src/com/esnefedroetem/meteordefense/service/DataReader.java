@@ -110,13 +110,18 @@ public class DataReader {
 		int life = level.getInt("Life");
 		
 		Element msElement = level.getChildByName("MeteorShower"); 
-				
+		
+		int spawnrate = msElement.getInt("spawnrate");
+		
 		int[] amounts = {0,0,0,0,0};
 		for(int i = 0 ; i < Meteor.MeteorType.getTypes().length ; i++){
 			amounts[i] = msElement.getChildByName(Meteor.MeteorType.getTypes()[i]).getInt("amount");
 		}
 		
-		levelData = new LevelData(life, new MeteorShower(amounts[0], amounts[1], amounts[2], amounts[3], amounts[4]));
+		MeteorShower ms = new MeteorShower(amounts[0], amounts[1], amounts[2], amounts[3], amounts[4]);
+		ms.setSpawnrate(spawnrate);
+		
+		levelData = new LevelData(life, ms);
 		
 		return levelData;
 	}

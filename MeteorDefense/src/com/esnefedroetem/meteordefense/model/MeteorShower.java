@@ -27,7 +27,8 @@ public class MeteorShower {
 
 	private List<List<Meteor>> allStoredMeteors = new ArrayList<List<Meteor>>();
 	private long lastMeteorSpawn;
-	private int meteorSpawnRate = 2000;
+	private int meteorSpawnRate, totalMeteorCount, lastSpawnRate;
+	private double originalSpawnRate = 1500;
 	private int basicMeteor, fireMeteor, fastMeteor, iceMeteor,
 			radioactiveMeteor, maxScore;
 	private List<MeteorType> meteortypes = new ArrayList<MeteorType>();
@@ -46,6 +47,8 @@ public class MeteorShower {
 		this.iceMeteor = iceMeteor;
 		this.radioactiveMeteor = radioactiveMeteor;
 
+		totalMeteorCount = basicMeteor + fireMeteor + fastMeteor + iceMeteor + radioactiveMeteor;
+		meteorSpawnRate = (int)originalSpawnRate;
 	}
 
 	public List<Meteor> getVisibleMeteors() {
@@ -92,6 +95,7 @@ public class MeteorShower {
 		// Spawns a new meteor if necessary
 		if (TimeUtils.timeSinceMillis(lastMeteorSpawn) > meteorSpawnRate) {
 			if (!allMeteorsDeployed()) {
+				calculateSpawnRate();
 				deployMeteor();
 				lastMeteorSpawn = TimeUtils.millis();
 			}
@@ -101,6 +105,22 @@ public class MeteorShower {
 			meteor.move(delta);
 		}
 
+	}
+
+	private void calculateSpawnRate() {
+		if(lastSpawnRate>(meteorSpawnRate*2)){
+			meteorSpawnRate = (int)(lastSpawnRate*(1-1/(double)totalMeteorCount));
+			System.out.println("Slowing it down!");
+		}
+		lastSpawnRate = meteorSpawnRate;
+		meteorSpawnRate = (int)(meteorSpawnRate*(1-(0.5/(double)totalMeteorCount)));
+		double randomSpawn = (0.8+(meteorSpawnRate/((originalSpawnRate/0.15)*((originalSpawnRate*0.9)/meteorSpawnRate))));
+		System.out.println(randomSpawn);
+		if(Math.random()> randomSpawn){
+			meteorSpawnRate = meteorSpawnRate/2;
+			System.out.println("Speeding it up!");
+		}
+		System.out.println("Rate: " + meteorSpawnRate);
 	}
 
 	// TODO: make me do something useful
@@ -226,5 +246,9 @@ public class MeteorShower {
 	
 	public List<MeteorType> getMeteorTypes(){
 		return meteortypes;
+	}
+	
+	public void setSpawnrate(int spawnrate){
+		originalSpawnRate = spawnrate;
 	}
 }

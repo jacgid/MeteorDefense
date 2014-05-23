@@ -9,7 +9,7 @@ public class Constants {
 	public static final float LOGIC_SCREEN_HEIGHT = 1280f;
 	public static final float LOGIC_ASPECTRATIO = LOGIC_SCREEN_WIDTH/LOGIC_SCREEN_HEIGHT;
 	
-	public static final float BASE_METEOR_SPEED = LOGIC_SCREEN_HEIGHT/2.5f;
+	public static final float BASE_METEOR_SPEED = LOGIC_SCREEN_HEIGHT/4f;
 	public static final float BASE_METEOR_SIZE = LOGIC_SCREEN_WIDTH/7f;
 	public static final float BASE_METEOR_ANGLE = (float)(1.5*Math.PI);
 	public static final int BASE_METEOR_DAMAGE = 1;
