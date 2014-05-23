@@ -105,7 +105,8 @@ public class DataReader {
 		
 		parseFile("Levels.xml");
 		
-		Element level = root.getChildByName(city);
+		String newCity = city.replaceAll(" ", "_");
+		Element level = root.getChildByName(newCity);
 		
 		int life = level.getInt("Life");
 		
