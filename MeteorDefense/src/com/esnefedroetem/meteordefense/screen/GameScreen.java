@@ -17,7 +17,9 @@ import com.esnefedroetem.meteordefense.util.Constants;
 
 /**
  * The GameScreen is the screen where the game is running.
+ * It has the listeners for all the touch events and acts as a controller.
  * @author Simon Nielsen
+ * @author Jacob Gideflod
  *
  */
 public class GameScreen implements Screen{

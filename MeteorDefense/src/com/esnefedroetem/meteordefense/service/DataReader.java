@@ -13,6 +13,11 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.utils.XmlReader;
 import com.badlogic.gdx.utils.XmlReader.Element;
 
+/**
+ * DataReader reads all the xml-files and stores the filenames for the textures of most objects in the game.
+ * @author Simon Nielsen
+ *
+ */
 public class DataReader {
 	
 	private static DataReader dataReader = new DataReader();

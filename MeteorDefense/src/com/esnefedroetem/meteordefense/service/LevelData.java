@@ -2,6 +2,11 @@ package com.esnefedroetem.meteordefense.service;
 
 import com.esnefedroetem.meteordefense.model.MeteorShower;
 
+/**
+ * LevelData is a dataholder for the citvalues life and meteorshower.
+ * @author Simon
+ *
+ */
 public class LevelData {
 	
 	private int cityLife;

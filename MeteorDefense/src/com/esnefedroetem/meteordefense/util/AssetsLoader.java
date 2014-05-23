@@ -21,6 +21,11 @@ import com.esnefedroetem.meteordefense.service.LevelData;
 import com.esnefedroetem.meteordefense.service.ServiceFactory;
 import com.esnefedroetem.meteordefense.service.WeaponData;
 
+/**
+ * The AssetsLoader loads and handles all the assets in the game.
+ * @author Simon Nielsen
+ *
+ */
 public class AssetsLoader {
 
 	private AssetManager manager = new AssetManager();

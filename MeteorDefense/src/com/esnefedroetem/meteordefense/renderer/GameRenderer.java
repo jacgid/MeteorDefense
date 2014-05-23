@@ -50,6 +50,7 @@ import com.esnefedroetem.meteordefense.util.Constants;
  * GameRenderer is responsible for rendering everything in the GameModel.
  * 
  * @author Simon Nielsen
+ * @author Jacob Gideflod
  */
 public class GameRenderer {
 

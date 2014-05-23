@@ -15,6 +15,7 @@ import com.badlogic.gdx.utils.Array;
 import com.badlogic.gdx.utils.GdxRuntimeException;
 
 /**
+ * The SmartFontGenerator helps to generate devicespecific fonts.
  * @author Jon Renner
  */
 

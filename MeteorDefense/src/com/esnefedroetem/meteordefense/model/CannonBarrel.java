@@ -4,6 +4,11 @@ import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.math.Vector2;
 import com.esnefedroetem.meteordefense.util.Constants;
 
+/**
+ * CannonBarrel is where the projectile is loaded and deployed.
+ * @author Simon Nielsen
+ *
+ */
 public class CannonBarrel {
 
 	private float angle = (float) (Math.PI / 2);
