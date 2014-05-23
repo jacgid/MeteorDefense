@@ -160,7 +160,6 @@ public class GameRenderer {
 		Gdx.gl.glViewport(0, 0, width, height);
 		updateLifeVisuals(model.getCity().getRemainingLife());
 		scoreLabel.setText(model.getScore() + "");
-		model.getCity().getRemainingLife();
 
 		bgStage.act();
 		bgStage.draw();
@@ -302,7 +301,8 @@ public class GameRenderer {
 		citySprite.setPosition(0, Constants.CITY_BOUNDS.y);
 		cityMonumentSprite.setPosition(citySprite.getWidth(), Constants.CITY_BOUNDS.y);
 		initCityFire();
-		
+		explosionEffect.update(5f);
+		gameStage.act(5f);
 
 		// TODO change to specific city monument
 	}

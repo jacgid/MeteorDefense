@@ -108,19 +108,18 @@ public class MeteorShower {
 	}
 
 	private void calculateSpawnRate() {
+		
 		if(lastSpawnRate>(meteorSpawnRate*2)){
 			meteorSpawnRate = (int)(lastSpawnRate*(1-1/(double)totalMeteorCount));
-			System.out.println("Slowing it down!");
 		}
 		lastSpawnRate = meteorSpawnRate;
 		meteorSpawnRate = (int)(meteorSpawnRate*(1-(0.5/(double)totalMeteorCount)));
+		
 		double randomSpawn = (0.8+(meteorSpawnRate/((originalSpawnRate/0.15)*((originalSpawnRate*0.9)/meteorSpawnRate))));
-		System.out.println(randomSpawn);
 		if(Math.random()> randomSpawn){
 			meteorSpawnRate = meteorSpawnRate/2;
-			System.out.println("Speeding it up!");
 		}
-		System.out.println("Rate: " + meteorSpawnRate);
+		
 	}
 
 	// TODO: make me do something useful
