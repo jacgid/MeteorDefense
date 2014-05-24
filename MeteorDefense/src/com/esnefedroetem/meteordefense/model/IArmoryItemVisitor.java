@@ -9,7 +9,9 @@ import com.esnefedroetem.meteordefense.model.armoryitem.AbstractProjectileArmory
 import com.esnefedroetem.meteordefense.model.armoryitem.EmptyItem;
 
 /**
- * @author Emma
+ * A Vistor of the ArmoryItem classes must implement this interface to
+ * be able to execute all ArmoryItem types.
+ * @author Emma Lindholm
  *
  */
 public interface IArmoryItemVisitor {

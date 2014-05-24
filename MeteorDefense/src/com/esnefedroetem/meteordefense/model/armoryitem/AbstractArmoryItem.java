@@ -9,7 +9,8 @@ import com.badlogic.gdx.utils.TimeUtils;
 import com.esnefedroetem.meteordefense.model.Upgrade;
 
 /**
- * 
+ * Abstract superclass to all ArmoryItems, contains all common methods.
+ * Implements interface IArmoryItemElement.
  * @author Emma Lindholm
  * 
  */
@@ -25,7 +26,7 @@ public abstract class AbstractArmoryItem implements IArmoryItemElement {
 	private float cooldown;
 	private long lastUsed;
 	private List<Upgrade> upgrades;
-	protected String name, description;
+	private String name, description;
 	public static final EmptyItem EMPTY_ITEM = new EmptyItem();
 
 	
@@ -48,7 +49,7 @@ public abstract class AbstractArmoryItem implements IArmoryItemElement {
 		Upgrade upgrade = upgrades.get(upgradeIndex);
 		power = power + upgrade.getPowerIncrement();
 		cooldown = cooldown + upgrade.getCooldownDecrement();
-		calculateValue(upgrade.getValue());
+		calculateValue(upgrade.getUpgradeValue());
 		upgradeIndex++;
 	}
 
@@ -68,6 +69,10 @@ public abstract class AbstractArmoryItem implements IArmoryItemElement {
 		return state;
 	}
 
+	/**
+	 * If state is set to LOCKED, item is reset to start values (upgrade[0])
+	 * @param state
+	 */
 	public void setState(State state) {
 		this.state = state;
 		if (state == State.LOCKED) {
@@ -87,6 +92,10 @@ public abstract class AbstractArmoryItem implements IArmoryItemElement {
 		return upgradeIndex;
 	}
 
+	/**
+	 * Upgrades item to value of upgradeIndex
+	 * @param upgradeIndex
+	 */
 	public void setUpgradeIndex(int upgradeIndex) {
 		this.upgradeIndex = 0;
 		for (int i = 0; i < upgradeIndex; i++) {
@@ -103,7 +112,7 @@ public abstract class AbstractArmoryItem implements IArmoryItemElement {
 	}
 
 	public int getPurchaseValue() {
-		return upgrades.get(0).getValue();
+		return upgrades.get(0).getUpgradeValue();
 	}
 
 	public int getValue() {
@@ -111,7 +120,7 @@ public abstract class AbstractArmoryItem implements IArmoryItemElement {
 	}
 
 	public int getNextUpgradeValue() {
-		return upgrades.get(upgradeIndex).getValue();
+		return upgrades.get(upgradeIndex).getUpgradeValue();
 	}
 
 	public boolean readyToUse() {
@@ -146,6 +155,12 @@ public abstract class AbstractArmoryItem implements IArmoryItemElement {
 		return false;
 	}
 
+	/**
+	 * Creates list of upgrades.
+	 * NOTE: Upgrade 0 in list represents start values of item.
+	 * Cooldown should therefore be a positive value in this upgrade and
+	 * upgradeValue should represent items purchase value.
+	 */
 	public abstract void initUpgrades();
 
 	public abstract void update(float delta);
@@ -167,10 +182,19 @@ public abstract class AbstractArmoryItem implements IArmoryItemElement {
 		lastUsed = 0;
 	}
 
+	/**
+	 * 
+	 * @return float between 0 and 1 representing percentage of cooldown time remaining
+	 */
 	public float getRemainingCooldown() {
 		return 1 - TimeUtils.timeSinceMillis(lastUsed) / (cooldown * 1000);
 	}
 
+	/**
+	 * Adds the number of milliseconds to the lastUsed value, used to prevent cooldown
+	 * from decreasing during pause of gameplay.
+	 * @param milliseconds Number of milliseconds to be added to lastUsed
+	 */
 	public void increaseRemainingCooldown(long milliseconds) {
 		if (getRemainingCooldown() > 0) {
 			lastUsed += milliseconds;

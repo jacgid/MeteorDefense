@@ -92,7 +92,7 @@ public class ArmoryDetailedScreen implements Screen, PropertyChangeListener{
 	}
 
 	private void itemBought() {
-		wallet.removeCoins(armoryItem.getValue());
+		wallet.removeCoins(armoryItem.getPurchaseValue());
 		armoryItem.setState(AbstractArmoryItem.State.UNLOCKED);	
 	}
 	
@@ -111,8 +111,8 @@ public class ArmoryDetailedScreen implements Screen, PropertyChangeListener{
 			renderer.setUpgradeButtonText("Upgrade for " + armoryItem.getNextUpgradeValue());
 			renderer.setUpgradeButtonDisabled(true);
 			
-			renderer.setTradeButtonText("Buy for " + armoryItem.getValue());
-			renderer.setTradeButtonDisabled(!wallet.canAfford(armoryItem.getValue()));
+			renderer.setTradeButtonText("Buy for " + armoryItem.getPurchaseValue());
+			renderer.setTradeButtonDisabled(!wallet.canAfford(armoryItem.getPurchaseValue()));
 		} else {
 			if(armoryItem.hasUpgrade()) {
 				renderer.setUpgradeButtonText("Upgrade for " + armoryItem.getNextUpgradeValue());

@@ -1,5 +1,11 @@
 package com.esnefedroetem.meteordefense.model;
 
+/**
+ * The Wallet holds and handles the players coins and is saved
+ * as persistent data between sessions.
+ * @author Emma Lindholm
+ *
+ */
 public class Wallet {
 	
 	private int coins = 0;

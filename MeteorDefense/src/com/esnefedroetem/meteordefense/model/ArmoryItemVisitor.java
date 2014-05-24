@@ -3,14 +3,18 @@
  */
 package com.esnefedroetem.meteordefense.model;
 
-import com.badlogic.gdx.utils.TimeUtils;
 import com.esnefedroetem.meteordefense.model.armoryitem.AbstractDefenseArmoryItem;
 import com.esnefedroetem.meteordefense.model.armoryitem.AbstractEffectArmoryItem;
 import com.esnefedroetem.meteordefense.model.armoryitem.AbstractProjectileArmoryItem;
 import com.esnefedroetem.meteordefense.model.armoryitem.EmptyItem;
 
 /**
- * @author Emma
+ * A concrete Visitor of the ArmoryItem classes.
+ * Needs an instance of City and MeteorShower to execute ArmoryItems
+ * correctly. visit() method checks if ArmoryItem is ready to use before executing.
+ * Methods returns null except the method with parameter AbstractProjectileArmoryItem 
+ * when item is ready for use.
+ * @author Emma Lindholm
  * 
  */
 public class ArmoryItemVisitor implements IArmoryItemVisitor {
