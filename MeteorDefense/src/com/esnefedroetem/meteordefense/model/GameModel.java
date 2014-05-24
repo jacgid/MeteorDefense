@@ -48,7 +48,7 @@ public class GameModel implements IGameModel {
 	}
 
 	@Override
-	public void newGame(City city, List<AbstractArmoryItem> selectedArmoryItems) {
+	public void newGame(City city, List<AbstractArmoryItem> selectedArmoryItems, IArmoryItemVisitor armoryItemVisitor) {
 		this.city = city;
 		this.armoryItems = selectedArmoryItems;
 		standardWeapon = selectedArmoryItems.get(2);
@@ -57,7 +57,7 @@ public class GameModel implements IGameModel {
 		meteorShower = city.getMeteorShower();
 		meteorShower.loadMeteors();
 		meteorShower.start();
-		this.visitor = new ArmoryItemVisitor(this.city, this.meteorShower);
+		this.visitor = armoryItemVisitor;
 		cannonBarrel.load(standardWeapon.accept(visitor));
 		isPaused = false;
 	}

@@ -10,6 +10,7 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Texture;
 import com.esnefedroetem.meteordefense.factory.GameFactory;
 import com.esnefedroetem.meteordefense.factory.IScreenFactory;
+import com.esnefedroetem.meteordefense.model.ArmoryItemVisitor;
 import com.esnefedroetem.meteordefense.model.City;
 import com.esnefedroetem.meteordefense.model.Continent;
 import com.esnefedroetem.meteordefense.model.ScoreHandler;
@@ -110,7 +111,7 @@ public class MeteorDefense extends Game implements PropertyChangeListener {
 	}
 
 	private void newGame(City city) {
-		gameScreen.newGame(city, armoryScreen.getSelectedArmoryItems());
+		gameScreen.newGame(city, armoryScreen.getSelectedArmoryItems(), new ArmoryItemVisitor(city, city.getMeteorShower()));
 		setScreen(gameScreen);
 		inGame = true;
 	}

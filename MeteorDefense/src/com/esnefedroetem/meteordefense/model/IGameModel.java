@@ -8,7 +8,7 @@ import com.esnefedroetem.meteordefense.model.meteor.Meteor;
 
 public interface IGameModel  {
 
-	public void newGame(City city, List<AbstractArmoryItem> selectedArmoryItems);
+	public void newGame(City city, List<AbstractArmoryItem> selectedArmoryItems, IArmoryItemVisitor armoryItemVisitor);
 	
 	public void update(float delta);
 	

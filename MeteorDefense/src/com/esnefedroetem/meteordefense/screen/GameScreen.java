@@ -9,8 +9,10 @@ import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.InputListener;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
+import com.esnefedroetem.meteordefense.model.ArmoryItemVisitor;
 import com.esnefedroetem.meteordefense.model.City;
 import com.esnefedroetem.meteordefense.model.GameModel;
+import com.esnefedroetem.meteordefense.model.IArmoryItemVisitor;
 import com.esnefedroetem.meteordefense.model.armoryitem.AbstractArmoryItem;
 import com.esnefedroetem.meteordefense.renderer.GameRenderer;
 import com.esnefedroetem.meteordefense.util.Constants;
@@ -128,8 +130,8 @@ public class GameScreen implements Screen{
 		Gdx.input.setInputProcessor(null);
 	}
 	
-	public void newGame(City city, List<AbstractArmoryItem> selectedArmoryItems){
-		model.newGame(city, selectedArmoryItems);
+	public void newGame(City city, List<AbstractArmoryItem> selectedArmoryItems, IArmoryItemVisitor armoryItemVisitor){
+		model.newGame(city, selectedArmoryItems, armoryItemVisitor);
 		renderer.newGame(city, selectedArmoryItems);
 	}
 	
