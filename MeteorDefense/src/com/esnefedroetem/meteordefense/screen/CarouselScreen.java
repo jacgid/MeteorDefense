@@ -10,9 +10,18 @@ import com.esnefedroetem.meteordefense.model.City;
 import com.esnefedroetem.meteordefense.model.Continent;
 import com.esnefedroetem.meteordefense.renderer.CarouselRenderer;
 import com.esnefedroetem.meteordefense.renderer.CarouselRenderer.CarouselEvent;
-import com.esnefedroetem.meteordefense.screen.SplashScreen.SplashScreenEvent;
-import com.esnefedroetem.meteordefense.util.AssetsLoader;
+import com.esnefedroetem.meteordefense.service.LevelData;
+import com.esnefedroetem.meteordefense.service.ServiceFactory;
 
+/**
+ * 
+ * This is the controller of the carousel view.
+ * It is responsible for keeping track of the continents
+ * and deciding what to do when user input is received.
+ * 
+ * @author Jacob
+ *
+ */
 public class CarouselScreen implements Screen, PropertyChangeListener {
 	private PropertyChangeSupport pcs;
 	private CarouselRenderer renderer;
@@ -29,19 +38,6 @@ public class CarouselScreen implements Screen, PropertyChangeListener {
 		this.continents = continents;
 		isCitiesDisplayed = false;
 		currentContinent = null;
-		for(Continent continent : continents){
-			AssetsLoader.loadTexture(continent.getName() + ".png");
-			for(City city : continent.getCities()){
-				AssetsLoader.loadTexture(city.getName() + ".png");
-			}
-		}
-		AssetsLoader.loadTexture("star.png");
-		AssetsLoader.loadTexture("starGrey.png");
-		AssetsLoader.loadTexture("CarouselBackground.png");
-		AssetsLoader.loadTexture("CarouselBackgroundLocked.png");
-		AssetsLoader.loadTexture("lock.png");
-		AssetsLoader.loadTexture("MenuBG.png");
-		AssetsLoader.finishLoading();
 		renderer.displayContinents(continents);
 	}
 
@@ -52,7 +48,6 @@ public class CarouselScreen implements Screen, PropertyChangeListener {
 
 	@Override
 	public void resize(int width, int height) {
-		// TODO Auto-generated method stub
 		
 	}
 
@@ -63,19 +58,16 @@ public class CarouselScreen implements Screen, PropertyChangeListener {
 
 	@Override
 	public void hide() {
-		// TODO Auto-generated method stub
 		
 	}
 
 	@Override
 	public void pause() {
-		// TODO Auto-generated method stub
 		
 	}
 
 	@Override
 	public void resume() {
-		// TODO Auto-generated method stub
 		
 	}
 
@@ -88,7 +80,7 @@ public class CarouselScreen implements Screen, PropertyChangeListener {
 	public void propertyChange(PropertyChangeEvent evt) {
 		if(evt.getPropertyName().equals(CarouselRenderer.CarouselEvent.CAROUSEL_CLICKED.toString())){
 			processCarouselClick((Integer) evt.getNewValue());
-		}else if(evt.getPropertyName().equals(CarouselRenderer.CarouselEvent.CAROUSEL_BACKBUTTON.toString())){
+		}else if(evt.getPropertyName().equals(CarouselRenderer.CarouselEvent.CAROUSEL_BACKBUTTON1.toString())){
 			onBackPressed();
 		}
 	}
@@ -110,14 +102,16 @@ public class CarouselScreen implements Screen, PropertyChangeListener {
 			renderer.displayContinents(continents);
 			isCitiesDisplayed = false;
 		}else{
-			pcs.firePropertyChange(SplashScreenEvent.SPLASHSCREEN_ENDED.toString(), false, true);
+			pcs.firePropertyChange(CarouselRenderer.CarouselEvent.CAROUSEL_BACKBUTTON2.toString(), false, true);
 		}
 	}
 	
 	private void processCarouselClick(int position){
 		if(isCitiesDisplayed){
 			City city = currentContinent.getCities().get(position);
+			//City set leveldata
 			if(city.getState() == City.State.UNLOCKED){
+				setLevelData(city);
 				pcs.firePropertyChange(CarouselEvent.CAROUSEL_NEWGAME.toString(), null, city);
 			}
 		}else{
@@ -125,6 +119,11 @@ public class CarouselScreen implements Screen, PropertyChangeListener {
 			renderer.displayCities(currentContinent.getCities());
 			isCitiesDisplayed = true;
 		}
+	}
+	
+	private void setLevelData(City city){
+		LevelData lvlData = ServiceFactory.getInstance().getLoadService().getLevelData(city.getName());
+		city.setLevelData(lvlData.getCityLife(), lvlData.getMeteorShower());
 	}
 	
 }

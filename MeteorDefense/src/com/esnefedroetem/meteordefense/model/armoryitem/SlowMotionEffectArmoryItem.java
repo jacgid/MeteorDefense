@@ -3,21 +3,26 @@ package com.esnefedroetem.meteordefense.model.armoryitem;
 import java.util.ArrayList;
 import java.util.List;
 
-import com.esnefedroetem.meteordefense.model.Meteor;
 import com.esnefedroetem.meteordefense.model.Upgrade;
-import com.esnefedroetem.meteordefense.model.armoryitem.AbstractArmoryItem.State;
+import com.esnefedroetem.meteordefense.model.meteor.Meteor;
+
+/**
+ * SlowMotionEffectArmoryItem extends AbstractEffectArmoryItem, execute() method
+ * results in reducing the speed of all meteors in the list sent as parameter.
+ * @author Emma Lindholm
+ *
+ */
 
 public class SlowMotionEffectArmoryItem extends AbstractEffectArmoryItem {
+	
+	private static final String NAME =  "SlowMotionEffect", DESCRIPTION = "This weapon slows the meteors down, giving you more time to destroy them before they hit the city.";
 
 	public SlowMotionEffectArmoryItem() {
-		name = "SlowMotionEffect";
-		description = "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Phasellus pulvinar, felis hendrerit venenatis imperdiet, nisi ante mattis diam, ut suscipit augue massa vel enim. Fusce.";
-
+		super(NAME, DESCRIPTION);		
 	}
 	
 	public SlowMotionEffectArmoryItem(State state, int upgradeIndex) {
-		this();
-		init(state, upgradeIndex);
+		super(state, upgradeIndex, NAME, DESCRIPTION);
 	}
 	
 	@Override
@@ -30,17 +35,14 @@ public class SlowMotionEffectArmoryItem extends AbstractEffectArmoryItem {
 
 	@Override
 	public void initUpgrades() {
-		// TODO change upgrades
-				ArrayList<Upgrade> upgrades = new ArrayList<Upgrade>();
-				for(int i = 0; i < 4; i++) {
-					float cooldownDecrement = 0f;
-					if(i == 0) {
-						cooldownDecrement = 0.2f;
-					}
-					upgrades.add(new Upgrade(1, cooldownDecrement, i * 1000));
-				}
-				setUpgradeList(upgrades);
+		ArrayList<Upgrade> upgrades = new ArrayList<Upgrade>();
 		
+		upgrades.add(new Upgrade(1, 25f, 3000));
+		upgrades.add(new Upgrade(0, -5f, 3000));
+		upgrades.add(new Upgrade(0, -7f, 6000));
+		upgrades.add(new Upgrade(0, -10f, 8900));
+		
+		setUpgradeList(upgrades);
 	}
 
 	@Override

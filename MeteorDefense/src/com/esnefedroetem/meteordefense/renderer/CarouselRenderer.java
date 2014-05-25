@@ -24,18 +24,28 @@ import com.esnefedroetem.meteordefense.model.City;
 import com.esnefedroetem.meteordefense.model.Continent;
 import com.esnefedroetem.meteordefense.util.AssetsLoader;
 
+/**
+ * 
+ * This class is responsible for visualizing CarouselScreen.
+ * 
+ * @author Jacob
+ *
+ */
 public class CarouselRenderer {
 	
 	private PropertyChangeSupport pcs;
 	private SpriteBatch spriteBatch;
 	private Stage stage;
 	private PagedScrollPane scroll;
+	private AssetsLoader assetsLoader = AssetsLoader.getInstance();
 	
 	public enum CarouselEvent{
 		CAROUSEL_ARMORY_CLICKED,
 		CAROUSEL_CLICKED,
 		CAROUSEL_NEWGAME,
-		CAROUSEL_BACKBUTTON
+		CAROUSEL_BACKBUTTON1,
+		CAROUSEL_BACKBUTTON2
+		
 	}
 	
 	private ClickListener carouselListener = new ClickListener(){
@@ -66,15 +76,13 @@ public class CarouselRenderer {
 		Table table = new Table();
 		Table background = new Table();
 		background.setFillParent(true);
-		background.add(new Image(AssetsLoader.getTexture("MenuBG.png"))).width(Gdx.graphics.getWidth()).height(Gdx.graphics.getHeight());
+		background.add(new Image(assetsLoader.getTexture("MenuBG.png"))).width(Gdx.graphics.getWidth()).height(Gdx.graphics.getHeight());
 		stage.addActor(background);
 		stage.addActor(table);
 		table.setFillParent(true);
-		AssetsLoader.loadTexture("armoryIcon.png");
-		AssetsLoader.finishLoading();
 		
 		ButtonStyle armoryButtonstyle = new ButtonStyle();
-		armoryButtonstyle.up = new TextureRegionDrawable(new TextureRegion(AssetsLoader.getTexture("armoryIcon.png")));
+		armoryButtonstyle.up = new TextureRegionDrawable(new TextureRegion(assetsLoader.getTexture("armoryIcon.png")));
 		
 		
 		Button armoryButton = new Button(armoryButtonstyle);
@@ -96,8 +104,8 @@ public class CarouselRenderer {
 			public boolean keyDown(InputEvent event,
 		              int keycode){
 				
-				if(keycode == Keys.BACK){
-			 		pcs.firePropertyChange(CarouselEvent.CAROUSEL_BACKBUTTON.toString(), false, true);					
+				if(keycode == Keys.BACK || keycode == Keys.BACKSPACE){
+			 		pcs.firePropertyChange(CarouselEvent.CAROUSEL_BACKBUTTON1.toString(), false, true);					
 				}
 				
 				return true;
@@ -109,18 +117,19 @@ public class CarouselRenderer {
 	
 	public void init(){
 		Gdx.input.setInputProcessor(stage);
+		Gdx.gl.glViewport(0, 0, Gdx.graphics.getWidth(), Gdx.graphics.getHeight());
 	}
 	
 	public void displayContinents(List<Continent> list){
 		scroll.setScrollX(0);
 		scroll.removeAllPages();
 		ButtonStyle btnStyle = new ButtonStyle();
-		btnStyle.up = new TextureRegionDrawable(new TextureRegion(AssetsLoader.getTexture("CarouselBackground.png")));
-		btnStyle.disabled = new TextureRegionDrawable(new TextureRegion(AssetsLoader.getTexture("CarouselBackgroundLocked.png")));
+		btnStyle.up = new TextureRegionDrawable(new TextureRegion(assetsLoader.getTexture("CarouselBackground.png")));
+		btnStyle.disabled = new TextureRegionDrawable(new TextureRegion(assetsLoader.getTexture("CarouselBackgroundLocked.png")));
 		LabelStyle lblStyle1 = new LabelStyle();
-		lblStyle1.font = AssetsLoader.getLargeFont();
+		lblStyle1.font = assetsLoader.getLargeFont();
 		LabelStyle lblStyle2 = new LabelStyle();
-		lblStyle2.font = AssetsLoader.getMediumFont();
+		lblStyle2.font = assetsLoader.getMediumFont();
 		float pageWidth = Gdx.graphics.getWidth() * 0.75F;
 		float pageHeight = pageWidth * btnStyle.up.getMinHeight() / btnStyle.up.getMinWidth();
 		int count = 0;
@@ -134,8 +143,8 @@ public class CarouselRenderer {
 		
 		Label lblName = new Label(continent.getName(), lblStyle1);
 		Label lblStars = new Label(continent.getStars() + "/" + continent.getAllStars(), lblStyle2);
-		Image imgStar = new Image(AssetsLoader.getTexture("star.png"));
-		Image imgContinent = new Image(AssetsLoader.getTexture(continent.getName() + ".png"));
+		Image imgStar = new Image(assetsLoader.getTexture("star.png"));
+		Image imgContinent = new Image(assetsLoader.getTexture(continent.getName() + ".png"));
 		
 		Table tableStars = new Table();
 		tableStars.add(lblStars).right().padRight(10);
@@ -159,12 +168,12 @@ public class CarouselRenderer {
 		scroll.setScrollX(0);
 		scroll.removeAllPages();
 		ButtonStyle btnStyle = new ButtonStyle();
-		btnStyle.up = new TextureRegionDrawable(new TextureRegion(AssetsLoader.getTexture("CarouselBackground.png")));
-		btnStyle.disabled = new TextureRegionDrawable(new TextureRegion(AssetsLoader.getTexture("CarouselBackgroundLocked.png")));
+		btnStyle.up = new TextureRegionDrawable(new TextureRegion(assetsLoader.getTexture("CarouselBackground.png")));
+		btnStyle.disabled = new TextureRegionDrawable(new TextureRegion(assetsLoader.getTexture("CarouselBackgroundLocked.png")));
 		LabelStyle lblStyle1 = new LabelStyle();
-		lblStyle1.font = AssetsLoader.getLargeFont();
+		lblStyle1.font = assetsLoader.getLargeFont();
 		LabelStyle lblStyle2 = new LabelStyle();
-		lblStyle2.font = AssetsLoader.getSmallFont();
+		lblStyle2.font = assetsLoader.getSmallFont();
 		float pageWidth = Gdx.graphics.getWidth() * 0.75F;
 		float pageHeight = pageWidth * btnStyle.up.getMinHeight() / btnStyle.up.getMinWidth();
 
@@ -183,10 +192,10 @@ public class CarouselRenderer {
 		Image imgCity = null;
 		Image[] stars = new Image[3];
 		for(int i = 0; i < city.getStars(); i++){
-			stars[i] = new Image(AssetsLoader.getTexture("star.png"));
+			stars[i] = new Image(assetsLoader.getTexture("star.png"));
 		}
 		for(int i = 2; i > city.getStars() - 1; i--){
-			stars[i] = new Image(AssetsLoader.getTexture("starGrey.png"));
+			stars[i] = new Image(assetsLoader.getTexture("starGrey.png"));
 		}
 		Table starTable = new Table();
 		starTable.add(stars[0]).pad(10).width(Gdx.graphics.getWidth() / 9).height(Gdx.graphics.getWidth() / 9);
@@ -194,13 +203,13 @@ public class CarouselRenderer {
 		starTable.add(stars[2]).pad(10).width(Gdx.graphics.getWidth() / 9).height(Gdx.graphics.getWidth() / 9);
 		
 		if(city.getState() == City.State.LOCKED){
-			imgCity = new Image(AssetsLoader.getTexture("lock.png"));
+			imgCity = new Image(assetsLoader.getTexture("lock.png"));
 			btn.setDisabled(true);
 		}else{
-			imgCity =  new Image(AssetsLoader.getTexture(city.getName() + ".png"));
+			imgCity =  new Image(assetsLoader.getTexture(city.getName() + ".png"));
 		}
 		
-		btn.add(lblName).expandX();
+		btn.add(lblName).expandX().padTop(20);
 		btn.row();
 		float aspectratio = imgCity.getHeight() / imgCity.getWidth();
 		btn.add(imgCity).expand().width(Gdx.graphics.getWidth() * 0.45F).height(Gdx.graphics.getWidth() * 0.45F * aspectratio);

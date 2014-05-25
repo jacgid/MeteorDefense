@@ -1,6 +1,8 @@
 package com.esnefedroetem.meteordefense.model;
 
-/**
+import com.esnefedroetem.meteordefense.model.meteor.Meteor;
+
+/**A class to handle the score and score calculation for a level.
  * 
  * @author Andreas Pegelow
  * 
@@ -14,17 +16,33 @@ public class ScoreHandler {
 	private int meteorScore, maxMeteorScore;
 	private int oldScore;
 	
-	public ScoreHandler(int meteorHits, int numberOfProjectilesUsed, int remaningLife, int maxLife, int meteorScore,
-			int maxMeteorScore, int oldScore) {
-		this.numberOfMeteorHits = meteorHits;
-		this.numberOfProjectilesUsed = numberOfProjectilesUsed;
-		this.remaningLife = remaningLife;
+	public void reset(){
+		this.numberOfMeteorHits = 0;
+		this.numberOfProjectilesUsed = 0;
+		this.remaningLife = 0;
+		this.maxLife = 0;
+		this.meteorScore = 0;
+		this.maxMeteorScore = 0;
+		this.oldScore = 0;
+	}
+	
+	public void weaponFired(){
+		numberOfProjectilesUsed++;
+	}
+	
+	public void meteorHit(){
+		numberOfMeteorHits++;
+	}
+	
+	public void meteorDestroyed(Meteor meteor){
+		meteorScore += meteor.getDifficulty();
+	}
+	
+	public void gameOver(int remainingLife, int maxLife, int oldScore, int maxMeteorScore){
+		this.remaningLife = remainingLife;
 		this.maxLife = maxLife;
-		this.meteorScore = meteorScore;
-		this.maxMeteorScore = maxMeteorScore;
 		this.oldScore = oldScore;
-		calculateMaxScore();
-
+		this.maxMeteorScore = maxMeteorScore;
 	}
 
 	public float getRemaningLifeInProcent() {
@@ -40,7 +58,10 @@ public class ScoreHandler {
 		}
 		return totalScore;
 	}
-
+/**
+ * Calculates the amount of starts you will get according to your score.
+ * @return
+ */
 	public int getStars() {
 		int score = getTotalScore();
 		int maxScore = calculateMaxScore();
@@ -72,9 +93,12 @@ public class ScoreHandler {
 		return ((float) numberOfMeteorHits) / numberOfProjectilesUsed;
 
 	}
+	/**
+	 * Calculates hoe much money you will get after you've completed a level. You will only get money if your
+	 * score is better then you previous best score.
+	 * @return the money you got for completing the level.
+	 */
 	public int getNewMoney(){
-		
-		
 		int currentScore = getTotalScore();
 		int difference = 0;
 		

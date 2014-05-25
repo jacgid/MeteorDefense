@@ -1,0 +1,232 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<City>
+
+    <Paris Life="10" >
+        <MeteorShower spawnrate = "2000" >
+            <BASIC_METEOR amount="15" >
+            </BASIC_METEOR>
+
+            <FIRE_METEOR amount="0" >
+            </FIRE_METEOR>
+
+            <FAST_METEOR amount="0" >
+            </FAST_METEOR>
+
+            <ICE_METEOR amount="0" >
+            </ICE_METEOR>
+
+            <RADIOACTIVE_METEOR amount="0" >
+            </RADIOACTIVE_METEOR>
+        </MeteorShower>
+    </Paris>
+    
+    <London Life="18" >
+        <MeteorShower spawnrate = "1800" >
+            <BASIC_METEOR amount="15" >
+            </BASIC_METEOR>
+
+            <FIRE_METEOR amount="0" >
+            </FIRE_METEOR>
+
+            <FAST_METEOR amount="10" >
+            </FAST_METEOR>
+
+            <ICE_METEOR amount="0" >
+            </ICE_METEOR>
+
+            <RADIOACTIVE_METEOR amount="0" >
+            </RADIOACTIVE_METEOR>
+        </MeteorShower>
+    </London>
+    
+    <Berlin Life="35" >
+        <MeteorShower spawnrate = "1700" >
+            <BASIC_METEOR amount="15" >
+            </BASIC_METEOR>
+
+            <FIRE_METEOR amount="15" >
+            </FIRE_METEOR>
+
+            <FAST_METEOR amount="0" >
+            </FAST_METEOR>
+
+            <ICE_METEOR amount="0" >
+            </ICE_METEOR>
+
+            <RADIOACTIVE_METEOR amount="0" >
+            </RADIOACTIVE_METEOR>
+        </MeteorShower>
+    </Berlin>
+    
+    <Shanghai Life="40" >
+        <MeteorShower spawnrate = "1500" >
+            <BASIC_METEOR amount="10" >
+            </BASIC_METEOR>
+
+            <FIRE_METEOR amount="15" >
+            </FIRE_METEOR>
+
+            <FAST_METEOR amount="15" >
+            </FAST_METEOR>
+
+            <ICE_METEOR amount="0" >
+            </ICE_METEOR>
+
+            <RADIOACTIVE_METEOR amount="0" >
+            </RADIOACTIVE_METEOR>
+        </MeteorShower>
+    </Shanghai>
+    
+    <Tokyo Life="60" >
+        <MeteorShower spawnrate = "2000" >
+            <BASIC_METEOR amount="15" >
+            </BASIC_METEOR>
+
+            <FIRE_METEOR amount="0" >
+            </FIRE_METEOR>
+
+            <FAST_METEOR amount="0" >
+            </FAST_METEOR>
+
+            <ICE_METEOR amount="10" >
+            </ICE_METEOR>
+
+            <RADIOACTIVE_METEOR amount="0" >
+            </RADIOACTIVE_METEOR>
+        </MeteorShower>
+    </Tokyo>
+    
+    <Dubai Life="60" >
+        <MeteorShower spawnrate = "1500" >
+            <BASIC_METEOR amount="10" >
+            </BASIC_METEOR>
+
+            <FIRE_METEOR amount="10" >
+            </FIRE_METEOR>
+
+            <FAST_METEOR amount="0" >
+            </FAST_METEOR>
+
+            <ICE_METEOR amount="15" >
+            </ICE_METEOR>
+
+            <RADIOACTIVE_METEOR amount="0" >
+            </RADIOACTIVE_METEOR>
+        </MeteorShower>
+    </Dubai>
+    
+    <New_York Life="70" >
+        <MeteorShower spawnrate = "1500" >
+            <BASIC_METEOR amount="0" >
+            </BASIC_METEOR>
+
+            <FIRE_METEOR amount="20" >
+            </FIRE_METEOR>
+
+            <FAST_METEOR amount="0" >
+            </FAST_METEOR>
+
+            <ICE_METEOR amount="20" >
+            </ICE_METEOR>
+
+            <RADIOACTIVE_METEOR amount="0" >
+            </RADIOACTIVE_METEOR>
+        </MeteorShower>
+    </New_York>
+    
+    <Washington Life="65" >
+        <MeteorShower spawnrate = "2000" >
+            <BASIC_METEOR amount="0" >
+            </BASIC_METEOR>
+
+            <FIRE_METEOR amount="10" >
+            </FIRE_METEOR>
+
+            <FAST_METEOR amount="10" >
+            </FAST_METEOR>
+
+            <ICE_METEOR amount="0" >
+            </ICE_METEOR>
+
+            <RADIOACTIVE_METEOR amount="10" >
+            </RADIOACTIVE_METEOR>
+        </MeteorShower>
+    </Washington>
+    
+    <Ottawa Life="65" >
+        <MeteorShower spawnrate = "1500" >
+            <BASIC_METEOR amount="0" >
+            </BASIC_METEOR>
+
+            <FIRE_METEOR amount="0" >
+            </FIRE_METEOR>
+
+            <FAST_METEOR amount="15" >
+            </FAST_METEOR>
+
+            <ICE_METEOR amount="10" >
+            </ICE_METEOR>
+
+            <RADIOACTIVE_METEOR amount="15" >
+            </RADIOACTIVE_METEOR>
+        </MeteorShower>
+    </Ottawa>
+    
+    <SouthPole Life="70" >
+        <MeteorShower spawnrate = "1500" >
+            <BASIC_METEOR amount="0" >
+            </BASIC_METEOR>
+
+            <FIRE_METEOR amount="15" >
+            </FIRE_METEOR>
+
+            <FAST_METEOR amount="0" >
+            </FAST_METEOR>
+
+            <ICE_METEOR amount="15" >
+            </ICE_METEOR>
+
+            <RADIOACTIVE_METEOR amount="15" >
+            </RADIOACTIVE_METEOR>
+        </MeteorShower>
+    </SouthPole>
+    
+    <Ice Life="60" >
+        <MeteorShower spawnrate = "1500" >
+            <BASIC_METEOR amount="0" >
+            </BASIC_METEOR>
+
+            <FIRE_METEOR amount="0" >
+            </FIRE_METEOR>
+
+            <FAST_METEOR amount="0" >
+            </FAST_METEOR>
+
+            <ICE_METEOR amount="20" >
+            </ICE_METEOR>
+
+            <RADIOACTIVE_METEOR amount="25" >
+            </RADIOACTIVE_METEOR>
+        </MeteorShower>
+    </Ice>
+    
+    <Mountain Life="42" >
+        <MeteorShower spawnrate = "1000" >
+            <BASIC_METEOR amount="20" >
+            </BASIC_METEOR>
+
+            <FIRE_METEOR amount="20" >
+            </FIRE_METEOR>
+
+            <FAST_METEOR amount="20" >
+            </FAST_METEOR>
+
+            <ICE_METEOR amount="20" >
+            </ICE_METEOR>
+
+            <RADIOACTIVE_METEOR amount="20" >
+            </RADIOACTIVE_METEOR>
+        </MeteorShower>
+    </Mountain>
+
+</City>

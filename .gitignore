@@ -17,3 +17,6 @@ MeteorDefense-desktop/wallet.txt
 MeteorDefense-desktop/generated-fonts/
 *.classpath
 *.fnt
+MeteorDefense-desktop/weapon.txt
+*.classpath
+MeteorDefense/.classpath

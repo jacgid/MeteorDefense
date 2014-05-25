@@ -1,42 +1,69 @@
 package com.esnefedroetem.meteordefense.screen;
 
-import java.beans.PropertyChangeEvent;
-import java.beans.PropertyChangeListener;
 import java.util.List;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input.Keys;
-import com.badlogic.gdx.InputMultiplexer;
-import com.badlogic.gdx.InputProcessor;
 import com.badlogic.gdx.Screen;
-import com.badlogic.gdx.math.Vector2;
+import com.badlogic.gdx.scenes.scene2d.InputEvent;
+import com.badlogic.gdx.scenes.scene2d.InputListener;
+import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 import com.esnefedroetem.meteordefense.model.City;
 import com.esnefedroetem.meteordefense.model.GameModel;
+import com.esnefedroetem.meteordefense.model.IArmoryItemVisitor;
 import com.esnefedroetem.meteordefense.model.armoryitem.AbstractArmoryItem;
 import com.esnefedroetem.meteordefense.renderer.GameRenderer;
+import com.esnefedroetem.meteordefense.util.Constants;
 
 /**
  * The GameScreen is the screen where the game is running.
+ * It has the listeners for all the touch events and acts as a controller.
  * @author Simon Nielsen
+ * @author Jacob Gideflod
  *
  */
-public class GameScreen implements Screen, InputProcessor, PropertyChangeListener{
+public class GameScreen implements Screen{
 
 	private GameModel model;
 	private GameRenderer renderer;
-	private InputMultiplexer inputmultiplexer;
 	
-	public GameScreen(GameModel model, GameRenderer renderer, PropertyChangeListener meteorDefense){
+	private ClickListener specialWeaponListener = new ClickListener(){
+		@Override
+		public void clicked(InputEvent event, float x, float y) {
+			model.specialWeaponSelected((Integer)event.getListenerActor().getUserObject());
+		}
+	};
+	
+	private InputListener inputListener = new InputListener(){
+		@Override
+		public boolean keyDown(InputEvent event, int keycode) {
+			if(keycode == Keys.BACK || keycode == Keys.BACKSPACE){
+				model.onBackPressed();
+				return true;
+			}
+			return false;
+		}
+		
+		@Override
+		public boolean touchDown(InputEvent event, float x, float y,
+				int pointer, int button) {
+			if(!model.isPaused()){
+				if(y > Constants.CITY_BOUNDS.y + Constants.CITY_BOUNDS.height){
+					model.shoot(x, y);
+					return true;
+				}
+			}else{
+				model.resume();
+			}
+			return false;
+		}
+		
+	};
+	
+	public GameScreen(GameModel model, GameRenderer renderer){
 		this.model = model;
 		this.renderer = renderer;
-		
-		renderer.addChangeListener(this);
-		
-		renderer.addChangeListener(meteorDefense);
-		model.addChangeListener(meteorDefense);
-		
-		inputmultiplexer = new InputMultiplexer();
-		inputmultiplexer.addProcessor(this);
+		renderer.addListeners(inputListener, specialWeaponListener);
 	}
 	
 	/**
@@ -46,7 +73,7 @@ public class GameScreen implements Screen, InputProcessor, PropertyChangeListene
 	@Override
 	public void render(float delta) {
 		model.update(delta);
-		renderer.render();
+		renderer.render(delta);
 	}
 
 	/**
@@ -64,7 +91,7 @@ public class GameScreen implements Screen, InputProcessor, PropertyChangeListene
 	 */
 	@Override
 	public void show() {
-		Gdx.input.setInputProcessor(inputmultiplexer);
+		renderer.setInputProcessor();
 	}
 
 	/**
@@ -80,7 +107,7 @@ public class GameScreen implements Screen, InputProcessor, PropertyChangeListene
 	 */
 	@Override
 	public void pause() {
-		// TODO Auto-generated method stub
+		model.pause();
 		
 	}
 
@@ -89,7 +116,6 @@ public class GameScreen implements Screen, InputProcessor, PropertyChangeListene
 	 */
 	@Override
 	public void resume() {
-		// TODO Auto-generated method stub
 		
 	}
 
@@ -98,88 +124,17 @@ public class GameScreen implements Screen, InputProcessor, PropertyChangeListene
 	 */
 	@Override
 	public void dispose() {
-		renderer.unloadTextures();
+		renderer.dispose();
 		Gdx.input.setInputProcessor(null);
 	}
 	
-	public void newGame(City city, List<AbstractArmoryItem> selectedArmoryItems){
-		model.newGame(city, selectedArmoryItems);
-		
-	}
-	
-	public GameModel getModel(){
-		return model;
-	}
-
-	@Override
-	public boolean keyDown(int keycode) {
-		if(keycode == Keys.BACK){
-			model.endGame();
-			return true;
-		}
-		return false;
-	}
-
-	@Override
-	public boolean keyUp(int keycode) {
-		// TODO Auto-generated method stub
-		return false;
-	}
-
-	@Override
-	public boolean keyTyped(char character) {
-		// TODO Auto-generated method stub
-		return false;
-	}
-
-	@Override
-	public boolean touchDown(int screenX, int screenY, int pointer, int button) {
-//		if (!Gdx.app.getType().equals(ApplicationType.Android)) {
-//			return false;
-//		}
-		Vector2 temp = renderer.unproject(screenX, screenY);
-		model.shoot(temp.x, temp.y);
-		return true;
-	}
-
-	@Override
-	public boolean touchUp(int screenX, int screenY, int pointer, int button) {
-		// TODO Auto-generated method stub
-		return false;
-	}
-
-	@Override
-	public boolean touchDragged(int screenX, int screenY, int pointer) {
-		// TODO Auto-generated method stub
-		return false;
-	}
-
-	@Override
-	public boolean mouseMoved(int screenX, int screenY) {
-		// TODO Auto-generated method stub
-		return false;
-	}
-
-	@Override
-	public boolean scrolled(int amount) {
-		// TODO Auto-generated method stub
-		return false;
-	}
-
-	@Override
-	public void propertyChange(PropertyChangeEvent evt) {
-		if(evt.getPropertyName().equals("buttonClicked")){
-			model.toolbarAct((Integer)evt.getOldValue());
-		}
-		if(evt.getPropertyName().equals("addInputProcessor")){
-			inputmultiplexer.removeProcessor(this);
-			inputmultiplexer.addProcessor((InputProcessor)evt.getOldValue());
-			inputmultiplexer.addProcessor(this);
-		}
+	public void newGame(City city, List<AbstractArmoryItem> selectedArmoryItems, IArmoryItemVisitor armoryItemVisitor){
+		model.newGame(city, selectedArmoryItems, armoryItemVisitor);
+		renderer.newGame(city, selectedArmoryItems);
 	}
 	
 	public GameRenderer getRenderer(){
 		return renderer;
 	}
-
+	
 }

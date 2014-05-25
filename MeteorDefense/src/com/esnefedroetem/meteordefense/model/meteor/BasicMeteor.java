@@ -1,12 +1,10 @@
 package com.esnefedroetem.meteordefense.model.meteor;
 
 import com.badlogic.gdx.math.Vector2;
-import com.esnefedroetem.meteordefense.model.Meteor;
-import com.esnefedroetem.meteordefense.model.Projectile;
 import com.esnefedroetem.meteordefense.model.Projectile.ProjectileType;
 import com.esnefedroetem.meteordefense.util.Constants;
 
-/**
+/**The most basic implementation of a meteor.
  * @author Andreas Pegelow
  * 
  */
@@ -45,13 +43,12 @@ public class BasicMeteor extends Meteor {
 	@Override
 	public void hit(int damage, ProjectileType projectileType) {
 		decreaseHealth(damage);
-		decreaseSize(damage * 10);
 
 	}
 
 	@Override
 	public MeteorType getType() {
-		return MeteorType.BASIC;
+		return MeteorType.BASIC_METEOR;
 	}
 
 }

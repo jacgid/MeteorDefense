@@ -19,11 +19,19 @@ import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 import com.badlogic.gdx.scenes.scene2d.utils.TextureRegionDrawable;
 import com.esnefedroetem.meteordefense.util.AssetsLoader;
 
+/**
+ * 
+ * This class is responsible for visualizing MainMenuScreen.
+ * 
+ * @author Jacob
+ *
+ */
 public class MainMenuRenderer {
 	
 	private PropertyChangeSupport pcs;
 	private SpriteBatch spriteBatch;
 	private Stage stage;
+	private AssetsLoader assetsLoader = AssetsLoader.getInstance();
 	
 	public enum MainMenuEvent{
 		MAINMENU_PLAY_CLICKED,
@@ -36,11 +44,6 @@ public class MainMenuRenderer {
 		
 		spriteBatch = new SpriteBatch();
 		stage = new Stage();
-		AssetsLoader.loadTexture("StartScreenBG.png");
-		AssetsLoader.loadTexture("MusicFalse.png");
-		AssetsLoader.loadTexture("MusicTrue.png");
-		AssetsLoader.loadTexture("PlayButton.png");
-		AssetsLoader.finishLoading();
 		create(sound);
 	}
 	
@@ -51,17 +54,17 @@ public class MainMenuRenderer {
 		tablebottom.setFillParent(true);
 		Table background = new Table();
 		background.setFillParent(true);
-		background.add(new Image(AssetsLoader.getTexture("StartScreenBG.png"))).width(Gdx.graphics.getWidth()).height(Gdx.graphics.getHeight());
+		background.add(new Image(assetsLoader.getTexture("StartScreenBG.png"))).width(Gdx.graphics.getWidth()).height(Gdx.graphics.getHeight());
 		stage.addActor(background);
 		stage.addActor(table);
 		stage.addActor(tablebottom);
 		
 		ButtonStyle playButtonstyle = new ButtonStyle();
-		playButtonstyle.up = new TextureRegionDrawable(new TextureRegion(AssetsLoader.getTexture("PlayButton.png")));
+		playButtonstyle.up = new TextureRegionDrawable(new TextureRegion(assetsLoader.getTexture("PlayButton.png")));
 		
 		ButtonStyle soundButtonstyle = new ButtonStyle();
-		soundButtonstyle.up = new TextureRegionDrawable(new TextureRegion(AssetsLoader.getTexture("MusicTrue.png")));
-		soundButtonstyle.checked = new TextureRegionDrawable(new TextureRegion(AssetsLoader.getTexture("MusicFalse.png")));
+		soundButtonstyle.up = new TextureRegionDrawable(new TextureRegion(assetsLoader.getTexture("MusicTrue.png")));
+		soundButtonstyle.checked = new TextureRegionDrawable(new TextureRegion(assetsLoader.getTexture("MusicFalse.png")));
 
 		Button playButton = new Button(playButtonstyle);
 		final Button soundButton = new Button(soundButtonstyle);
@@ -94,7 +97,7 @@ public class MainMenuRenderer {
 			@Override
 			public boolean keyDown(InputEvent event,
 		              int keycode){
-				if(keycode == Keys.BACK){
+				if(keycode == Keys.BACK || keycode == Keys.BACKSPACE){
 			 		pcs.firePropertyChange("Exit application", false, true);					
 				}
 				return true;
@@ -104,7 +107,8 @@ public class MainMenuRenderer {
 	}
 	
 	public void init(){
-		Gdx.input.setInputProcessor(stage);		
+		Gdx.input.setInputProcessor(stage);	
+		Gdx.gl.glViewport(0, 0, Gdx.graphics.getWidth(), Gdx.graphics.getHeight());
 	}
 	
 	public void render(){

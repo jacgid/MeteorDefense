@@ -12,15 +12,17 @@ import com.esnefedroetem.meteordefense.model.Wallet;
 import com.esnefedroetem.meteordefense.model.armoryitem.AbstractArmoryItem;
 import com.esnefedroetem.meteordefense.util.Constants;
 
-public class SaveService implements ISaveService{
+/**
+ * 
+ * This is the concrete implementation of ISaveService.
+ * It uses the JSON-writer provided by LibGDX
+ * to save for example the amount of money the player has earned. 
+ * 
+ * @author Jacob
+ *
+ */
+class SaveService implements ISaveService{
 	
-	private static final SaveService instance = new SaveService();
-	
-	private SaveService(){}
-	
-	public static SaveService getInstance(){
-		return instance;
-	}
 	
 	@Override
 	public void save(boolean soundState, Wallet wallet,

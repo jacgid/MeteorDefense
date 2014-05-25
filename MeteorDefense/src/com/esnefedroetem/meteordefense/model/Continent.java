@@ -1,8 +1,14 @@
 package com.esnefedroetem.meteordefense.model;
 
-import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * 
+ * A Continent is a container for cities.
+ * 
+ * @author Jacob
+ *
+ */
 public class Continent {
 	
 	private String name;

@@ -1,11 +1,9 @@
 package com.esnefedroetem.meteordefense.model.meteor;
 
 import com.badlogic.gdx.math.Vector2;
-import com.esnefedroetem.meteordefense.model.Meteor;
-import com.esnefedroetem.meteordefense.model.Projectile;
 import com.esnefedroetem.meteordefense.model.Projectile.ProjectileType;
 import com.esnefedroetem.meteordefense.util.Constants;
-/** 
+/** A fast meteor.
  * @author Andreas Pegelow
  *
  */
@@ -31,7 +29,7 @@ public class FastMeteor extends Meteor {
 
 	@Override
 	public MeteorType getType() {
-		return MeteorType.FAST;
+		return MeteorType.FAST_METEOR;
 	}
 
 }

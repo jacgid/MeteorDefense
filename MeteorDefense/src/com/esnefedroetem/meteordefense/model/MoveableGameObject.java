@@ -1,53 +1,48 @@
 package com.esnefedroetem.meteordefense.model;
 
-import com.badlogic.gdx.math.Circle;
+import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.math.Vector2;
-import com.esnefedroetem.meteordefense.util.Constants;
-
+ /**
+  * This is a super class for all the objects that are supposed to move on the game screen. Such as meteors and projectiles.
+  * It has a speed and angle, and moves automatically when you call the move method with a delta value. 
+  * @author Andreas Pegelow
+  * @author Simon Nielsen
+  */
 public abstract class MoveableGameObject {
-	private float size;
 	private float speed; // Units per second
-	private Vector2 position = new Vector2();
 	private float angle;
-	private Circle bounds = new Circle();
+	private Rectangle bounds;
 	private int damage;
 	
 	public MoveableGameObject(){
 		
 	}
 
-	public MoveableGameObject(float angle, int damage, float size, float speed, Vector2 startPosition) {
+	public MoveableGameObject(float angle, int damage, float width, float height, float speed, Vector2 startPosition) {
 		this.angle = angle;
 		this.damage = damage;
-		this.size = size;
 		this.speed = speed;
-		this.position.x = startPosition.x;
-		this.position.y = startPosition.y;
-		calculateBounds();
-
+		bounds = new Rectangle(startPosition.x, startPosition.y, width, height);
 	}
 
-	public final void calculateBounds() {
-		bounds.x = position.x;
-		bounds.y = position.y;
-		bounds.radius = size / 2;
+	public MoveableGameObject(float angle, int damage, float size, float speed, Vector2 startPosition) {
+		this(angle, damage, size, size, speed, startPosition);
 	}
 
 	public void move(float delta) {
-		position.x = (float) (position.x + speed * delta * Math.cos(angle));
-		position.y = (float) (position.y + speed * delta * Math.sin(angle));
-		calculateBounds();
+		bounds.x = (float) (bounds.x + speed * delta * Math.cos(angle));
+		bounds.y = (float) (bounds.y + speed * delta * Math.sin(angle));
 	}
 
 	public float getX() {
-		return position.x;
+		return bounds.x;
 	}
 
 	public float getY() {
-		return position.y;
+		return bounds.y;
 	}
 
-	public Circle getBounds() {
+	public Rectangle getBounds() {
 		return bounds;
 	}
 
@@ -59,15 +54,6 @@ public abstract class MoveableGameObject {
 		return damage;
 	}
 
-	public void setSize(float size) {
-		this.size = size;
-
-	}
-
-	public float getSize() {
-		return size;
-	}
-	
 	public float getAngle(){
 		return angle;
 	}
@@ -80,7 +66,23 @@ public abstract class MoveableGameObject {
 		return speed;
 	}
 	
-	public void setBounds(Circle bounds) {
+	public void setBounds(Rectangle bounds) {
 		this.bounds = bounds;
+	}
+	
+	public void setPosition(Vector2 position) {
+		bounds.setPosition(position);
+	}
+	
+	@Override
+	public boolean equals(Object o){
+		if (o instanceof MoveableGameObject) {
+			MoveableGameObject moveable = (MoveableGameObject) o;
+			return speed == moveable.speed
+					&& angle == moveable.angle
+					&& bounds.equals(moveable.bounds)
+					&& damage == moveable.damage;
+		}
+		return false;
 	}
 }

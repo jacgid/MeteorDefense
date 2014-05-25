@@ -1,11 +1,14 @@
 package com.esnefedroetem.meteordefense.screen;
 
-import java.beans.PropertyChangeListener;
-
 import com.badlogic.gdx.Screen;
 import com.esnefedroetem.meteordefense.model.ScoreHandler;
 import com.esnefedroetem.meteordefense.renderer.ScoreRenderer;
-
+ /** This is the screen which will display the score.
+  * It is shown after a completed game.
+  * 
+  * @author Andreas Pegelow
+  *
+  */
 
 public class ScoreScreen implements Screen{
 	
@@ -16,11 +19,6 @@ public class ScoreScreen implements Screen{
 		this.renderer = renderer;
 	}
 	
-	public void setScore(int score, boolean win){
-		
-		renderer.setScore(score, win);
-		
-	}
 	public void setScore(ScoreHandler score) {
 		renderer.setScore(score);
 		
@@ -64,8 +62,7 @@ public class ScoreScreen implements Screen{
 
 	@Override
 	public void dispose() {
-		// TODO Auto-generated method stub
-		
+		renderer.dispose();
 	}
 
 	

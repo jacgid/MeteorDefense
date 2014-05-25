@@ -1,37 +1,39 @@
 package com.esnefedroetem.meteordefense.model;
 
 /** 
- * 
+ * Upgrades for ArmoryItems.
+ * Has a powerIncrement and cooldownDecrement value, of which one should always
+ * be 0. Also has a upgradeValue, which is the upgrades coinvalue when bought.
  *  @author Emma Lindholm
  *  
  */
 
 public class Upgrade {
 	
-	private int powerIncrement, value;
-	private float cooldownDecrement;
+	private final int POWER_INCREMENT, UPGRADE_VALUE;
+	private final float COOLDOWN_DECREMENT;
 	
 	/**
 	 * 
 	 * @param powerIncrement positive value to be added to weapons power
 	 * @param cooldownDecrement negative value of milliseconds to be added to weapons cooldown
-	 * @param value value in coins that the upgrade is worth
+	 * @param upgradeValue value in coins that the upgrade is worth
 	 */
-	public Upgrade(int powerIncrement, float cooldownDecrement, int value) {
-		this.powerIncrement = powerIncrement;
-		this.cooldownDecrement = cooldownDecrement;
-		this.value = value;
+	public Upgrade(int powerIncrement, float cooldownDecrement, int upgradeValue) {
+		this.POWER_INCREMENT = powerIncrement;
+		this.COOLDOWN_DECREMENT = cooldownDecrement;
+		this.UPGRADE_VALUE = upgradeValue;
 	}
 	
 	public float getCooldownDecrement() {
-		return cooldownDecrement;
+		return COOLDOWN_DECREMENT;
 	}
 	
 	public int getPowerIncrement() {
-		return powerIncrement;
+		return POWER_INCREMENT;
 	}
 	
-	public int getValue() {
-		return value;
+	public int getUpgradeValue() {
+		return UPGRADE_VALUE;
 	}
 }

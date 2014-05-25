@@ -1,10 +1,9 @@
 package com.esnefedroetem.meteordefense.model.meteor;
 
 import com.badlogic.gdx.math.Vector2;
-import com.esnefedroetem.meteordefense.model.Meteor;
 import com.esnefedroetem.meteordefense.model.Projectile.ProjectileType;
 import com.esnefedroetem.meteordefense.util.Constants;
-/** 
+/** A fire meteor, behavior not implemented, for now a basic meteor but stronger.
  * @author Andreas Pegelow
  *
  */
@@ -29,7 +28,7 @@ public class FireMeteor extends Meteor {
 
 	@Override
 	public MeteorType getType() {
-		return MeteorType.FIRE;
+		return MeteorType.FIRE_METEOR;
 	}
 
 }

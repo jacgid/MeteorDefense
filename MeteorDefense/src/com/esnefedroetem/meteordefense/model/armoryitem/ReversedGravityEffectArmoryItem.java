@@ -3,67 +3,50 @@ package com.esnefedroetem.meteordefense.model.armoryitem;
 import java.util.ArrayList;
 import java.util.List;
 
-import com.esnefedroetem.meteordefense.model.Meteor;
-import com.esnefedroetem.meteordefense.model.Projectile.ProjectileType;
 import com.esnefedroetem.meteordefense.model.Upgrade;
-import com.esnefedroetem.meteordefense.model.armoryitem.AbstractArmoryItem.State;
-import com.esnefedroetem.meteordefense.util.Constants;
+import com.esnefedroetem.meteordefense.model.meteor.Meteor;
 
+/**
+ * ReversedGravityEffectArmoryItem extends AbstractEffectArmoryItem, execute() method
+ * results in reverting the speed of all meteors in the list sent as parameter, sending
+ * them back the way they came from.
+ * @author Emma Lindholm
+ *
+ */
 public class ReversedGravityEffectArmoryItem extends AbstractEffectArmoryItem {
 
-	private List<Meteor> list = new ArrayList<Meteor>();
-	private List<Meteor> visibleMeteors;
-	
+	private static final String NAME =  "ReversedGravityEffect", DESCRIPTION = "This weapon has the power to revert meteors gravity, sending them back up to space where they eventually will be destroyed.";
+		
 	public ReversedGravityEffectArmoryItem() {
-		name = "ReversedGravityEffect";
-		description = "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Phasellus pulvinar, felis hendrerit venenatis imperdiet, nisi ante mattis diam, ut suscipit augue massa vel enim. Fusce.";
+		super(NAME, DESCRIPTION);
 	}
 	
 	public ReversedGravityEffectArmoryItem(State state, int upgradeIndex) {
-		this();
-		init(state, upgradeIndex);
+		super(state, upgradeIndex, NAME, DESCRIPTION);
 	}
 
 	@Override
 	public void execute(List<Meteor> list) {
-		visibleMeteors = list;
 		for (Meteor meteor : list) {
-			this.list.add(meteor);
 			meteor.setSpeed(-1 * meteor.getSpeed());
 		}
 	}
 
 	@Override
 	public void initUpgrades() {
-		// TODO change upgrades
 		ArrayList<Upgrade> upgrades = new ArrayList<Upgrade>();
-		for(int i = 0; i < 4; i++) {
-			float cooldownDecrement = 0f;
-			if(i == 0) {
-				cooldownDecrement = 0.2f;
-			}
-			upgrades.add(new Upgrade(1, cooldownDecrement, i * 1000));
-		}
+		
+		upgrades.add(new Upgrade(1, 25f, 3000));
+		upgrades.add(new Upgrade(0, -5f, 3000));
+		upgrades.add(new Upgrade(0, -7f, 6000));
+		upgrades.add(new Upgrade(0, -10f, 8900));
+		
 		setUpgradeList(upgrades);
-
 	}
 
 	@Override
 	public void update(float delta) {
-		/*int length = list.size();
-		for (int i = 0; i < length; i++) {
-			Meteor meteor = list.get(i);
-			float x = meteor.getX() + meteor.getBounds().radius;
-			float y = meteor.getY() + meteor.getBounds().radius;
-
-			if (x < 0 || x > Constants.LOGIC_SCREEN_WIDTH
-					|| y > Constants.LOGIC_SCREEN_HEIGHT) {
-				meteor.hit(meteor.getLife(), ProjectileType.NONE);
-				visibleMeteors.remove(meteor);
-				length--;
-				i--;
-			}
-		}*/
+	
 	}
 	
 }

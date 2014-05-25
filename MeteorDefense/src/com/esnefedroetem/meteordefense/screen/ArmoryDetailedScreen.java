@@ -2,7 +2,6 @@ package com.esnefedroetem.meteordefense.screen;
 
 import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
-import java.beans.PropertyChangeSupport;
 
 import com.badlogic.gdx.Screen;
 import com.esnefedroetem.meteordefense.model.Wallet;
@@ -11,17 +10,21 @@ import com.esnefedroetem.meteordefense.model.armoryitem.StandardArmoryItem;
 import com.esnefedroetem.meteordefense.renderer.ArmoryDetailedRenderer;
 import com.esnefedroetem.meteordefense.renderer.ArmoryDetailedRenderer.ArmoryDetaliedEvent;
 
+/**
+ * Screen responsible for the trading and upgrading of an ArmoryItem.
+ * setArmoryItem() must be called before show().
+ * @author Emma Lindholm
+ *
+ */
 public class ArmoryDetailedScreen implements Screen, PropertyChangeListener{
 	
 	private ArmoryDetailedRenderer renderer;
 	private Wallet wallet;
 	private AbstractArmoryItem armoryItem;
-	private PropertyChangeSupport pcs;
 	
 	public ArmoryDetailedScreen(ArmoryDetailedRenderer renderer, Wallet wallet){
 		this.renderer = renderer;
 		this.wallet = wallet;
-		pcs = new PropertyChangeSupport(this);
 	}
 	
 	@Override
@@ -95,29 +98,36 @@ public class ArmoryDetailedScreen implements Screen, PropertyChangeListener{
 	}
 
 	private void itemBought() {
-		wallet.removeCoins(armoryItem.getValue());
+		wallet.removeCoins(armoryItem.getPurchaseValue());
 		armoryItem.setState(AbstractArmoryItem.State.UNLOCKED);	
 	}
 	
 	private void initializeInfo() {
 		renderer.setAssetsLabelText(wallet.getAssets() + "");
 		renderer.setNameLabelText(armoryItem.getName());
-		renderer.setDescriptionLabelText(armoryItem.getDescription() + "\n\nPower: " + armoryItem.getPower() + "\nCooldown: " + armoryItem.getCooldown() + " sec");
-		renderer.setUpgradeLabelText("Next upgrade\n" + armoryItem.getNextUpgradeInfo());
+		renderer.setDescriptionLabelText(armoryItem.getDescription() + "\n");
+		renderer.setPowerLabelText("Power: " + armoryItem.getPower());
+		renderer.setCooldownLabelText("Cooldown: " + armoryItem.getCooldown() + " sec\n");
+		renderer.setUpgradeLabelText("Next upgrade\n" + armoryItem.getNextUpgradeInfo() + "\n");
+		
+		renderer.setItemImage(armoryItem.getName() + (armoryItem.getUpgradeIndex() - 1) + ".png");
 		
 		if(armoryItem.getState() == AbstractArmoryItem.State.LOCKED) {
 			renderer.setUpgradeButtonText("Upgrade for " + armoryItem.getNextUpgradeValue());
 			renderer.setUpgradeButtonDisabled(true);
+			renderer.setUpgradeImage(armoryItem.getName() + armoryItem.getUpgradeIndex() + ".png");
 			
-			renderer.setTradeButtonText("Buy for " + armoryItem.getValue());
-			renderer.setTradeButtonDisabled(!wallet.canAfford(armoryItem.getValue()));
+			renderer.setTradeButtonText("Buy for " + armoryItem.getPurchaseValue());
+			renderer.setTradeButtonDisabled(!wallet.canAfford(armoryItem.getPurchaseValue()));
 		} else {
 			if(armoryItem.hasUpgrade()) {
 				renderer.setUpgradeButtonText("Upgrade for " + armoryItem.getNextUpgradeValue());
 				renderer.setUpgradeButtonDisabled(!wallet.canAfford(armoryItem.getNextUpgradeValue()));
+				renderer.setUpgradeImage(armoryItem.getName() + armoryItem.getUpgradeIndex() + ".png");
 			} else {
 				renderer.setUpgradeButtonText("No Upgrades");
 				renderer.setUpgradeButtonDisabled(true);
+				renderer.setUpgradeImage("weaponslot.png");
 			}
 			
 			renderer.setTradeButtonText("Sell for " + armoryItem.getValue());
