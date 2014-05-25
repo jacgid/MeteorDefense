@@ -5,6 +5,9 @@ import com.esnefedroetem.meteordefense.model.Projectile.ProjectileType;
 import com.esnefedroetem.meteordefense.util.Constants;
 
 /**
+ * A meteor which will continue to damage the city for a couple of seconds after it hits.
+ * A poison effect.
+ * 
  * @author Andreas Pegelow
  * 
  */

@@ -4,7 +4,7 @@ import com.badlogic.gdx.math.Vector2;
 import com.esnefedroetem.meteordefense.model.Projectile;
 import com.esnefedroetem.meteordefense.model.Projectile.ProjectileType;
 import com.esnefedroetem.meteordefense.util.Constants;
-/** 
+/** A fast meteor.
  * @author Andreas Pegelow
  *
  */

@@ -5,7 +5,12 @@ import java.beans.PropertyChangeListener;
 import com.badlogic.gdx.Screen;
 import com.esnefedroetem.meteordefense.model.ScoreHandler;
 import com.esnefedroetem.meteordefense.renderer.ScoreRenderer;
-
+ /** This is the screen which will display the score.
+  * It is shown after a completed game.
+  * 
+  * @author Andreas Pegelow
+  *
+  */
 
 public class ScoreScreen implements Screen{
 	
