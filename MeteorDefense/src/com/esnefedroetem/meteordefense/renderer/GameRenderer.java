@@ -325,7 +325,7 @@ public class GameRenderer {
 
 		// calculate how many fires to start.
 		int damage = (int) ((1 - remainingLife) * 10);
-		System.out.println(damage);
+	
 		
 		while (startedFires < damage) {
 			fireEmitters[startedFires].setMinParticleCount(20);
