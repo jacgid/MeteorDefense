@@ -3,7 +3,6 @@ package com.esnefedroetem.meteordefense.model.meteor;
 import com.badlogic.gdx.math.Vector2;
 import com.esnefedroetem.meteordefense.model.MoveableGameObject;
 import com.esnefedroetem.meteordefense.model.Projectile;
-import com.esnefedroetem.meteordefense.model.Projectile.ProjectileType;
 
 /** An abstract class which represents a Meteor. It has a calculateDifficulty method which generates a value based
  * on the size damage and speed. The create a meteor create a class an inherit this class. Implement the hit method
