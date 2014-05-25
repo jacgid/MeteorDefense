@@ -96,7 +96,7 @@ public class ArmoryRenderer {
 
 		foreground.add(topTable).expand().top();
 		foreground.row();
-		foreground.add(bottomTable).height(Gdx.graphics.getHeight()/5.5f);
+		foreground.add(bottomTable).height(Gdx.graphics.getHeight()/5.5f).width(Gdx.graphics.getWidth());
 
 		Table background = new Table();
 		background.setFillParent(true);
