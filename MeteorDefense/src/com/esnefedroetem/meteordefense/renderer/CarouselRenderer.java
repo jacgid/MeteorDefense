@@ -43,7 +43,9 @@ public class CarouselRenderer {
 		CAROUSEL_ARMORY_CLICKED,
 		CAROUSEL_CLICKED,
 		CAROUSEL_NEWGAME,
-		CAROUSEL_BACKBUTTON
+		CAROUSEL_BACKBUTTON1,
+		CAROUSEL_BACKBUTTON2
+		
 	}
 	
 	private ClickListener carouselListener = new ClickListener(){
@@ -103,7 +105,7 @@ public class CarouselRenderer {
 		              int keycode){
 				
 				if(keycode == Keys.BACK || keycode == Keys.BACKSPACE){
-			 		pcs.firePropertyChange(CarouselEvent.CAROUSEL_BACKBUTTON.toString(), false, true);					
+			 		pcs.firePropertyChange(CarouselEvent.CAROUSEL_BACKBUTTON1.toString(), false, true);					
 				}
 				
 				return true;
