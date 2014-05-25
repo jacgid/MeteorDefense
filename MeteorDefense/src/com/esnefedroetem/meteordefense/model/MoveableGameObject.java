@@ -2,7 +2,12 @@ package com.esnefedroetem.meteordefense.model;
 
 import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.math.Vector2;
-
+ /**
+  * This is a super class for all the objects that are supposed to move on the game screen. Such as meteors and projectiles.
+  * It has a speed and angle, and moves automatically when you call the move method with a delta value. 
+  * @author Andreas Pegelow
+  * @author Simon Nielsen
+  */
 public abstract class MoveableGameObject {
 	private float speed; // Units per second
 	private float angle;

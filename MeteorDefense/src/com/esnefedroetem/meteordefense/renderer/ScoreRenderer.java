@@ -19,7 +19,11 @@ import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
 import com.badlogic.gdx.scenes.scene2d.ui.TextButton.TextButtonStyle;
 import com.esnefedroetem.meteordefense.model.ScoreHandler;
 import com.esnefedroetem.meteordefense.util.AssetsLoader;
-
+/**This class is responsible for rendering the score screen..
+ * 
+ * @author Andreas Pegelow
+ *
+ */
 public class ScoreRenderer {
 
 	private PropertyChangeSupport pcs;

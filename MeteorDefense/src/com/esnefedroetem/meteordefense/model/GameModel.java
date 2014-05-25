@@ -239,7 +239,7 @@ public class GameModel implements IGameModel {
 					meteor.getBounds().width, meteor.getBounds().height));
 			if (outOfBounds(temp)) {
 				meteorsToRemove.add(meteor);
-				SCORE_HANDLER.meteorHit();
+
 				SCORE_HANDLER.meteorDestroyed(meteor);
 			}
 

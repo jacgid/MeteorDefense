@@ -5,7 +5,9 @@ import com.esnefedroetem.meteordefense.model.MoveableGameObject;
 import com.esnefedroetem.meteordefense.model.Projectile;
 import com.esnefedroetem.meteordefense.model.Projectile.ProjectileType;
 
-/**
+/** An abstract class which represents a Meteor. It has a calculateDifficulty method which generates a value based
+ * on the size damage and speed. The create a meteor create a class an inherit this class. Implement the hit method
+ * to give it a specific behavior.
  * 
  * @author Andreas Pegelow
  * 
@@ -73,7 +75,7 @@ public abstract class Meteor extends MoveableGameObject {
 	public abstract MeteorType getType();
 
 	public final void calculateDifficulty() {
-		difficulty = (int) (getDamage() * 0.7 + startLife * 0.01 + startLife * 0.7)*10;
+		difficulty = (int) (getDamage() * 0.7 + getSpeed() * 0.01 + startLife * 0.7)*10;
 
 	}
 
