@@ -167,25 +167,26 @@ public class MeteorDefense extends Game implements PropertyChangeListener {
 
 	}
 
-	private void checkUnlockNextCity(ScoreHandler scoreHandler, City c) {
+	private void checkUnlockNextCity(ScoreHandler scoreHandler, City city) {
 		// if game is won, next city in the continent should be unlocked
-					// (unless already unlocked)
-					if (!scoreHandler.isGameLost()) {
-						City city = c;
-						// find which continent the city belongs to
-						for (Continent continent : carouselScreen.getContinents()) {
-							List<City> cities = continent.getCities();
-							if (cities.contains(city)) {
-								// get next city and unlock it
-								if (cities.indexOf(city) + 1 < cities.size()) {
-									City nextCity = cities.get(cities.indexOf(city) + 1);
-									if (nextCity.getState() == City.State.LOCKED) {
-										nextCity.setState(City.State.UNLOCKED);
-									}
-								}
-							}
+		// (unless already unlocked)
+		if (!scoreHandler.isGameLost()) {
+			
+			// find which continent the city belongs to
+			for (Continent continent : carouselScreen.getContinents()) {
+				List<City> cities = continent.getCities();
+				if (cities.contains(city)) {
+					
+					// get next city and unlock it
+					if (cities.indexOf(city) + 1 < cities.size()) {
+						City nextCity = cities.get(cities.indexOf(city) + 1);
+						if (nextCity.getState() == City.State.LOCKED) {
+							nextCity.setState(City.State.UNLOCKED);
 						}
 					}
+				}
+			}
+		}
 	}
 
 }
