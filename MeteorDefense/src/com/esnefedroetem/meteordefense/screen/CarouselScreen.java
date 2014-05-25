@@ -10,7 +10,6 @@ import com.esnefedroetem.meteordefense.model.City;
 import com.esnefedroetem.meteordefense.model.Continent;
 import com.esnefedroetem.meteordefense.renderer.CarouselRenderer;
 import com.esnefedroetem.meteordefense.renderer.CarouselRenderer.CarouselEvent;
-import com.esnefedroetem.meteordefense.screen.SplashScreen.SplashScreenEvent;
 import com.esnefedroetem.meteordefense.service.LevelData;
 import com.esnefedroetem.meteordefense.service.ServiceFactory;
 

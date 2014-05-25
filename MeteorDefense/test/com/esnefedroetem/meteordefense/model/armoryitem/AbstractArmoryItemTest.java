@@ -3,17 +3,13 @@
  */
 package com.esnefedroetem.meteordefense.model.armoryitem;
 
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertTrue;
 
 import org.junit.Test;
 
 import com.badlogic.gdx.utils.TimeUtils;
-import com.esnefedroetem.meteordefense.model.ArmoryItemVisitor;
 import com.esnefedroetem.meteordefense.model.MeteorShower;
-import com.esnefedroetem.meteordefense.model.armoryitem.AbstractArmoryItem;
 import com.esnefedroetem.meteordefense.model.armoryitem.AbstractArmoryItem.State;
-import com.esnefedroetem.meteordefense.model.armoryitem.AbstractEffectArmoryItem;
-import com.esnefedroetem.meteordefense.model.armoryitem.ReversedGravityEffectArmoryItem;
 
 /**
  * @author Emma Lindholm
