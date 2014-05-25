@@ -41,6 +41,7 @@ import com.esnefedroetem.meteordefense.util.Constants;
  * 
  * @author Simon Nielsen
  * @author Jacob Gideflod
+ * @author Andreas Pegelow
  */
 public class GameRenderer {
 
@@ -324,12 +325,21 @@ public class GameRenderer {
 
 		// calculate how many fires to start.
 		int damage = (int) ((1 - remainingLife) * 10);
-
+	
+		
 		while (startedFires < damage) {
 			fireEmitters[startedFires].setMinParticleCount(20);
 			fireEmitters[startedFires].setMaxParticleCount(50);
 
 			startedFires++;
+		}
+		
+		while (startedFires > damage) {
+			startedFires--;
+			fireEmitters[startedFires].setMinParticleCount(0);
+			fireEmitters[startedFires].setMaxParticleCount(0);
+
+			
 		}
 
 	}
