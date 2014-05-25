@@ -163,7 +163,7 @@ public class MeteorDefense extends Game implements PropertyChangeListener {
 			setScreen(gameScreen);
 		} else if (evt.getPropertyName().equals("Quit Game")) {
 			setScreen(carouselScreen);
-		}else if (evt.getPropertyName().equals(CarouselRenderer.CarouselEvent.CAROUSEL_BACKBUTTON.toString())){
+		}else if (evt.getPropertyName().equals(CarouselRenderer.CarouselEvent.CAROUSEL_BACKBUTTON2.toString())){
 			setScreen(mainMenuScreen);
 		}
 

@@ -81,7 +81,7 @@ public class CarouselScreen implements Screen, PropertyChangeListener {
 	public void propertyChange(PropertyChangeEvent evt) {
 		if(evt.getPropertyName().equals(CarouselRenderer.CarouselEvent.CAROUSEL_CLICKED.toString())){
 			processCarouselClick((Integer) evt.getNewValue());
-		}else if(evt.getPropertyName().equals(CarouselRenderer.CarouselEvent.CAROUSEL_BACKBUTTON.toString())){
+		}else if(evt.getPropertyName().equals(CarouselRenderer.CarouselEvent.CAROUSEL_BACKBUTTON1.toString())){
 			onBackPressed();
 		}
 	}
@@ -103,7 +103,7 @@ public class CarouselScreen implements Screen, PropertyChangeListener {
 			renderer.displayContinents(continents);
 			isCitiesDisplayed = false;
 		}else{
-			pcs.firePropertyChange(CarouselRenderer.CarouselEvent.CAROUSEL_BACKBUTTON.toString(), false, true);
+			pcs.firePropertyChange(CarouselRenderer.CarouselEvent.CAROUSEL_BACKBUTTON2.toString(), false, true);
 		}
 	}
 	
