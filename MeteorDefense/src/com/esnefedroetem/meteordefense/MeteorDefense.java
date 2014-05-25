@@ -85,14 +85,12 @@ public class MeteorDefense extends Game implements PropertyChangeListener {
 	}
 
 	private void save() {
-		System.out.println("save1");
 		List<Continent> continents = carouselScreen.getContinents();
 		List<AbstractArmoryItem> items = armoryScreen.getUnselectedArmoryItems();
 		List<AbstractArmoryItem> choosenItems = armoryScreen.getSelectedArmoryItems();
 
 		ServiceFactory.getInstance().getSaveService().save(SoundService.getInstance().getSoundState(), armoryDetaliedScreen.getWallet(),
 				continents, items, choosenItems);
-		System.out.println("save2");
 	}
 	
 	private void resetCities(){
