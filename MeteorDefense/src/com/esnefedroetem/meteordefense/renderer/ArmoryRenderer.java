@@ -162,7 +162,7 @@ public class ArmoryRenderer {
 			AbstractArmoryItem item = items.get(i - 1);
 			ButtonStyle style = new ButtonStyle();
 			style.up = new TextureRegionDrawable(new TextureRegion(
-					assetsLoader.getTexture(item.getName() + ".png")));
+					assetsLoader.getTexture((items.get(i - 1).getName() + (items.get(i - 1).getUpgradeIndex() - 1) + ".png"))));
 			Actor actor = new Button(style);
 			actor.setUserObject(item);
 			actor.setName(i - 1 + "");
@@ -372,12 +372,28 @@ public class ArmoryRenderer {
 		}
 		return null;		
 	}
+	
+	private void updateImages(){
+		for(Actor actor : topTable.getChildren()){
+			AbstractArmoryItem item = (AbstractArmoryItem)actor.getUserObject();
+			Button btn = (Button)actor;
+			btn.getStyle().up = new TextureRegionDrawable(new TextureRegion(
+					assetsLoader.getTexture((item.getName() + (item.getUpgradeIndex() - 1) + ".png"))));
+		}
+		for(Actor actor : bottomTable.getChildren()){
+			AbstractArmoryItem item = (AbstractArmoryItem)actor.getUserObject();
+			Button btn = (Button)actor;
+			btn.getStyle().up = new TextureRegionDrawable(new TextureRegion(
+					assetsLoader.getTexture((item.getName() + (item.getUpgradeIndex() - 1) + ".png"))));
+		}
+	}
 
 	public void init() {
 		Gdx.input.setInputProcessor(stage);
 		Gdx.gl.glViewport(0, 0, Gdx.graphics.getWidth(), Gdx.graphics.getHeight());
 		dragFinished = true;
 		removeSoldItems();
+		updateImages();
 	}
 
 	public void render() {
