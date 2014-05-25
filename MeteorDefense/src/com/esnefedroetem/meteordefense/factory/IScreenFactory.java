@@ -10,6 +10,13 @@ import com.esnefedroetem.meteordefense.screen.MainMenuScreen;
 import com.esnefedroetem.meteordefense.screen.ScoreScreen;
 import com.esnefedroetem.meteordefense.screen.SplashScreen;
 
+/**
+ * 
+ * This interface contains all the methods needed to create all screens.
+ * 
+ * @author Jacob
+ *
+ */
 public interface IScreenFactory {
 
 	public MainMenuScreen createMainMenuScreen(PropertyChangeListener listener);

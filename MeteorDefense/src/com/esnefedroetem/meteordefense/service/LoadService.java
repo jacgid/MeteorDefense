@@ -9,9 +9,17 @@ import com.badlogic.gdx.files.FileHandle;
 import com.badlogic.gdx.utils.Json;
 import com.esnefedroetem.meteordefense.model.Continent;
 import com.esnefedroetem.meteordefense.model.Wallet;
-import com.esnefedroetem.meteordefense.model.armoryitem.AbstractArmoryItem;
 import com.esnefedroetem.meteordefense.util.Constants;
 
+/**
+ * 
+ * This is the concrete implementation of ILoadService.
+ * It uses the JSON and xml-reader provided by LibGDX
+ * to load for example the amount of money the player has earned. 
+ * 
+ * @author Jacob
+ *
+ */
 class LoadService implements ILoadService{
 	
 	private <T> T load(Class<T> type, String path){

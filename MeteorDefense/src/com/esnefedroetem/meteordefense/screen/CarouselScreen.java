@@ -14,6 +14,15 @@ import com.esnefedroetem.meteordefense.screen.SplashScreen.SplashScreenEvent;
 import com.esnefedroetem.meteordefense.service.LevelData;
 import com.esnefedroetem.meteordefense.service.ServiceFactory;
 
+/**
+ * 
+ * This is the controller of the carousel view.
+ * It is responsible for keeping track of the continents
+ * and deciding what to do when user input is received.
+ * 
+ * @author Jacob
+ *
+ */
 public class CarouselScreen implements Screen, PropertyChangeListener {
 	private PropertyChangeSupport pcs;
 	private CarouselRenderer renderer;
@@ -40,7 +49,6 @@ public class CarouselScreen implements Screen, PropertyChangeListener {
 
 	@Override
 	public void resize(int width, int height) {
-		// TODO Auto-generated method stub
 		
 	}
 
@@ -51,19 +59,16 @@ public class CarouselScreen implements Screen, PropertyChangeListener {
 
 	@Override
 	public void hide() {
-		// TODO Auto-generated method stub
 		
 	}
 
 	@Override
 	public void pause() {
-		// TODO Auto-generated method stub
 		
 	}
 
 	@Override
 	public void resume() {
-		// TODO Auto-generated method stub
 		
 	}
 

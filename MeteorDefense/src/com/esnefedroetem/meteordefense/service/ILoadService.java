@@ -5,8 +5,14 @@ import java.util.List;
 
 import com.esnefedroetem.meteordefense.model.Continent;
 import com.esnefedroetem.meteordefense.model.Wallet;
-import com.esnefedroetem.meteordefense.model.armoryitem.AbstractArmoryItem;
 
+/**
+ * 
+ * This is the interface that defines the load service.
+ * 
+ * @author Jacob
+ *
+ */
 public interface ILoadService {
 	public Wallet getWallet();
 	

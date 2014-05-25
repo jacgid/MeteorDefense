@@ -1,5 +1,12 @@
 package com.esnefedroetem.meteordefense.util;
 
+/**
+ * 
+ * SoundService is responsible for all kind of sound/music in the application.
+ * 
+ * @author Jacob
+ *
+ */
 public class SoundService {
 	
 	private static final SoundService instance = new SoundService();

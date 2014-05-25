@@ -1,5 +1,12 @@
 package com.esnefedroetem.meteordefense.service;
 
+/**
+ * 
+ * The ServiceFactory is responsible for creating services.
+ * 
+ * @author Jacob
+ *
+ */
 public class ServiceFactory {
 	
 	private static ServiceFactory instance = new ServiceFactory();

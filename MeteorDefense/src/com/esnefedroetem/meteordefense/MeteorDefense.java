@@ -25,6 +25,14 @@ import com.esnefedroetem.meteordefense.service.ServiceFactory;
 import com.esnefedroetem.meteordefense.util.AssetsLoader;
 import com.esnefedroetem.meteordefense.util.SoundService;
 
+/**
+ * 
+ * This is the main controller of the application.
+ * It is responsible for switching screens and saving the application state.
+ * 
+ * @author Jacob
+ *
+ */
 public class MeteorDefense extends Game implements PropertyChangeListener {
 
 	private SplashScreen splashScreen;
@@ -80,7 +88,6 @@ public class MeteorDefense extends Game implements PropertyChangeListener {
 		carouselScreen.dispose();
 		scoreScreen.dispose();
 		assetsLoader.clear();
-		;
 		super.dispose();
 	}
 
