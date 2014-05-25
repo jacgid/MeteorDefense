@@ -206,6 +206,8 @@ public class ArmoryRenderer {
 			@Override
 			public void dragStop(InputEvent event, float x, float y,
 					int pointer, Target target) {
+				//Set dragFinsished after a small delay
+				//to avoid armoryitem being clicked during drag
 				new Thread(new Runnable(){
 					@Override
 					public void run() {
@@ -217,6 +219,8 @@ public class ArmoryRenderer {
 					}
 				}).start();
 				if (target == null) {
+					//The actor was not dropped on a target
+					//The old actor becomes visible without any position change
 					getActor().setVisible(true);
 				}
 
@@ -248,6 +252,8 @@ public class ArmoryRenderer {
 				int actorPos = Integer.parseInt(actor.getName());
 				target.setName(actorPos + "");
 				actor.setName(targetPos + "");
+				//The tables are updated differently depending on
+				//if the actor is dropped in the table it originated from or in another new table
 				if (target.getParent() == topTable) {
 					topTable.removeActor(target);
 					if (topTable.getChildren().contains(actor, true)) {
