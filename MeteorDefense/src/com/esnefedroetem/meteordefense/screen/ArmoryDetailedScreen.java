@@ -104,12 +104,12 @@ public class ArmoryDetailedScreen implements Screen, PropertyChangeListener{
 		renderer.setCooldownLabelText("Cooldown: " + armoryItem.getCooldown() + " sec\n");
 		renderer.setUpgradeLabelText("Next upgrade\n" + armoryItem.getNextUpgradeInfo() + "\n");
 		
-		//renderer.setItemImage(armoryItem.getName() + (armoryItem.getUpgradeIndex() - 1));
-		renderer.setItemImage(armoryItem.getName() +".png");
+		renderer.setItemImage(armoryItem.getName() + (armoryItem.getUpgradeIndex() - 1) + ".png");
 		
 		if(armoryItem.getState() == AbstractArmoryItem.State.LOCKED) {
 			renderer.setUpgradeButtonText("Upgrade for " + armoryItem.getNextUpgradeValue());
 			renderer.setUpgradeButtonDisabled(true);
+			renderer.setUpgradeImage(armoryItem.getName() + armoryItem.getUpgradeIndex() + ".png");
 			
 			renderer.setTradeButtonText("Buy for " + armoryItem.getPurchaseValue());
 			renderer.setTradeButtonDisabled(!wallet.canAfford(armoryItem.getPurchaseValue()));
@@ -117,17 +117,17 @@ public class ArmoryDetailedScreen implements Screen, PropertyChangeListener{
 			if(armoryItem.hasUpgrade()) {
 				renderer.setUpgradeButtonText("Upgrade for " + armoryItem.getNextUpgradeValue());
 				renderer.setUpgradeButtonDisabled(!wallet.canAfford(armoryItem.getNextUpgradeValue()));
-				//renderer.setUpgradeImage(armoryItem.getName() + armoryItem.getUpgradeIndex());
-				renderer.setUpgradeImage(armoryItem.getName() +".png");
+				renderer.setUpgradeImage(armoryItem.getName() + armoryItem.getUpgradeIndex() + ".png");
 			} else {
 				renderer.setUpgradeButtonText("No Upgrades");
 				renderer.setUpgradeButtonDisabled(true);
+				renderer.setUpgradeImage("weaponslot.png");
 			}
 			
 			renderer.setTradeButtonText("Sell for " + armoryItem.getValue());
 			renderer.setTradeButtonDisabled(false);
 		}
-		renderer.setUpgradeImage(armoryItem.getName() +".png");
+		
 		// standard weapon is not tradeable 
 		if(armoryItem instanceof StandardArmoryItem) {
 		renderer.setTradeButtonText("Not tradeable");

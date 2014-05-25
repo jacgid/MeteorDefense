@@ -131,7 +131,7 @@ public class ArmoryRenderer {
 		for (int i = 0; i < items.size(); i++) {
 			ButtonStyle style = new ButtonStyle();
 			style.up = new TextureRegionDrawable(new TextureRegion(
-					assetsLoader.getTexture((items.get(i).getName() + ".png"))));
+					assetsLoader.getTexture((items.get(i).getName() + (items.get(i).getUpgradeIndex() - 1) + ".png"))));
 			Actor actor = new Button(style);
 			actor.setUserObject(items.get(i));
 			actor.setName(i + "");
@@ -195,7 +195,8 @@ public class ArmoryRenderer {
 				table.add(
 						new Image(assetsLoader
 								.getTexture(((AbstractArmoryItem) getActor()
-										.getUserObject()).getName() + ".png")))
+										.getUserObject()).getName() +  (((AbstractArmoryItem) getActor()
+												.getUserObject()).getUpgradeIndex() - 1) + ".png")))
 						.width(Gdx.graphics.getWidth() / 5.5F)
 						.height(Gdx.graphics.getWidth() / 5.5F);
 				payload.setDragActor(table);

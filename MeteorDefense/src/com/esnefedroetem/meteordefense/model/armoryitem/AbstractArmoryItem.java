@@ -52,7 +52,7 @@ public abstract class AbstractArmoryItem implements IArmoryItemElement {
 	}
 
 	public boolean hasUpgrade() {
-		return upgradeIndex < upgrades.size() - 1;
+		return upgradeIndex < upgrades.size();
 	}
 
 	private void reset() {

@@ -277,15 +277,15 @@ public class GameRenderer {
 	public void newGame(City city, List<AbstractArmoryItem> items) {
 		Gdx.gl.glViewport(0, 0, Gdx.graphics.getWidth(), Gdx.graphics.getWidth());
 		btnstyle1.up = new TextureRegionDrawable(new TextureRegion(assetsLoader.getTexture(items.get(0).getName()
-				+ ".png")));
+				+ (items.get(0).getUpgradeIndex() - 1) + ".png")));
 		btnstyle2.up = new TextureRegionDrawable(new TextureRegion(assetsLoader.getTexture(items.get(1).getName()
-				+ ".png")));
+				+ (items.get(1).getUpgradeIndex() - 1) + ".png")));
 		btnstyle3.up = new TextureRegionDrawable(new TextureRegion(assetsLoader.getTexture(items.get(3).getName()
-				+ ".png")));
+				+ (items.get(3).getUpgradeIndex() - 1) + ".png")));
 		btnstyle4.up = new TextureRegionDrawable(new TextureRegion(assetsLoader.getTexture(items.get(4).getName()
-				+ ".png")));
+				+ (items.get(4).getUpgradeIndex() - 1) + ".png")));
 		imgCannon.setDrawable(new TextureRegionDrawable(new TextureRegion(assetsLoader.getTexture(items.get(2)
-				.getName() + ".png"))));
+				.getName() + (items.get(2).getUpgradeIndex() - 1) + ".png"))));
 		cityMonumentSprite = new Sprite(assetsLoader.getTexture("ParisMonument.png"));
 		citySprite = new Sprite(assetsLoader.getTexture("Europe1.png"));
 		citySprite.setPosition(0, Constants.CITY_BOUNDS.y);

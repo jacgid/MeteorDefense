@@ -103,7 +103,7 @@ public class ArmoryDetailedRenderer {
 		descriptionTable = new Table();
 		
 		// itemImage
-		itemImage = new Image(assetsLoader.getTexture("PlayButton.png"));
+		itemImage = new Image(assetsLoader.getTexture("weaponslot.png"));
 		descriptionTable.add(itemImage)
 		.width(Gdx.graphics.getWidth() * 0.25F)
 		.height(Gdx.graphics.getWidth() * 0.25F
@@ -138,7 +138,7 @@ public class ArmoryDetailedRenderer {
 		upgradeTable = new Table();
 		
 		// upgradeImage
-		upgradeImage = new Image(assetsLoader.getTexture("PlayButton.png"));
+		upgradeImage = new Image(assetsLoader.getTexture("weaponslot.png"));
 		upgradeTable.add(upgradeImage)
 				.width(Gdx.graphics.getWidth() * 0.15F)
 				.height(Gdx.graphics.getWidth() * 0.15F
