@@ -3,6 +3,14 @@ package com.esnefedroetem.meteordefense.screen;
 import com.badlogic.gdx.Screen;
 import com.esnefedroetem.meteordefense.renderer.MainMenuRenderer;
 
+/**
+ * 
+ * MainMenuScreen controls the MainMenuRenderer
+ * and decides what to do when the main menu is displayed or disposed.
+ * 
+ * @author Jacob
+ *
+ */
 public class MainMenuScreen implements Screen {
 	
 	private MainMenuRenderer renderer;

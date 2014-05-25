@@ -1,7 +1,5 @@
 package com.esnefedroetem.meteordefense.renderer;
 
-import java.awt.event.KeyEvent;
-import java.awt.event.KeyListener;
 import java.beans.PropertyChangeListener;
 import java.beans.PropertyChangeSupport;
 import java.util.List;
@@ -26,6 +24,13 @@ import com.esnefedroetem.meteordefense.model.City;
 import com.esnefedroetem.meteordefense.model.Continent;
 import com.esnefedroetem.meteordefense.util.AssetsLoader;
 
+/**
+ * 
+ * This class is responsible for visualizing CarouselScreen.
+ * 
+ * @author Jacob
+ *
+ */
 public class CarouselRenderer {
 	
 	private PropertyChangeSupport pcs;

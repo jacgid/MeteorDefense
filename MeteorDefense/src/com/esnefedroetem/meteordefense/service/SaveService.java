@@ -12,6 +12,15 @@ import com.esnefedroetem.meteordefense.model.Wallet;
 import com.esnefedroetem.meteordefense.model.armoryitem.AbstractArmoryItem;
 import com.esnefedroetem.meteordefense.util.Constants;
 
+/**
+ * 
+ * This is the concrete implementation of ISaveService.
+ * It uses the JSON-writer provided by LibGDX
+ * to save for example the amount of money the player has earned. 
+ * 
+ * @author Jacob
+ *
+ */
 class SaveService implements ISaveService{
 	
 	

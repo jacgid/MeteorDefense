@@ -9,11 +9,18 @@ import com.badlogic.gdx.utils.Array;
 import com.esotericsoftware.tablelayout.Cell;
 
 
-//http://nexsoftware.net/wp/2013/05/09/libgdx-making-a-paged-level-selection-screen/
+/**
+ * 
+ * This is an extension of the original ScrollPane
+ * where it is possible to swipe between actors.
+ * 
+ * @author nexsoftware
+ * @author Jacob
+ *
+ */
 public class PagedScrollPane extends ScrollPane {
 
 	private boolean wasPanDragFling = false;
-	private float pageSpacing;
 	private Table content;
 
 	public PagedScrollPane() {
@@ -68,11 +75,6 @@ public class PagedScrollPane extends ScrollPane {
 			}
 		}
 	}
-
-//	@Override
-//	public void setWidget(Actor widget) {
-//		throw new UnsupportedOperationException("Use PagedScrollPane#addPage.");
-//	}
 
 	@Override
 	public void setWidth(float width) {

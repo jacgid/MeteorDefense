@@ -8,10 +8,12 @@ import com.esnefedroetem.meteordefense.renderer.ArmoryRenderer;
 
 /** 
  * 
- *  @author Emma Lindholm
+ * ArmoryScreen controls the ArmoryRenderer
+ * and decides what to do when the armory is displayed or disposed.
+ * 
+ *  @author Jacob
  *  
  */
-
 public class ArmoryScreen implements Screen{
 	
 	private ArmoryRenderer renderer;
@@ -35,7 +37,6 @@ public class ArmoryScreen implements Screen{
 
 	@Override
 	public void resize(int width, int height) {
-		// TODO Auto-generated method stub
 		
 	}
 
@@ -47,19 +48,16 @@ public class ArmoryScreen implements Screen{
 
 	@Override
 	public void hide() {
-		// TODO Auto-generated method stub
 		
 	}
 
 	@Override
 	public void pause() {
-		// TODO Auto-generated method stub
 		
 	}
 
 	@Override
 	public void resume() {
-		// TODO Auto-generated method stub
 		
 	}
 

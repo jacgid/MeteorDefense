@@ -23,6 +23,13 @@ import com.esnefedroetem.meteordefense.screen.SplashScreen;
 import com.esnefedroetem.meteordefense.service.ServiceFactory;
 import com.esnefedroetem.meteordefense.util.SoundService;
 
+/**
+ * 
+ * This class is responsible for creating all screens.
+ * 
+ * @author Jacob
+ *
+ */
 class ScreenFactory implements IScreenFactory {
 
 	public MainMenuScreen createMainMenuScreen(PropertyChangeListener listener) {

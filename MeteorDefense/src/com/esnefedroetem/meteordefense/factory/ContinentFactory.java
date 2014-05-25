@@ -9,6 +9,14 @@ import com.esnefedroetem.meteordefense.model.Continent;
 import com.esnefedroetem.meteordefense.model.MeteorShower;
 import com.esnefedroetem.meteordefense.service.ServiceFactory;
 
+/**
+ * 
+ * This is a helperclass for ScreenFactory.
+ * It is responsible for creating all Continents .
+ * 
+ * @author Jacob
+ *
+ */
 class ContinentFactory {
 	private static final ContinentFactory instance = new ContinentFactory();
 	

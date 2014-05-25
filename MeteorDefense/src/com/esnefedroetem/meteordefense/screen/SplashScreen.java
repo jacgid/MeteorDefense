@@ -6,19 +6,21 @@ import java.beans.PropertyChangeSupport;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.graphics.GL20;
-import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.Texture;
-import com.badlogic.gdx.graphics.g2d.SpriteBatch;
-import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
-import com.badlogic.gdx.graphics.glutils.ShapeRenderer.ShapeType;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.scenes.scene2d.ui.Image;
 import com.badlogic.gdx.scenes.scene2d.ui.Table;
 import com.badlogic.gdx.utils.TimeUtils;
-import com.esnefedroetem.meteordefense.renderer.GameRenderer;
 import com.esnefedroetem.meteordefense.util.AssetsLoader;
-import com.esnefedroetem.meteordefense.util.Constants;
 
+/**
+ * 
+ * The SplashScreen is responsible for displaying an image
+ * while the game is initializing.
+ * 
+ * @author Jacob
+ *
+ */
 public class SplashScreen implements Screen {
 	
 	private PropertyChangeSupport pcs;

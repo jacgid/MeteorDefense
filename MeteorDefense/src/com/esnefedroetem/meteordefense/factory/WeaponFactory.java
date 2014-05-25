@@ -14,6 +14,14 @@ import com.esnefedroetem.meteordefense.model.armoryitem.AbstractArmoryItem.State
 import com.esnefedroetem.meteordefense.service.ServiceFactory;
 import com.esnefedroetem.meteordefense.service.WeaponData;
 
+/**
+ * 
+ * This is a helperclass for ScreenFactory.
+ * It is responsible for creating all armoryItems.
+ * 
+ * @author Jacob
+ *
+ */
 class WeaponFactory {
 	
 	private static final WeaponFactory instance = new WeaponFactory();

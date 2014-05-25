@@ -9,8 +9,6 @@ import java.util.List;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input.Keys;
 import com.badlogic.gdx.graphics.GL20;
-import com.badlogic.gdx.graphics.OrthographicCamera;
-import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.scenes.scene2d.Actor;
@@ -21,20 +19,22 @@ import com.badlogic.gdx.scenes.scene2d.ui.Button;
 import com.badlogic.gdx.scenes.scene2d.ui.Button.ButtonStyle;
 import com.badlogic.gdx.scenes.scene2d.ui.Image;
 import com.badlogic.gdx.scenes.scene2d.ui.Table;
-import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
-import com.badlogic.gdx.scenes.scene2d.ui.TextButton.TextButtonStyle;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 import com.badlogic.gdx.scenes.scene2d.utils.DragAndDrop;
 import com.badlogic.gdx.scenes.scene2d.utils.DragAndDrop.Payload;
 import com.badlogic.gdx.scenes.scene2d.utils.DragAndDrop.Source;
 import com.badlogic.gdx.scenes.scene2d.utils.DragAndDrop.Target;
-import com.badlogic.gdx.scenes.scene2d.utils.Drawable;
 import com.badlogic.gdx.scenes.scene2d.utils.TextureRegionDrawable;
 import com.esnefedroetem.meteordefense.model.armoryitem.AbstractArmoryItem;
-import com.esnefedroetem.meteordefense.model.armoryitem.AbstractArmoryItem.State;
 import com.esnefedroetem.meteordefense.util.AssetsLoader;
-import com.esnefedroetem.meteordefense.util.Constants;
 
+/**
+ * 
+ * This class is responsible for visualizing ArmoryScreen.
+ * 
+ * @author Jacob
+ *
+ */
 public class ArmoryRenderer {
 
 	private Stage stage;
@@ -206,6 +206,8 @@ public class ArmoryRenderer {
 			@Override
 			public void dragStop(InputEvent event, float x, float y,
 					int pointer, Target target) {
+				//Set dragFinsished after a small delay
+				//to avoid armoryitem being clicked during drag
 				new Thread(new Runnable(){
 					@Override
 					public void run() {
@@ -217,6 +219,8 @@ public class ArmoryRenderer {
 					}
 				}).start();
 				if (target == null) {
+					//The actor was not dropped on a target
+					//The old actor becomes visible without any position change
 					getActor().setVisible(true);
 				}
 
@@ -248,6 +252,8 @@ public class ArmoryRenderer {
 				int actorPos = Integer.parseInt(actor.getName());
 				target.setName(actorPos + "");
 				actor.setName(targetPos + "");
+				//The tables are updated differently depending on
+				//if the actor is dropped in the table it originated from or in another new table
 				if (target.getParent() == topTable) {
 					topTable.removeActor(target);
 					if (topTable.getChildren().contains(actor, true)) {
