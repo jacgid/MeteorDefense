@@ -3,6 +3,11 @@ package com.esnefedroetem.meteordefense.util;
 import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.math.Vector2;
 
+/**
+ * A class to collect constants in one place.
+ * @author Andreas Pegelow
+ *
+ */
 public class Constants {
 	
 	public static final float LOGIC_SCREEN_WIDTH = 720f;
