@@ -27,6 +27,11 @@ import com.badlogic.gdx.scenes.scene2d.utils.TextureRegionDrawable;
 import com.esnefedroetem.meteordefense.util.AssetsLoader;
 import com.esnefedroetem.meteordefense.util.Constants;
 
+/**
+ * Renderer of ArmoryDetailedScreen.
+ * @author Emma Lindholm
+ *
+ */
 public class ArmoryDetailedRenderer {
 
 	private PropertyChangeSupport pcs;

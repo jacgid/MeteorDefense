@@ -146,4 +146,8 @@ public class City {
 		return false;
 		
 	}
+	
+	public void increaseLife(int lifeIncreasement) {
+		this.currentLife += lifeIncreasement;
+	}
 }

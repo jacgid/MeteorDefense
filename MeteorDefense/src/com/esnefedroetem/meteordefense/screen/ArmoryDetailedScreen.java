@@ -10,6 +10,12 @@ import com.esnefedroetem.meteordefense.model.armoryitem.StandardArmoryItem;
 import com.esnefedroetem.meteordefense.renderer.ArmoryDetailedRenderer;
 import com.esnefedroetem.meteordefense.renderer.ArmoryDetailedRenderer.ArmoryDetaliedEvent;
 
+/**
+ * Screen responsible for the trading and upgrading of an ArmoryItem.
+ * setArmoryItem() must be called before show().
+ * @author Emma Lindholm
+ *
+ */
 public class ArmoryDetailedScreen implements Screen, PropertyChangeListener{
 	
 	private ArmoryDetailedRenderer renderer;
