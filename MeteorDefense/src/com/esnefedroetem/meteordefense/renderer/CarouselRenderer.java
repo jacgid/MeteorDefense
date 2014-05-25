@@ -209,7 +209,7 @@ public class CarouselRenderer {
 			imgCity =  new Image(assetsLoader.getTexture(city.getName() + ".png"));
 		}
 		
-		btn.add(lblName).expandX();
+		btn.add(lblName).expandX().padTop(20);
 		btn.row();
 		float aspectratio = imgCity.getHeight() / imgCity.getWidth();
 		btn.add(imgCity).expand().width(Gdx.graphics.getWidth() * 0.45F).height(Gdx.graphics.getWidth() * 0.45F * aspectratio);

@@ -201,7 +201,7 @@ public class GameModelTest {
 		index[0] = 1;
 		
 		City city2 = new City("", 5, new MeteorShower(0,0,0,0,0), City.State.UNLOCKED);
-		model.newGame(city, items, new ArmoryItemVisitor(city2, city2.getMeteorShower()));
+		model.newGame(city2, items, new ArmoryItemVisitor(city2, city2.getMeteorShower()));
 		
 		model.update(0.01f);
 		

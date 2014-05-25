@@ -17,7 +17,6 @@ import com.esnefedroetem.meteordefense.model.Continent;
 import com.esnefedroetem.meteordefense.model.armoryitem.AbstractArmoryItem;
 import com.esnefedroetem.meteordefense.model.meteor.Meteor;
 import com.esnefedroetem.meteordefense.service.ILoadService;
-import com.esnefedroetem.meteordefense.service.LevelData;
 import com.esnefedroetem.meteordefense.service.ServiceFactory;
 import com.esnefedroetem.meteordefense.service.WeaponData;
 
@@ -197,7 +196,7 @@ public class AssetsLoader {
 		fontXSmall = fontGen.createFont(exoFile, "source-xsmall", 70);
 		fontSmall = fontGen.createFont(exoFile, "source-small", 96);
 		fontMedium = fontGen.createFont(exoFile, "source-medium", 128);
-		fontLarge = fontGen.createFont(exoFile, "source-large", 212);
+		fontLarge = fontGen.createFont(exoFile, "source-large", 188);
 	}
 
 	public BitmapFont getExtraSmallFont(){

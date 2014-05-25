@@ -1,7 +1,6 @@
 package com.esnefedroetem.meteordefense.model.meteor;
 
 import com.badlogic.gdx.math.Vector2;
-import com.esnefedroetem.meteordefense.model.Projectile;
 import com.esnefedroetem.meteordefense.model.Projectile.ProjectileType;
 import com.esnefedroetem.meteordefense.util.Constants;
 
