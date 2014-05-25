@@ -3,7 +3,7 @@ package com.esnefedroetem.meteordefense.model.meteor;
 import com.badlogic.gdx.math.Vector2;
 import com.esnefedroetem.meteordefense.model.Projectile.ProjectileType;
 import com.esnefedroetem.meteordefense.util.Constants;
-/** 
+/** A fire meteor, behavior not implemented, for now a basic meteor but stronger.
  * @author Andreas Pegelow
  *
  */

@@ -5,7 +5,7 @@ import com.esnefedroetem.meteordefense.model.Projectile;
 import com.esnefedroetem.meteordefense.model.Projectile.ProjectileType;
 import com.esnefedroetem.meteordefense.util.Constants;
 
-/**
+/**The most basic implementation of a meteor.
  * @author Andreas Pegelow
  * 
  */

@@ -3,7 +3,13 @@ package com.esnefedroetem.meteordefense.model;
 import com.badlogic.gdx.math.Vector2;
 import com.esnefedroetem.meteordefense.util.Constants;
 
-
+/**This class represents a projectile.
+ * It has a type according to what projectile it is. 
+ * 
+ * @author Andreas Pegelow
+ * @author Simon Nielsen
+ *
+ */
 public class Projectile extends MoveableGameObject {
 	private ProjectileType projectile;
 	

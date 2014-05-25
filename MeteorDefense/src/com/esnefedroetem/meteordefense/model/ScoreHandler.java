@@ -2,7 +2,7 @@ package com.esnefedroetem.meteordefense.model;
 
 import com.esnefedroetem.meteordefense.model.meteor.Meteor;
 
-/**
+/**A class to handle the score and score calculation for a level.
  * 
  * @author Andreas Pegelow
  * 
@@ -58,7 +58,10 @@ public class ScoreHandler {
 		}
 		return totalScore;
 	}
-
+/**
+ * Calculates the amount of starts you will get according to your score.
+ * @return
+ */
 	public int getStars() {
 		int score = getTotalScore();
 		int maxScore = calculateMaxScore();
@@ -90,9 +93,12 @@ public class ScoreHandler {
 		return ((float) numberOfMeteorHits) / numberOfProjectilesUsed;
 
 	}
+	/**
+	 * Calculates hoe much money you will get after you've completed a level. You will only get money if your
+	 * score is better then you previous best score.
+	 * @return the money you got for completing the level.
+	 */
 	public int getNewMoney(){
-		
-		
 		int currentScore = getTotalScore();
 		int difference = 0;
 		
