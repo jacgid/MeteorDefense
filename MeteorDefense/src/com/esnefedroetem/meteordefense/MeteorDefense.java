@@ -15,6 +15,7 @@ import com.esnefedroetem.meteordefense.model.City;
 import com.esnefedroetem.meteordefense.model.Continent;
 import com.esnefedroetem.meteordefense.model.ScoreHandler;
 import com.esnefedroetem.meteordefense.model.armoryitem.AbstractArmoryItem;
+import com.esnefedroetem.meteordefense.renderer.CarouselRenderer;
 import com.esnefedroetem.meteordefense.renderer.ArmoryDetailedRenderer.ArmoryDetaliedEvent;
 import com.esnefedroetem.meteordefense.renderer.ArmoryRenderer.ArmoryEvent;
 import com.esnefedroetem.meteordefense.renderer.CarouselRenderer.CarouselEvent;
@@ -57,11 +58,7 @@ public class MeteorDefense extends Game implements PropertyChangeListener {
 	public void pause() {
 		if (Gdx.app.getType() == ApplicationType.Android) {
 			if (!inGame) {
-				for (Continent c : carouselScreen.getContinents()) {
-					for (City city : c.getCities()) {
-						city.reset();
-					}
-				}
+				resetCities();
 			}
 			save();
 		}
@@ -72,11 +69,7 @@ public class MeteorDefense extends Game implements PropertyChangeListener {
 	public void dispose() {
 		if (Gdx.app.getType() != ApplicationType.Android) {
 			if (inGame) {
-				for (Continent c : carouselScreen.getContinents()) {
-					for (City city : c.getCities()) {
-						city.reset();
-					}
-				}
+				resetCities();
 			}
 			save();
 		}
@@ -92,12 +85,22 @@ public class MeteorDefense extends Game implements PropertyChangeListener {
 	}
 
 	private void save() {
+		System.out.println("save1");
 		List<Continent> continents = carouselScreen.getContinents();
 		List<AbstractArmoryItem> items = armoryScreen.getUnselectedArmoryItems();
 		List<AbstractArmoryItem> choosenItems = armoryScreen.getSelectedArmoryItems();
 
 		ServiceFactory.getInstance().getSaveService().save(SoundService.getInstance().getSoundState(), armoryDetaliedScreen.getWallet(),
 				continents, items, choosenItems);
+		System.out.println("save2");
+	}
+	
+	private void resetCities(){
+		for (Continent c : carouselScreen.getContinents()) {
+			for (City city : c.getCities()) {
+				city.reset();
+			}
+		}
 	}
 
 	/**
@@ -160,6 +163,8 @@ public class MeteorDefense extends Game implements PropertyChangeListener {
 			setScreen(gameScreen);
 		} else if (evt.getPropertyName().equals("Quit Game")) {
 			setScreen(carouselScreen);
+		}else if (evt.getPropertyName().equals(CarouselRenderer.CarouselEvent.CAROUSEL_BACKBUTTON.toString())){
+			setScreen(mainMenuScreen);
 		}
 
 	}

@@ -103,7 +103,7 @@ public class CarouselScreen implements Screen, PropertyChangeListener {
 			renderer.displayContinents(continents);
 			isCitiesDisplayed = false;
 		}else{
-			pcs.firePropertyChange(SplashScreenEvent.SPLASHSCREEN_ENDED.toString(), false, true);
+			pcs.firePropertyChange(CarouselRenderer.CarouselEvent.CAROUSEL_BACKBUTTON.toString(), false, true);
 		}
 	}
 	
