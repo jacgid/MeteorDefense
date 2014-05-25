@@ -18,6 +18,7 @@ import com.esnefedroetem.meteordefense.util.Constants;
  * GameModel handles all the gamelogic, implements IGameModel.
  * 
  * @author Emma Lindholm
+ * @revised Jacob Gideflod, Simon Nielsen, Andreas Pegelow
  * 
  */
 public class GameModel implements IGameModel {
