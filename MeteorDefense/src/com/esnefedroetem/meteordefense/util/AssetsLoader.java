@@ -196,7 +196,7 @@ public class AssetsLoader {
 		fontXSmall = fontGen.createFont(exoFile, "source-xsmall", 70);
 		fontSmall = fontGen.createFont(exoFile, "source-small", 96);
 		fontMedium = fontGen.createFont(exoFile, "source-medium", 128);
-		fontLarge = fontGen.createFont(exoFile, "source-large", 212);
+		fontLarge = fontGen.createFont(exoFile, "source-large", 188);
 	}
 
 	public BitmapFont getExtraSmallFont(){
