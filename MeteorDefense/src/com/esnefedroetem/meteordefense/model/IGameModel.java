@@ -6,6 +6,13 @@ import java.util.List;
 import com.esnefedroetem.meteordefense.model.armoryitem.AbstractArmoryItem;
 import com.esnefedroetem.meteordefense.model.meteor.Meteor;
 
+/**
+ * 
+ * This is the interface that defines the GameModel.
+ * 
+ * @author Jacob
+ *
+ */
 public interface IGameModel  {
 
 	public void newGame(City city, List<AbstractArmoryItem> selectedArmoryItems, IArmoryItemVisitor armoryItemVisitor);
