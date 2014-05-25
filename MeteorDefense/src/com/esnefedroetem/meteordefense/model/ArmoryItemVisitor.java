@@ -19,22 +19,18 @@ import com.esnefedroetem.meteordefense.model.armoryitem.EmptyItem;
  */
 public class ArmoryItemVisitor implements IArmoryItemVisitor {
 
-	private City city;
-	private MeteorShower meteorShower;
-
-	public ArmoryItemVisitor() {
-		// TODO Auto-generated constructor stub
-	}
+	private final City CITY;
+	private final MeteorShower METEOR_SHOWER;
 
 	public ArmoryItemVisitor(City city, MeteorShower meteorShower) {
-		this.city = city;
-		this.meteorShower = meteorShower;
+		this.CITY = city;
+		this.METEOR_SHOWER = meteorShower;
 	}
 
 	@Override
 	public Projectile visit(AbstractEffectArmoryItem element) {
 		if (element.readyToUse()) {
-			element.execute(meteorShower.getVisibleMeteors());
+			element.execute(METEOR_SHOWER.getVisibleMeteors());
 		}
 		return null;
 	}
@@ -42,7 +38,7 @@ public class ArmoryItemVisitor implements IArmoryItemVisitor {
 	@Override
 	public Projectile visit(AbstractDefenseArmoryItem element) {
 		if (element.readyToUse()) {
-			element.execute(city);
+			element.execute(CITY);
 		}
 		return null;
 	}

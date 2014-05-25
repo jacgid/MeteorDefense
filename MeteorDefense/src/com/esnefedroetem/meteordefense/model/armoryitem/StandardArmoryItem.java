@@ -7,10 +7,11 @@ import java.util.ArrayList;
 
 import com.esnefedroetem.meteordefense.model.Projectile;
 import com.esnefedroetem.meteordefense.model.Upgrade;
-import com.esnefedroetem.meteordefense.model.IArmoryItemVisitor;
 import com.esnefedroetem.meteordefense.util.Constants;
 
 /**
+ * StandardArmoryItem extends AbstractProjectileArmoryItem, execute() method
+ * resulting in the return of a Projectile of the type STANDARD_PROJECTILE.
  * @author Emma Lindholm
  *
  */
@@ -47,20 +48,14 @@ public class StandardArmoryItem extends AbstractProjectileArmoryItem {
 		
 	}
 	
+	/**
+	 * Standardweapon should not be tradeable, should be available for user from start 
+	 * without option to sell.
+	 */
 	@Override
 	public int getValue() {
 		return 0;
 	}
 
-	@Override
-	public Projectile accept(IArmoryItemVisitor visitor) {
-		return visitor.visit(this);
-	}
-
-	@Override
-	public Projectile execute() {
-		return new Projectile(getPower(), getProjectileSize(), getProjectileType());
-	}
-	
 
 }

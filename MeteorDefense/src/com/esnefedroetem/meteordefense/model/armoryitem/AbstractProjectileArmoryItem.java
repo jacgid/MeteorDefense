@@ -1,48 +1,49 @@
 package com.esnefedroetem.meteordefense.model.armoryitem;
 
 
+import com.esnefedroetem.meteordefense.model.IArmoryItemVisitor;
 import com.esnefedroetem.meteordefense.model.Projectile;
 import com.esnefedroetem.meteordefense.model.Projectile.ProjectileType;
 
 /** 
- * 
+ * AbstractProjectileArmoryItem extends AbstractArmoryItem and is the superclass
+ * of all armory item firing a projectile. Has the attributes PROJECTILE_SIZE and
+ * PROJECTILE_TYPE.
  *  @author Emma Lindholm
  *  
  */
 
 public abstract class AbstractProjectileArmoryItem extends AbstractArmoryItem {
 	
-	private float projectileSize;
-	private ProjectileType projectileType;
+	private final float PROJECTILE_SIZE;
+	private final ProjectileType PROJECTILE_TYPE;
 	
 	public AbstractProjectileArmoryItem(String name, String description, float projectileSize, ProjectileType projectileType) {
 		super(name, description);
-		this.projectileSize = projectileSize;
-		this.projectileType = projectileType;
+		this.PROJECTILE_SIZE = projectileSize;
+		this.PROJECTILE_TYPE = projectileType;
 	}
 	
 	public AbstractProjectileArmoryItem(State state, int upgradeIndex, String name, String description,
 			float projectileSize, Projectile.ProjectileType projectileType) {
 		super(state, upgradeIndex, name, description);
-		this.projectileSize = projectileSize;
-		this.projectileType = projectileType;
+		this.PROJECTILE_SIZE = projectileSize;
+		this.PROJECTILE_TYPE = projectileType;
 	}
 
 	public float getProjectileSize() {
-		return projectileSize;
+		return PROJECTILE_SIZE;
 	}
 	
 	public ProjectileType getProjectileType() {
-		return projectileType;
+		return PROJECTILE_TYPE;
+	}
+		
+	public Projectile accept(IArmoryItemVisitor visitor) {
+		return visitor.visit(this);
 	}
 	
-	public void setProjectileSize(float projectileSize) {
-		this.projectileSize = projectileSize;
+	public Projectile execute() {
+		return new Projectile(getPower(), getProjectileSize(), getProjectileType());
 	}
-	
-	public void setProjectileType(ProjectileType projectileType) {
-		this.projectileType = projectileType;
-	}
-
-	public abstract Projectile execute();
 }

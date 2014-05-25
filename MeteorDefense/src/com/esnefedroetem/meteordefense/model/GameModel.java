@@ -15,9 +15,9 @@ import com.esnefedroetem.meteordefense.model.meteor.Meteor;
 import com.esnefedroetem.meteordefense.util.Constants;
 
 /**
- * The GameModel handles all the gamelogic.
+ * GameModel handles all the gamelogic, implements IGameModel.
  * 
- * @author Simon Nielsen
+ * @author Emma Lindholm
  * 
  */
 public class GameModel implements IGameModel {
@@ -26,25 +26,25 @@ public class GameModel implements IGameModel {
 	private Collection<Meteor> meteorsToBlow;
 	private List<AbstractArmoryItem> armoryItems;
 	private AbstractArmoryItem selectedArmoryItem, standardWeapon;
-	private CannonBarrel cannonBarrel;
+	private final CannonBarrel CANNON_BARREL;
 	private City city;
 	private MeteorShower meteorShower;
-	private ScoreHandler scoreHandler;
+	private final ScoreHandler SCORE_HANDLER;
 	private PropertyChangeSupport pcs;
 	private IArmoryItemVisitor visitor;
 	private boolean isPaused;
 
-	private final float width, height;
+	private final float WIDTH, HEIGHT;
 
 	public GameModel(PropertyChangeListener listener, CannonBarrel cannonBarrel) {
 		pcs = new PropertyChangeSupport(this);
 		pcs.addPropertyChangeListener(listener);
-		this.cannonBarrel = cannonBarrel;
+		this.CANNON_BARREL = cannonBarrel;
 		projectiles = new ArrayList<Projectile>();
 		meteorsToBlow = new ArrayList<Meteor>();
-		scoreHandler = new ScoreHandler();
-		width = 720;
-		height = 1280;
+		SCORE_HANDLER = new ScoreHandler();
+		WIDTH = 720;
+		HEIGHT = 1280;
 	}
 
 	@Override
@@ -53,12 +53,12 @@ public class GameModel implements IGameModel {
 		this.armoryItems = selectedArmoryItems;
 		standardWeapon = selectedArmoryItems.get(2);
 		selectedArmoryItem = standardWeapon;
-		scoreHandler.reset();
+		SCORE_HANDLER.reset();
 		meteorShower = city.getMeteorShower();
 		meteorShower.loadMeteors();
 		meteorShower.start();
 		this.visitor = armoryItemVisitor;
-		cannonBarrel.load(standardWeapon.accept(visitor));
+		CANNON_BARREL.load(standardWeapon.accept(visitor));
 		isPaused = false;
 	}
 
@@ -92,15 +92,18 @@ public class GameModel implements IGameModel {
 
 	@Override
 	public void shoot(float posX, float posY) {
-		cannonBarrel.calculateAngle(posX, posY);
-		if (!projectiles.contains(cannonBarrel.deploy())) {
-			projectiles.add(cannonBarrel.deploy());
-			scoreHandler.weaponFired();
+		CANNON_BARREL.calculateAngle(posX, posY);
+		
+		// if the projectile which CANNON_BARREL is loaded with is not yet added to
+		// the projectiles list (in other words already deployed) a shot should be fired
+		if (!projectiles.contains(CANNON_BARREL.deploy())) {
+			projectiles.add(CANNON_BARREL.deploy());
+			SCORE_HANDLER.weaponFired();
 		}
 
 		Projectile projectile = standardWeapon.accept(visitor);
 		if (projectile != null) {
-			cannonBarrel.load(projectile);
+			CANNON_BARREL.load(projectile);
 		}
 	}
 
@@ -110,7 +113,7 @@ public class GameModel implements IGameModel {
 
 		Projectile projectile = selectedArmoryItem.accept(visitor);
 		if (projectile != null) {
-			cannonBarrel.load(projectile);
+			CANNON_BARREL.load(projectile);
 		}
 	}
 
@@ -126,7 +129,7 @@ public class GameModel implements IGameModel {
 
 	@Override
 	public float getCannonAngle() {
-		return cannonBarrel.getAngle();
+		return CANNON_BARREL.getAngle();
 	}
 
 	@Override
@@ -146,7 +149,7 @@ public class GameModel implements IGameModel {
 
 	@Override
 	public CannonBarrel getCannonBarrel() {
-		return cannonBarrel;
+		return CANNON_BARREL;
 	}
 
 	@Override
@@ -156,17 +159,17 @@ public class GameModel implements IGameModel {
 
 	@Override
 	public float getWidth() {
-		return width;
+		return WIDTH;
 	}
 
 	@Override
 	public float getHeight() {
-		return height;
+		return HEIGHT;
 	}
 
 	@Override
 	public int getScore() {
-		return scoreHandler.getMeteorScore();
+		return SCORE_HANDLER.getMeteorScore();
 	}
 
 	private void collisionControll() {
@@ -197,18 +200,17 @@ public class GameModel implements IGameModel {
 			Collection<Meteor> meteorsToRemove) {
 		boolean isKilled = meteorShower.meteorHit(meteor,
 				projectile.getDamage(), projectile.getProjectileType());
-		scoreHandler.meteorHit();
+		SCORE_HANDLER.meteorHit();
 
 		if (isKilled) {
 			meteorsToRemove.add(meteor);
-			scoreHandler.meteorDestroyed(meteor);
+			SCORE_HANDLER.meteorDestroyed(meteor);
 			meteorsToBlow.add(meteor);
 		}
 	}
 
 	private boolean collisionOccurs(Projectile projectile, Meteor meteor) {
 		return Intersector.overlaps(meteor.getBounds(), projectile.getBounds());
-		// return projectile.getBounds().overlaps(meteor.getBounds());
 	}
 
 	private boolean collisionWithCityOccurs(Meteor meteor) {
@@ -229,13 +231,16 @@ public class GameModel implements IGameModel {
 	private void removeMeteorsBeyondGameField() {
 		Collection<Meteor> meteorsToRemove = new ArrayList<Meteor>();
 		for (Meteor meteor : meteorShower.getVisibleMeteors()) {
+			// To avoid removal of recently spawned meteors just "above" the screen
+			// a temporary meteor is created below the actual meteor. Only meteors far
+			// "above" is then removed, without need of another outOfBounds() method.
 			Meteor temp = new BasicMeteor();
 			temp.setBounds(new Rectangle(meteor.getX(), meteor.getY() - 250,
 					meteor.getBounds().width, meteor.getBounds().height));
 			if (outOfBounds(temp)) {
 				meteorsToRemove.add(meteor);
-				scoreHandler.meteorHit();
-				scoreHandler.meteorDestroyed(meteor);
+				SCORE_HANDLER.meteorHit();
+				SCORE_HANDLER.meteorDestroyed(meteor);
 			}
 
 		}
@@ -251,12 +256,12 @@ public class GameModel implements IGameModel {
 	}
 
 	private void gameover() {
-		scoreHandler.gameOver(city.getLife(), city.getMaxLife(),
+		SCORE_HANDLER.gameOver(city.getLife(), city.getMaxLife(),
 				city.getHighScore(), meteorShower.getMaxScore());
-		city.setScore(scoreHandler.getTotalScore());
-		city.setStars(scoreHandler.getStars());
+		city.setScore(SCORE_HANDLER.getTotalScore());
+		city.setStars(SCORE_HANDLER.getStars());
 
-		pcs.firePropertyChange("Gameover", city, scoreHandler);
+		pcs.firePropertyChange("Gameover", city, SCORE_HANDLER);
 		reset();
 
 	}
@@ -264,7 +269,7 @@ public class GameModel implements IGameModel {
 	private void reset() {
 		city.reset();
 		projectiles.clear();
-		cannonBarrel.reset();
+		CANNON_BARREL.reset();
 
 		for (AbstractArmoryItem item : armoryItems) {
 			item.resetLastUsed();

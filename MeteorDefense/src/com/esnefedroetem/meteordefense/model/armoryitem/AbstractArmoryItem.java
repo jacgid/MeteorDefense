@@ -1,7 +1,5 @@
 package com.esnefedroetem.meteordefense.model.armoryitem;
 
-import java.beans.PropertyChangeListener;
-import java.beans.PropertyChangeSupport;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -26,13 +24,13 @@ public abstract class AbstractArmoryItem implements IArmoryItemElement {
 	private float cooldown;
 	private long lastUsed;
 	private List<Upgrade> upgrades;
-	private String name, description;
+	private final String NAME, DESCRIPTION;
 	public static final EmptyItem EMPTY_ITEM = new EmptyItem();
 
 	
 	public AbstractArmoryItem(String name, String description) {
-		this.name = name;
-		this.description = description;
+		this.NAME = name;
+		this.DESCRIPTION = description;
 	}
 	public AbstractArmoryItem(State state, int upgradeIndex, String name, String description) {
 		this(name, description);
@@ -132,25 +130,17 @@ public abstract class AbstractArmoryItem implements IArmoryItemElement {
 	}
 
 	public String getName() {
-		return name;
+		return NAME;
 	}
 
 	public String getDescription() {
-		return description;
-	}
-
-	public void setName(String name) {
-		this.name = name;
-	}
-
-	public void setDescription(String description) {
-		this.description = description;
+		return DESCRIPTION;
 	}
 
 	@Override
 	public boolean equals(Object o) {
 		if (o instanceof AbstractArmoryItem) {
-			return name.equals(((AbstractArmoryItem) o).getName());
+			return NAME.equals(((AbstractArmoryItem) o).getName());
 		}
 		return false;
 	}

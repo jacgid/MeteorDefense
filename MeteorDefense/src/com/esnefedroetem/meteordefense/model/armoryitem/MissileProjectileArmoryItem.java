@@ -5,21 +5,19 @@ package com.esnefedroetem.meteordefense.model.armoryitem;
 
 import java.util.ArrayList;
 
-import org.w3c.dom.views.AbstractView;
-
-import com.esnefedroetem.meteordefense.model.IArmoryItemVisitor;
 import com.esnefedroetem.meteordefense.model.Projectile;
 import com.esnefedroetem.meteordefense.model.Upgrade;
-import com.esnefedroetem.meteordefense.model.armoryitem.AbstractArmoryItem.State;
 import com.esnefedroetem.meteordefense.util.Constants;
 
 /**
- * @author Emma
+ * MissileProjectileArmoryItem extends AbstractProjectileArmoryItem, execute() method
+ * resulting in the return of a Projectile of the type MISSILE_PROJECTILE.
+ * @author Emma Lindholm
  *
  */
 public class MissileProjectileArmoryItem extends AbstractProjectileArmoryItem{
 	
-	private static final String NAME =  "MissileLauncher", DESCRIPTION = "Lorem ipsum dolor sit amet, consectetur adipiscing elit.";
+	private static final String NAME =  "MissileLauncher", DESCRIPTION = "The missiles launched by this weapon are more powerful than normal projectiles and does therefore cause greater damage to meteors.";
 	
 	public MissileProjectileArmoryItem() {
 		super(NAME, DESCRIPTION, Constants.DEFAULT_PROJECTILE_SIZE * 3, Projectile.ProjectileType.MISSILE_PROJECTILE);
@@ -29,16 +27,7 @@ public class MissileProjectileArmoryItem extends AbstractProjectileArmoryItem{
 		super(state, upgradeIndex, NAME, DESCRIPTION, Constants.DEFAULT_PROJECTILE_SIZE * 3, Projectile.ProjectileType.MISSILE_PROJECTILE);
 		
 	}
-	
-	@Override
-	public Projectile accept(IArmoryItemVisitor visitor) {
-		return visitor.visit(this);
-	}
 
-	@Override
-	public Projectile execute() {
-		return new Projectile(getPower(), getProjectileSize(), getProjectileType());
-	}
 
 	@Override
 	public void initUpgrades() {

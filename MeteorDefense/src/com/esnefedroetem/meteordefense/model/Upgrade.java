@@ -10,8 +10,8 @@ package com.esnefedroetem.meteordefense.model;
 
 public class Upgrade {
 	
-	private int powerIncrement, upgradeValue;
-	private float cooldownDecrement;
+	private final int POWER_INCREMENT, UPGRADE_VALUE;
+	private final float COOLDOWN_DECREMENT;
 	
 	/**
 	 * 
@@ -20,20 +20,20 @@ public class Upgrade {
 	 * @param upgradeValue value in coins that the upgrade is worth
 	 */
 	public Upgrade(int powerIncrement, float cooldownDecrement, int upgradeValue) {
-		this.powerIncrement = powerIncrement;
-		this.cooldownDecrement = cooldownDecrement;
-		this.upgradeValue = upgradeValue;
+		this.POWER_INCREMENT = powerIncrement;
+		this.COOLDOWN_DECREMENT = cooldownDecrement;
+		this.UPGRADE_VALUE = upgradeValue;
 	}
 	
 	public float getCooldownDecrement() {
-		return cooldownDecrement;
+		return COOLDOWN_DECREMENT;
 	}
 	
 	public int getPowerIncrement() {
-		return powerIncrement;
+		return POWER_INCREMENT;
 	}
 	
 	public int getUpgradeValue() {
-		return upgradeValue;
+		return UPGRADE_VALUE;
 	}
 }

@@ -6,6 +6,13 @@ import com.esnefedroetem.meteordefense.model.Projectile;
 import com.esnefedroetem.meteordefense.model.Upgrade;
 import com.esnefedroetem.meteordefense.model.IArmoryItemVisitor;
 
+/**
+ * EmptyItem extends AbstractArmoryItem and is an empty object used to fill empty
+ * spaces in the toolbar of chosen armory items.
+ * @author Emma
+ *
+ */
+
 public class EmptyItem extends AbstractArmoryItem {
 
 	
@@ -16,9 +23,7 @@ public class EmptyItem extends AbstractArmoryItem {
 	@Override
 	public void initUpgrades() {
 		ArrayList<Upgrade> upgrades = new ArrayList<Upgrade>();
-		for(int i = 0; i < 1; i++) {
-			upgrades.add(new Upgrade(0, 0, 0));
-		}
+		upgrades.add(new Upgrade(0, 0, 0));
 		setUpgradeList(upgrades);
 		
 	}

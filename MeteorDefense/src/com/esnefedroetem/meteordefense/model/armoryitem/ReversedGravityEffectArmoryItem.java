@@ -3,19 +3,19 @@ package com.esnefedroetem.meteordefense.model.armoryitem;
 import java.util.ArrayList;
 import java.util.List;
 
-import com.esnefedroetem.meteordefense.model.Projectile;
-import com.esnefedroetem.meteordefense.model.Projectile.ProjectileType;
 import com.esnefedroetem.meteordefense.model.Upgrade;
-import com.esnefedroetem.meteordefense.model.IArmoryItemVisitor;
-import com.esnefedroetem.meteordefense.model.armoryitem.AbstractArmoryItem.State;
 import com.esnefedroetem.meteordefense.model.meteor.Meteor;
-import com.esnefedroetem.meteordefense.util.Constants;
 
+/**
+ * ReversedGravityEffectArmoryItem extends AbstractEffectArmoryItem, execute() method
+ * results in reverting the speed of all meteors in the list sent as parameter, sending
+ * them back the way they came from.
+ * @author Emma Lindholm
+ *
+ */
 public class ReversedGravityEffectArmoryItem extends AbstractEffectArmoryItem {
 
-	private List<Meteor> list = new ArrayList<Meteor>();
-	
-	private static final String NAME =  "ReversedGravityEffect", DESCRIPTION = "Lorem ipsum dolor sit amet, consectetur adipiscing elit.";
+	private static final String NAME =  "ReversedGravityEffect", DESCRIPTION = "This weapon has the power to revert meteors gravity, sending them back up to space where they eventually will be destroyed.";
 		
 	public ReversedGravityEffectArmoryItem() {
 		super(NAME, DESCRIPTION);
@@ -47,11 +47,6 @@ public class ReversedGravityEffectArmoryItem extends AbstractEffectArmoryItem {
 	@Override
 	public void update(float delta) {
 	
-	}
-
-	@Override
-	public Projectile accept(IArmoryItemVisitor visitor) {
-		return visitor.visit(this);
 	}
 	
 }

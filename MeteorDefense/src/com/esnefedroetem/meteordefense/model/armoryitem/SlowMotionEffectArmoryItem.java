@@ -3,15 +3,19 @@ package com.esnefedroetem.meteordefense.model.armoryitem;
 import java.util.ArrayList;
 import java.util.List;
 
-import com.esnefedroetem.meteordefense.model.Projectile;
 import com.esnefedroetem.meteordefense.model.Upgrade;
-import com.esnefedroetem.meteordefense.model.IArmoryItemVisitor;
-import com.esnefedroetem.meteordefense.model.armoryitem.AbstractArmoryItem.State;
 import com.esnefedroetem.meteordefense.model.meteor.Meteor;
+
+/**
+ * SlowMotionEffectArmoryItem extends AbstractEffectArmoryItem, execute() method
+ * results in reducing the speed of all meteors in the list sent as parameter.
+ * @author Emma Lindholm
+ *
+ */
 
 public class SlowMotionEffectArmoryItem extends AbstractEffectArmoryItem {
 	
-	private static final String NAME =  "SlowMotionEffect", DESCRIPTION = "Lorem ipsum dolor sit amet, consectetur adipiscing elit.";
+	private static final String NAME =  "SlowMotionEffect", DESCRIPTION = "This weapon slows the meteors down, giving you more time to destroy them before they hit the city.";
 
 	public SlowMotionEffectArmoryItem() {
 		super(NAME, DESCRIPTION);		
@@ -44,12 +48,6 @@ public class SlowMotionEffectArmoryItem extends AbstractEffectArmoryItem {
 	@Override
 	public void update(float delta) {
 		// TODO Auto-generated method stub
-		
-	}
-
-	@Override
-	public Projectile accept(IArmoryItemVisitor visitor) {
-		return visitor.visit(this);
 		
 	}
 
