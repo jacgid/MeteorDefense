@@ -74,15 +74,15 @@ public abstract class MoveableGameObject {
 		bounds.setPosition(position);
 	}
 	
-	@Override
-	public boolean equals(Object o){
-		if (o instanceof MoveableGameObject) {
-			MoveableGameObject moveable = (MoveableGameObject) o;
-			return speed == moveable.speed
-					&& angle == moveable.angle
-					&& bounds.equals(moveable.bounds)
-					&& damage == moveable.damage;
-		}
-		return false;
-	}
+//	@Override
+//	public boolean equals(Object o){
+//		if (o instanceof MoveableGameObject) {
+//			MoveableGameObject moveable = (MoveableGameObject) o;
+//			return speed == moveable.speed
+//					&& angle == moveable.angle
+//					&& bounds.equals(moveable.bounds)
+//					&& damage == moveable.damage;
+//		}
+//		return false;
+//	}
 }

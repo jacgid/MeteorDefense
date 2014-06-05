@@ -60,5 +60,9 @@ public class CannonBarrel {
 	public void load(Projectile projectile) {
 		this.projectile = projectile;
 	}
+	
+	public Projectile getProjectile(){
+		return projectile;
+	}
 
 }

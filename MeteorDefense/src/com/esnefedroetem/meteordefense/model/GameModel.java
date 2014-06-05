@@ -4,6 +4,7 @@ import java.beans.PropertyChangeListener;
 import java.beans.PropertyChangeSupport;
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.HashSet;
 import java.util.List;
 
 import com.badlogic.gdx.math.Intersector;
@@ -40,7 +41,7 @@ public class GameModel implements IGameModel {
 		pcs = new PropertyChangeSupport(this);
 		pcs.addPropertyChangeListener(listener);
 		this.CANNON_BARREL = cannonBarrel;
-		projectiles = new ArrayList<Projectile>();
+		projectiles = new HashSet<Projectile>();
 		meteorsToBlow = new ArrayList<Meteor>();
 		SCORE_HANDLER = new ScoreHandler();
 		WIDTH = 720;
@@ -75,6 +76,13 @@ public class GameModel implements IGameModel {
 			removeMeteorsBeyondGameField();
 
 			city.update(delta);
+			
+			if(projectiles.contains(CANNON_BARREL.getProjectile())) {
+				Projectile projectile = standardWeapon.accept(visitor);
+				if (projectile != null) {
+					CANNON_BARREL.load(projectile);
+				}
+			}
 
 			if (meteorShower.gameover() || city.getLife() <= 0) {
 				gameover();
@@ -86,8 +94,8 @@ public class GameModel implements IGameModel {
 				item.increaseRemainingCooldown((long)(delta * 1000));
 			}
 
-		}
 
+		}
 	}
 
 	@Override
@@ -96,14 +104,9 @@ public class GameModel implements IGameModel {
 		
 		// if the projectile which CANNON_BARREL is loaded with is not yet added to
 		// the projectiles list (in other words already deployed) a shot should be fired
-		if (!projectiles.contains(CANNON_BARREL.deploy())) {
+		if (!projectiles.contains(CANNON_BARREL.getProjectile())) {
 			projectiles.add(CANNON_BARREL.deploy());
 			SCORE_HANDLER.weaponFired();
-		}
-
-		Projectile projectile = standardWeapon.accept(visitor);
-		if (projectile != null) {
-			CANNON_BARREL.load(projectile);
 		}
 	}
 

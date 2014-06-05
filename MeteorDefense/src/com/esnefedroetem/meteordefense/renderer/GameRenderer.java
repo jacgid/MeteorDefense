@@ -1,11 +1,14 @@
 package com.esnefedroetem.meteordefense.renderer;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.GL11;
 import com.badlogic.gdx.graphics.OrthographicCamera;
+import com.badlogic.gdx.graphics.Texture;
+import com.badlogic.gdx.graphics.g2d.Animation;
 import com.badlogic.gdx.graphics.g2d.ParticleEffect;
 import com.badlogic.gdx.graphics.g2d.ParticleEmitter;
 import com.badlogic.gdx.graphics.g2d.Sprite;
@@ -26,6 +29,8 @@ import com.badlogic.gdx.scenes.scene2d.ui.Label.LabelStyle;
 import com.badlogic.gdx.scenes.scene2d.ui.Table;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 import com.badlogic.gdx.scenes.scene2d.utils.TextureRegionDrawable;
+import com.badlogic.gdx.utils.Array;
+import com.badlogic.gdx.utils.TimeUtils;
 import com.esnefedroetem.meteordefense.model.City;
 import com.esnefedroetem.meteordefense.model.IGameModel;
 import com.esnefedroetem.meteordefense.model.Projectile;
@@ -60,10 +65,12 @@ public class GameRenderer {
 	private Rectangle viewport;
 	private float scale;
 	private HashMap<String, Sprite> spriteMap;
+	private HashMap<String, Animation> animationMap;
 	private AssetsLoader assetsLoader = AssetsLoader.getInstance();
 	private ParticleEffect fireEffect, explosionEffect;
 	private ParticleEmitter fireEmitters[] = new ParticleEmitter[10];
 	private int startedFires = 0;
+	private float duration = 0;
 
 	/**
 	 * Initializes GameRenderer.
@@ -130,13 +137,30 @@ public class GameRenderer {
 
 	private void loadSprites() {
 		spriteMap = new HashMap<String, Sprite>();
-		String[] meteors = MeteorType.getTypes();
-		for (int i = 0; i < meteors.length; i++) {
-			spriteMap.put(meteors[i], new Sprite(assetsLoader.getTexture(meteors[i] + ".png")));
-		}
 		String[] projectiles = ProjectileType.getTypes();
 		for (int i = 0; i < projectiles.length; i++) {
 			spriteMap.put(projectiles[i], new Sprite(assetsLoader.getTexture(projectiles[i] + ".png")));
+		}
+		
+		
+		String[] meteors = MeteorType.getTypes();
+		List<Texture> temp = new ArrayList<Texture>();
+		for (int i = 0; i < meteors.length; i++) {
+			temp.add(assetsLoader.getTexture(meteors[i] + ".png"));
+		}
+		
+		
+		animationMap = new HashMap<String, Animation>();
+		HashMap<String, List<Texture>> animationTextures = new HashMap<String, List<Texture>>();
+		for (int i = 0; i < meteors.length; i++) {
+			animationTextures.put(meteors[i], temp);
+		}
+		for(String key : animationTextures.keySet()){
+			Array<TextureRegion> regions = new Array<TextureRegion>();
+			for(Texture texture : animationTextures.get(key)){
+				regions.add(new TextureRegion(texture));
+			}
+			animationMap.put(key, new Animation(0.2f, regions));
 		}
 
 	}
@@ -160,7 +184,7 @@ public class GameRenderer {
 		gameCam.apply(Gdx.gl10);
 		spriteBatch.setProjectionMatrix(gameCam.combined);
 		spriteBatch.begin();
-		drawSprites();
+		drawSprites(delta);
 
 		fireEffect.draw(spriteBatch, delta);
 		explosionEffect.draw(spriteBatch, delta);
@@ -169,18 +193,19 @@ public class GameRenderer {
 		gameStage.act();
 		gameStage.draw();
 		drawWeaponCooldown();
-
+		duration += delta;
 	}
 
-	private void drawSprites() {
+	private void drawSprites(float delta) {
 		citySprite.draw(spriteBatch);
 		cityMonumentSprite.draw(spriteBatch);
 		for (Meteor meteor : model.getVisibleMeteors()) {
 			float x = meteor.getX();
 			float y = meteor.getY();
-			Sprite meteorSprite = spriteMap.get(meteor.getType().toString());
-			meteorSprite.setBounds(x, y, meteor.getBounds().width, meteor.getBounds().height);
-			meteorSprite.draw(spriteBatch);
+//			Sprite meteorSprite = spriteMap.get(meteor.getType().toString());
+//			meteorSprite.setBounds(x, y, meteor.getBounds().width, meteor.getBounds().height);
+//			meteorSprite.draw(spriteBatch);
+			spriteBatch.draw(animationMap.get(meteor.getType().toString()).getKeyFrame(duration, true), x, y, meteor.getBounds().width, meteor.getBounds().height);
 		}
 		imgCannon.setOrigin(Constants.CANNON_ORIGIN_X, Constants.CANNON_ORIGIN_Y);
 		imgCannon.setRotation(((float) Math.toDegrees(model.getCannonAngle()) - 90));
@@ -294,7 +319,7 @@ public class GameRenderer {
 		initCityFire();
 		explosionEffect.update(5f);
 		gameStage.act(5f);
-
+		duration = 0;
 		// TODO change to specific city monument
 	}
 
