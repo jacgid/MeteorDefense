@@ -3,6 +3,8 @@
  */
 package com.esnefedroetem.meteordefense.model;
 
+import java.util.ArrayList;
+
 import com.esnefedroetem.meteordefense.model.armoryitem.AbstractDefenseArmoryItem;
 import com.esnefedroetem.meteordefense.model.armoryitem.AbstractEffectArmoryItem;
 import com.esnefedroetem.meteordefense.model.armoryitem.AbstractProjectileArmoryItem;
@@ -21,10 +23,14 @@ public class ArmoryItemVisitor implements IArmoryItemVisitor {
 
 	private final City CITY;
 	private final MeteorShower METEOR_SHOWER;
+	private GameModel model;
+	private ArrayList<Projectile> projectilesToAdd, projectilesToRemove;
 
-	public ArmoryItemVisitor(City city, MeteorShower meteorShower) {
+	public ArmoryItemVisitor(City city, MeteorShower meteorShower, ArrayList<Projectile> projectilesToAdd, ArrayList<Projectile> projectilesToRemove) {
 		this.CITY = city;
 		this.METEOR_SHOWER = meteorShower;
+		this.projectilesToAdd = projectilesToAdd;
+		this.projectilesToRemove = projectilesToRemove;
 	}
 
 	@Override
@@ -46,7 +52,7 @@ public class ArmoryItemVisitor implements IArmoryItemVisitor {
 	@Override
 	public Projectile visit(AbstractProjectileArmoryItem element) {
 		if (element.readyToUse()) {
-			return element.execute();
+			return element.execute(projectilesToAdd, projectilesToRemove);
 		}
 		return null;
 	}

@@ -31,7 +31,7 @@ public class GameModelTest {
 		items.add(new StandardArmoryItem());
 		items.add(new StandardArmoryItem());
 		City city = new City("", 10, new MeteorShower(1, 1, 1, 1, 1), City.State.UNLOCKED);
-		model.newGame(city, items, new ArmoryItemVisitor(city, city.getMeteorShower()));
+//		model.newGame(city, items, new ArmoryItemVisitor(city, city.getMeteorShower()));
 		int size1 = model.getVisibleProjectiles().size();
 		model.shoot(500, 500);
 		assertTrue(model.getVisibleProjectiles().size() > size1);
@@ -47,7 +47,7 @@ public class GameModelTest {
 		items.add(new StandardArmoryItem());
 		items.add(new StandardArmoryItem());
 		City city = new City("", 10, new MeteorShower(1, 1, 1, 1, 1), City.State.UNLOCKED);
-		model.newGame(city, items, new ArmoryItemVisitor(city, city.getMeteorShower()));
+//		model.newGame(city, items, new ArmoryItemVisitor(city, city.getMeteorShower()));
 		
 		Meteor meteor1 = new BasicMeteor(new Vector2(500, 500));
 		Projectile projectile1 = new Projectile((float)Math.PI / 2, new Vector2(501, 501));
@@ -78,7 +78,7 @@ public class GameModelTest {
 		items.add(new StandardArmoryItem());
 		items.add(new StandardArmoryItem());
 		City city = new City("", 10, new MeteorShower(1, 1, 1, 1, 1), City.State.UNLOCKED);
-		model.newGame(city, items, new ArmoryItemVisitor(city, city.getMeteorShower()));
+//		model.newGame(city, items, new ArmoryItemVisitor(city, city.getMeteorShower()));
 		
 		Projectile projectile1 = new Projectile((float)Math.PI / 2, new Vector2(501, 1600));
 		Projectile projectile2 = new Projectile((float)Math.PI / 2, new Vector2(-20, 450));
@@ -108,7 +108,7 @@ public class GameModelTest {
 		items.add(new StandardArmoryItem());
 		items.add(new StandardArmoryItem());
 		City city = new City("", 10, new MeteorShower(1, 1, 1, 1, 1), City.State.UNLOCKED);
-		model.newGame(city, items, new ArmoryItemVisitor(city, city.getMeteorShower()));
+//		model.newGame(city, items, new ArmoryItemVisitor(city, city.getMeteorShower()));
 		
 		Meteor meteor1 = new BasicMeteor(new Vector2(500, 500));
 		Meteor meteor2 = new BasicMeteor(new Vector2(100, Constants.CITY_BOUNDS.y + 50));
@@ -135,7 +135,7 @@ public class GameModelTest {
 		items.add(new StandardArmoryItem());
 		items.add(new StandardArmoryItem());		
 		City city = new City("", 10, new MeteorShower(1, 1, 1, 1, 1), City.State.UNLOCKED);
-		model.newGame(city, items, new ArmoryItemVisitor(city, city.getMeteorShower()));
+//		model.newGame(city, items, new ArmoryItemVisitor(city, city.getMeteorShower()));
 		City cityCopy = new City("", 10, new MeteorShower(1, 1, 1, 1, 1), City.State.UNLOCKED);
 		
 		Meteor meteor1 = new BasicMeteor(new Vector2(500, 500));
@@ -193,7 +193,7 @@ public class GameModelTest {
 		items.add(new StandardArmoryItem());
 		items.add(new StandardArmoryItem());
 		City city = new City("", 1, new MeteorShower(1, 1, 1, 1, 1), City.State.UNLOCKED);
-		model.newGame(city, items, new ArmoryItemVisitor(city, city.getMeteorShower()));
+//		model.newGame(city, items, new ArmoryItemVisitor(city, city.getMeteorShower()));
 		
 		model.getCity().hit(new BasicMeteor(new Vector2(500, 500)));
 		model.update(0.01f);
@@ -201,7 +201,7 @@ public class GameModelTest {
 		index[0] = 1;
 		
 		City city2 = new City("", 5, new MeteorShower(0,0,0,0,0), City.State.UNLOCKED);
-		model.newGame(city2, items, new ArmoryItemVisitor(city2, city2.getMeteorShower()));
+//		model.newGame(city2, items, new ArmoryItemVisitor(city2, city2.getMeteorShower()));
 		
 		model.update(0.01f);
 		

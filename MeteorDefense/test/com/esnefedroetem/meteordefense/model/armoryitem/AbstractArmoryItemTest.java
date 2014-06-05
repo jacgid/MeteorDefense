@@ -72,7 +72,7 @@ public class AbstractArmoryItemTest {
 	public void testIncreaseRemainingCooldown() {
 		AbstractProjectileArmoryItem item = new StandardArmoryItem(State.UNLOCKED, 1);
 		item.readyToUse();
-		item.execute();
+//		item.execute();
 		
 		float prevRemainingCooldown = item.getRemainingCooldown();
 		item.increaseRemainingCooldown(2000);

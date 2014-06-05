@@ -1,6 +1,8 @@
 package com.esnefedroetem.meteordefense.model.armoryitem;
 
 
+import java.util.ArrayList;
+
 import com.esnefedroetem.meteordefense.model.IArmoryItemVisitor;
 import com.esnefedroetem.meteordefense.model.Projectile;
 import com.esnefedroetem.meteordefense.model.Projectile.ProjectileType;
@@ -43,7 +45,7 @@ public abstract class AbstractProjectileArmoryItem extends AbstractArmoryItem {
 		return visitor.visit(this);
 	}
 	
-	public Projectile execute() {
+	public Projectile execute(ArrayList<Projectile> projectilesToAdd, ArrayList<Projectile> projectilesToRemove) {
 		return new Projectile(getPower(), getProjectileSize(), getProjectileType());
 	}
 }

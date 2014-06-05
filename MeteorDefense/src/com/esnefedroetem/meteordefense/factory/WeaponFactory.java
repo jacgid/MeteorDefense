@@ -10,6 +10,7 @@ import com.esnefedroetem.meteordefense.model.armoryitem.HealingDefenseArmoryItem
 import com.esnefedroetem.meteordefense.model.armoryitem.MissileProjectileArmoryItem;
 import com.esnefedroetem.meteordefense.model.armoryitem.ReversedGravityEffectArmoryItem;
 import com.esnefedroetem.meteordefense.model.armoryitem.SlowMotionEffectArmoryItem;
+import com.esnefedroetem.meteordefense.model.armoryitem.SplitMissileProjectileArmoryItem;
 import com.esnefedroetem.meteordefense.model.armoryitem.StandardArmoryItem;
 import com.esnefedroetem.meteordefense.model.armoryitem.AbstractArmoryItem.State;
 import com.esnefedroetem.meteordefense.service.ServiceFactory;
@@ -35,12 +36,14 @@ class WeaponFactory {
 		AbstractArmoryItem item8 = new StandardArmoryItem();
 		AbstractArmoryItem item9 = new SlowMotionEffectArmoryItem();
 		AbstractArmoryItem item3 = new HealingDefenseArmoryItem();
+		AbstractArmoryItem item10 = new SplitMissileProjectileArmoryItem();
 		items.put(item1.getName(), item1);
 		items.put(item2.getName(), item2);
 		items.put(item7.getName(), item7);
 		items.put(item8.getName(), item8);
 		items.put(item9.getName(), item9);
 		items.put(item3.getName(), item3);
+		items.put(item10.getName(), item10);
 	}
 	
 	protected static WeaponFactory getInstance(){
@@ -71,12 +74,12 @@ class WeaponFactory {
 			armoryItems.add(new EmptyItem());
 			armoryItems.add(new EmptyItem());
 			armoryItems.add(new EmptyItem());
+			armoryItems.add(new SplitMissileProjectileArmoryItem(State.UNLOCKED, 1));
 			armoryItems.add(new HealingDefenseArmoryItem(State.UNLOCKED, 1));
 			armoryItems.add(new ReversedGravityEffectArmoryItem(State.UNLOCKED, 1));
 			armoryItems.add(new StandardArmoryItem(State.UNLOCKED, 1));
 			armoryItems.add(new SlowMotionEffectArmoryItem(State.UNLOCKED, 1));
 			armoryItems.add(new MissileProjectileArmoryItem(State.UNLOCKED, 1));
-			
 		}
 		return armoryItems;
 	}

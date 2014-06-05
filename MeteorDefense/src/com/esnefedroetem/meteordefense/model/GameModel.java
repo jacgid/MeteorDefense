@@ -9,6 +9,7 @@ import java.util.List;
 
 import com.badlogic.gdx.math.Intersector;
 import com.badlogic.gdx.math.Rectangle;
+import com.esnefedroetem.meteordefense.model.Projectile.ProjectileType;
 import com.esnefedroetem.meteordefense.model.armoryitem.AbstractArmoryItem;
 import com.esnefedroetem.meteordefense.model.meteor.BasicMeteor;
 import com.esnefedroetem.meteordefense.model.meteor.Meteor;
@@ -23,7 +24,7 @@ import com.esnefedroetem.meteordefense.util.Constants;
  */
 public class GameModel implements IGameModel {
 
-	private Collection<Projectile> projectiles;
+	private Collection<Projectile> projectiles, projectilesToAdd, projectilesToRemove;
 	private Collection<Meteor> meteorsToBlow;
 	private List<AbstractArmoryItem> armoryItems;
 	private AbstractArmoryItem selectedArmoryItem, standardWeapon;
@@ -35,7 +36,7 @@ public class GameModel implements IGameModel {
 	private IArmoryItemVisitor visitor;
 	private boolean isPaused;
 
-	private final float WIDTH, HEIGHT;
+	private final float WIDTH = Constants.LOGIC_SCREEN_WIDTH, HEIGHT = Constants.LOGIC_SCREEN_HEIGHT;
 
 	public GameModel(PropertyChangeListener listener, CannonBarrel cannonBarrel) {
 		pcs = new PropertyChangeSupport(this);
@@ -44,14 +45,14 @@ public class GameModel implements IGameModel {
 		projectiles = new HashSet<Projectile>();
 		meteorsToBlow = new ArrayList<Meteor>();
 		SCORE_HANDLER = new ScoreHandler();
-		WIDTH = 720;
-		HEIGHT = 1280;
 	}
 
 	@Override
-	public void newGame(City city, List<AbstractArmoryItem> selectedArmoryItems, IArmoryItemVisitor armoryItemVisitor) {
+	public void newGame(City city, List<AbstractArmoryItem> selectedArmoryItems, IArmoryItemVisitor armoryItemVisitor, List<Projectile> projectilesToAdd, List<Projectile> projectilesToRemove) {
 		this.city = city;
 		this.armoryItems = selectedArmoryItems;
+		this.projectilesToAdd = projectilesToAdd;
+		this.projectilesToRemove = projectilesToRemove;
 		standardWeapon = selectedArmoryItems.get(2);
 		selectedArmoryItem = standardWeapon;
 		SCORE_HANDLER.reset();
@@ -67,9 +68,18 @@ public class GameModel implements IGameModel {
 	public void update(float delta) {
 		if (!isPaused) {
 			meteorShower.update(delta);
+			System.out.println("Move projectiles " + projectiles.size());
 			for (Projectile p : projectiles) {
 				p.move(delta);
+//				if(p instanceof SplitProjectile || p.getProjectileType() == ProjectileType.MISSILE_PROJECTILE)
+//				System.out.println("Projectile speed: " + p.getSpeed() + " " +  p.getAngle());
 			}
+			System.out.println("Moved projectiles");
+			
+			projectiles.addAll(projectilesToAdd);
+			projectiles.removeAll(projectilesToRemove);
+			projectilesToAdd.clear();
+			projectilesToRemove.clear();
 
 			collisionControll();
 			removeProjectilesBeyondGameField();
@@ -100,6 +110,7 @@ public class GameModel implements IGameModel {
 
 	@Override
 	public void shoot(float posX, float posY) {
+		
 		CANNON_BARREL.calculateAngle(posX, posY);
 		
 		// if the projectile which CANNON_BARREL is loaded with is not yet added to
@@ -117,6 +128,7 @@ public class GameModel implements IGameModel {
 		Projectile projectile = selectedArmoryItem.accept(visitor);
 		if (projectile != null) {
 			CANNON_BARREL.load(projectile);
+			System.out.println("Loading!");
 		}
 	}
 
