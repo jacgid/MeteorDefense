@@ -2,6 +2,7 @@ package com.esnefedroetem.meteordefense;
 
 import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
+import java.util.ArrayList;
 import java.util.List;
 
 import com.badlogic.gdx.Application.ApplicationType;
@@ -15,6 +16,7 @@ import com.esnefedroetem.meteordefense.model.City;
 import com.esnefedroetem.meteordefense.model.Continent;
 import com.esnefedroetem.meteordefense.model.ScoreHandler;
 import com.esnefedroetem.meteordefense.model.armoryitem.AbstractArmoryItem;
+import com.esnefedroetem.meteordefense.model.Projectile;
 import com.esnefedroetem.meteordefense.renderer.CarouselRenderer;
 import com.esnefedroetem.meteordefense.renderer.ArmoryDetailedRenderer.ArmoryDetaliedEvent;
 import com.esnefedroetem.meteordefense.renderer.ArmoryRenderer.ArmoryEvent;
@@ -119,7 +121,9 @@ public class MeteorDefense extends Game implements PropertyChangeListener {
 	}
 
 	private void newGame(City city) {
-		gameScreen.newGame(city, armoryScreen.getSelectedArmoryItems(), new ArmoryItemVisitor(city, city.getMeteorShower()));
+		ArrayList<Projectile> projectilesToAdd = new ArrayList<Projectile>();
+		ArrayList<Projectile> projectilesToRemove = new ArrayList<Projectile>();
+		gameScreen.newGame(city, armoryScreen.getSelectedArmoryItems(), new ArmoryItemVisitor(city, city.getMeteorShower(), projectilesToAdd, projectilesToRemove), projectilesToAdd, projectilesToRemove);
 		setScreen(gameScreen);
 		inGame = true;
 	}
