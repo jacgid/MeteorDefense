@@ -10,22 +10,18 @@ public class SplitProjectile extends Projectile {
 	private final float SPLIT_DELAY = 0.3f;
 	private float timeFlown;
 	private ArrayList<Projectile> projectilesToAdd, projectilesToRemove;
-	private boolean split = false;
 	
 	public SplitProjectile(int damage, float size, ProjectileType projectileType) {
 		super(damage, size, projectileType);
 		setSpeed(this.getSpeed()/4);
-		// TODO Auto-generated constructor stub
 	}
 	
 	@Override
 	public void move(float delta){
 		super.move(delta);
 		timeFlown = timeFlown + delta;
-		if(timeFlown>SPLIT_DELAY && split == false){
+		if(timeFlown>SPLIT_DELAY){
 			split();
-			System.out.println("SPLIT");
-			split = true;
 		}
 	}
 	

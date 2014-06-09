@@ -15,6 +15,9 @@ public class CannonBarrel {
 	private Vector2 startPosition;
 	private Rectangle bounds;
 	private Projectile projectile;
+	
+	private boolean paralyzed = false;
+	private float timeLeftParalyzed;
 
 	public CannonBarrel() {
 		bounds = new Rectangle(Constants.LOGIC_SCREEN_WIDTH / 2, Constants.CANNON_ORIGIN_Y , Constants.CANNON_WIDTH, Constants.CANNON_HEIGHT);
@@ -50,7 +53,7 @@ public class CannonBarrel {
 
 	public void reset() {
 		angle = (float) (Math.PI * 0.5);
-
+		paralyzed = false;
 	}
 	
 	public Rectangle getBounds(){
@@ -63,6 +66,24 @@ public class CannonBarrel {
 	
 	public Projectile getProjectile(){
 		return projectile;
+	}
+	
+	public void update(float delta){
+		if(paralyzed){
+			timeLeftParalyzed = timeLeftParalyzed - delta;
+			if(timeLeftParalyzed <= 0){
+				paralyzed = false;
+			}
+		}
+	}
+	
+	public void paralyze(float paralyzisTime){
+		paralyzed = true;
+		timeLeftParalyzed = paralyzisTime;
+	}
+	
+	public boolean isParalyzed(){
+		return paralyzed;
 	}
 
 }

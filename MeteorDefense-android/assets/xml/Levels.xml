@@ -17,6 +17,9 @@
 
             <RADIOACTIVE_METEOR amount="0" >
             </RADIOACTIVE_METEOR>
+            
+            <ELECTROMAGNETIC_METEOR amount="0" >
+            </ELECTROMAGNETIC_METEOR>
         </MeteorShower>
     </Paris>
     
@@ -36,6 +39,9 @@
 
             <RADIOACTIVE_METEOR amount="0" >
             </RADIOACTIVE_METEOR>
+            
+            <ELECTROMAGNETIC_METEOR amount="0" >
+            </ELECTROMAGNETIC_METEOR>
         </MeteorShower>
     </London>
     
@@ -55,6 +61,9 @@
 
             <RADIOACTIVE_METEOR amount="0" >
             </RADIOACTIVE_METEOR>
+            
+            <ELECTROMAGNETIC_METEOR amount="0" >
+            </ELECTROMAGNETIC_METEOR>
         </MeteorShower>
     </Berlin>
     
@@ -74,6 +83,9 @@
 
             <RADIOACTIVE_METEOR amount="0" >
             </RADIOACTIVE_METEOR>
+            
+            <ELECTROMAGNETIC_METEOR amount="0" >
+            </ELECTROMAGNETIC_METEOR>
         </MeteorShower>
     </Shanghai>
     
@@ -93,6 +105,9 @@
 
             <RADIOACTIVE_METEOR amount="0" >
             </RADIOACTIVE_METEOR>
+            
+            <ELECTROMAGNETIC_METEOR amount="0" >
+            </ELECTROMAGNETIC_METEOR>
         </MeteorShower>
     </Tokyo>
     
@@ -112,6 +127,9 @@
 
             <RADIOACTIVE_METEOR amount="0" >
             </RADIOACTIVE_METEOR>
+            
+            <ELECTROMAGNETIC_METEOR amount="0" >
+            </ELECTROMAGNETIC_METEOR>
         </MeteorShower>
     </Dubai>
     
@@ -126,11 +144,14 @@
             <FAST_METEOR amount="0" >
             </FAST_METEOR>
 
-            <ICE_METEOR amount="20" >
+            <ICE_METEOR amount="10" >
             </ICE_METEOR>
 
             <RADIOACTIVE_METEOR amount="0" >
             </RADIOACTIVE_METEOR>
+            
+            <ELECTROMAGNETIC_METEOR amount="5" >
+            </ELECTROMAGNETIC_METEOR>
         </MeteorShower>
     </New_York>
     
@@ -150,6 +171,9 @@
 
             <RADIOACTIVE_METEOR amount="10" >
             </RADIOACTIVE_METEOR>
+            
+            <ELECTROMAGNETIC_METEOR amount="0" >
+            </ELECTROMAGNETIC_METEOR>
         </MeteorShower>
     </Washington>
     
@@ -169,6 +193,9 @@
 
             <RADIOACTIVE_METEOR amount="15" >
             </RADIOACTIVE_METEOR>
+            
+            <ELECTROMAGNETIC_METEOR amount="0" >
+            </ELECTROMAGNETIC_METEOR>
         </MeteorShower>
     </Ottawa>
     
@@ -188,6 +215,9 @@
 
             <RADIOACTIVE_METEOR amount="15" >
             </RADIOACTIVE_METEOR>
+            
+            <ELECTROMAGNETIC_METEOR amount="0" >
+            </ELECTROMAGNETIC_METEOR>
         </MeteorShower>
     </SouthPole>
     
@@ -207,6 +237,9 @@
 
             <RADIOACTIVE_METEOR amount="25" >
             </RADIOACTIVE_METEOR>
+            
+            <ELECTROMAGNETIC_METEOR amount="0" >
+            </ELECTROMAGNETIC_METEOR>
         </MeteorShower>
     </Ice>
     
@@ -226,6 +259,9 @@
 
             <RADIOACTIVE_METEOR amount="20" >
             </RADIOACTIVE_METEOR>
+            
+            <ELECTROMAGNETIC_METEOR amount="0" >
+            </ELECTROMAGNETIC_METEOR>
         </MeteorShower>
     </Mountain>
 

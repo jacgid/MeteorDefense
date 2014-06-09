@@ -6,6 +6,7 @@ import java.util.List;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.utils.TimeUtils;
 import com.esnefedroetem.meteordefense.model.meteor.BasicMeteor;
+import com.esnefedroetem.meteordefense.model.meteor.ElectromagneticMeteor;
 import com.esnefedroetem.meteordefense.model.meteor.FastMeteor;
 import com.esnefedroetem.meteordefense.model.meteor.FireMeteor;
 import com.esnefedroetem.meteordefense.model.meteor.IceMeteor;
@@ -33,24 +34,26 @@ public class MeteorShower {
 	private List<Meteor> fastMeteors = new ArrayList<Meteor>();
 	private List<Meteor> iceMeteors = new ArrayList<Meteor>();
 	private List<Meteor> radioactiveMeteors = new ArrayList<Meteor>();
+	private List<Meteor> electromagneticMeteors = new ArrayList<Meteor>();
 
 	private List<List<Meteor>> allStoredMeteors = new ArrayList<List<Meteor>>();
 	private long lastMeteorSpawn;
 	private int meteorSpawnRate, totalMeteorCount, lastSpawnRate;
 	private double originalSpawnRate = 1500;
-	private int basicMeteor, fireMeteor, fastMeteor, iceMeteor, radioactiveMeteor, maxScore;
+	private int basicMeteor, fireMeteor, fastMeteor, iceMeteor, radioactiveMeteor, electromagneticMeteor, maxScore;
 	private List<MeteorType> meteortypes = new ArrayList<MeteorType>();
 
 	public MeteorShower() {
 		// Used by loadService
 	}
 
-	public MeteorShower(int basicMeteor, int fireMeteor, int fastMeteor, int iceMeteor, int radioactiveMeteor) {
+	public MeteorShower(int basicMeteor, int fireMeteor, int fastMeteor, int iceMeteor, int radioactiveMeteor, int electromagneticMeteor) {
 		this.basicMeteor = basicMeteor;
 		this.fireMeteor = fireMeteor;
 		this.fastMeteor = fastMeteor;
 		this.iceMeteor = iceMeteor;
 		this.radioactiveMeteor = radioactiveMeteor;
+		this.electromagneticMeteor = electromagneticMeteor;
 
 		totalMeteorCount = basicMeteor + fireMeteor + fastMeteor + iceMeteor + radioactiveMeteor;
 		meteorSpawnRate = (int) originalSpawnRate;
@@ -159,7 +162,7 @@ public class MeteorShower {
 	 * @param radioactiveMeteorAmount
 	 */
 	private void addMeteor(int basicMeteorAmount, int fireMeteorAmount, int fastMeteorAmount, int iceMeteorAmount,
-			int radioactiveMeteorAmount) {
+			int radioactiveMeteorAmount, int electromagneticMeteorAmount) {
 		if (basicMeteorAmount > 0) {
 			meteortypes.add(MeteorType.BASIC_METEOR);
 		}
@@ -174,6 +177,9 @@ public class MeteorShower {
 		}
 		if (radioactiveMeteorAmount > 0) {
 			meteortypes.add(MeteorType.RADIOACTIVE_METEOR);
+		}
+		if (electromagneticMeteorAmount > 0) {
+			meteortypes.add(MeteorType.ELECTROMAGNETIC_METEOR);
 		}
 		for (int i = 0; i < basicMeteorAmount; i++) {
 			basicMeteors.add(new BasicMeteor(randomStartPos(Constants.BASE_METEOR_SIZE)));
@@ -190,12 +196,16 @@ public class MeteorShower {
 		for (int i = 0; i < radioactiveMeteorAmount; i++) {
 			radioactiveMeteors.add(new RadioactiveMeteor(randomStartPos(Constants.BASE_METEOR_SIZE * 2)));
 		}
+		for (int i = 0; i < electromagneticMeteorAmount; i++) {
+			electromagneticMeteors.add(new ElectromagneticMeteor(new Vector2((Constants.LOGIC_SCREEN_WIDTH-(Constants.BASE_METEOR_SIZE/2))/2, Constants.LOGIC_SCREEN_HEIGHT+1)));
+		}
 
 		allStoredMeteors.add(basicMeteors);
 		allStoredMeteors.add(fireMeteors);
 		allStoredMeteors.add(fastMeteors);
 		allStoredMeteors.add(iceMeteors);
 		allStoredMeteors.add(radioactiveMeteors);
+		allStoredMeteors.add(electromagneticMeteors);
 	}
 
 	/**
@@ -236,6 +246,7 @@ public class MeteorShower {
 		fastMeteors.clear();
 		iceMeteors.clear();
 		radioactiveMeteors.clear();
+		electromagneticMeteors.clear();
 		allStoredMeteors.clear();
 		lastMeteorSpawn = 0;
 		maxScore = 0;
@@ -243,7 +254,7 @@ public class MeteorShower {
 
 	public void loadMeteors() {
 		unLoadMeteors();
-		addMeteor(basicMeteor, fireMeteor, fastMeteor, iceMeteor, radioactiveMeteor);
+		addMeteor(basicMeteor, fireMeteor, fastMeteor, iceMeteor, radioactiveMeteor, electromagneticMeteor);
 		calculateMaxScore();
 	}
 

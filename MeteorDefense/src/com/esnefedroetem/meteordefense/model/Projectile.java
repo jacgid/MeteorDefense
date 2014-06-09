@@ -66,9 +66,4 @@ public class Projectile extends MoveableGameObject {
 		return projectile;
 	}
 	
-	public void move(float delta){
-		super.move(delta);
-		System.out.println("Angle: " + getAngle() + " X: " + getBounds().x);
-	}
-	
 }

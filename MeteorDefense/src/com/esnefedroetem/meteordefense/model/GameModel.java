@@ -12,7 +12,9 @@ import com.badlogic.gdx.math.Rectangle;
 import com.esnefedroetem.meteordefense.model.Projectile.ProjectileType;
 import com.esnefedroetem.meteordefense.model.armoryitem.AbstractArmoryItem;
 import com.esnefedroetem.meteordefense.model.meteor.BasicMeteor;
+import com.esnefedroetem.meteordefense.model.meteor.ElectromagneticMeteor;
 import com.esnefedroetem.meteordefense.model.meteor.Meteor;
+import com.esnefedroetem.meteordefense.model.meteor.Meteor.MeteorType;
 import com.esnefedroetem.meteordefense.util.Constants;
 
 /**
@@ -68,13 +70,9 @@ public class GameModel implements IGameModel {
 	public void update(float delta) {
 		if (!isPaused) {
 			meteorShower.update(delta);
-			System.out.println("Move projectiles " + projectiles.size());
 			for (Projectile p : projectiles) {
 				p.move(delta);
-//				if(p instanceof SplitProjectile || p.getProjectileType() == ProjectileType.MISSILE_PROJECTILE)
-//				System.out.println("Projectile speed: " + p.getSpeed() + " " +  p.getAngle());
 			}
-			System.out.println("Moved projectiles");
 			
 			projectiles.addAll(projectilesToAdd);
 			projectiles.removeAll(projectilesToRemove);
@@ -86,6 +84,8 @@ public class GameModel implements IGameModel {
 			removeMeteorsBeyondGameField();
 
 			city.update(delta);
+
+			CANNON_BARREL.update(delta);
 			
 			if(projectiles.contains(CANNON_BARREL.getProjectile())) {
 				Projectile projectile = standardWeapon.accept(visitor);
@@ -110,25 +110,27 @@ public class GameModel implements IGameModel {
 
 	@Override
 	public void shoot(float posX, float posY) {
-		
-		CANNON_BARREL.calculateAngle(posX, posY);
-		
-		// if the projectile which CANNON_BARREL is loaded with is not yet added to
-		// the projectiles list (in other words already deployed) a shot should be fired
-		if (!projectiles.contains(CANNON_BARREL.getProjectile())) {
+		if(!CANNON_BARREL.isParalyzed()){
+			CANNON_BARREL.calculateAngle(posX, posY);
+			
+			// if the projectile which CANNON_BARREL is loaded with is not yet added to
+			// the projectiles list (in other words already deployed) a shot should be fired
+			if (!projectiles.contains(CANNON_BARREL.getProjectile())) {
 			projectiles.add(CANNON_BARREL.deploy());
 			SCORE_HANDLER.weaponFired();
+			}
 		}
 	}
 
 	@Override
 	public void specialWeaponSelected(int weaponNr) {
 		selectedArmoryItem = armoryItems.get(weaponNr - 1);
-
-		Projectile projectile = selectedArmoryItem.accept(visitor);
-		if (projectile != null) {
+		
+		if(!CANNON_BARREL.isParalyzed()){
+			Projectile projectile = selectedArmoryItem.accept(visitor);
+			if (projectile != null) {
 			CANNON_BARREL.load(projectile);
-			System.out.println("Loading!");
+			}
 		}
 	}
 
@@ -194,6 +196,7 @@ public class GameModel implements IGameModel {
 			if (collisionWithCityOccurs(meteor)) {
 				city.hit(meteor);
 				meteorsToRemove.add(meteor);
+				checkMeteorEffects(meteor);
 			} else {
 				for (Projectile projectile : projectiles) {
 					if (collisionOccurs(projectile, meteor)) {
@@ -268,6 +271,12 @@ public class GameModel implements IGameModel {
 
 		return x < 0 || x > Constants.LOGIC_SCREEN_WIDTH
 				|| y > Constants.LOGIC_SCREEN_HEIGHT;
+	}
+	
+	private void checkMeteorEffects(Meteor meteor){
+		if(meteor.getType() == MeteorType.ELECTROMAGNETIC_METEOR){
+			CANNON_BARREL.paralyze(((ElectromagneticMeteor)meteor).getParalysisTime());
+		}
 	}
 
 	private void gameover() {
