@@ -41,9 +41,9 @@ class ContinentFactory {
 	
 	private Continent createEurope(){
 		List<City> cities = new ArrayList<City>();
-		cities.add(new City("Paris", 20, new MeteorShower(5,5,5,5,5,5), State.UNLOCKED));
-		cities.add(new City("London", 10, new MeteorShower(0,0,20,0,0,0), State.UNLOCKED));
-		cities.add(new City("Berlin", 50, new MeteorShower(5,0,0,0,5,0), State.UNLOCKED));
+		cities.add(new City("Paris", 20, new MeteorShower(), State.UNLOCKED));
+		cities.add(new City("London", 10, new MeteorShower(), State.UNLOCKED));
+		cities.add(new City("Berlin", 50, new MeteorShower(), State.UNLOCKED));
 		return new Continent("Europe", cities);
 	}
 	

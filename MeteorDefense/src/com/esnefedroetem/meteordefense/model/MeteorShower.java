@@ -1,6 +1,7 @@
 package com.esnefedroetem.meteordefense.model;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 
 import com.badlogic.gdx.math.Vector2;
@@ -42,9 +43,11 @@ public class MeteorShower {
 	private double originalSpawnRate = 1500;
 	private int basicMeteor, fireMeteor, fastMeteor, iceMeteor, radioactiveMeteor, electromagneticMeteor, maxScore;
 	private List<MeteorType> meteortypes = new ArrayList<MeteorType>();
+	private HashMap<MeteorType,Integer> meteorAmounts = new HashMap<MeteorType,Integer>();
 
 	public MeteorShower() {
-		// Used by loadService
+		// Used by loadService but also by everything now
+		meteorSpawnRate = (int) originalSpawnRate;
 	}
 
 	public MeteorShower(int basicMeteor, int fireMeteor, int fastMeteor, int iceMeteor, int radioactiveMeteor, int electromagneticMeteor) {
@@ -55,7 +58,7 @@ public class MeteorShower {
 		this.radioactiveMeteor = radioactiveMeteor;
 		this.electromagneticMeteor = electromagneticMeteor;
 
-		totalMeteorCount = basicMeteor + fireMeteor + fastMeteor + iceMeteor + radioactiveMeteor;
+		totalMeteorCount = basicMeteor + fireMeteor + fastMeteor + iceMeteor + radioactiveMeteor + electromagneticMeteor;
 		meteorSpawnRate = (int) originalSpawnRate;
 	}
 
@@ -112,7 +115,6 @@ public class MeteorShower {
 		for (Meteor meteor : visibleMeteors) {
 			meteor.move(delta);
 		}
-
 	}
 
 	private void calculateSpawnRate() {
@@ -150,53 +152,29 @@ public class MeteorShower {
 		visibleMeteors.add(getRandomElement());
 
 	}
-
+	
 	/**
 	 * Adds the specified amount of new meteors to the individual meteor lists
 	 * and then adds the all the list to a common list.
-	 * 
-	 * @param basicMeteorAmount
-	 * @param fireMeteorAmount
-	 * @param fastMeteorAmount
-	 * @param iceMeteorAmount
-	 * @param radioactiveMeteorAmount
 	 */
-	private void addMeteor(int basicMeteorAmount, int fireMeteorAmount, int fastMeteorAmount, int iceMeteorAmount,
-			int radioactiveMeteorAmount, int electromagneticMeteorAmount) {
-		if (basicMeteorAmount > 0) {
-			meteortypes.add(MeteorType.BASIC_METEOR);
-		}
-		if (fireMeteorAmount > 0) {
-			meteortypes.add(MeteorType.FIRE_METEOR);
-		}
-		if (fastMeteorAmount > 0) {
-			meteortypes.add(MeteorType.FAST_METEOR);
-		}
-		if (iceMeteorAmount > 0) {
-			meteortypes.add(MeteorType.ICE_METEOR);
-		}
-		if (radioactiveMeteorAmount > 0) {
-			meteortypes.add(MeteorType.RADIOACTIVE_METEOR);
-		}
-		if (electromagneticMeteorAmount > 0) {
-			meteortypes.add(MeteorType.ELECTROMAGNETIC_METEOR);
-		}
-		for (int i = 0; i < basicMeteorAmount; i++) {
+	private void addMeteors() {
+		
+		for (int i = 0; i < meteorAmounts.get(MeteorType.BASIC_METEOR); i++) {
 			basicMeteors.add(new BasicMeteor(randomStartPos(Constants.BASE_METEOR_SIZE)));
 		}
-		for (int i = 0; i < fireMeteorAmount; i++) {
+		for (int i = 0; i < meteorAmounts.get(MeteorType.FIRE_METEOR); i++) {
 			fireMeteors.add(new FireMeteor(randomStartPos(Constants.BASE_METEOR_SIZE)));
 		}
-		for (int i = 0; i < fastMeteorAmount; i++) {
+		for (int i = 0; i < meteorAmounts.get(MeteorType.FAST_METEOR); i++) {
 			fastMeteors.add(new FastMeteor(randomStartPos(Constants.BASE_METEOR_SIZE)));
 		}
-		for (int i = 0; i < iceMeteorAmount; i++) {
+		for (int i = 0; i < meteorAmounts.get(MeteorType.ICE_METEOR); i++) {
 			iceMeteors.add(new IceMeteor(randomStartPos(Constants.BASE_METEOR_SIZE)));
 		}
-		for (int i = 0; i < radioactiveMeteorAmount; i++) {
+		for (int i = 0; i < meteorAmounts.get(MeteorType.RADIOACTIVE_METEOR); i++) {
 			radioactiveMeteors.add(new RadioactiveMeteor(randomStartPos(Constants.BASE_METEOR_SIZE * 2)));
 		}
-		for (int i = 0; i < electromagneticMeteorAmount; i++) {
+		for (int i = 0; i < meteorAmounts.get(MeteorType.ELECTROMAGNETIC_METEOR); i++) {
 			electromagneticMeteors.add(new ElectromagneticMeteor(new Vector2((Constants.LOGIC_SCREEN_WIDTH-(Constants.BASE_METEOR_SIZE/2))/2, Constants.LOGIC_SCREEN_HEIGHT+1)));
 		}
 
@@ -206,6 +184,7 @@ public class MeteorShower {
 		allStoredMeteors.add(iceMeteors);
 		allStoredMeteors.add(radioactiveMeteors);
 		allStoredMeteors.add(electromagneticMeteors);
+		totalMeteorCount = allStoredMeteors.size();
 	}
 
 	/**
@@ -254,7 +233,7 @@ public class MeteorShower {
 
 	public void loadMeteors() {
 		unLoadMeteors();
-		addMeteor(basicMeteor, fireMeteor, fastMeteor, iceMeteor, radioactiveMeteor, electromagneticMeteor);
+		addMeteors();
 		calculateMaxScore();
 	}
 
@@ -265,4 +244,15 @@ public class MeteorShower {
 	public void setSpawnrate(int spawnrate) {
 		originalSpawnRate = spawnrate;
 	}
+	
+	public void setMeteorAmount(String meteorType, int amount){
+		for(MeteorType type : MeteorType.values()){
+			if(type.toString().equals(meteorType)){
+				meteorAmounts.put(type, amount);
+				if(amount!=0)
+				meteortypes.add(type);
+			}
+		}
+	}
+	
 }
