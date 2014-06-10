@@ -117,6 +117,7 @@ public class DataReader {
 		MeteorShower ms = new MeteorShower();
 		
 		for(int i = 0; i < msElement.getChildCount(); i++){
+			System.out.println("Reading meteoramounts");
 			ms.setMeteorAmount(msElement.getChild(i).getName(),msElement.getChild(i).getInt("amount"));
 		}
 		

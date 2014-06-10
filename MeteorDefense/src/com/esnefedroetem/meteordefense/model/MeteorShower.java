@@ -48,6 +48,9 @@ public class MeteorShower {
 	public MeteorShower() {
 		// Used by loadService but also by everything now
 		meteorSpawnRate = (int) originalSpawnRate;
+		for(MeteorType type : MeteorType.values()){
+			meteorAmounts.put(type, 0);
+		}
 	}
 
 	public MeteorShower(int basicMeteor, int fireMeteor, int fastMeteor, int iceMeteor, int radioactiveMeteor, int electromagneticMeteor) {
@@ -104,6 +107,7 @@ public class MeteorShower {
 
 	public void update(float delta) {
 		// Spawns a new meteor if necessary
+		System.out.println("Are we here? " + allMeteorsDeployed());
 		if (TimeUtils.timeSinceMillis(lastMeteorSpawn) > meteorSpawnRate) {
 			if (!allMeteorsDeployed()) {
 				calculateSpawnRate();
@@ -184,7 +188,9 @@ public class MeteorShower {
 		allStoredMeteors.add(iceMeteors);
 		allStoredMeteors.add(radioactiveMeteors);
 		allStoredMeteors.add(electromagneticMeteors);
-		totalMeteorCount = allStoredMeteors.size();
+		for(List<Meteor> meteorList : allStoredMeteors){
+			totalMeteorCount = totalMeteorCount + meteorList.size();
+		}
 	}
 
 	/**
