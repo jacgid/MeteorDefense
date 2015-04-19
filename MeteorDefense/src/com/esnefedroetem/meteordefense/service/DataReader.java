@@ -29,6 +29,7 @@ public class DataReader {
 	private HashMap<String, String> continentFilenames, cityFilenames, armoryItemFilenames, 
 	meteorFilenames, menuFilenames, basegameFilenames, atlases;
 	private HashMap<String, ArrayList<String>> meteorAnimations;
+	private String[] baseGameNames;
 	
 	public DataReader(){
 	 
@@ -39,7 +40,7 @@ public class DataReader {
 		meteorFilenames = new HashMap<String, String>();
 		menuFilenames = new HashMap<String, String>();
 		basegameFilenames = new HashMap<String, String>();
-		
+		atlases = new HashMap<String, String>();
 	}
 	
 	public List<Continent> readContinents(){
@@ -73,6 +74,18 @@ public class DataReader {
 //				}
 //				meteorAnimations.put(element.getChild(i).getName(), textures);
 			}
+			
+			ArrayList<String> baseGame = new ArrayList<String>();
+			
+			element = root.getChildByName("Sounds");
+			for(int i = 0 ; i < element.getChildCount() ; i++){
+				basegameFilenames.put(element.getChild(i).getName(), element.getChild(i).getText());
+				baseGame.add(element.getChild(i).getText());
+			}
+			baseGameNames = new String[baseGame.size()];
+			for(int i = 0; i<baseGame.size(); i++){
+				baseGameNames[i] = baseGame.get(i);
+			}
 		}
 		
 	}
@@ -88,7 +101,7 @@ public class DataReader {
 	}
 	
 	public String[] getBaseGameNames(){
-		return null;
+		return baseGameNames;
 	}
 	
 	public <T> HashMap<String, String> getFilenameMap(Class<T> type){

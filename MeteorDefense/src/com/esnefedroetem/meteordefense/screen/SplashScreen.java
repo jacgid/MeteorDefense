@@ -58,7 +58,7 @@ public class SplashScreen implements Screen {
 				assetsLoader.loadParticleEffect("Fire.p");
 				assetsLoader.loadParticleEffect("Explosion.p");
 				assetsLoader.loadAllTextures();
-				
+				assetsLoader.loadBasegameAssets();
 				isLoaded = true;
 				pcs.firePropertyChange(SplashScreenEvent.SPLASHSCREEN_ENDED.toString(), false, true);
 			}

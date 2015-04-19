@@ -272,12 +272,14 @@ public class AssetsLoader {
 
 	public void loadBasegameAssets(){
 		ILoadService loadService = ServiceFactory.getInstance().getLoadService();
+		loadService.loadFilenames();
 		HashMap<String, String> temp = loadService.getBaseGameFilenameMap();
 		String[] baseGameList = loadService.getBaseGameNames();
 		for(int i = 0; i < baseGameList.length; i++){
-			loadAsset(temp.get(baseGameList[i]));
+			System.out.println(baseGameList[i]);
+			loadAsset(baseGameList[i]);
 		}
-		textures.putAll(loadService.getFilenameMap(Meteor.class));
+		//textures.putAll(loadService.getFilenameMap(Meteor.class));
 	}
 	
 	public void loadLevelAssets(City city){
@@ -308,7 +310,9 @@ public class AssetsLoader {
 	}
 	
 	private void loadAsset(String asset){
-		String[] t = asset.split(".");
+		System.out.println(asset);
+		String[] t = asset.split("\\.");
+		System.out.println(t[0]);
 		if(t[t.length-1].equals("png")){
 			loadTexture(asset);
 		} else if(t[t.length-1].equals("mp3")){

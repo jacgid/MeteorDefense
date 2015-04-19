@@ -1,5 +1,7 @@
 package com.esnefedroetem.meteordefense.util;
 
+import com.badlogic.gdx.audio.Sound;
+
 /**
  * 
  * SoundService is responsible for all kind of sound/music in the application.
@@ -28,6 +30,11 @@ public class SoundService {
 	
 	public void setSoundState(boolean soundState){
 		this.soundState = soundState;
+	}
+	
+	public void playSound(String sound){
+		Sound toPlay = AssetsLoader.getInstance().getSound(sound+".mp3");
+		toPlay.play(0.5f);
 	}
 	
 }

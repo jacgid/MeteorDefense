@@ -16,6 +16,7 @@ import com.esnefedroetem.meteordefense.model.meteor.ElectromagneticMeteor;
 import com.esnefedroetem.meteordefense.model.meteor.Meteor;
 import com.esnefedroetem.meteordefense.model.meteor.Meteor.MeteorType;
 import com.esnefedroetem.meteordefense.util.Constants;
+import com.esnefedroetem.meteordefense.util.SoundService;
 
 /**
  * GameModel handles all the gamelogic, implements IGameModel.
@@ -117,6 +118,7 @@ public class GameModel implements IGameModel {
 			// the projectiles list (in other words already deployed) a shot should be fired
 			if (!projectiles.contains(CANNON_BARREL.getProjectile())) {
 			projectiles.add(CANNON_BARREL.deploy());
+			SoundService.getInstance().playSound("shoot");
 			SCORE_HANDLER.weaponFired();
 			}
 		}
@@ -218,6 +220,7 @@ public class GameModel implements IGameModel {
 			Collection<Meteor> meteorsToRemove) {
 		boolean isKilled = meteorShower.meteorHit(meteor,
 				projectile.getDamage(), projectile.getProjectileType());
+		SoundService.getInstance().playSound("moo");
 		SCORE_HANDLER.meteorHit();
 
 		if (isKilled) {

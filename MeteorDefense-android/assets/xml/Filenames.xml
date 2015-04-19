@@ -7,6 +7,7 @@
     <FAST_METEOR>"FAST_METEOR.png"</FAST_METEOR>
     <ICE_METEOR>"ICE_METEOR.png"</ICE_METEOR>
     <RADIOACTIVE_METEOR>"RADIOACTIVE_METEOR.png"</RADIOACTIVE_METEOR>
+    <HUNGRY_METEOR>"HUNGRY_METEOR.png"</HUNGRY_METEOR>
 </Meteors>
 <Continents>
     <Europe>Europe.png</Europe>
@@ -28,4 +29,8 @@
     <Ice>"Ice.png"</Ice>
     <Mountain>"Mountain.png"</Mountain>
 </Cities>
+<Sounds>
+    <Moo>moo.mp3</Moo>
+    <Shoot>shoot.mp3</Shoot>
+</Sounds>
 </Filenames>
