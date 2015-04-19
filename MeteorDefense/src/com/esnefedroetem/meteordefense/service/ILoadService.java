@@ -1,5 +1,6 @@
 package com.esnefedroetem.meteordefense.service;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
@@ -35,4 +36,8 @@ public interface ILoadService {
 	public HashMap<String, String> getMenuFilenameMap();
 	
 	public HashMap<String, String> getBaseGameFilenameMap();
+	
+	public HashMap<String, ArrayList<String>> getAnimationFileMap();
+	
+	public String getAtlasName(String type);
 }

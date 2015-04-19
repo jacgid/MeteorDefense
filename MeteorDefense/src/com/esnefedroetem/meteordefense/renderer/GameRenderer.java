@@ -71,6 +71,7 @@ public class GameRenderer {
 	private ParticleEmitter fireEmitters[] = new ParticleEmitter[10];
 	private int startedFires = 0;
 	private float duration = 0;
+	private City city;
 
 	/**
 	 * Initializes GameRenderer.
@@ -82,7 +83,7 @@ public class GameRenderer {
 		gameCam.update();
 		spriteBatch = new SpriteBatch();
 		shapeRenderer = new ShapeRenderer();
-		loadSprites();
+//		loadSprites();
 		explosionEffect = assetsLoader.getParticleEffect("Explosion.p");
 		fireEffect = assetsLoader.getParticleEffect("Fire.p");
 
@@ -136,6 +137,9 @@ public class GameRenderer {
 	}
 
 	private void loadSprites() {
+		AssetsLoader.getInstance().loadLevelAssets(city);
+		assetsLoader.finishLoading();
+		System.out.println(city.getName());
 		spriteMap = new HashMap<String, Sprite>();
 		String[] projectiles = ProjectileType.getTypes();
 		for (int i = 0; i < projectiles.length; i++) {
@@ -160,7 +164,7 @@ public class GameRenderer {
 			for(Texture texture : animationTextures.get(key)){
 				regions.add(new TextureRegion(texture));
 			}
-			animationMap.put(key, new Animation(0.2f, regions));
+			animationMap.put(key, new Animation(0.2f, AssetsLoader.getInstance().getAnimationList(Meteor.MeteorType.BASIC_METEOR.toString())));
 		}
 
 	}
@@ -320,6 +324,8 @@ public class GameRenderer {
 		explosionEffect.update(5f);
 		gameStage.act(5f);
 		duration = 0;
+		this.city = city;
+		loadSprites();
 		// TODO change to specific city monument
 	}
 

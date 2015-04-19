@@ -1,17 +1,19 @@
 package com.esnefedroetem.meteordefense.service;
 
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
+import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.utils.ObjectMap.Keys;
+import com.badlogic.gdx.utils.XmlReader;
+import com.badlogic.gdx.utils.XmlReader.Element;
 import com.esnefedroetem.meteordefense.model.City;
 import com.esnefedroetem.meteordefense.model.Continent;
 import com.esnefedroetem.meteordefense.model.MeteorShower;
 import com.esnefedroetem.meteordefense.model.armoryitem.AbstractArmoryItem;
 import com.esnefedroetem.meteordefense.model.meteor.Meteor;
-import com.badlogic.gdx.Gdx;
-import com.badlogic.gdx.utils.XmlReader;
-import com.badlogic.gdx.utils.XmlReader.Element;
 
 /**
  * DataReader reads all the xml-files and stores the filenames for the textures of most objects in the game.
@@ -25,7 +27,8 @@ public class DataReader {
 	private XmlReader xmlreader;
 	private Element root;
 	private HashMap<String, String> continentFilenames, cityFilenames, armoryItemFilenames, 
-	meteorFilenames, menuFilenames, basegameFilenames;
+	meteorFilenames, menuFilenames, basegameFilenames, atlases;
+	private HashMap<String, ArrayList<String>> meteorAnimations;
 	
 	public DataReader(){
 	 
@@ -60,6 +63,15 @@ public class DataReader {
 			element = root.getChildByName("Meteors");
 			for(int i = 0 ; i < element.getChildCount() ; i++){
 				meteorFilenames.put(element.getChild(i).getName(), element.getChild(i).getText());
+				atlases.put(element.getChild(i).getName(), element.getChild(i).getText());
+//				Keys<String> objMap = element.getAttributes().keys();
+//				ArrayList<String> textures = new ArrayList<String>();
+//				while(objMap.hasNext){
+//					String next = objMap.next();
+//					String texture = element.getAttributes().get(next);
+//					textures.add(texture);
+//				}
+//				meteorAnimations.put(element.getChild(i).getName(), textures);
 			}
 		}
 		
@@ -93,6 +105,14 @@ public class DataReader {
 		}
 	}
 	
+	public HashMap<String, ArrayList<String>> getAnimationFileMap(){
+		return meteorAnimations;
+	}
+	
+	public String getAtlasName(String type){
+		return atlases.get(type);
+	}
+	
 	public HashMap<String, String> getMenuFilenameMap(){
 		return menuFilenames;
 	}
@@ -117,7 +137,6 @@ public class DataReader {
 		MeteorShower ms = new MeteorShower();
 		
 		for(int i = 0; i < msElement.getChildCount(); i++){
-			System.out.println("Reading meteoramounts");
 			ms.setMeteorAmount(msElement.getChild(i).getName(),msElement.getChild(i).getInt("amount"));
 		}
 		

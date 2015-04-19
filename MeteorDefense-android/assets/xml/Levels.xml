@@ -33,11 +33,14 @@
             <BASIC_METEOR amount="10" >
             </BASIC_METEOR>
 
-            <FIRE_METEOR amount="15" >
+            <FIRE_METEOR amount="0" >
             </FIRE_METEOR>
 
-            <FAST_METEOR amount="15" >
+            <FAST_METEOR amount="0" >
             </FAST_METEOR>
+            
+            <HUNGRY_METEOR amount = "10">
+            </HUNGRY_METEOR>
         </MeteorShower>
     </Shanghai>
     

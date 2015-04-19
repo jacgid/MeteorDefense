@@ -10,6 +10,7 @@ import com.esnefedroetem.meteordefense.model.meteor.BasicMeteor;
 import com.esnefedroetem.meteordefense.model.meteor.ElectromagneticMeteor;
 import com.esnefedroetem.meteordefense.model.meteor.FastMeteor;
 import com.esnefedroetem.meteordefense.model.meteor.FireMeteor;
+import com.esnefedroetem.meteordefense.model.meteor.HungryMeteor;
 import com.esnefedroetem.meteordefense.model.meteor.IceMeteor;
 import com.esnefedroetem.meteordefense.model.meteor.Meteor;
 import com.esnefedroetem.meteordefense.model.meteor.RadioactiveMeteor;
@@ -36,6 +37,7 @@ public class MeteorShower {
 	private List<Meteor> iceMeteors = new ArrayList<Meteor>();
 	private List<Meteor> radioactiveMeteors = new ArrayList<Meteor>();
 	private List<Meteor> electromagneticMeteors = new ArrayList<Meteor>();
+	private List<Meteor> hungryMeteors = new ArrayList<Meteor>();
 
 	private List<List<Meteor>> allStoredMeteors = new ArrayList<List<Meteor>>();
 	private long lastMeteorSpawn;
@@ -107,7 +109,6 @@ public class MeteorShower {
 
 	public void update(float delta) {
 		// Spawns a new meteor if necessary
-		System.out.println("Are we here? " + allMeteorsDeployed());
 		if (TimeUtils.timeSinceMillis(lastMeteorSpawn) > meteorSpawnRate) {
 			if (!allMeteorsDeployed()) {
 				calculateSpawnRate();
@@ -181,6 +182,9 @@ public class MeteorShower {
 		for (int i = 0; i < meteorAmounts.get(MeteorType.ELECTROMAGNETIC_METEOR); i++) {
 			electromagneticMeteors.add(new ElectromagneticMeteor(new Vector2((Constants.LOGIC_SCREEN_WIDTH-(Constants.BASE_METEOR_SIZE/2))/2, Constants.LOGIC_SCREEN_HEIGHT+1)));
 		}
+		for (int i = 0; i < meteorAmounts.get(MeteorType.HUNGRY_METEOR); i++) {
+			hungryMeteors.add(new HungryMeteor(randomStartPos(Constants.BASE_METEOR_SIZE)));
+		}
 
 		allStoredMeteors.add(basicMeteors);
 		allStoredMeteors.add(fireMeteors);
@@ -188,6 +192,7 @@ public class MeteorShower {
 		allStoredMeteors.add(iceMeteors);
 		allStoredMeteors.add(radioactiveMeteors);
 		allStoredMeteors.add(electromagneticMeteors);
+		allStoredMeteors.add(hungryMeteors);
 		for(List<Meteor> meteorList : allStoredMeteors){
 			totalMeteorCount = totalMeteorCount + meteorList.size();
 		}

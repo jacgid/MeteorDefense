@@ -1,6 +1,7 @@
 package com.esnefedroetem.meteordefense.service;
 
 import java.io.File;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
@@ -94,6 +95,14 @@ class LoadService implements ILoadService{
 	@Override
 	public String[] getLevelFilenames(String city) {
 		return DataReader.getInstance().getLevelFilesnames(city);
+	}
+	
+	public HashMap<String, ArrayList<String>> getAnimationFileMap(){
+		return DataReader.getInstance().getAnimationFileMap();
+	}
+	
+	public String getAtlasName(String type){
+		return DataReader.getInstance().getAtlasName(type);
 	}
 
 }

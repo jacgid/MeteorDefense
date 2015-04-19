@@ -1,5 +1,6 @@
 package com.esnefedroetem.meteordefense.util;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
@@ -12,6 +13,8 @@ import com.badlogic.gdx.files.FileHandle;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.ParticleEffect;
+import com.badlogic.gdx.graphics.g2d.TextureAtlas;
+import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.esnefedroetem.meteordefense.model.City;
 import com.esnefedroetem.meteordefense.model.Continent;
 import com.esnefedroetem.meteordefense.model.armoryitem.AbstractArmoryItem;
@@ -80,6 +83,10 @@ public class AssetsLoader {
 			loadParticleEffect(files);
 		}
 	}
+	
+	public void loadTextureAtlas(String filename) {
+		manager.load(TEXTURE_DIR + filename, TextureAtlas.class);
+	}
 
 	public Texture getTexture(String filename) {
 		return manager.get(TEXTURE_DIR + filename, Texture.class);
@@ -127,6 +134,10 @@ public class AssetsLoader {
 			particleEffect[i] = getParticleEffect(filenames[i]);
 		}
 		return particleEffect;
+	}
+	
+	public TextureAtlas getTextureAtlas(String filename){
+		return manager.get(TEXTURE_DIR + filename, TextureAtlas.class);
 	}
 
 	public void unloadTexture(String filename) {
@@ -224,7 +235,7 @@ public class AssetsLoader {
 		}
 			FileHandle[] files = file.list();
 			for (int i = 0; i < files.length; i++) {
-				if(!files[i].name().equals("images") && !files[i].name().equals("Thumbs.db")) {
+				if(!files[i].name().equals("images") && !files[i].name().equals("Thumbs.db") && !files[i].name().equals("BASIC_METEOR.txt")) {
 				loadTexture(files[i].name());
 				}
 			}
@@ -271,13 +282,29 @@ public class AssetsLoader {
 	
 	public void loadLevelAssets(City city){
 		List<Meteor.MeteorType> types = city.getMeteorShower().getMeteorTypes();
+//		ILoadService loadService = ServiceFactory.getInstance().getLoadService();
 		for(int i = 0; i < types.size(); i++){
-			loadTexture(textures.get(types.get(i).toString()));
+//			ArrayList<String> meteorAnimations = loadService.getAnimationFileMap().get(types.get(i).toString());
+//			for(String texture : meteorAnimations){
+//				loadTexture(texture);
+//			}
+			System.out.println("Loading " + types.get(i).toString());
+			loadTextureAtlas(types.get(i).toString()+".txt");
 		}
 	}
-	
+
+
 	public Texture getTextureByName(String name){
 		return getTexture(textures.get(name));
+	}
+	
+	public TextureRegion[] getAnimationList(String type){
+		TextureAtlas atlas = getTextureAtlas(type+".txt");
+		TextureRegion[] textures = new TextureRegion[atlas.getRegions().size];
+		for(int i = 0; i < atlas.getRegions().size ; i++){
+			textures[i] = atlas.findRegion(type+i);
+		}
+		return textures;
 	}
 	
 	private void loadAsset(String asset){

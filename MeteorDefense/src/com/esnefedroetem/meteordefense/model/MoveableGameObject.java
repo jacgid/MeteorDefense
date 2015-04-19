@@ -30,11 +30,8 @@ public abstract class MoveableGameObject {
 	}
 
 	public void move(float delta) {
-		float oldX = bounds.x;
-		float oldY = bounds.y;
 		bounds.x = (float) (bounds.x + speed * delta * Math.cos(angle));
 		bounds.y = (float) (bounds.y + speed * delta * Math.sin(angle));
-//		System.out.println("Angle: " + angle + "BoundsX: " + bounds.x + "Distance traveled (per sec): " + (float)Math.sqrt(Math.pow(Math.abs(oldX-bounds.x), 2)+Math.pow(Math.abs(oldY-bounds.y), 2))*speed);
 	}
 
 	public float getX() {
@@ -75,6 +72,10 @@ public abstract class MoveableGameObject {
 	
 	public void setPosition(Vector2 position) {
 		bounds.setPosition(position);
+	}
+	
+	public void setDamage(int damage){
+		this.damage = damage;
 	}
 	
 //	@Override
